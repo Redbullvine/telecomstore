@@ -8,12 +8,15 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
+    "@zxing/browser": "^0.2.0",
+    "lucide-react": "latest",
+    "papaparse": "^5.5.3",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "latest"
-  },
-  "devDependencies": {}
+    "typescript": "latest",
+    "vite": "latest",
+    "xlsx": "^0.18.5"
+  }
 }

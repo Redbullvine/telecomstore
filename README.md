@@ -1,67 +1,213 @@
-# Telecom Store BAINTU Starter Pack
+# Telecom Store Inventory App
 
-This is a starter package for `telecomstore.net`.
+Telecom Store is a quote-request public storefront plus a private warehouse inventory management system for telecom material.
 
-## What this is
-
-A Vite + React starter storefront for telecom warehouse materials.
-
-It is set up as a quote-request store, not a full checkout store. That is the safer first version because telecom parts usually need quantity verification, compatibility checks, freight/shipping planning, and bulk pricing.
-
-## Quick start
+## Quick Start
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+Production build:
 
 ```bash
 npm run build
 ```
 
-Netlify publish folder:
+Netlify build settings:
 
 ```text
-dist
+Build command: npm run build
+Publish directory: dist
 ```
 
-## Where products live
+## Public Storefront
+
+Route: `/`
+
+Customers can browse products where `status = available`, search by SKU, barcode, brand, title, category, description, and request a quote. There is no checkout yet.
+
+If Supabase is not configured, the public storefront falls back to `src/data/products.json`.
+
+## Admin App
+
+Routes:
 
 ```text
-src/data/products.json
+/login
+/admin
+/admin/inventory
+/admin/inventory/new
+/admin/inventory/:id/edit
+/admin/scan
+/admin/import
+/admin/categories
+/admin/locations
+/admin/activity
 ```
 
-## Where product photos live
+Admin features include inventory counts, status workflows, item add/edit, duplicate item, scan item, bulk import, categories, storage locations, photo upload, activity log, archive, and admin-only hard delete.
+
+## Supabase Setup
+
+1. Create a Supabase project.
+2. Run the SQL migration:
 
 ```text
-public/images/products/
+supabase/migrations/001_telecom_inventory.sql
 ```
 
-## Give BAINTU this prompt
-
-Open:
+3. Add environment variables locally and in Netlify:
 
 ```text
-BAINTU_PROMPT.txt
+VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY
 ```
 
-Copy that whole file into BAINTU.
+Use `.env.example` as the template. Do not commit real secrets.
 
-## Inventory intake
+4. Confirm the `product-images` storage bucket exists. The migration creates it and adds policies.
+
+## Approve Users
+
+Users can request access from `/login`.
+
+To approve a user, open Supabase Table Editor and update the user's row in `profiles`:
+
+```text
+approved = true
+role = admin
+```
+
+or:
+
+```text
+approved = true
+role = inventory
+```
+
+Roles:
+
+```text
+admin      full inventory access plus hard delete
+inventory  add/edit/import/scan/status/photo access
+viewer     no admin app access
+```
+
+## Add Item Manually
+
+1. Log in as an approved `admin` or `inventory` user.
+2. Go to `/admin/inventory/new`.
+3. Enter SKU, barcode, brand, title, category, quantity, location, descriptions, status, and photos.
+4. Use `Save draft` for internal work or `Publish available` to show it publicly.
+
+## Scan Page
+
+Route: `/admin/scan`
+
+Supported flows:
+
+- USB barcode scanner: focus stays in the scan input; scanner types and presses Enter.
+- Bluetooth barcode scanner: same as USB scanner.
+- Manual entry: type SKU/barcode and press Enter.
+- Camera scan: uses the browser `BarcodeDetector` API when available, otherwise `@zxing/browser`.
+
+Scan behavior:
+
+1. Scan or enter SKU/barcode.
+2. App searches existing products by SKU or barcode.
+3. If found, it opens the existing edit screen with a duplicate warning.
+4. If not found, it creates a draft item and opens edit so photos/details can be finished.
+
+## Spreadsheet Import
+
+Route: `/admin/import`
+
+Supported files:
+
+```text
+CSV via papaparse
+XLSX/XLS via xlsx
+```
+
+Workflow:
+
+1. Upload a CSV/XLSX/XLS file.
+2. Preview rows.
+3. Map columns to product fields.
+4. Validate required `title` and either `sku` or `barcode`.
+5. Detect duplicates by SKU/barcode.
+6. Choose duplicate handling:
+   - skip duplicates
+   - update existing
+   - create new drafts
+7. Import rows. Rows default to `draft` unless the status column says `available`.
+
+Expected import columns:
+
+```text
+sku
+barcode
+brand
+title
+category
+condition
+quantity_available
+unit
+price
+price_note
+warehouse_location
+aisle
+rack
+shelf
+pallet
+short_description
+long_description
+status
+photo_main
+photo_label
+photo_extra_1
+photo_extra_2
+```
+
+## Publish, Hold, Sell, Archive, Delete
+
+From `/admin/inventory`:
+
+- `Available` publishes an item publicly.
+- `Hold` keeps it internal and reserved.
+- `Sold` keeps it internal and sold.
+- `Archive` keeps history without public display.
+- Hard delete is visible only to `admin` role and requires confirmation.
+
+Prefer archive/status changes over hard delete.
+
+## Product Photos
+
+Admin users upload photos to Supabase Storage bucket:
+
+```text
+product-images
+```
+
+Fields:
+
+```text
+photo_main
+photo_label
+photo_extra_1
+photo_extra_2
+```
+
+The public storefront uses `photo_main` first. If no photo exists, it shows a clean SKU/brand placeholder.
+
+## Inventory Intake Docs
 
 Use:
 
 ```text
 docs/inventory-intake-template.csv
 docs/PHOTO-NAMING-GUIDE.md
+docs/WAREHOUSE-PHOTO-CHECKLIST.txt
 ```
-
-Best workflow:
-
-1. Take product photos.
-2. Rename photos by SKU.
-3. Add product rows to the CSV.
-4. Have BAINTU convert the CSV rows into `products.json`.
-5. Verify before publishing.
