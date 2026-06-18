@@ -1,0 +1,35 @@
+BAINTU, build TelecomStore.net from this starter package.
+
+Project goal:
+Create a clean, contractor-grade telecom material storefront for Telecom Store. This should be quote-request first, not full checkout yet. The user has access to a large warehouse of telecom products and needs the website to organize SKUs, product photos, counts, and quote requests.
+
+Keep the current Vite + React structure. Do not add unnecessary complexity. Make it deploy cleanly to Netlify.
+
+Required changes:
+1. Keep the site branded as Telecom Store and domain-ready for telecomstore.net.
+2. Build a polished Home + Inventory experience from the included starter app.
+3. Keep product data in src/data/products.json for now.
+4. Add a Product Detail modal or route with larger photos, product specs, and Request Quote CTA.
+5. Add a Quote Request form section. If backend/email is not configured, make it use a mailto fallback and clearly keep the submitted SKU/quantity in the email body.
+6. Add category filtering and text search.
+7. Add product image fallback if photos are missing.
+8. Make the layout mobile-friendly.
+9. Use the docs/inventory-intake-template.csv and docs/PHOTO-NAMING-GUIDE.md as the inventory intake process.
+10. Keep all code production-clean: no dead buttons, no fake checkout, no broken links.
+
+Important business rules:
+- Do not claim exact pricing until verified.
+- Do not publish “in stock” unless quantity is verified.
+- Use “Request Quote” language.
+- Telecom parts should be SKU-first.
+- Product photos go in public/images/products/.
+- Sample products are placeholders and must be easy to replace.
+
+After changes, run:
+npm install
+npm run build
+
+Then report:
+- Files changed
+- How to add a new product
+- How to deploy to Netlify

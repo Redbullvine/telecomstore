@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+.DS_Store
+.netlify
+telecomstore-baintu-starter-pack.zip

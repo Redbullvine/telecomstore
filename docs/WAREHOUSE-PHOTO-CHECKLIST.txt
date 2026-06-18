@@ -1,0 +1,12 @@
+Warehouse photo checklist
+
+For each SKU / product:
+[ ] Full box or pallet photo
+[ ] Close-up label photo
+[ ] Brand visible
+[ ] SKU / part number visible
+[ ] Quantity or count visible
+[ ] Condition noted: sealed / open box / used / unknown
+[ ] Warehouse location noted: aisle / rack / pallet
+[ ] Count verified before publishing
+[ ] Compatibility notes added if known

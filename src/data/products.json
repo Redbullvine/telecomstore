@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ts-0001",
+    "sku": "80-6110-4831-7",
+    "brand": "3M",
+    "title": "TC1 Straight Half-Tap Module",
+    "category": "Copper Splicing",
+    "condition": "New surplus / warehouse stock",
+    "quantityAvailable": "10 cases",
+    "unit": "case",
+    "pairCapacity": "600 pair per case",
+    "shortDescription": "Straight half-tap telecom splicing module for copper cable work.",
+    "details": [
+      "Verify exact module style and application before purchase.",
+      "Good candidate for 24 gauge telephone cable splicing inventory."
+    ],
+    "images": [
+      "/images/products/80-6110-4831-7-main.jpg"
+    ],
+    "status": "quote"
+  },
+  {
+    "id": "ts-0002",
+    "sku": "80-6110-4831-8",
+    "brand": "3M",
+    "title": "SD1 Dry Straight Half-Tap Module",
+    "category": "Copper Splicing",
+    "condition": "New surplus / warehouse stock",
+    "quantityAvailable": "2 cases",
+    "unit": "case",
+    "pairCapacity": "Verify from box label",
+    "shortDescription": "Dry straight half-tap module for copper telecom applications.",
+    "details": [
+      "Useful for dry CO vault or manhole environments depending on job spec.",
+      "Confirm part number, gel/dry type, and connector compatibility."
+    ],
+    "images": [
+      "/images/products/80-6110-4831-8-main.jpg"
+    ],
+    "status": "quote"
+  },
+  {
+    "id": "ts-0003",
+    "sku": "4005GPM/TR",
+    "brand": "3M",
+    "title": "4005 GPM/TR Pluggable Module",
+    "category": "Copper Splicing",
+    "condition": "New surplus / warehouse stock",
+    "quantityAvailable": "120 per box",
+    "unit": "box",
+    "pairCapacity": "Pluggable module; straight splice may require two modules",
+    "shortDescription": "Pluggable copper splicing module. Confirm module count required per splice design.",
+    "details": [
+      "For straight splice applications, verify if two modules are required per completed circuit path.",
+      "Use product label photos to confirm exact packaging and revision."
+    ],
+    "images": [
+      "/images/products/4005GPM-TR-main.jpg"
+    ],
+    "status": "quote"
+  }
+]
