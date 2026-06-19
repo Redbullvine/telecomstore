@@ -299,6 +299,7 @@ function PublicStorefront({ navigate }) {
     () => filterProducts(products, { query, category, status }),
     [products, query, category, status]
   );
+  const featuredProducts = useMemo(() => products.slice(0, 3), [products]);
   useScrollReveal([filtered]);
 
   function startQuote(product) {
@@ -364,10 +365,24 @@ function PublicStorefront({ navigate }) {
               <a className="button secondary on-dark" href="#quote"><Mail size={18} /> Request quote</a>
             </div>
           </div>
-          <div className="hero-panel">
-            <Warehouse size={42} />
-            <h2>Quote-first storefront</h2>
-            <p>No public checkout yet. Every request is checked against warehouse count, compatibility, and shipping needs.</p>
+          <div className="hero-panel warehouse-board">
+            <div className="board-kicker">
+              <Warehouse size={28} />
+              <span>Warehouse desk</span>
+            </div>
+            <div className="rack-preview" aria-label="Featured available SKUs">
+              {[0, 1, 2].map((slot) => {
+                const item = featuredProducts[slot];
+                return (
+                  <div className="rack-bin" key={item?.id || item?.sku || slot}>
+                    <span>{item?.category || "Available material"}</span>
+                    <strong>{item?.sku || item?.barcode || "SKU pending"}</strong>
+                  </div>
+                );
+              })}
+            </div>
+            <h2>Ready for quote review</h2>
+            <p>Available listings stay easy to scan while exact count, condition, and shipping are confirmed before sale.</p>
             <div className="metric-strip">
               <span><strong>{products.length}</strong> available listings</span>
               <span><strong>{categories.length - 1}</strong> categories</span>
@@ -382,11 +397,18 @@ function PublicStorefront({ navigate }) {
         <div><ClipboardList /> Request quote workflow</div>
       </section>
 
-      <section className="section" id="inventory">
-        <div className="section-heading reveal">
-          <p className="eyebrow">Public storefront</p>
-          <h2>Browse available inventory</h2>
-          <p>Only products marked available are shown here. Draft, hold, sold, and archived items stay internal.</p>
+      <section className="section inventory-section" id="inventory">
+        <div className="inventory-heading-row">
+          <div className="section-heading reveal">
+            <p className="eyebrow">Public storefront</p>
+            <h2>Browse available inventory</h2>
+            <p>Only products marked available are shown here. Draft, hold, sold, and archived items stay internal.</p>
+          </div>
+          <div className="inventory-count-card reveal" style={{ '--reveal-delay': '110ms' }}>
+            <PackageSearch size={22} />
+            <span>Available now</span>
+            <strong>{filtered.length}</strong>
+          </div>
         </div>
 
         <div className="filter-bar">
@@ -445,7 +467,7 @@ function PublicStorefront({ navigate }) {
 function ProductCard({ product, onDetails, onQuote, index = 0 }) {
   return (
     <article className="product-card reveal" style={{ '--reveal-delay': `${Math.min(index, 8) * 60}ms` }}>
-      <ProductImage product={product} />
+      <ProductImage product={product} preferMainOnly />
       <div className="product-body">
         <p className="sku">{product.sku || product.barcode}</p>
         <h3>{product.title}</h3>
@@ -497,9 +519,9 @@ function ProductModal({ product, onClose, onQuote }) {
   );
 }
 
-function ProductImage({ product, large = false }) {
+function ProductImage({ product, large = false, preferMainOnly = false }) {
   const [imageFailed, setImageFailed] = useState(false);
-  const imageSrc = product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2;
+  const imageSrc = product.photo_main || (preferMainOnly ? "" : product.photo_label || product.photo_extra_1 || product.photo_extra_2);
   const showImage = imageSrc && !imageFailed;
 
   return (
