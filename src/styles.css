@@ -1182,3 +1182,254 @@ dd {
     padding: 22px;
   }
 }
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 999px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-dot {
+    z-index: 9999;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    transition: width 0.18s, height 0.18s, background 0.18s;
+    will-change: left, top;
+  }
+
+  .cursor-ring {
+    z-index: 9998;
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid var(--accent);
+    opacity: 0.6;
+    transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), height 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s, opacity 0.28s;
+    will-change: left, top;
+  }
+
+  .cursor-dot-hover {
+    width: 10px;
+    height: 10px;
+    background: var(--signal);
+  }
+
+  .cursor-ring-hover {
+    width: 46px;
+    height: 46px;
+    border-color: var(--signal);
+    opacity: 0.32;
+  }
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Product cards: opacity-only reveal to avoid conflict with hover transform */
+.product-card.reveal {
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s,
+    border-color 0.22s;
+}
+
+/* ============================================================
+   HERO ENHANCEMENTS
+   ============================================================ */
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .store-hero h1 {
+    background: linear-gradient(90deg, #f6fbf8 10%, #f0b35e 50%, #f6fbf8 90%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 7s linear infinite;
+  }
+}
+
+.hero-panel {
+  animation: float 7s ease-in-out infinite;
+}
+
+/* ============================================================
+   BUTTON HOVER LIFT
+   ============================================================ */
+.button {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s, background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.button:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+
+.button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.primary:not(:disabled):hover {
+  box-shadow: 0 8px 24px rgba(13, 94, 156, 0.32);
+}
+
+.on-dark:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+/* ============================================================
+   PRODUCT CARD HOVER
+   ============================================================ */
+.product-card {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s, border-color 0.22s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 52px rgba(20, 32, 29, 0.16);
+  border-color: var(--line-strong);
+}
+
+.product-image {
+  overflow: hidden;
+}
+
+.product-image img {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   NAV LINK HOVER UNDERLINE
+   ============================================================ */
+.nav-links a {
+  position: relative;
+  transition: color 0.18s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #f0b35e;
+  border-radius: 1px;
+  transition: width 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   BRAND MARK HOVER
+   ============================================================ */
+.brand-mark {
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.26s;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(-6deg) scale(1.1);
+  box-shadow: 0 6px 18px rgba(246, 239, 227, 0.28);
+}
+
+/* ============================================================
+   TRUST STRIP HOVER
+   ============================================================ */
+.trust-strip div {
+  transition: background 0.18s;
+}
+
+.trust-strip div:hover {
+  background: var(--surface-2);
+}
+
+/* ============================================================
+   ICON BUTTON HOVER
+   ============================================================ */
+.icon-button {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s, box-shadow 0.15s;
+}
+
+.icon-button:not(.danger):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 94, 156, 0.14);
+}
+
+/* ============================================================
+   MODAL ENTRANCE ANIMATION
+   ============================================================ */
+.modal-backdrop {
+  animation: fadeIn 0.22s ease;
+}
+
+.product-modal {
+  animation: modalIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   SIDEBAR LINK HOVER
+   ============================================================ */
+.sidebar-link {
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+
+.sidebar-link:hover:not(.active) {
+  transform: translateX(3px);
+}

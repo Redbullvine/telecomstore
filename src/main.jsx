@@ -89,7 +89,12 @@ function App() {
     return <ProtectedAdmin route={route} auth={auth} />;
   }
 
-  return <PublicStorefront navigate={route.navigate} />;
+  return (
+    <>
+      <CustomCursor />
+      <PublicStorefront navigate={route.navigate} />
+    </>
+  );
 }
 
 function useRoute() {
@@ -199,6 +204,81 @@ function useAuth() {
   return { session, profile, loading, refresh, signOut };
 }
 
+function useScrollReveal(deps) {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal:not(.visible)');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
+function CustomCursor() {
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+  const mouseRef = useRef({ x: -100, y: -100 });
+  const ringPosRef = useRef({ x: -100, y: -100 });
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const move = ({ clientX: x, clientY: y }) => {
+      mouseRef.current = { x, y };
+      if (dotRef.current) {
+        dotRef.current.style.left = x + 'px';
+        dotRef.current.style.top = y + 'px';
+      }
+    };
+
+    const over = ({ target }) => {
+      const hit = Boolean(target.closest('button, a, input, select, textarea, label, [role="button"]'));
+      dotRef.current?.classList.toggle('cursor-dot-hover', hit);
+      ringRef.current?.classList.toggle('cursor-ring-hover', hit);
+    };
+
+    const tick = () => {
+      const rp = ringPosRef.current;
+      const { x, y } = mouseRef.current;
+      rp.x += (x - rp.x) * 0.13;
+      rp.y += (y - rp.y) * 0.13;
+      if (ringRef.current) {
+        ringRef.current.style.left = rp.x + 'px';
+        ringRef.current.style.top = rp.y + 'px';
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('mousemove', move, { passive: true });
+    document.addEventListener('mouseover', over);
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseover', over);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  if (!window.matchMedia('(pointer: fine)').matches) return null;
+
+  return (
+    <>
+      <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
+      <div ref={ringRef} className="cursor-ring" aria-hidden="true" />
+    </>
+  );
+}
+
 function PublicStorefront({ navigate }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -219,6 +299,7 @@ function PublicStorefront({ navigate }) {
     () => filterProducts(products, { query, category, status }),
     [products, query, category, status]
   );
+  useScrollReveal([filtered]);
 
   function startQuote(product) {
     setQuoteForm((current) => ({
@@ -302,7 +383,7 @@ function PublicStorefront({ navigate }) {
       </section>
 
       <section className="section" id="inventory">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <p className="eyebrow">Public storefront</p>
           <h2>Browse available inventory</h2>
           <p>Only products marked available are shown here. Draft, hold, sold, and archived items stay internal.</p>
@@ -334,14 +415,14 @@ function PublicStorefront({ navigate }) {
         ) : null}
 
         <div className="product-grid">
-          {filtered.map((product) => (
-            <ProductCard key={product.id || product.sku} product={product} onDetails={setSelectedProduct} onQuote={startQuote} />
+          {filtered.map((product, index) => (
+            <ProductCard key={product.id || product.sku} product={product} onDetails={setSelectedProduct} onQuote={startQuote} index={index} />
           ))}
         </div>
       </section>
 
       <section className="section quote-section" id="quote">
-        <div>
+        <div className="reveal">
           <p className="eyebrow">Request quote</p>
           <h2>Send SKU, quantity, and job details.</h2>
           <p>Telecom Store will verify count, condition, compatibility, and shipping before quoting.</p>
@@ -349,7 +430,9 @@ function PublicStorefront({ navigate }) {
             <a href="mailto:sales@telecomstore.net"><Mail /> sales@telecomstore.net</a>
           </div>
         </div>
-        <QuoteForm quoteForm={quoteForm} setQuoteForm={setQuoteForm} onSubmit={submitQuote} />
+        <div className="reveal" style={{ '--reveal-delay': '150ms' }}>
+          <QuoteForm quoteForm={quoteForm} setQuoteForm={setQuoteForm} onSubmit={submitQuote} />
+        </div>
       </section>
 
       {selectedProduct ? (
@@ -359,9 +442,9 @@ function PublicStorefront({ navigate }) {
   );
 }
 
-function ProductCard({ product, onDetails, onQuote }) {
+function ProductCard({ product, onDetails, onQuote, index = 0 }) {
   return (
-    <article className="product-card">
+    <article className="product-card reveal" style={{ '--reveal-delay': `${Math.min(index, 8) * 60}ms` }}>
       <ProductImage product={product} />
       <div className="product-body">
         <p className="sku">{product.sku || product.barcode}</p>
