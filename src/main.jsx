@@ -91,7 +91,7 @@ function App() {
 
   return (
     <>
-      <CustomCursor />
+      <AmbientCursor />
       <PublicStorefront navigate={route.navigate} />
     </>
   );
@@ -222,61 +222,52 @@ function useScrollReveal(deps) {
   }, deps); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
-function CustomCursor() {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
-  const mouseRef = useRef({ x: -100, y: -100 });
-  const ringPosRef = useRef({ x: -100, y: -100 });
+function AmbientCursor() {
+  const haloRef = useRef(null);
+  const targetRef = useRef({ x: -80, y: -80 });
+  const currentRef = useRef({ x: -80, y: -80 });
   const rafRef = useRef(null);
 
   useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    const finePointer = window.matchMedia("(pointer: fine)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!finePointer.matches || reducedMotion.matches) return undefined;
 
     const move = ({ clientX: x, clientY: y }) => {
-      mouseRef.current = { x, y };
-      if (dotRef.current) {
-        dotRef.current.style.left = x + 'px';
-        dotRef.current.style.top = y + 'px';
-      }
+      targetRef.current = { x, y };
     };
 
     const over = ({ target }) => {
-      const hit = Boolean(target.closest('button, a, input, select, textarea, label, [role="button"]'));
-      dotRef.current?.classList.toggle('cursor-dot-hover', hit);
-      ringRef.current?.classList.toggle('cursor-ring-hover', hit);
+      const isInteractive = target instanceof Element && Boolean(target.closest("button, a, input, select, textarea, label, [role='button']"));
+      haloRef.current?.classList.toggle("cursor-halo-active", isInteractive);
     };
 
     const tick = () => {
-      const rp = ringPosRef.current;
-      const { x, y } = mouseRef.current;
-      rp.x += (x - rp.x) * 0.13;
-      rp.y += (y - rp.y) * 0.13;
-      if (ringRef.current) {
-        ringRef.current.style.left = rp.x + 'px';
-        ringRef.current.style.top = rp.y + 'px';
+      const current = currentRef.current;
+      const target = targetRef.current;
+      current.x += (target.x - current.x) * 0.16;
+      current.y += (target.y - current.y) * 0.16;
+
+      if (haloRef.current) {
+        haloRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
       }
+
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('mousemove', move, { passive: true });
-    document.addEventListener('mouseover', over);
+    window.addEventListener("pointermove", move, { passive: true });
+    document.addEventListener("pointerover", over);
     rafRef.current = requestAnimationFrame(tick);
 
     return () => {
-      window.removeEventListener('mousemove', move);
-      document.removeEventListener('mouseover', over);
+      window.removeEventListener("pointermove", move);
+      document.removeEventListener("pointerover", over);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
-  if (!window.matchMedia('(pointer: fine)').matches) return null;
-
-  return (
-    <>
-      <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
-      <div ref={ringRef} className="cursor-ring" aria-hidden="true" />
-    </>
-  );
+  return <div ref={haloRef} className="cursor-halo" aria-hidden="true" />;
 }
 
 function PublicStorefront({ navigate }) {
