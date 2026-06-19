@@ -59,8 +59,12 @@ button:disabled {
 }
 
 .store-hero {
+  position: relative;
   padding: 24px clamp(18px, 5vw, 72px) 58px;
-  background: linear-gradient(120deg, rgba(18, 28, 25, 0.98), rgba(30, 48, 43, 0.98)), var(--admin);
+  background:
+    linear-gradient(105deg, rgba(18, 28, 25, 0.99) 40%, rgba(18, 28, 25, 0.62) 72%, rgba(18, 28, 25, 0.38)),
+    url('/tts_logo.png') right -20px center / 540px auto no-repeat,
+    var(--admin);
   color: #f6fbf8;
 }
 
