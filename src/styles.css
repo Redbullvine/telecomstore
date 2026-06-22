@@ -1615,7 +1615,7 @@ dd {
 .ts-catnav button.on{color:#fff;border-bottom-color:var(--ts-accent)}
 .ts-catnav button.on span{color:var(--ts-gold)}
 
-.ts-hero{background:linear-gradient(115deg,#071e52,#0b2d78 55%,#103694);color:#eef3f1;position:relative;overflow:hidden}
+.ts-hero{background:linear-gradient(115deg,rgba(7,30,82,0.88),rgba(11,45,120,0.78) 55%,rgba(16,54,148,0.72)),url('/tts_background.png') center/cover no-repeat;color:#eef3f1;position:relative;overflow:hidden}
 .ts-hero::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 46px);pointer-events:none}
 .ts-hero-grid{position:relative;padding:46px 22px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
 .ts-eyebrow{color:var(--ts-gold);font-family:'Archivo';font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 14px}
