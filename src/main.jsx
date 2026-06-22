@@ -270,292 +270,358 @@ function AmbientCursor() {
   return <div ref={haloRef} className="cursor-halo" aria-hidden="true" />;
 }
 
+const STORE_CAT_META = {
+  "Fiber": "#0d5e9c",
+  "Closures": "#7a4ed6",
+  "Terminals": "#147d4a",
+  "Copper Splicing": "#b86e11",
+  "Cable Hardware": "#5b6472",
+  "Pedestals / Cabinets": "#0f766e",
+  "Tools": "#c4470f",
+  "Test Equipment": "#9c2bad",
+  "Misc Telecom Material": "#74807a"
+};
+const STORE_CAT_ORDER = ["Fiber", "Closures", "Terminals", "Copper Splicing", "Cable Hardware", "Pedestals / Cabinets", "Tools", "Test Equipment", "Misc Telecom Material"];
+
+function catColor(cat) { return STORE_CAT_META[cat] || "#74807a"; }
+function hexToRgba(hex, a) {
+  const n = (hex || "#74807a").replace("#", "");
+  const r = parseInt(n.substr(0, 2), 16), g = parseInt(n.substr(2, 2), 16), b = parseInt(n.substr(4, 2), 16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+function CatGlyph({ category, size = 54 }) {
+  const col = catColor(category);
+  const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: col, strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round" };
+  const paths = {
+    "Fiber": <><path d="M3 12c4-6 14 6 18 0" /><path d="M3 17c4-6 14 6 18 0" opacity=".5" /></>,
+    "Closures": <><rect x="5" y="3" width="14" height="18" rx="7" /><path d="M5 12h14" /></>,
+    "Terminals": <><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M9 4v16M15 4v16M4 9h16M4 15h16" opacity=".55" /></>,
+    "Copper Splicing": <><path d="M4 12h6M14 12h6" /><circle cx="12" cy="12" r="3" /><path d="M12 4v3M12 17v3" opacity=".5" /></>,
+    "Cable Hardware": <><path d="M8 8a4 4 0 010 8h-1M16 16a4 4 0 010-8h1" /><path d="M9 12h6" /></>,
+    "Pedestals / Cabinets": <><rect x="6" y="3" width="12" height="18" rx="1.5" /><path d="M9 7h6M9 11h6" opacity=".5" /><circle cx="15" cy="15" r="1" /></>,
+    "Tools": <path d="M14 7a3 3 0 00-4 4l-6 6 2 2 6-6a3 3 0 004-4l-2 2-2-2z" />,
+    "Test Equipment": <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M7 15l3-5 2 3 2-4 3 6" opacity=".7" /></>
+  };
+  return <svg {...common}>{paths[category] || <><rect x="4" y="5" width="16" height="14" rx="1.5" /><path d="M4 9h16" opacity=".5" /></>}</svg>;
+}
+
+function StoreImage({ product, large = false }) {
+  const [failed, setFailed] = useState(false);
+  const src = product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2;
+  if (src && !failed) {
+    return <div className="ts-thumb"><img src={src} alt={`${product.brand} ${product.title}`} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
+  }
+  return (
+    <div className="ts-thumb">
+      <div className="ts-glyph" style={{ background: `linear-gradient(140deg, ${hexToRgba(catColor(product.category), 0.06)}, ${hexToRgba(catColor(product.category), 0.13)})` }}>
+        <CatGlyph category={product.category} size={large ? 72 : 54} />
+        <span className="ts-gb">{product.brand || ""}</span>
+      </div>
+    </div>
+  );
+}
+
+function priceLabel(product) {
+  if (product.price) return `$${Number(product.price).toLocaleString()}`;
+  return product.price_note || "Request quote";
+}
+
 function PublicStorefront({ navigate }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [status, setStatus] = useState("available");
+  const [sort, setSort] = useState("brand");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [quoteForm, setQuoteForm] = useState(QUOTE_FORM);
 
   useEffect(() => {
-    fetchPublicProducts()
-      .then(setProducts)
-      .finally(() => setLoading(false));
+    fetchPublicProducts().then(setProducts).finally(() => setLoading(false));
   }, []);
 
-  const categories = useMemo(() => ["All", ...getProductCategories(products)], [products]);
-  const filtered = useMemo(
-    () => filterProducts(products, { query, category, status }),
-    [products, query, category, status]
-  );
-  const featuredProducts = useMemo(() => products.slice(0, 3), [products]);
-  useScrollReveal([filtered]);
+  const cats = useMemo(() => getProductCategories(products), [products]);
+  const orderedCats = useMemo(() => {
+    const present = new Set(cats);
+    const ordered = STORE_CAT_ORDER.filter((c) => present.has(c));
+    cats.forEach((c) => { if (!ordered.includes(c)) ordered.push(c); });
+    return ordered;
+  }, [cats]);
+  const counts = useMemo(() => {
+    const map = { All: products.length };
+    products.forEach((p) => { map[p.category] = (map[p.category] || 0) + 1; });
+    return map;
+  }, [products]);
 
-  function startQuote(product) {
-    setQuoteForm((current) => ({
-      ...current,
-      sku: product.sku || product.barcode,
-      notes: current.notes || `${product.brand} ${product.title}`.trim()
-    }));
-    setSelectedProduct(null);
-    window.requestAnimationFrame(() => {
-      document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const filtered = useMemo(() => {
+    let list = filterProducts(products, { query, category, status: "available" });
+    list = [...list].sort((a, b) => {
+      if (sort === "qtyd") return (b.quantity_available || 0) - (a.quantity_available || 0);
+      if (sort === "name") return (a.short_description || a.title || "").localeCompare(b.short_description || b.title || "");
+      return `${a.brand}${a.sku}`.localeCompare(`${b.brand}${b.sku}`);
     });
+    return list;
+  }, [products, query, category, sort]);
+
+  const inCart = useCallback((sku) => cart.find((i) => i.sku === sku), [cart]);
+
+  function addToCart(product, qty = 1) {
+    setCart((cur) => {
+      const existing = cur.find((i) => i.sku === product.sku);
+      if (existing) return cur.map((i) => i.sku === product.sku ? { ...i, qty } : i);
+      return [...cur, { sku: product.sku || product.barcode, brand: product.brand, title: product.short_description || product.title, category: product.category, qty }];
+    });
+  }
+  function removeFromCart(sku) { setCart((cur) => cur.filter((i) => i.sku !== sku)); }
+  function openDrawer() { setDrawerOpen(true); }
+
+  function selectCategory(cat) {
+    setCategory(cat);
+    window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   }
 
   function submitQuote(event) {
     event.preventDefault();
-    window.location.href = buildMailto(
-      quoteForm.sku ? `Telecom Store quote request: ${quoteForm.sku}` : "Telecom Store quote request",
-      [
-        "Please send pricing and availability for:",
-        "",
-        `SKU or product: ${quoteForm.sku}`,
-        `Quantity needed: ${quoteForm.quantity}`,
-        "",
-        `Name: ${quoteForm.name}`,
-        `Company: ${quoteForm.company}`,
-        `Email: ${quoteForm.email}`,
-        `Phone: ${quoteForm.phone}`,
-        `Project location: ${quoteForm.projectLocation}`,
-        `Need-by date: ${quoteForm.needBy}`,
-        "",
-        "Notes:",
-        quoteForm.notes
-      ]
-    );
+    const lines = ["Please send pricing and availability for the following parts:", ""];
+    cart.forEach((i) => lines.push(`- ${i.qty} x  ${i.brand || ""} ${i.sku}  (${i.title || ""})`));
+    lines.push("", `Name: ${quoteForm.name}`, `Company: ${quoteForm.company}`, `Email: ${quoteForm.email}`, `Phone: ${quoteForm.phone}`, `Project location: ${quoteForm.projectLocation}`, `Need-by date: ${quoteForm.needBy}`, "", "Notes:", quoteForm.notes);
+    window.location.href = buildMailto(`Telecom Store quote request (${cart.length} part${cart.length === 1 ? "" : "s"})`, lines);
   }
 
   return (
-    <main>
-      <section className="store-hero">
-        <nav className="top-nav">
-          <a className="brand" href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>
-            <span className="brand-mark">TS</span>
-            <span>Telecom Store</span>
+    <main className="storefront">
+      <div className="ts-ubar">
+        <div className="ts-wrap">
+          <nav className="ts-ulinks">
+            <a href="/" onClick={(e) => { e.preventDefault(); selectCategory("All"); }}>Home</a>
+            <a href="#catalog">Catalog</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openDrawer(); }}>Request a Quote</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div className="ts-ubadges">
+            <span><ShieldCheck size={13} /> New Surplus Stock</span>
+            <span><QrCode size={13} /> Fast SKU Quotes</span>
+            <span><ClipboardList size={13} /> Genuine OSP Brands</span>
+          </div>
+        </div>
+      </div>
+
+      <header className="ts-head">
+        <div className="ts-wrap">
+          <a className="ts-brand" href="/" onClick={(e) => { e.preventDefault(); selectCategory("All"); }}>
+            <span className="ts-mark">TS</span>
+            <span className="ts-brandtxt"><strong>Telecom Store</strong><small>New Surplus Telecom Materials</small></span>
           </a>
-          <div className="nav-links">
-            <a href="#inventory">Inventory</a>
-            <a href="#quote">Request quote</a>
-            <a href="/login" onClick={(event) => handleNavClick(event, navigate, "/login")}>Admin login</a>
-          </div>
-        </nav>
-
-        <div className="store-hero-grid">
-          <div>
-            <p className="eyebrow">Telecom warehouse inventory</p>
-            <h1>Available telecom material, organized by SKU.</h1>
-            <p className="hero-copy">
-              Browse verified available material, search by SKU or barcode, inspect product photos, and request a quote.
-              Pricing and counts are confirmed before sale.
-            </p>
-            <div className="hero-actions">
-              <a className="button primary" href="#inventory"><PackageSearch size={18} /> Browse inventory</a>
-              <a className="button secondary on-dark" href="#quote"><Mail size={18} /> Request quote</a>
-            </div>
-          </div>
-          <div className="hero-panel warehouse-board">
-            <div className="board-kicker">
-              <Warehouse size={28} />
-              <span>Warehouse desk</span>
-            </div>
-            <div className="rack-preview" aria-label="Featured available SKUs">
-              {[0, 1, 2].map((slot) => {
-                const item = featuredProducts[slot];
-                return (
-                  <div className="rack-bin" key={item?.id || item?.sku || slot}>
-                    <span>{item?.category || "Available material"}</span>
-                    <strong>{item?.sku || item?.barcode || "SKU pending"}</strong>
-                  </div>
-                );
-              })}
-            </div>
-            <h2>Ready for quote review</h2>
-            <p>Available listings stay easy to scan while exact count, condition, and shipping are confirmed before sale.</p>
-            <div className="metric-strip">
-              <span><strong>{products.length}</strong> available listings</span>
-              <span><strong>{categories.length - 1}</strong> categories</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="trust-strip">
-        <div><ShieldCheck /> Available listings only</div>
-        <div><QrCode /> SKU and barcode search</div>
-        <div><ClipboardList /> Request quote workflow</div>
-      </section>
-
-      <section className="section inventory-section" id="inventory">
-        <div className="inventory-heading-row">
-          <div className="section-heading reveal">
-            <p className="eyebrow">Public storefront</p>
-            <h2>Browse available inventory</h2>
-            <p>Only products marked available are shown here. Draft, hold, sold, and archived items stay internal.</p>
-          </div>
-          <div className="inventory-count-card reveal" style={{ '--reveal-delay': '110ms' }}>
-            <PackageSearch size={22} />
-            <span>Available now</span>
-            <strong>{filtered.length}</strong>
-          </div>
-        </div>
-
-        <div className="filter-bar">
-          <label className="search-box">
-            <Search size={18} />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SKU, barcode, brand, title, category..." />
+          <label className="ts-search">
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by part number, brand, or keyword&hellip;" />
+            <button type="button" onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}><Search size={16} /> Search</button>
           </label>
-          <label className="select-box">
-            <Filter size={18} />
-            <select value={category} onChange={(event) => setCategory(event.target.value)}>
-              {categories.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
-          <label className="select-box">
-            <ListChecks size={18} />
-            <select value={status} onChange={(event) => setStatus(event.target.value)}>
-              <option value="available">Available</option>
-            </select>
-          </label>
+          <button className="ts-quotebtn" type="button" onClick={openDrawer}>
+            <ShoppingBag size={17} /> Quote <span className="ts-cnt">{cart.length}</span>
+          </button>
         </div>
+      </header>
 
-        {loading ? <LoadingState label="Loading inventory" /> : null}
-
-        {!loading && filtered.length === 0 ? (
-          <p className="empty-state">No available products match that search.</p>
-        ) : null}
-
-        <div className="product-grid">
-          {filtered.map((product, index) => (
-            <ProductCard key={product.id || product.sku} product={product} onDetails={setSelectedProduct} onQuote={startQuote} index={index} />
+      <nav className="ts-catnav">
+        <div className="ts-wrap">
+          <button className={category === "All" ? "on" : ""} onClick={() => selectCategory("All")}>All Products <span>{counts.All || 0}</span></button>
+          {orderedCats.map((c) => (
+            <button key={c} className={category === c ? "on" : ""} onClick={() => selectCategory(c)}>{c} <span>{counts[c] || 0}</span></button>
           ))}
         </div>
-      </section>
+      </nav>
 
-      <section className="section quote-section" id="quote">
-        <div className="reveal">
-          <p className="eyebrow">Request quote</p>
-          <h2>Send SKU, quantity, and job details.</h2>
-          <p>Telecom Store will verify count, condition, compatibility, and shipping before quoting.</p>
-          <div className="contact-card">
-            <a href="mailto:sales@telecomstore.net"><Mail /> sales@telecomstore.net</a>
+      <section className="ts-hero">
+        <div className="ts-wrap ts-hero-grid">
+          <div>
+            <p className="ts-eyebrow">Outside Plant &bull; Copper &bull; Fiber</p>
+            <h1>Warehouse-stock telecom materials,<br /><em>priced by the SKU.</em></h1>
+            <p className="ts-herocopy">New surplus closures, terminals, splice cases, strand hardware, and fiber components from the brands field crews trust. Find your part number and request a quote in minutes.</p>
+            <div className="ts-herocta">
+              <a className="ts-btn-pri" href="#catalog">Browse the catalog</a>
+              <button className="ts-btn-ghost" type="button" onClick={openDrawer}>Request a quote</button>
+            </div>
+          </div>
+          <div className="ts-herostats">
+            <div className="ts-hstat"><strong>{products.length}</strong><span>available SKUs,<br />ready to quote</span></div>
+            <div className="ts-hstat"><strong>{orderedCats.length}</strong><span>material categories<br />in stock</span></div>
           </div>
         </div>
-        <div className="reveal" style={{ '--reveal-delay': '150ms' }}>
-          <QuoteForm quoteForm={quoteForm} setQuoteForm={setQuoteForm} onSubmit={submitQuote} />
+      </section>
+
+      <section className="ts-trust">
+        <div className="ts-wrap">
+          <div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>New Surplus</b><small>Unused warehouse stock</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><Mail size={19} /></span><div><b>Same-day quotes</b><small>Reply by SKU or photo</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><ShieldCheck size={19} /></span><div><b>Genuine brands</b><small>3M, Corning, PLP, Tyco</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><PackageSearch size={19} /></span><div><b>Nationwide shipping</b><small>Pallet &amp; freight ready</small></div></div>
         </div>
       </section>
 
+      <section className="ts-catalog" id="catalog">
+        <div className="ts-wrap">
+          <div className="ts-cathead">
+            <div>
+              <h2>{category === "All" ? "All Products" : category}</h2>
+              <p><strong>{filtered.length}</strong> items &nbsp;&bull;&nbsp; request a quote on any part</p>
+            </div>
+            <select className="ts-sort" value={sort} onChange={(e) => setSort(e.target.value)}>
+              <option value="brand">Sort: Brand A&ndash;Z</option>
+              <option value="name">Sort: Name A&ndash;Z</option>
+              <option value="qtyd">Sort: Qty (high &rarr; low)</option>
+            </select>
+          </div>
+
+          {loading ? <LoadingState label="Loading inventory" /> : null}
+          {!loading && filtered.length === 0 ? (
+            <div className="ts-empty"><b>No parts match that search.</b>Try a part number, a brand like 3M or Corning, or browse a category above.</div>
+          ) : null}
+
+          <div className="ts-grid">
+            {filtered.map((product) => (
+              <StoreProductCard key={product.id || product.sku} product={product} added={Boolean(inCart(product.sku))}
+                onDetails={() => setSelectedProduct(product)} onAdd={() => { addToCart(product, 1); }} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="ts-foot" id="contact">
+        <div className="ts-wrap ts-foot-grid">
+          <div>
+            <div className="ts-fbrand">Telecom Store</div>
+            <p>New surplus, warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
+            <p>Quotes: <a href="mailto:sales@telecomstore.net">sales@telecomstore.net</a></p>
+          </div>
+          <div>
+            <h5>Shop</h5>
+            {orderedCats.map((c) => <a key={c} href="#catalog" onClick={(e) => { e.preventDefault(); selectCategory(c); }}>{c}</a>)}
+          </div>
+          <div>
+            <h5>Service</h5>
+            <a href="#" onClick={(e) => { e.preventDefault(); openDrawer(); }}>Request a Quote</a>
+            <a href="mailto:sales@telecomstore.net">Contact Us</a>
+            <a href="/login" onClick={(e) => handleNavClick(e, navigate, "/login")}>Admin Login</a>
+          </div>
+          <p className="ts-legal">Telecom Store is operated by <strong>Fatanett, LLC</strong>. Inventory is new surplus / warehouse stock; quantities limited and sold as-is per quote. Brand names are the property of their respective owners.</p>
+        </div>
+      </footer>
+
       {selectedProduct ? (
-        <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onQuote={startQuote} />
+        <StoreProductModal product={selectedProduct} added={Boolean(inCart(selectedProduct.sku))}
+          onClose={() => setSelectedProduct(null)}
+          onAdd={(qty) => { addToCart(selectedProduct, qty); setSelectedProduct(null); openDrawer(); }} />
       ) : null}
+
+      <QuoteTray open={drawerOpen} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={removeFromCart}
+        quoteForm={quoteForm} setQuoteForm={setQuoteForm} onSubmit={submitQuote} clearCart={() => setCart([])} />
     </main>
   );
 }
 
-function ProductCard({ product, onDetails, onQuote, index = 0 }) {
+function StoreProductCard({ product, added, onDetails, onAdd }) {
   return (
-    <article className="product-card reveal" style={{ '--reveal-delay': `${Math.min(index, 8) * 60}ms` }}>
-      <ProductImage product={product} preferMainOnly />
-      <div className="product-body">
-        <p className="sku">{product.sku || product.barcode}</p>
-        <h3>{product.title}</h3>
-        <p className="muted">{product.short_description}</p>
-        <dl>
-          <div><dt>Brand</dt><dd>{product.brand || "Verify"}</dd></div>
-          <div><dt>Category</dt><dd>{product.category || "Uncategorized"}</dd></div>
-          <div><dt>Quantity</dt><dd>{product.quantity_available || "Verify"}</dd></div>
-          <div><dt>Price</dt><dd>{product.price ? `$${product.price}` : product.price_note || "Request quote"}</dd></div>
-        </dl>
-        <div className="product-actions">
-          <button className="button secondary small" type="button" onClick={() => onDetails(product)}><Eye size={16} /> Details</button>
-          <button className="button primary small" type="button" onClick={() => onQuote(product)}><Mail size={16} /> Request quote</button>
+    <article className="ts-card">
+      <div className="ts-thumb-wrap">
+        <span className="ts-cond">New Surplus</span>
+        <StoreImage product={product} />
+      </div>
+      <div className="ts-cbody">
+        <p className="ts-cbrand">{product.brand || "Telecom Store"}</p>
+        <h3 className="ts-cname">{product.short_description || product.title}</h3>
+        <p className="ts-csku">{product.sku || product.barcode}</p>
+        <p className="ts-cqty">Qty available: <b>{product.quantity_available || "—"}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
+        <div className="ts-cact">
+          <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "Added \u2713" : "Add to Quote"}</button>
+          <button className="ts-det" type="button" onClick={onDetails}>Details</button>
         </div>
       </div>
     </article>
   );
 }
 
-function ProductModal({ product, onClose, onQuote }) {
+function StoreProductModal({ product, added, onClose, onAdd }) {
+  const [qty, setQty] = useState(1);
   return (
-    <div className="modal-backdrop" role="presentation" onClick={onClose}>
-      <section className="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" onClick={(event) => event.stopPropagation()}>
-        <button className="icon-button close-button" type="button" aria-label="Close product details" onClick={onClose}><X size={22} /></button>
-        <ProductImage product={product} large />
-        <div className="modal-copy">
-          <p className="sku">{product.sku || product.barcode}</p>
-          <h2 id="product-modal-title">{product.title}</h2>
-          <p className="muted">{product.short_description}</p>
-          <dl className="spec-list">
-            <div><dt>Brand</dt><dd>{product.brand || "Verify"}</dd></div>
-            <div><dt>Barcode</dt><dd>{product.barcode || "None listed"}</dd></div>
-            <div><dt>Category</dt><dd>{product.category || "Uncategorized"}</dd></div>
-            <div><dt>Condition</dt><dd>{product.condition || "Verify"}</dd></div>
-            <div><dt>Quantity</dt><dd>{product.quantity_available || "Verify"}</dd></div>
-            <div><dt>Location</dt><dd>{formatLocation(product) || "Internal only"}</dd></div>
-            <div><dt>Status</dt><dd>Request quote</dd></div>
-          </dl>
-          <div className="detail-list">
-            {(product.long_description || "Request current photos, count, and compatibility confirmation before purchase.")
-              .split("\n")
-              .filter(Boolean)
-              .map((detail) => <p key={detail}>{detail}</p>)}
+    <div className="ts-backdrop" role="presentation" onClick={onClose}>
+      <section className="ts-modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+        <div className="ts-mimg">
+          <button className="ts-mclose" type="button" aria-label="Close" onClick={onClose}><X size={19} /></button>
+          <StoreImage product={product} large />
+        </div>
+        <div className="ts-mbody">
+          <p className="ts-cbrand">{product.brand || "Telecom Store"}</p>
+          <h2>{product.short_description || product.title}</h2>
+          <div className="ts-kv"><span>Part No.</span><b className="ts-mono">{product.sku || product.barcode}</b></div>
+          <div className="ts-kv"><span>Category</span><b>{product.category || "Uncategorized"}</b></div>
+          <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{product.condition || "New Surplus"}</b></div>
+          <div className="ts-kv"><span>Available</span><b>{product.quantity_available || "Verify"}</b></div>
+          <div className="ts-kv"><span>Price</span><b>{priceLabel(product)}</b></div>
+          <p className="ts-mdesc">{product.long_description || product.title}</p>
+          <div className="ts-qrow">
+            <div className="ts-stepper">
+              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))}>&minus;</button>
+              <input value={qty} onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))} />
+              <button type="button" onClick={() => setQty((q) => q + 1)}>+</button>
+            </div>
+            <span className="ts-quotenote">Pricing provided by quote</span>
           </div>
-          <button className="button primary modal-cta" type="button" onClick={() => onQuote(product)}><Mail size={18} /> Request quote</button>
+          <button className="ts-addbtn" type="button" onClick={() => onAdd(qty)}>{added ? "Update Quote Request" : "Add to Quote Request"}</button>
         </div>
       </section>
     </div>
   );
 }
 
-function ProductImage({ product, large = false, preferMainOnly = false }) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const imageSrc = product.photo_main || (preferMainOnly ? "" : product.photo_label || product.photo_extra_1 || product.photo_extra_2);
-  const showImage = imageSrc && !imageFailed;
+function QuoteTray({ open, cart, onClose, onRemove, quoteForm, setQuoteForm, onSubmit, clearCart }) {
+  const [stage, setStage] = useState("list");
+  useEffect(() => { if (open) setStage("list"); }, [open]);
+  function updateField(e) { const { name, value } = e.target; setQuoteForm((cur) => ({ ...cur, [name]: value })); }
 
   return (
-    <div className={large ? "product-image product-image-large" : "product-image"}>
-      {showImage ? (
-        <img src={imageSrc} alt={`${product.brand} ${product.title}`} loading={large ? "eager" : "lazy"} onError={() => setImageFailed(true)} />
-      ) : null}
-      <span className="image-placeholder" aria-hidden={showImage ? "true" : undefined}>
-        {product.brand || "Telecom Store"}
-        <br />
-        {product.sku || product.barcode || "Photo pending"}
-      </span>
-    </div>
+    <>
+      <div className={open ? "ts-scrim on" : "ts-scrim"} onClick={onClose} />
+      <aside className={open ? "ts-drawer on" : "ts-drawer"}>
+        <div className="ts-dhead"><h4>Quote Request</h4><button type="button" onClick={onClose}><X size={20} /></button></div>
+
+        {cart.length === 0 ? (
+          <div className="ts-dempty">Your quote request is empty.<br /><br />Add parts from the catalog and send them over — we’ll reply with pricing and availability.</div>
+        ) : stage === "list" ? (
+          <>
+            <div className="ts-ditems">
+              {cart.map((i) => (
+                <div className="ts-qitem" key={i.sku}>
+                  <span className="ts-qg" style={{ background: hexToRgba(catColor(i.category), 0.1) }}><CatGlyph category={i.category} size={24} /></span>
+                  <div className="ts-qn"><b>{i.title}</b><span className="ts-mono">{i.sku}</span></div>
+                  <span className="ts-qq">x{i.qty}</span>
+                  <button className="ts-rm" type="button" onClick={() => onRemove(i.sku)}>Remove</button>
+                </div>
+              ))}
+            </div>
+            <div className="ts-dfoot">
+              <p className="ts-dnote">No payment is taken here. Send your list and we’ll reply with pricing, availability, and freight.</p>
+              <button className="ts-req" type="button" onClick={() => setStage("form")}>Continue ({cart.length})</button>
+            </div>
+          </>
+        ) : (
+          <form className="ts-dform" onSubmit={onSubmit}>
+            <p className="ts-formcount">{cart.length} part{cart.length === 1 ? "" : "s"} on this request.</p>
+            <label>Name</label><input name="name" value={quoteForm.name} onChange={updateField} autoComplete="name" />
+            <label>Company</label><input name="company" value={quoteForm.company} onChange={updateField} autoComplete="organization" />
+            <label>Email</label><input name="email" type="email" value={quoteForm.email} onChange={updateField} autoComplete="email" />
+            <label>Phone</label><input name="phone" type="tel" value={quoteForm.phone} onChange={updateField} autoComplete="tel" />
+            <label>Project location</label><input name="projectLocation" value={quoteForm.projectLocation} onChange={updateField} />
+            <label>Notes</label><textarea name="notes" rows="3" value={quoteForm.notes} onChange={updateField} />
+            <button className="ts-req" type="submit"><Mail size={16} /> Send Quote Request</button>
+            <button className="ts-back" type="button" onClick={() => setStage("list")}>&larr; Back to list</button>
+          </form>
+        )}
+      </aside>
+    </>
   );
 }
 
-function QuoteForm({ quoteForm, setQuoteForm, onSubmit }) {
-  function updateField(event) {
-    const { name, value } = event.target;
-    setQuoteForm((current) => ({ ...current, [name]: value }));
-  }
-
-  return (
-    <form className="quote-form" onSubmit={onSubmit}>
-      <div className="form-heading"><ClipboardList size={24} /><h3>Quote request</h3></div>
-      <div className="field-grid">
-        <TextField label="Name" name="name" value={quoteForm.name} onChange={updateField} autoComplete="name" />
-        <TextField label="Company" name="company" value={quoteForm.company} onChange={updateField} autoComplete="organization" />
-        <TextField label="Email" name="email" type="email" value={quoteForm.email} onChange={updateField} autoComplete="email" />
-        <TextField label="Phone" name="phone" type="tel" value={quoteForm.phone} onChange={updateField} autoComplete="tel" />
-        <TextField label="SKU or product" name="sku" value={quoteForm.sku} onChange={updateField} required />
-        <TextField label="Quantity needed" name="quantity" value={quoteForm.quantity} onChange={updateField} required />
-        <TextField label="Project location" name="projectLocation" value={quoteForm.projectLocation} onChange={updateField} />
-        <TextField label="Need-by date" name="needBy" type="date" value={quoteForm.needBy} onChange={updateField} />
-      </div>
-      <label>
-        <span>Notes</span>
-        <textarea name="notes" value={quoteForm.notes} onChange={updateField} rows="4" />
-      </label>
-      <button className="button primary form-submit" type="submit"><Mail size={18} /> Create email request</button>
-    </form>
-  );
-}
 
 function LoginPage({ auth, navigate }) {
   const [mode, setMode] = useState("login");
