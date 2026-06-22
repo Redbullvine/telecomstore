@@ -1572,7 +1572,7 @@ dd {
    Telecom Store — retail storefront skin (ts- scoped)
    Added by Fatanett. Self-contained; does not affect admin.
    ============================================================ */
-.storefront{--ts-page:#f4f6f4;--ts-surface:#fff;--ts-ink:#14201d;--ts-muted:#5b6472;--ts-nav:#171d22;--ts-nav2:#0f1417;--ts-line:#e3e8e4;--ts-line2:#eef2ef;--ts-accent:#e2581f;--ts-accent-d:#c4470f;--ts-blue:#0d5e9c;--ts-gold:#c8920a;--ts-green:#147d4a;--ts-chip:#eef4f0;background:var(--ts-page);color:var(--ts-ink);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5}
+.storefront{--ts-page:#f4f6f4;--ts-surface:#fff;--ts-ink:#14201d;--ts-muted:#5b6472;--ts-nav:#0b2d78;--ts-nav2:#071e52;--ts-line:#e3e8e4;--ts-line2:#eef2ef;--ts-accent:#c8182e;--ts-accent-d:#a01120;--ts-blue:#0d5e9c;--ts-gold:#c8920a;--ts-green:#147d4a;--ts-chip:#eef4f0;background:var(--ts-page);color:var(--ts-ink);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5}
 .storefront *{box-sizing:border-box}
 .storefront a{color:inherit;text-decoration:none}
 .storefront h1,.storefront h2,.storefront h3,.storefront h4,.storefront h5{font-family:'Archivo',Inter,sans-serif}
@@ -1592,15 +1592,15 @@ dd {
 .ts-head{background:var(--ts-surface);border-bottom:1px solid var(--ts-line)}
 .ts-head .ts-wrap{display:flex;align-items:center;gap:24px;padding:16px 22px}
 .ts-brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.ts-mark{width:46px;height:46px;border-radius:9px;background:linear-gradient(150deg,var(--ts-nav),#27343a);display:grid;place-items:center;color:#fff;font-family:'Archivo';font-weight:800;font-size:18px;letter-spacing:-1px}
+.ts-mark{width:46px;height:46px;border-radius:9px;background:linear-gradient(150deg,var(--ts-nav),#1a57b8);display:grid;place-items:center;color:#fff;font-family:'Archivo';font-weight:800;font-size:18px;letter-spacing:-1px}
 .ts-brandtxt{display:flex;flex-direction:column;line-height:1.1}
 .ts-brandtxt strong{font-family:'Archivo';font-weight:800;font-size:22px;letter-spacing:-.5px}
 .ts-brandtxt small{font-size:11px;color:var(--ts-muted);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-top:3px}
 .ts-search{flex:1;display:flex;max-width:680px;border:2px solid var(--ts-ink);border-radius:8px;overflow:hidden;background:#fff}
 .ts-search input{flex:1;border:none;outline:none;padding:12px 15px;font-size:14.5px;color:var(--ts-ink);font-family:inherit}
 .ts-search input::placeholder{color:#9aa49f}
-.ts-search button{display:flex;align-items:center;gap:6px;background:var(--ts-ink);color:#fff;font-family:'Archivo';font-weight:700;letter-spacing:.05em;font-size:13px;padding:0 20px;text-transform:uppercase;border:none;cursor:pointer}
-.ts-search button:hover{background:#1f2d28}
+.ts-search button{display:flex;align-items:center;gap:6px;background:var(--ts-accent);color:#fff;font-family:'Archivo';font-weight:700;letter-spacing:.05em;font-size:13px;padding:0 20px;text-transform:uppercase;border:none;cursor:pointer}
+.ts-search button:hover{background:var(--ts-accent-d)}
 .ts-quotebtn{display:flex;align-items:center;gap:9px;background:var(--ts-accent);color:#fff;font-family:'Archivo';font-weight:700;font-size:13px;padding:11px 16px;border-radius:8px;border:none;cursor:pointer;flex-shrink:0}
 .ts-quotebtn:hover{background:var(--ts-accent-d)}
 .ts-cnt{background:rgba(255,255,255,.22);border-radius:20px;padding:1px 8px;font-size:12px;min-width:20px;text-align:center}
@@ -1615,7 +1615,7 @@ dd {
 .ts-catnav button.on{color:#fff;border-bottom-color:var(--ts-accent)}
 .ts-catnav button.on span{color:var(--ts-gold)}
 
-.ts-hero{background:linear-gradient(115deg,#11181c,#1c272b 55%,#243338);color:#eef3f1;position:relative;overflow:hidden}
+.ts-hero{background:linear-gradient(115deg,#071e52,#0b2d78 55%,#103694);color:#eef3f1;position:relative;overflow:hidden}
 .ts-hero::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 46px);pointer-events:none}
 .ts-hero-grid{position:relative;padding:46px 22px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
 .ts-eyebrow{color:var(--ts-gold);font-family:'Archivo';font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 14px}
@@ -1730,3 +1730,6 @@ dd {
 .ts-legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);margin-top:26px;padding-top:18px;font-size:12px;color:#6f7c77}
 .ts-legal strong{color:var(--ts-gold)}
 @media(max-width:840px){.ts-foot-grid{grid-template-columns:1fr 1fr}}
+.ts-adminbtn{display:flex;align-items:center;gap:5px;background:none;color:var(--ts-muted);font-size:12px;font-weight:600;padding:7px 11px;border:1px solid var(--ts-line);border-radius:7px;cursor:pointer;flex-shrink:0;letter-spacing:.03em}
+.ts-adminbtn:hover{color:var(--ts-nav);border-color:var(--ts-nav)}
+@media(max-width:840px){.ts-adminbtn{display:none}}

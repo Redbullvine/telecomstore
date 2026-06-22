@@ -413,12 +413,15 @@ function PublicStorefront({ navigate }) {
             <span className="ts-mark">TS</span>
             <span className="ts-brandtxt"><strong>Telecom Store</strong><small>New Surplus Telecom Materials</small></span>
           </a>
-          <label className="ts-search">
+          <form className="ts-search" onSubmit={(e) => { e.preventDefault(); document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }); }}>
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by part number, brand, or keyword&hellip;" />
-            <button type="button" onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}><Search size={16} /> Search</button>
-          </label>
+            <button type="submit"><Search size={16} /> Search</button>
+          </form>
           <button className="ts-quotebtn" type="button" onClick={openDrawer}>
             <ShoppingBag size={17} /> Quote <span className="ts-cnt">{cart.length}</span>
+          </button>
+          <button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} title="Warehouse Admin">
+            <Lock size={14} /> Admin
           </button>
         </div>
       </header>
