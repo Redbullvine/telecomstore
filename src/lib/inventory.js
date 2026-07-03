@@ -281,7 +281,47 @@ export async function duplicateProduct(product, userId) {
 export async function hardDeleteProduct(productId) {
   requireSupabase();
 
+  // Best-effort: remove the item's stored image files before the record
+  // (and its product_images rows) disappear, so nothing orphans in storage.
+  try {
+    const [{ data: images }, { data: product }] = await Promise.all([
+      supabase.from("product_images").select("storage_path").eq("product_id", productId),
+      supabase.from("products").select("photo_main, photo_label, photo_extra_1, photo_extra_2").eq("id", productId).maybeSingle()
+    ]);
+
+    const paths = new Set();
+    (images || []).forEach((image) => {
+      if (image.storage_path) paths.add(image.storage_path);
+    });
+    ["photo_main", "photo_label", "photo_extra_1", "photo_extra_2"].forEach((field) => {
+      const path = storagePathFromPublicUrl(product?.[field]);
+      if (path) paths.add(path);
+    });
+
+    if (paths.size) await supabase.storage.from("product-images").remove([...paths]);
+  } catch (cleanupError) {
+    console.warn("Image cleanup during hard delete failed", cleanupError);
+  }
+
   const { error } = await supabase.from("products").delete().eq("id", productId);
+  if (error) throw error;
+}
+
+function storagePathFromPublicUrl(url) {
+  const marker = "/object/public/product-images/";
+  const index = (url || "").indexOf(marker);
+  return index === -1 ? null : decodeURIComponent(url.slice(index + marker.length));
+}
+
+export async function deleteProductImage(image) {
+  requireSupabase();
+
+  if (image.storage_path) {
+    const { error: storageError } = await supabase.storage.from("product-images").remove([image.storage_path]);
+    if (storageError) console.warn("Storage removal failed for", image.storage_path, storageError);
+  }
+
+  const { error } = await supabase.from("product_images").delete().eq("id", image.id);
   if (error) throw error;
 }
 

@@ -45,12 +45,14 @@ import {
   createCategory,
   createStorageLocation,
   deleteCategory,
+  deleteProductImage,
   deleteStorageLocation,
   duplicateProduct,
   fetchActivity,
   fetchAdminProducts,
   fetchCategories,
   fetchProductById,
+  fetchProductImages,
   fetchPublicProducts,
   fetchStorageLocations,
   filterProducts,
@@ -992,6 +994,7 @@ function ProductFormPage({ route, auth, reload, mode }) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [showIntake, setShowIntake] = useState(false);
+  const [productImages, setProductImages] = useState([]);
 
   const handleBarcodeDetected = useCallback((value) => {
     setForm((current) => (current.barcode ? current : { ...current, barcode: value }));
@@ -999,6 +1002,11 @@ function ProductFormPage({ route, auth, reload, mode }) {
   }, []);
 
   const intake = useIntakePhotos({ onBarcodeDetected: handleBarcodeDetected });
+
+  const loadImages = useCallback(() => {
+    if (mode !== "edit" || !productId) return;
+    fetchProductImages(productId).then(setProductImages).catch(console.error);
+  }, [mode, productId]);
 
   useEffect(() => {
     if (mode !== "edit") return;
@@ -1008,7 +1016,18 @@ function ProductFormPage({ route, auth, reload, mode }) {
       .then((product) => setForm(product))
       .catch((error) => setMessage(error.message))
       .finally(() => setLoading(false));
-  }, [mode, productId]);
+    loadImages();
+  }, [mode, productId, loadImages]);
+
+  async function removeProductImage(image) {
+    if (!window.confirm("Remove this photo from the item?")) return;
+    try {
+      await deleteProductImage(image);
+      setProductImages((current) => current.filter((item) => item.id !== image.id));
+    } catch (error) {
+      setMessage(error.message);
+    }
+  }
 
   useEffect(() => {
     return () => Object.values(previews).forEach((url) => URL.revokeObjectURL(url));
@@ -1046,6 +1065,7 @@ function ProductFormPage({ route, auth, reload, mode }) {
       if (uploadedIntake.length) {
         await addProductImages(saved.id, uploadedIntake, auth.session.user.id);
         intake.resetPhotos();
+        loadImages();
       }
       await reload();
       setMessage("Item saved.");
@@ -1124,6 +1144,26 @@ function ProductFormPage({ route, auth, reload, mode }) {
           <PhotoField label="Extra photo 1" field="photo_extra_1" form={form} preview={previews.photo_extra_1} onFile={updateFile} />
           <PhotoField label="Extra photo 2" field="photo_extra_2" form={form} preview={previews.photo_extra_2} onFile={updateFile} />
         </div>
+
+        {mode === "edit" && productImages.length > 0 ? (
+          <div className="intake-section">
+            <div>
+              <strong>All photos on this item ({productImages.length})</strong>
+              <p className="muted">Every photo captured for this item, including intake photos beyond the four slots above.</p>
+            </div>
+            <div className="intake-thumbs">
+              {productImages.map((image) => (
+                <div className="intake-thumb" key={image.id}>
+                  <img src={image.url} alt="Product" loading="lazy" />
+                  <span className="tag">{IMAGE_TYPES.find((type) => type.value === image.image_type)?.label || image.image_type}</span>
+                  <button className="remove-photo" type="button" onClick={() => removeProductImage(image)}>
+                    <Trash2 size={15} /> Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         <div className="form-actions">
           <button className="button secondary" type="button" onClick={() => route.navigate("/admin/inventory")}>Cancel</button>
