@@ -21,6 +21,7 @@ export const PRODUCT_FIELDS = [
   "pallet",
   "short_description",
   "long_description",
+  "label_text",
   "status",
   "photo_main",
   "photo_label",
@@ -71,6 +72,7 @@ export const EMPTY_PRODUCT = {
   pallet: "",
   short_description: "",
   long_description: "",
+  label_text: "",
   status: "draft",
   photo_main: "",
   photo_label: "",
@@ -103,6 +105,7 @@ export function normalizeProduct(product = {}) {
     pallet: valueOrEmpty(product.pallet),
     short_description: valueOrEmpty(product.short_description ?? product.shortDescription),
     long_description: valueOrEmpty(product.long_description ?? details),
+    label_text: valueOrEmpty(product.label_text),
     status,
     photo_main: valueOrEmpty(product.photo_main || product.images?.[0]),
     photo_label: valueOrEmpty(product.photo_label || product.images?.[1]),
@@ -360,6 +363,100 @@ export async function uploadProductImage(file, product, field) {
 
   const { data } = supabase.storage.from("product-images").getPublicUrl(path);
   return data.publicUrl;
+}
+
+export const IMAGE_TYPES = [
+  { value: "label_barcode", label: "Label / Barcode" },
+  { value: "item", label: "Item photo" },
+  { value: "other", label: "Other" }
+];
+
+const IMAGE_TYPE_VALUES = IMAGE_TYPES.map((type) => type.value);
+
+export async function uploadIntakeImage(file, keyHint) {
+  requireSupabase();
+
+  const safeKey = slugify(keyHint || "intake") || "intake";
+  const safeName = slugify(file.name || "photo.jpg") || "photo.jpg";
+  const path = `intake/${safeKey}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
+
+  const { error } = await supabase.storage.from("product-images").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false
+  });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage.from("product-images").getPublicUrl(path);
+  return { path, url: data.publicUrl };
+}
+
+export async function addProductImages(productId, images, userId) {
+  requireSupabase();
+
+  if (!images.length) return [];
+
+  const rows = images.map((image) => ({
+    product_id: productId,
+    url: image.url,
+    storage_path: image.path || null,
+    image_type: IMAGE_TYPE_VALUES.includes(image.type) ? image.type : "item",
+    uploaded_by: userId || null
+  }));
+
+  const { data, error } = await supabase.from("product_images").insert(rows).select();
+  if (error) throw error;
+
+  return data;
+}
+
+export async function fetchProductImages(productId) {
+  requireSupabase();
+
+  const { data, error } = await supabase
+    .from("product_images")
+    .select("*")
+    .eq("product_id", productId)
+    .order("created_at", { ascending: true });
+
+  if (error) throw error;
+  return data;
+}
+
+export async function logActivity(action, product, userId) {
+  requireSupabase();
+
+  const { error } = await supabase.from("inventory_activity").insert({
+    product_id: product.id || null,
+    actor_id: userId || null,
+    action,
+    after_data: {
+      title: product.title || null,
+      sku: product.sku || null,
+      barcode: product.barcode || null,
+      status: product.status || null
+    }
+  });
+
+  if (error) throw error;
+}
+
+// Fills the legacy photo_* columns from uploaded intake images so existing
+// thumbnails and the public storefront keep working. Only empty slots are
+// filled; the full photo set always lives in product_images.
+export function assignPhotoSlots(product, images) {
+  const updated = { ...product };
+
+  images.forEach((image) => {
+    const slots =
+      image.type === "label_barcode"
+        ? ["photo_label", "photo_extra_1", "photo_extra_2"]
+        : ["photo_main", "photo_extra_1", "photo_extra_2"];
+    const slot = slots.find((field) => !updated[field]);
+    if (slot) updated[slot] = image.url;
+  });
+
+  return updated;
 }
 
 export async function importProducts(rows, duplicateMode, currentProducts, userId) {

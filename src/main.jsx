@@ -37,8 +37,11 @@ import {
 } from "lucide-react";
 import {
   EMPTY_PRODUCT,
+  IMAGE_TYPES,
   IMPORT_COLUMNS,
   PRODUCT_STATUSES,
+  addProductImages,
+  assignPhotoSlots,
   createCategory,
   createStorageLocation,
   deleteCategory,
@@ -55,11 +58,14 @@ import {
   getProductCategories,
   hardDeleteProduct,
   importProducts,
+  logActivity,
   normalizeProduct,
   saveProduct,
   updateProductStatus,
+  uploadIntakeImage,
   uploadProductImage
 } from "./lib/inventory";
+import { detectBarcodeFromImage } from "./lib/barcode";
 import { applyColumnMapping, autoMapColumns, findDuplicateRows, parseInventoryFile } from "./lib/importers";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
 import "./styles.css";
@@ -775,6 +781,7 @@ function AdminApp({ route, auth }) {
   if (route.path === "/admin/inventory") page = <InventoryPage {...commonProps} />;
   if (route.path === "/admin/inventory/new") page = <ProductFormPage {...commonProps} mode="new" />;
   if (route.path.match(/^\/admin\/inventory\/[^/]+\/edit$/)) page = <ProductFormPage {...commonProps} mode="edit" />;
+  if (route.path === "/admin/photo-intake") page = <PhotoIntakePage {...commonProps} />;
   if (route.path === "/admin/scan") page = <ScanPage {...commonProps} />;
   if (route.path === "/admin/import") page = <ImportPage {...commonProps} />;
   if (route.path === "/admin/categories") page = <CategoriesPage {...commonProps} />;
@@ -791,6 +798,7 @@ function AdminApp({ route, auth }) {
         <SidebarLink icon={<BarChart3 size={18} />} label="Dashboard" to="/admin" route={route} />
         <SidebarLink icon={<Boxes size={18} />} label="Inventory" to="/admin/inventory" route={route} />
         <SidebarLink icon={<PackagePlus size={18} />} label="Add Item" to="/admin/inventory/new" route={route} />
+        <SidebarLink icon={<Camera size={18} />} label="Photo Intake" to="/admin/photo-intake" route={route} />
         <SidebarLink icon={<QrCode size={18} />} label="Scan Item" to="/admin/scan" route={route} />
         <SidebarLink icon={<FileSpreadsheet size={18} />} label="Bulk Import" to="/admin/import" route={route} />
         <SidebarLink icon={<Layers3 size={18} />} label="Categories" to="/admin/categories" route={route} />
@@ -826,7 +834,7 @@ function SidebarLink({ icon, label, to, route }) {
   );
 }
 
-function DashboardPage({ products, activity, loading }) {
+function DashboardPage({ products, activity, loading, route }) {
   const counts = countByStatus(products);
   const cards = [
     { label: "Inventory count", value: products.length, icon: <Boxes /> },
@@ -849,6 +857,15 @@ function DashboardPage({ products, activity, loading }) {
           </article>
         ))}
       </div>
+      <section className="admin-panel intake-cta">
+        <div>
+          <h2>Add Inventory From Photos</h2>
+          <p>Snap label, barcode, or item photos from your phone and save a draft in seconds - no typing required.</p>
+        </div>
+        <button className="button primary big" type="button" onClick={() => route.navigate("/admin/photo-intake")}>
+          <Camera size={20} /> Add Inventory From Photos
+        </button>
+      </section>
       <section className="admin-panel">
         <div className="panel-heading">
           <h2>Recent inventory activity</h2>
@@ -896,6 +913,7 @@ function InventoryPage({ products, route, auth, reload, loading }) {
         <table className="inventory-table">
           <thead>
             <tr>
+              <th>Photo</th>
               <th>SKU / Barcode</th>
               <th>Title</th>
               <th>Category</th>
@@ -906,8 +924,11 @@ function InventoryPage({ products, route, auth, reload, loading }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((product) => (
+            {filtered.map((product) => {
+              const thumb = product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2;
+              return (
               <tr key={product.id}>
+                <td>{thumb ? <img className="inv-thumb" src={thumb} alt="" loading="lazy" /> : <span className="inv-thumb-empty"><ImageUp size={16} /></span>}</td>
                 <td><strong>{product.sku || "No SKU"}</strong><span>{product.barcode || "No barcode"}</span></td>
                 <td>{product.title}<span>{product.brand}</span></td>
                 <td>{product.category || "Uncategorized"}</td>
@@ -939,7 +960,8 @@ function InventoryPage({ products, route, auth, reload, loading }) {
                   </div>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -962,6 +984,14 @@ function ProductFormPage({ route, auth, reload, mode }) {
   const [loading, setLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [showIntake, setShowIntake] = useState(false);
+
+  const handleBarcodeDetected = useCallback((value) => {
+    setForm((current) => (current.barcode ? current : { ...current, barcode: value }));
+    setMessage(`Barcode detected: ${value}. Review or edit it before saving.`);
+  }, []);
+
+  const intake = useIntakePhotos({ onBarcodeDetected: handleBarcodeDetected });
 
   useEffect(() => {
     if (mode !== "edit") return;
@@ -1002,7 +1032,14 @@ function ProductFormPage({ route, auth, reload, mode }) {
         }
       }
 
+      const uploadedIntake = await uploadIntakePhotos(intake.photos, payload.sku || payload.barcode || "add-item");
+      payload = assignPhotoSlots(payload, uploadedIntake);
+
       const saved = await saveProduct(payload, auth.session.user.id);
+      if (uploadedIntake.length) {
+        await addProductImages(saved.id, uploadedIntake, auth.session.user.id);
+        intake.resetPhotos();
+      }
       await reload();
       setMessage("Item saved.");
       route.navigate(`/admin/inventory/${saved.id}/edit`);
@@ -1059,6 +1096,18 @@ function ProductFormPage({ route, auth, reload, mode }) {
           <span>Long description</span>
           <textarea name="long_description" value={form.long_description} onChange={updateField} rows="6" />
         </label>
+        <label className="full-field">
+          <span>Label text / notes</span>
+          <textarea name="label_text" value={form.label_text} onChange={updateField} rows="3" placeholder="Type or paste text from the label here..." />
+        </label>
+
+        <div className="intake-section">
+          <button className="button secondary intake-btn" type="button" onClick={() => setShowIntake((current) => !current)}>
+            <Camera size={18} /> Add photos / scan label {showIntake ? <X size={16} /> : null}
+          </button>
+          {showIntake ? <IntakePhotoBoard intake={intake} disabled={saving} /> : null}
+          {showIntake && intake.detectMessage ? <p className="warning-banner">{intake.detectMessage}</p> : null}
+        </div>
 
         <div className="photo-grid">
           <PhotoField label="Main photo" field="photo_main" form={form} preview={previews.photo_main} onFile={updateFile} />
@@ -1091,24 +1140,308 @@ function PhotoField({ label, field, form, preview, onFile }) {
   );
 }
 
+let intakePhotoKey = 0;
+
+function useIntakePhotos({ onBarcodeDetected } = {}) {
+  const [photos, setPhotos] = useState([]);
+  const [detectMessage, setDetectMessage] = useState("");
+  const photosRef = useRef([]);
+
+  useEffect(() => {
+    photosRef.current = photos;
+  }, [photos]);
+
+  useEffect(() => {
+    return () => photosRef.current.forEach((photo) => URL.revokeObjectURL(photo.url));
+  }, []);
+
+  const addPhotos = useCallback(
+    async (files, type) => {
+      const next = files.map((file) => ({
+        key: `intake-${++intakePhotoKey}`,
+        file,
+        url: URL.createObjectURL(file),
+        type,
+        detecting: true
+      }));
+      setPhotos((current) => [...current, ...next]);
+
+      let found = "";
+      for (const photo of next) {
+        const value = found ? null : await detectBarcodeFromImage(photo.file);
+        setPhotos((current) => current.map((item) => (item.key === photo.key ? { ...item, detecting: false } : item)));
+        if (value && !found) {
+          found = value;
+          onBarcodeDetected?.(value);
+        }
+      }
+
+      if (found) {
+        setDetectMessage("");
+      } else if (type === "label_barcode") {
+        setDetectMessage("No barcode detected. You can type it manually or save as draft.");
+      }
+    },
+    [onBarcodeDetected]
+  );
+
+  const retagPhoto = useCallback((key, type) => {
+    setPhotos((current) => current.map((photo) => (photo.key === key ? { ...photo, type } : photo)));
+  }, []);
+
+  const removePhoto = useCallback((key) => {
+    setPhotos((current) => {
+      const target = current.find((photo) => photo.key === key);
+      if (target) URL.revokeObjectURL(target.url);
+      return current.filter((photo) => photo.key !== key);
+    });
+  }, []);
+
+  const resetPhotos = useCallback(() => {
+    setPhotos((current) => {
+      current.forEach((photo) => URL.revokeObjectURL(photo.url));
+      return [];
+    });
+    setDetectMessage("");
+  }, []);
+
+  return { photos, addPhotos, retagPhoto, removePhoto, resetPhotos, detectMessage, setDetectMessage };
+}
+
+async function uploadIntakePhotos(photos, keyHint) {
+  const uploaded = [];
+  for (const photo of photos) {
+    const stored = await uploadIntakeImage(photo.file, keyHint);
+    uploaded.push({ ...stored, type: photo.type });
+  }
+  return uploaded;
+}
+
+function IntakePhotoBoard({ intake, disabled }) {
+  const labelInputRef = useRef(null);
+  const barcodeInputRef = useRef(null);
+  const itemInputRef = useRef(null);
+  const uploadInputRef = useRef(null);
+
+  function handleFiles(event, type) {
+    const files = Array.from(event.target.files || []);
+    if (files.length) intake.addPhotos(files, type);
+    event.target.value = "";
+  }
+
+  return (
+    <div className="intake-board">
+      <div className="intake-buttons">
+        <button className="button primary intake-btn" type="button" disabled={disabled} onClick={() => labelInputRef.current?.click()}>
+          <Camera size={20} /> Take Label Photo
+        </button>
+        <button className="button primary intake-btn" type="button" disabled={disabled} onClick={() => barcodeInputRef.current?.click()}>
+          <QrCode size={20} /> Take Barcode Photo
+        </button>
+        <button className="button primary intake-btn" type="button" disabled={disabled} onClick={() => itemInputRef.current?.click()}>
+          <Camera size={20} /> Take Item Photo
+        </button>
+        <button className="button secondary intake-btn" type="button" disabled={disabled} onClick={() => uploadInputRef.current?.click()}>
+          <Upload size={20} /> Upload Saved Photos
+        </button>
+      </div>
+      <input ref={labelInputRef} className="intake-hidden-input" type="file" accept="image/*" capture="environment" onChange={(event) => handleFiles(event, "label_barcode")} />
+      <input ref={barcodeInputRef} className="intake-hidden-input" type="file" accept="image/*" capture="environment" onChange={(event) => handleFiles(event, "label_barcode")} />
+      <input ref={itemInputRef} className="intake-hidden-input" type="file" accept="image/*" capture="environment" onChange={(event) => handleFiles(event, "item")} />
+      <input ref={uploadInputRef} className="intake-hidden-input" type="file" accept="image/*" multiple onChange={(event) => handleFiles(event, "item")} />
+
+      {intake.photos.length > 0 ? (
+        <div className="intake-thumbs">
+          {intake.photos.map((photo) => (
+            <div className="intake-thumb" key={photo.key}>
+              <img src={photo.url} alt="Intake" />
+              {photo.detecting ? <span className="tag">Scanning for barcode&hellip;</span> : null}
+              <select value={photo.type} aria-label="Photo type" onChange={(event) => intake.retagPhoto(photo.key, event.target.value)}>
+                {IMAGE_TYPES.map((type) => (
+                  <option key={type.value} value={type.value}>{type.label}</option>
+                ))}
+              </select>
+              <button className="remove-photo" type="button" onClick={() => intake.removePhoto(photo.key)}>
+                <Trash2 size={15} /> Remove
+              </button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="empty-state">No photos yet. Take a photo with the camera or upload saved photos from your device.</p>
+      )}
+    </div>
+  );
+}
+
+const PHOTO_INTAKE_FORM = { title: "", sku: "", barcode: "", label_text: "", quantity_available: "1" };
+
+function PhotoIntakePage({ auth, route, reload }) {
+  const [form, setForm] = useState(PHOTO_INTAKE_FORM);
+  const [message, setMessage] = useState("");
+  const [messageTone, setMessageTone] = useState("notice");
+  const [savedItem, setSavedItem] = useState(null);
+  const [saving, setSaving] = useState(false);
+
+  const handleBarcodeDetected = useCallback((value) => {
+    setForm((current) => (current.barcode ? current : { ...current, barcode: value }));
+    setMessage(`Barcode detected: ${value}. Review or edit it before saving.`);
+    setMessageTone("notice");
+  }, []);
+
+  const intake = useIntakePhotos({ onBarcodeDetected: handleBarcodeDetected });
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  }
+
+  async function save(nextStatus) {
+    if (!intake.photos.length && !form.barcode.trim() && !form.sku.trim() && !form.title.trim()) {
+      setMessage("Add at least one photo, or enter a barcode, SKU, or title, before saving.");
+      setMessageTone("warning");
+      return;
+    }
+
+    setSaving(true);
+    setMessage("");
+
+    try {
+      const userId = auth.session.user.id;
+      const uploaded = await uploadIntakePhotos(intake.photos, form.sku.trim() || form.barcode.trim() || "photo-intake");
+
+      let payload = {
+        ...EMPTY_PRODUCT,
+        title: form.title.trim() || "Photo intake item",
+        sku: form.sku.trim(),
+        barcode: form.barcode.trim(),
+        label_text: form.label_text,
+        quantity_available: form.quantity_available === "" ? "1" : form.quantity_available,
+        status: nextStatus
+      };
+      payload = assignPhotoSlots(payload, uploaded);
+
+      const saved = await saveProduct(payload, userId);
+      if (uploaded.length) await addProductImages(saved.id, uploaded, userId);
+      try {
+        await logActivity("photo-intake", saved, userId);
+      } catch (logError) {
+        console.warn("photo-intake activity log failed", logError);
+      }
+
+      await reload();
+      intake.resetPhotos();
+      setForm(PHOTO_INTAKE_FORM);
+      setSavedItem(saved);
+      setMessage(`Saved ${nextStatus === "available" ? "as Available" : "as Draft"}: ${saved.title}`);
+      setMessageTone("notice");
+    } catch (error) {
+      setMessage(error.message);
+      setMessageTone("error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const messageClass = messageTone === "notice" ? "notice" : messageTone === "warning" ? "warning-banner" : "error-banner";
+
+  return (
+    <div className="admin-page">
+      {message ? <p className={messageClass}>{message}</p> : null}
+      {intake.detectMessage ? <p className="warning-banner">{intake.detectMessage}</p> : null}
+      {savedItem ? (
+        <div className="intake-saved">
+          <span>Last saved: <strong>{savedItem.title}</strong> ({savedItem.status})</span>
+          <button className="button small secondary" type="button" onClick={() => route.navigate(`/admin/inventory/${savedItem.id}/edit`)}>Open item</button>
+        </div>
+      ) : null}
+
+      <section className="admin-panel">
+        <div className="panel-heading">
+          <div>
+            <h2>Add inventory from photos</h2>
+            <p>Take label, barcode, or item photos - or upload saved photos. Nothing else is required to save a photo-only draft.</p>
+          </div>
+          <Camera size={32} />
+        </div>
+        <IntakePhotoBoard intake={intake} disabled={saving} />
+      </section>
+
+      <section className="admin-panel">
+        <div className="panel-heading">
+          <div>
+            <h2>Item details (all optional)</h2>
+            <p>Fill in anything you know now. Drafts can be completed later from the Inventory page.</p>
+          </div>
+        </div>
+        <div className="form-grid">
+          <TextField label="Barcode / UPC" name="barcode" value={form.barcode} onChange={updateField} />
+          <TextField label="Suggested part number / SKU" name="sku" value={form.sku} onChange={updateField} />
+          <TextField label="Title / name" name="title" value={form.title} onChange={updateField} />
+          <TextField label="Quantity" name="quantity_available" type="number" value={form.quantity_available} onChange={updateField} />
+        </div>
+        <label className="full-field">
+          <span>Label text / notes</span>
+          <textarea name="label_text" rows="4" value={form.label_text} onChange={updateField} placeholder="Type or paste text from the label here..." />
+        </label>
+        <div className="form-actions">
+          <button className="button secondary intake-btn" type="button" disabled={saving} onClick={() => save("draft")}>
+            {saving ? <Loader2 className="spin" size={18} /> : <ClipboardList size={18} />} Save Draft
+          </button>
+          <button className="button primary intake-btn" type="button" disabled={saving} onClick={() => save("available")}>
+            {saving ? <Loader2 className="spin" size={18} /> : <CheckCircle2 size={18} />} Save as Available
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function ScanPage({ auth, route, products, reload }) {
   const [scanValue, setScanValue] = useState("");
   const [message, setMessage] = useState("");
   const [cameraMessage, setCameraMessage] = useState("");
   const [cameraActive, setCameraActive] = useState(false);
+  const [pendingPhoto, setPendingPhoto] = useState(null);
+  const [photoBusy, setPhotoBusy] = useState(false);
   const inputRef = useRef(null);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const controlsRef = useRef(null);
   const rafRef = useRef(null);
   const handlingRef = useRef(false);
+  const pendingPhotoRef = useRef(null);
+  const photoTakeRef = useRef(null);
+  const photoUploadRef = useRef(null);
+
+  useEffect(() => {
+    pendingPhotoRef.current = pendingPhoto;
+  }, [pendingPhoto]);
 
   useEffect(() => {
     inputRef.current?.focus();
-    return () => stopCamera();
+    return () => {
+      stopCamera();
+      if (pendingPhotoRef.current) URL.revokeObjectURL(pendingPhotoRef.current.url);
+    };
   }, []);
 
-  async function handleScan(value) {
+  function clearPendingPhoto() {
+    setPendingPhoto((current) => {
+      if (current) URL.revokeObjectURL(current.url);
+      return null;
+    });
+  }
+
+  async function attachBarcodePhoto(product, file) {
+    const uploaded = await uploadIntakeImage(file, product.sku || product.barcode || "scan");
+    await addProductImages(product.id, [{ ...uploaded, type: "label_barcode" }], auth.session.user.id);
+    if (!product.photo_label) {
+      await saveProduct({ ...product, photo_label: uploaded.url }, auth.session.user.id);
+    }
+  }
+
+  async function handleScan(value, photoFile) {
     const scanned = value.trim();
     if (!scanned || handlingRef.current) return;
 
@@ -1118,6 +1451,11 @@ function ScanPage({ auth, route, products, reload }) {
     try {
       const matches = await findProductByScan(scanned);
       if (matches.length > 0) {
+        if (photoFile) {
+          setMessage("Duplicate found. Attaching barcode photo to the existing item...");
+          await attachBarcodePhoto(matches[0], photoFile);
+          clearPendingPhoto();
+        }
         setMessage("Duplicate found. Opening the existing item.");
         route.navigate(`/admin/inventory/${matches[0].id}/edit?duplicate=1`);
         return;
@@ -1134,6 +1472,11 @@ function ScanPage({ auth, route, products, reload }) {
         auth.session.user.id
       );
 
+      if (photoFile) {
+        await attachBarcodePhoto(draft, photoFile);
+        clearPendingPhoto();
+      }
+
       await reload();
       route.navigate(`/admin/inventory/${draft.id}/edit?created=1`);
     } catch (error) {
@@ -1141,6 +1484,29 @@ function ScanPage({ auth, route, products, reload }) {
     } finally {
       handlingRef.current = false;
       stopCamera();
+    }
+  }
+
+  async function handleBarcodePhoto(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    setPhotoBusy(true);
+    setMessage("Checking the photo for a barcode...");
+    setPendingPhoto((current) => {
+      if (current) URL.revokeObjectURL(current.url);
+      return { file, url: URL.createObjectURL(file) };
+    });
+
+    const value = await detectBarcodeFromImage(file);
+    setPhotoBusy(false);
+
+    if (value) {
+      setScanValue(value);
+      handleScan(value, file);
+    } else {
+      setMessage("No barcode detected. You can type it manually or save as draft. The photo will be attached when you search or create the item.");
     }
   }
 
@@ -1204,7 +1570,7 @@ function ScanPage({ auth, route, products, reload }) {
           className="scan-form"
           onSubmit={(event) => {
             event.preventDefault();
-            handleScan(scanValue);
+            handleScan(scanValue, pendingPhoto?.file);
           }}
         >
           <label>
@@ -1217,9 +1583,28 @@ function ScanPage({ auth, route, products, reload }) {
         <div className="camera-box">
           <video ref={videoRef} muted playsInline />
           <div className="camera-actions">
-            <button className="button secondary" type="button" onClick={cameraActive ? stopCamera : startCamera}><Camera size={18} /> {cameraActive ? "Stop camera" : "Start camera scan"}</button>
+            <button className="button secondary" type="button" onClick={cameraActive ? stopCamera : startCamera}><Camera size={18} /> {cameraActive ? "Stop camera" : "Scan Barcode (live camera)"}</button>
           </div>
         </div>
+
+        <div className="intake-buttons">
+          <button className="button primary intake-btn" type="button" disabled={photoBusy} onClick={() => photoTakeRef.current?.click()}>
+            <Camera size={20} /> Take Barcode Photo
+          </button>
+          <button className="button secondary intake-btn" type="button" disabled={photoBusy} onClick={() => photoUploadRef.current?.click()}>
+            <Upload size={20} /> Upload Barcode Photo
+          </button>
+        </div>
+        <input ref={photoTakeRef} className="intake-hidden-input" type="file" accept="image/*" capture="environment" onChange={handleBarcodePhoto} />
+        <input ref={photoUploadRef} className="intake-hidden-input" type="file" accept="image/*" onChange={handleBarcodePhoto} />
+
+        {pendingPhoto ? (
+          <div className="scan-pending">
+            <img src={pendingPhoto.url} alt="Barcode" />
+            <span>Photo ready. It will be attached to the item found or created next.</span>
+            <button className="remove-photo" type="button" onClick={clearPendingPhoto}><Trash2 size={15} /> Remove</button>
+          </div>
+        ) : null}
 
         {message ? <p className="notice">{message}</p> : null}
         {cameraMessage ? <p className="warning-banner">{cameraMessage}</p> : null}
@@ -1577,6 +1962,7 @@ function adminTitle(path) {
   if (path === "/admin") return "Dashboard";
   if (path === "/admin/inventory") return "Inventory";
   if (path === "/admin/inventory/new") return "Add Item";
+  if (path === "/admin/photo-intake") return "Photo Intake";
   if (path.includes("/edit")) return "Edit Item";
   if (path === "/admin/scan") return "Scan Item";
   if (path === "/admin/import") return "Bulk Import";
