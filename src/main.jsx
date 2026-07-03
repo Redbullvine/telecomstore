@@ -837,11 +837,11 @@ function SidebarLink({ icon, label, to, route }) {
 function DashboardPage({ products, activity, loading, route }) {
   const counts = countByStatus(products);
   const cards = [
-    { label: "Inventory count", value: products.length, icon: <Boxes /> },
-    { label: "Available", value: counts.available, icon: <CheckCircle2 /> },
-    { label: "Hold", value: counts.hold, icon: <PauseCircle /> },
-    { label: "Sold", value: counts.sold, icon: <ShoppingBag /> },
-    { label: "Draft", value: counts.draft, icon: <ClipboardList /> }
+    { label: "Inventory count", value: products.length, icon: <Boxes />, to: "/admin/inventory" },
+    { label: "Available", value: counts.available, icon: <CheckCircle2 />, to: "/admin/inventory?status=available" },
+    { label: "Hold", value: counts.hold, icon: <PauseCircle />, to: "/admin/inventory?status=hold" },
+    { label: "Sold", value: counts.sold, icon: <ShoppingBag />, to: "/admin/inventory?status=sold" },
+    { label: "Draft", value: counts.draft, icon: <ClipboardList />, to: "/admin/inventory?status=draft" }
   ];
 
   if (loading) return <LoadingState label="Loading dashboard" />;
@@ -850,19 +850,25 @@ function DashboardPage({ products, activity, loading, route }) {
     <div className="admin-page">
       <div className="dashboard-grid">
         {cards.map((card) => (
-          <article className="metric-card" key={card.label}>
+          <button className="metric-card" type="button" key={card.label} onClick={() => route.navigate(card.to)}>
             {React.cloneElement(card.icon, { size: 24 })}
             <span>{card.label}</span>
             <strong>{card.value}</strong>
-          </article>
+          </button>
         ))}
       </div>
-      <section className="admin-panel intake-cta">
+      <section
+        className="admin-panel intake-cta clickable"
+        role="button"
+        tabIndex={0}
+        onClick={() => route.navigate("/admin/photo-intake")}
+        onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") route.navigate("/admin/photo-intake"); }}
+      >
         <div>
           <h2>Add Inventory From Photos</h2>
           <p>Snap label, barcode, or item photos from your phone and save a draft in seconds - no typing required.</p>
         </div>
-        <button className="button primary big" type="button" onClick={() => route.navigate("/admin/photo-intake")}>
+        <button className="button primary big" type="button" onClick={(event) => { event.stopPropagation(); route.navigate("/admin/photo-intake"); }}>
           <Camera size={20} /> Add Inventory From Photos
         </button>
       </section>
@@ -877,9 +883,10 @@ function DashboardPage({ products, activity, loading, route }) {
 }
 
 function InventoryPage({ products, route, auth, reload, loading }) {
+  const statusParam = route.params.get("status");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [status, setStatus] = useState("All");
+  const [status, setStatus] = useState(PRODUCT_STATUSES.includes(statusParam) ? statusParam : "All");
   const [busyId, setBusyId] = useState("");
 
   const categories = useMemo(() => ["All", ...getProductCategories(products)], [products]);
@@ -1080,12 +1087,14 @@ function ProductFormPage({ route, auth, reload, mode }) {
           <TextField label="Rack" name="rack" value={form.rack} onChange={updateField} />
           <TextField label="Shelf" name="shelf" value={form.shelf} onChange={updateField} />
           <TextField label="Pallet" name="pallet" value={form.pallet} onChange={updateField} />
-          <label>
-            <span>Status</span>
-            <select name="status" value={form.status} onChange={updateField}>
-              {PRODUCT_STATUSES.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
+          {mode === "edit" ? (
+            <label>
+              <span>Status</span>
+              <select name="status" value={form.status} onChange={updateField}>
+                {PRODUCT_STATUSES.map((item) => <option key={item} value={item}>{item}</option>)}
+              </select>
+            </label>
+          ) : null}
         </div>
 
         <label className="full-field">
@@ -1118,8 +1127,14 @@ function ProductFormPage({ route, auth, reload, mode }) {
 
         <div className="form-actions">
           <button className="button secondary" type="button" onClick={() => route.navigate("/admin/inventory")}>Cancel</button>
-          <button className="button secondary" type="button" disabled={saving} onClick={() => submit("draft")}><ClipboardList size={18} /> Save draft</button>
-          <button className="button primary" type="button" disabled={saving} onClick={() => submit("available")}><CheckCircle2 size={18} /> Publish available</button>
+          {mode === "edit" ? (
+            <>
+              <button className="button secondary" type="button" disabled={saving} onClick={() => submit("draft")}><ClipboardList size={18} /> Save draft</button>
+              <button className="button primary" type="button" disabled={saving} onClick={() => submit("available")}><CheckCircle2 size={18} /> Publish available</button>
+            </>
+          ) : (
+            <button className="button primary" type="button" disabled={saving} onClick={() => submit("draft")}><ClipboardList size={18} /> Save Item (draft)</button>
+          )}
         </div>
       </section>
     </div>
@@ -1282,6 +1297,7 @@ function PhotoIntakePage({ auth, route, reload }) {
   const [messageTone, setMessageTone] = useState("notice");
   const [savedItem, setSavedItem] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleBarcodeDetected = useCallback((value) => {
     setForm((current) => (current.barcode ? current : { ...current, barcode: value }));
@@ -1296,7 +1312,8 @@ function PhotoIntakePage({ auth, route, reload }) {
     setForm((current) => ({ ...current, [name]: value }));
   }
 
-  async function save(nextStatus) {
+  async function save() {
+    const nextStatus = "draft";
     if (!intake.photos.length && !form.barcode.trim() && !form.sku.trim() && !form.title.trim()) {
       setMessage("Add at least one photo, or enter a barcode, SKU, or title, before saving.");
       setMessageTone("warning");
@@ -1332,9 +1349,11 @@ function PhotoIntakePage({ auth, route, reload }) {
       await reload();
       intake.resetPhotos();
       setForm(PHOTO_INTAKE_FORM);
+      setShowDetails(false);
       setSavedItem(saved);
-      setMessage(`Saved ${nextStatus === "available" ? "as Available" : "as Draft"}: ${saved.title}`);
+      setMessage(`Draft saved: ${saved.title}. Ready for the next item.`);
       setMessageTone("notice");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       setMessage(error.message);
       setMessageTone("error");
@@ -1360,39 +1379,44 @@ function PhotoIntakePage({ auth, route, reload }) {
         <div className="panel-heading">
           <div>
             <h2>Add inventory from photos</h2>
-            <p>Take label, barcode, or item photos - or upload saved photos. Nothing else is required to save a photo-only draft.</p>
+            <p>Take photos, hit save, move to the next item. Everything saves as a draft - review and publish later from the office.</p>
           </div>
           <Camera size={32} />
         </div>
         <IntakePhotoBoard intake={intake} disabled={saving} />
+        <button className="button primary intake-btn intake-save" type="button" disabled={saving} onClick={save}>
+          {saving ? <Loader2 className="spin" size={20} /> : <ClipboardList size={20} />} {saving ? "Saving..." : "Save Draft - Next Item"}
+        </button>
+        <button className="button secondary" type="button" onClick={() => setShowDetails((current) => !current)}>
+          {showDetails ? "Hide details" : "Add details (optional)"}
+        </button>
       </section>
 
-      <section className="admin-panel">
-        <div className="panel-heading">
-          <div>
-            <h2>Item details (all optional)</h2>
-            <p>Fill in anything you know now. Drafts can be completed later from the Inventory page.</p>
+      {showDetails ? (
+        <section className="admin-panel">
+          <div className="panel-heading">
+            <div>
+              <h2>Item details (all optional)</h2>
+              <p>Fill in anything you know now. Drafts can be completed later from the Inventory page.</p>
+            </div>
           </div>
-        </div>
-        <div className="form-grid">
-          <TextField label="Barcode / UPC" name="barcode" value={form.barcode} onChange={updateField} />
-          <TextField label="Suggested part number / SKU" name="sku" value={form.sku} onChange={updateField} />
-          <TextField label="Title / name" name="title" value={form.title} onChange={updateField} />
-          <TextField label="Quantity" name="quantity_available" type="number" value={form.quantity_available} onChange={updateField} />
-        </div>
-        <label className="full-field">
-          <span>Label text / notes</span>
-          <textarea name="label_text" rows="4" value={form.label_text} onChange={updateField} placeholder="Type or paste text from the label here..." />
-        </label>
-        <div className="form-actions">
-          <button className="button secondary intake-btn" type="button" disabled={saving} onClick={() => save("draft")}>
-            {saving ? <Loader2 className="spin" size={18} /> : <ClipboardList size={18} />} Save Draft
-          </button>
-          <button className="button primary intake-btn" type="button" disabled={saving} onClick={() => save("available")}>
-            {saving ? <Loader2 className="spin" size={18} /> : <CheckCircle2 size={18} />} Save as Available
-          </button>
-        </div>
-      </section>
+          <div className="form-grid">
+            <TextField label="Barcode / UPC" name="barcode" value={form.barcode} onChange={updateField} />
+            <TextField label="Suggested part number / SKU" name="sku" value={form.sku} onChange={updateField} />
+            <TextField label="Title / name" name="title" value={form.title} onChange={updateField} />
+            <TextField label="Quantity" name="quantity_available" type="number" value={form.quantity_available} onChange={updateField} />
+          </div>
+          <label className="full-field">
+            <span>Label text / notes</span>
+            <textarea name="label_text" rows="4" value={form.label_text} onChange={updateField} placeholder="Type or paste text from the label here..." />
+          </label>
+          <div className="form-actions">
+            <button className="button primary intake-btn" type="button" disabled={saving} onClick={save}>
+              {saving ? <Loader2 className="spin" size={18} /> : <ClipboardList size={18} />} Save Draft - Next Item
+            </button>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
