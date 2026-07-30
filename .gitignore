@@ -4,3 +4,41 @@ dist
 .DS_Store
 .netlify
 telecomstore-baintu-starter-pack.zip
+
+# Local inventory source material and generated thumbnails
+/telecom_material/
+/telecom_material_thumb/
+
+# Local mail and inventory archives
+*.pst
+/telecom_material.zip
+/telecom_material (2).zip
+
+# OCR and HEIC conversion/debug images
+/stream_[0-9]*.jpg
+/.tmp_ocr_test.jpg
+/.tmp_ocr_again.jpg
+/20260108_201909823_converted.jpg
+/20260108_201909823_hq.jpg
+/20260108_fullres.jpg
+/20260108_stream45.jpg
+/20260108_tilegrid.jpg
+
+# Unverified local inventory/OCR working datasets
+/part_numbers_raw.json
+/part_numbers.csv
+/part_numbers1.csv
+/telecom_material_part_numbers_review.csv
+/docs/telecom-material-part-number-ocr.csv
+/docs/telecom-material-part-number-unique.csv
+/docs/telecom-material-review-needed.csv
+/docs/telecom-material-import-draft.csv
+
+# Local rollback/safety backup
+/safety-tadaah-studio-removal-20260620-063229.patch
+
+# One-off local OCR debugger (uses a machine-specific temporary image path)
+/scripts/debug-ocr-one.ps1
+
+# Redundant local copy; the tracked Vite static asset is public/tts_logo.png
+/src/assets/tts_logo.png

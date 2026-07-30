@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead Forms | Telecom Store</title>
+    <style>
+      :root { color: #14201d; background: #f4f6f4; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      body { margin: 0; }
+      main { width: min(980px, 100%); margin: 0 auto; padding: 28px 18px 52px; }
+      h1 { margin: 0 0 8px; font-size: 34px; }
+      p { color: #5b6472; line-height: 1.55; }
+      section { display: grid; gap: 16px; margin-top: 20px; }
+      form { display: grid; gap: 12px; padding: 18px; background: #ffffff; border: 1px solid #e3e8e4; border-radius: 8px; }
+      h2 { margin: 0; font-size: 22px; }
+      label { display: grid; gap: 6px; color: #5b6472; font-size: 13px; font-weight: 800; }
+      input, select, textarea { width: 100%; min-height: 42px; padding: 9px 11px; color: #14201d; background: #ffffff; border: 1px solid #d4ded9; border-radius: 6px; font: inherit; box-sizing: border-box; }
+      textarea { min-height: 96px; }
+      button, .back { min-height: 42px; padding: 0 16px; color: #ffffff; background: #c8182e; border: 0; border-radius: 7px; font-weight: 800; text-decoration: none; cursor: pointer; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+      @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="/">Back to Telecom Store</a>
+      <h1>Telecom Store lead forms</h1>
+      <p>Use these forms if your browser is not running the interactive storefront.</p>
+
+      <section>
+        <form name="quote-request" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quote-request" />
+          <input type="hidden" name="page_url" value="/lead-forms.html" />
+          <input type="hidden" name="landing_page_url" value="/lead-forms.html" />
+          <input type="hidden" name="document_referrer" value="" />
+          <input type="hidden" name="lead_source" value="static_fallback" />
+          <input type="hidden" name="utm_source" value="" />
+          <input type="hidden" name="utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" value="" />
+          <input type="hidden" name="utm_term" value="" />
+          <input type="hidden" name="utm_content" value="" />
+          <input type="hidden" name="ref" value="" />
+          <input type="hidden" name="selected_items" value="" />
+          <input type="hidden" name="selected_item_count" value="0" />
+          <p class="honeypot"><label>Do not fill this out <input name="bot-field" /></label></p>
+          <h2>Request Quote</h2>
+          <div class="grid">
+            <label>Name <input name="name" required /></label>
+            <label>Company <input name="company" /></label>
+            <label>Email <input name="email" type="email" /></label>
+            <label>Phone <input name="phone" type="tel" /></label>
+            <label>Preferred contact method <select name="preferred_contact"><option>Email</option><option>Phone</option><option>Text</option></select></label>
+            <label>Project location <input name="project_location" /></label>
+          </div>
+          <label>Items / notes <textarea name="message" required></textarea></label>
+          <button type="submit">Send Quote Request</button>
+        </form>
+
+        <form name="item-inquiry" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="item-inquiry" />
+          <input type="hidden" name="page_url" value="/lead-forms.html" />
+          <input type="hidden" name="landing_page_url" value="/lead-forms.html" />
+          <input type="hidden" name="document_referrer" value="" />
+          <input type="hidden" name="lead_source" value="static_fallback" />
+          <input type="hidden" name="utm_source" value="" />
+          <input type="hidden" name="utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" value="" />
+          <input type="hidden" name="utm_term" value="" />
+          <input type="hidden" name="utm_content" value="" />
+          <input type="hidden" name="ref" value="" />
+          <input type="hidden" name="selected_items" value="" />
+          <input type="hidden" name="selected_item_count" value="0" />
+          <p class="honeypot"><label>Do not fill this out <input name="bot-field" /></label></p>
+          <h2>Ask About an Item</h2>
+          <div class="grid">
+            <label>Part number / SKU <input name="part_number" /></label>
+            <label>Quantity <input name="quantity" type="number" min="1" /></label>
+            <label>Name <input name="name" required /></label>
+            <label>Company <input name="company" /></label>
+            <label>Email <input name="email" type="email" /></label>
+            <label>Phone <input name="phone" type="tel" /></label>
+            <label>Preferred contact method <select name="preferred_contact"><option>Email</option><option>Phone</option><option>Text</option></select></label>
+          </div>
+          <label>Message / notes <textarea name="message"></textarea></label>
+          <button type="submit">Send Item Inquiry</button>
+        </form>
+
+        <form name="sell-equipment" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="sell-equipment" />
+          <input type="hidden" name="page_url" value="/lead-forms.html" />
+          <input type="hidden" name="landing_page_url" value="/lead-forms.html" />
+          <input type="hidden" name="document_referrer" value="" />
+          <input type="hidden" name="lead_source" value="static_fallback" />
+          <input type="hidden" name="utm_source" value="" />
+          <input type="hidden" name="utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" value="" />
+          <input type="hidden" name="utm_term" value="" />
+          <input type="hidden" name="utm_content" value="" />
+          <input type="hidden" name="ref" value="" />
+          <input type="hidden" name="selected_items" value="" />
+          <input type="hidden" name="selected_item_count" value="0" />
+          <p class="honeypot"><label>Do not fill this out <input name="bot-field" /></label></p>
+          <h2>Sell Us Equipment</h2>
+          <div class="grid">
+            <label>Equipment type <input name="equipment_type" /></label>
+            <label>Brand / manufacturer <input name="brand_manufacturer" /></label>
+            <label>Part number / SKU <input name="part_number" /></label>
+            <label>Quantity <input name="quantity" type="number" min="1" /></label>
+            <label>Condition <input name="condition" /></label>
+            <label>Name <input name="name" required /></label>
+            <label>Company <input name="company" /></label>
+            <label>Email <input name="email" type="email" /></label>
+            <label>Phone <input name="phone" type="tel" /></label>
+            <label>Preferred contact method <select name="preferred_contact"><option>Email</option><option>Phone</option><option>Text</option></select></label>
+          </div>
+          <label><input name="photos_available" type="checkbox" value="Yes" /> I have photos available</label>
+          <label>Message / notes <textarea name="message"></textarea></label>
+          <button type="submit">Send Equipment Details</button>
+        </form>
+
+        <form name="buyer-list" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="buyer-list" />
+          <input type="hidden" name="page_url" value="/lead-forms.html" />
+          <input type="hidden" name="landing_page_url" value="/lead-forms.html" />
+          <input type="hidden" name="document_referrer" value="" />
+          <input type="hidden" name="lead_source" value="static_fallback" />
+          <input type="hidden" name="utm_source" value="" />
+          <input type="hidden" name="utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" value="" />
+          <input type="hidden" name="utm_term" value="" />
+          <input type="hidden" name="utm_content" value="" />
+          <input type="hidden" name="ref" value="" />
+          <input type="hidden" name="selected_items" value="" />
+          <input type="hidden" name="selected_item_count" value="0" />
+          <p class="honeypot"><label>Do not fill this out <input name="bot-field" /></label></p>
+          <h2>Join the Buyer List</h2>
+          <div class="grid">
+            <label>Name <input name="name" required /></label>
+            <label>Company <input name="company" /></label>
+            <label>Email <input name="email" type="email" /></label>
+            <label>Phone <input name="phone" type="tel" /></label>
+            <label>Preferred contact method <select name="preferred_contact"><option>Email</option><option>Phone</option><option>Text</option></select></label>
+            <label>Regions served <input name="regions_served" /></label>
+          </div>
+          <label>What they buy <textarea name="what_they_buy"></textarea></label>
+          <label>Message / notes <textarea name="message"></textarea></label>
+          <button type="submit">Join Buyer List</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -15,6 +15,8 @@ Production build:
 npm run build
 ```
 
+Analytics, Search Console verification, event locations, and safe test instructions are documented in [`docs/ANALYTICS-AND-SEARCH.md`](docs/ANALYTICS-AND-SEARCH.md).
+
 Netlify build settings:
 
 ```text

@@ -9,7 +9,6 @@ import {
   ClipboardList,
   Copy,
   Edit3,
-  Eye,
   FileSpreadsheet,
   Filter,
   Home,
@@ -27,11 +26,13 @@ import {
   Plus,
   QrCode,
   Search,
+  Send,
   ShieldAlert,
   ShieldCheck,
   ShoppingBag,
   Trash2,
   Upload,
+  UserPlus,
   Warehouse,
   X
 } from "lucide-react";
@@ -70,24 +71,58 @@ import {
 import { detectBarcodeFromImage } from "./lib/barcode";
 import { applyColumnMapping, autoMapColumns, findDuplicateRows, parseInventoryFile } from "./lib/importers";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
+import {
+  initAnalytics,
+  installLinkTracking,
+  productAnalyticsParams,
+  sanitizeSearchTerm,
+  trackEvent,
+  trackPageView
+} from "./lib/analytics.mjs";
+import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
+const QUOTE_BASKET_KEY = "telecomstore.quoteBasket.v1";
+const ATTRIBUTION_KEY = "telecomstore.attribution.v1";
+const NETLIFY_FORM_ENDPOINT = "/__forms.html";
+const NETLIFY_SUCCESS_PATH = "/thank-you";
+const ATTRIBUTION_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "ref"];
 const QUOTE_FORM = {
   name: "",
   company: "",
   email: "",
   phone: "",
-  sku: "",
-  quantity: "",
-  projectLocation: "",
-  needBy: "",
-  notes: ""
+  preferred_contact: "email",
+  project_location: "",
+  need_by: "",
+  message: ""
+};
+const LEAD_FORM_DEFAULTS = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  preferred_contact: "email",
+  message: "",
+  quantity: "1",
+  part_number: "",
+  item_name: "",
+  equipment_type: "",
+  brand_manufacturer: "",
+  condition: "",
+  photos_available: false,
+  what_they_buy: "",
+  regions_served: ""
 };
 
 function App() {
   const route = useRoute();
   const auth = useAuth();
+
+  useEffect(() => {
+    trackPageView(`${route.path}${route.search}`);
+  }, [route.path, route.search]);
 
   if (route.path === "/login") {
     return <LoginPage auth={auth} navigate={route.navigate} />;
@@ -334,6 +369,164 @@ function priceLabel(product) {
   return product.price_note || "Request quote";
 }
 
+function readStoredJson(key, fallback) {
+  try {
+    const raw = window.localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStoredJson(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Storage can be unavailable in private browsing; forms still work without it.
+  }
+}
+
+function readQuoteBasket() {
+  const items = readStoredJson(QUOTE_BASKET_KEY, []);
+  return Array.isArray(items) ? items : [];
+}
+
+function readAttribution() {
+  const stored = readStoredJson(ATTRIBUTION_KEY, {});
+  return stored && typeof stored === "object" ? stored : {};
+}
+
+function captureAttribution() {
+  const params = new URLSearchParams(window.location.search);
+  const next = { ...readAttribution() };
+
+  ATTRIBUTION_FIELDS.forEach((field) => {
+    const value = params.get(field);
+    if (value) next[field] = value;
+  });
+
+  if (!next.document_referrer && document.referrer) next.document_referrer = document.referrer;
+  if (!next.landing_page_url) next.landing_page_url = window.location.href;
+  next.last_page_url = window.location.href;
+
+  writeStoredJson(ATTRIBUTION_KEY, next);
+  return next;
+}
+
+function trackLeadEvent(eventName, details = {}) {
+  trackEvent(eventName, {
+    event_category: "lead",
+    ...details
+  });
+}
+
+function productItemKey(product = {}) {
+  return product.sku || product.barcode || product.id || `${product.brand || ""}-${product.title || product.short_description || ""}`;
+}
+
+function productLeadItem(product = {}, qty = 1, notes = "") {
+  return {
+    key: productItemKey(product),
+    name: product.short_description || product.title || product.sku || "Telecom material",
+    sku: product.sku || product.barcode || "",
+    brand: product.brand || "",
+    category: product.category || "",
+    condition: product.condition || "",
+    price: priceLabel(product),
+    qty: Math.max(1, Number(qty) || 1),
+    notes,
+    page_url: window.location.href
+  };
+}
+
+function serializeLeadItems(items = []) {
+  return JSON.stringify(
+    items.map((item) => ({
+      name: item.name,
+      sku: item.sku,
+      brand: item.brand,
+      category: item.category,
+      condition: item.condition,
+      price: item.price,
+      quantity: item.qty || item.quantity || "",
+      notes: item.notes || "",
+      page_url: item.page_url || window.location.href
+    }))
+  );
+}
+
+function formDataToSearchParams(formData) {
+  const params = new URLSearchParams();
+  for (const [key, value] of formData.entries()) {
+    params.append(key, value);
+  }
+  return params;
+}
+
+async function submitNetlifyForm(formData) {
+  const response = await fetch(NETLIFY_FORM_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: formDataToSearchParams(formData).toString()
+  });
+
+  if (!response.ok) {
+    throw new Error("Netlify did not accept the form submission.");
+  }
+}
+
+function leadSubmitEvent(formName) {
+  return {
+    "quote-request": "quote_form_submit",
+    "item-inquiry": "item_inquiry_submit",
+    "sell-equipment": "sell_equipment_submit",
+    "buyer-list": "buyer_list_submit"
+  }[formName];
+}
+
+function validateLeadForm(form) {
+  const formData = new FormData(form);
+  const name = String(formData.get("name") || "").trim();
+  const email = String(formData.get("email") || "").trim();
+  const phone = String(formData.get("phone") || "").trim();
+
+  if (!name) return "Please add your name so we know who to reply to.";
+  if (!email && !phone) return "Please add an email or phone number so we can follow up.";
+  return "";
+}
+
+function leadFallbackMessage() {
+  return `If this keeps happening, email ${CONTACT_CONFIG.email}.`;
+}
+
+function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], leadSource = "" }) {
+  const items = selectedItems.length ? selectedItems : item ? [item] : [];
+
+  return (
+    <>
+      <input type="hidden" name="form-name" value={formName} />
+      <p className="ts-honeypot" aria-hidden="true">
+        <label>Do not fill this out<input name="bot-field" tabIndex="-1" autoComplete="off" /></label>
+      </p>
+      <input type="hidden" name="page_url" value={window.location.href} />
+      <input type="hidden" name="landing_page_url" value={attribution.landing_page_url || window.location.href} />
+      <input type="hidden" name="document_referrer" value={attribution.document_referrer || ""} />
+      <input type="hidden" name="lead_source" value={leadSource} />
+      {ATTRIBUTION_FIELDS.map((field) => (
+        <input key={field} type="hidden" name={field} value={attribution[field] || ""} />
+      ))}
+      <input type="hidden" name="selected_items" value={serializeLeadItems(items)} />
+      <input type="hidden" name="selected_item_count" value={String(items.length)} />
+      <input type="hidden" name="item_name" value={item?.name || ""} />
+      <input type="hidden" name="item_sku" value={item?.sku || ""} />
+      <input type="hidden" name="item_category" value={item?.category || ""} />
+      <input type="hidden" name="item_condition" value={item?.condition || ""} />
+      <input type="hidden" name="item_price" value={item?.price || ""} />
+      <input type="hidden" name="item_page_url" value={item?.page_url || ""} />
+    </>
+  );
+}
+
 function PublicStorefront({ navigate }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -341,13 +534,44 @@ function PublicStorefront({ navigate }) {
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("brand");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => readQuoteBasket());
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerStage, setDrawerStage] = useState("list");
   const [quoteForm, setQuoteForm] = useState(QUOTE_FORM);
+  const [leadModal, setLeadModal] = useState(null);
+  const [toast, setToast] = useState("");
+  const [attribution, setAttribution] = useState(() => readAttribution());
 
   useEffect(() => {
     fetchPublicProducts().then(setProducts).finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    setAttribution(captureAttribution());
+  }, []);
+
+  useEffect(() => {
+    writeStoredJson(QUOTE_BASKET_KEY, cart);
+  }, [cart]);
+
+  useEffect(() => {
+    if (loading) return;
+    trackEvent("category_view", {
+      category: category === "All" ? "all_products" : category,
+      item_count: filtered.length
+    });
+  }, [category, loading]);
+
+  useEffect(() => {
+    if (!selectedProduct) return;
+    trackEvent("product_view", productAnalyticsParams(selectedProduct));
+  }, [selectedProduct]);
+
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = window.setTimeout(() => setToast(""), 4200);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
 
   const cats = useMemo(() => getProductCategories(products), [products]);
   const orderedCats = useMemo(() => {
@@ -372,29 +596,79 @@ function PublicStorefront({ navigate }) {
     return list;
   }, [products, query, category, sort]);
 
-  const inCart = useCallback((sku) => cart.find((i) => i.sku === sku), [cart]);
+  const inCart = useCallback((product) => cart.find((i) => i.key === productItemKey(product)), [cart]);
 
-  function addToCart(product, qty = 1) {
-    setCart((cur) => {
-      const existing = cur.find((i) => i.sku === product.sku);
-      if (existing) return cur.map((i) => i.sku === product.sku ? { ...i, qty } : i);
-      return [...cur, { sku: product.sku || product.barcode, brand: product.brand, title: product.short_description || product.title, category: product.category, qty }];
+  function addToQuote(product, qty = 1, source = "product_card") {
+    const item = productLeadItem(product, qty);
+    setCart((current) => {
+      const existing = current.find((i) => i.key === item.key);
+      if (existing) {
+        return current.map((i) => i.key === item.key ? { ...i, qty: Math.max(1, Number(i.qty) || 1) + item.qty } : i);
+      }
+      return [...current, item];
     });
+    trackLeadEvent("lead_cta_click", { source, form: "quote-request", sku: item.sku });
+    trackLeadEvent("quote_add_item", { source, sku: item.sku, category: item.category });
+    trackLeadEvent("quote_modal_open", { source, quote_items: cart.length + 1 });
+    setToast(`${item.name} added to your Quote List.`);
+    setDrawerStage("list");
+    setDrawerOpen(true);
   }
-  function removeFromCart(sku) { setCart((cur) => cur.filter((i) => i.sku !== sku)); }
-  function openDrawer() { setDrawerOpen(true); }
+
+  function removeFromCart(key) {
+    setCart((current) => current.filter((item) => item.key !== key));
+  }
+
+  function updateQuoteItem(key, patch) {
+    setCart((current) => current.map((item) => {
+      if (item.key !== key) return item;
+      const next = { ...item, ...patch };
+      if ("qty" in patch) next.qty = Math.max(1, Number(patch.qty) || 1);
+      return next;
+    }));
+  }
+
+  function openQuoteDrawer(stage = "list", source = "quote_button") {
+    trackLeadEvent("lead_cta_click", { source, form: "quote-request" });
+    trackLeadEvent("quote_modal_open", { source, quote_items: cart.length });
+    setDrawerStage(stage);
+    setDrawerOpen(true);
+  }
+
+  function openLeadModal(type, product = null, source = "lead_cta", extra = {}) {
+    const item = product ? productLeadItem(product) : null;
+    trackLeadEvent("lead_cta_click", { source, form: type, sku: item?.sku || "" });
+    setLeadModal({ type, item, source, ...extra });
+  }
+
+  function handleEmailClick(source) {
+    trackLeadEvent("lead_cta_click", { source, form: "email" });
+  }
+
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    const searchTerm = sanitizeSearchTerm(query);
+    if (searchTerm) {
+      trackEvent("site_search", {
+        search_term: searchTerm,
+        category: category === "All" ? "all_products" : category,
+        result_count: filtered.length
+      });
+    }
+    document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function openProductDetails(product) {
+    trackEvent("product_click", {
+      ...productAnalyticsParams(product),
+      source: "product_card"
+    });
+    setSelectedProduct(product);
+  }
 
   function selectCategory(cat) {
     setCategory(cat);
     window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
-  }
-
-  function submitQuote(event) {
-    event.preventDefault();
-    const lines = ["Please send pricing and availability for the following parts:", ""];
-    cart.forEach((i) => lines.push(`- ${i.qty} x  ${i.brand || ""} ${i.sku}  (${i.title || ""})`));
-    lines.push("", `Name: ${quoteForm.name}`, `Company: ${quoteForm.company}`, `Email: ${quoteForm.email}`, `Phone: ${quoteForm.phone}`, `Project location: ${quoteForm.projectLocation}`, `Need-by date: ${quoteForm.needBy}`, "", "Notes:", quoteForm.notes);
-    window.location.href = buildMailto(`Telecom Store quote request (${cart.length} part${cart.length === 1 ? "" : "s"})`, lines);
   }
 
   return (
@@ -404,7 +678,7 @@ function PublicStorefront({ navigate }) {
           <nav className="ts-ulinks">
             <a href="/" onClick={(e) => { e.preventDefault(); selectCategory("All"); }}>Home</a>
             <a href="#catalog">Catalog</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); openDrawer(); }}>Request a Quote</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openQuoteDrawer("form", "top_nav"); }}>Request a Quote</a>
             <a href="#contact">Contact</a>
           </nav>
           <div className="ts-ubadges">
@@ -421,12 +695,12 @@ function PublicStorefront({ navigate }) {
             <span className="ts-mark">TS</span>
             <span className="ts-brandtxt"><strong>Telecom Store</strong><small>New Surplus Telecom Materials</small></span>
           </a>
-          <form className="ts-search" onSubmit={(e) => { e.preventDefault(); document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }); }}>
+          <form className="ts-search" onSubmit={handleSearchSubmit}>
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by part number, brand, or keyword&hellip;" />
             <button type="submit"><Search size={16} /> Search</button>
           </form>
-          <button className="ts-quotebtn" type="button" onClick={openDrawer}>
-            <ShoppingBag size={17} /> Quote <span className="ts-cnt">{cart.length}</span>
+          <button className="ts-quotebtn" type="button" onClick={() => openQuoteDrawer("list", "header_quote_list")}>
+            <ShoppingBag size={17} /> Quote List <span className="ts-cnt">{cart.length}</span>
           </button>
           <button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} title="Warehouse Admin">
             <Lock size={14} /> Admin
@@ -448,10 +722,10 @@ function PublicStorefront({ navigate }) {
           <div>
             <p className="ts-eyebrow">Outside Plant &bull; Copper &bull; Fiber</p>
             <h1>Warehouse-stock telecom materials,<br /><em>priced by the SKU.</em></h1>
-            <p className="ts-herocopy">New surplus closures, terminals, splice cases, strand hardware, and fiber components from the brands field crews trust. Find your part number and request a quote in minutes.</p>
+            <p className="ts-herocopy">Need telecom material fast? Request a quote by SKU, quantity, or photo-ready notes and we will reply with pricing, availability, and freight options.</p>
             <div className="ts-herocta">
-              <a className="ts-btn-pri" href="#catalog">Browse the catalog</a>
-              <button className="ts-btn-ghost" type="button" onClick={openDrawer}>Request a quote</button>
+              <button className="ts-btn-pri" type="button" onClick={() => openQuoteDrawer("form", "hero_request_quote")}>Need telecom material fast? Request a quote.</button>
+              <a className="ts-btn-ghost" href="#catalog">Browse the catalog</a>
             </div>
           </div>
           <div className="ts-herostats">
@@ -484,15 +758,33 @@ function PublicStorefront({ navigate }) {
             </select>
           </div>
 
+          <div className="ts-search-lead">
+            <div>
+              <strong>Don&apos;t see the part number?</strong>
+              <span>Send us what you need and we will check current warehouse stock.</span>
+            </div>
+            <button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button>
+          </div>
+
           {loading ? <LoadingState label="Loading inventory" /> : null}
           {!loading && filtered.length === 0 ? (
-            <div className="ts-empty"><b>No parts match that search.</b>Try a part number, a brand like 3M or Corning, or browse a category above.</div>
+            <div className="ts-empty">
+              <b>No parts match that search.</b>
+              <span>Send us the part number and we will check inventory manually.</span>
+              <button type="button" onClick={() => openLeadModal("item-inquiry", null, "empty_search", { query })}>Send us the part number</button>
+            </div>
           ) : null}
 
           <div className="ts-grid">
             {filtered.map((product) => (
-              <StoreProductCard key={product.id || product.sku} product={product} added={Boolean(inCart(product.sku))}
-                onDetails={() => setSelectedProduct(product)} onAdd={() => { addToCart(product, 1); }} />
+              <StoreProductCard
+                key={product.id || product.sku}
+                product={product}
+                added={Boolean(inCart(product))}
+                onDetails={() => openProductDetails(product)}
+                onAdd={() => addToQuote(product, 1, "product_card")}
+                onAsk={() => openLeadModal("item-inquiry", product, "product_card")}
+              />
             ))}
           </div>
         </div>
@@ -503,7 +795,11 @@ function PublicStorefront({ navigate }) {
           <div>
             <div className="ts-fbrand">Telecom Store</div>
             <p>New surplus, warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
-            <p>Quotes: <a href="mailto:sales@telecomstore.net">sales@telecomstore.net</a></p>
+            <p>Quotes: <a href={contactEmailHref()} onClick={() => handleEmailClick("footer")}>{CONTACT_CONFIG.email}</a></p>
+            <div className="ts-foot-cta">
+              <strong>Looking for bulk telecom material?</strong>
+              <button type="button" onClick={() => openLeadModal("buyer-list", null, "footer_buyer_list")}>Join the buyer list</button>
+            </div>
           </div>
           <div>
             <h5>Shop</h5>
@@ -511,27 +807,61 @@ function PublicStorefront({ navigate }) {
           </div>
           <div>
             <h5>Service</h5>
-            <a href="#" onClick={(e) => { e.preventDefault(); openDrawer(); }}>Request a Quote</a>
-            <a href="mailto:sales@telecomstore.net">Contact Us</a>
+            <button className="ts-footlink" type="button" onClick={() => openQuoteDrawer("form", "footer_service")}>Request a Quote</button>
+            <button className="ts-footlink" type="button" onClick={() => openLeadModal("sell-equipment", null, "footer_service")}>Sell Us Equipment</button>
+            <a href={contactEmailHref("Telecom Store inquiry")} onClick={() => handleEmailClick("footer_service")}>Contact Us</a>
             <a href="/login" onClick={(e) => handleNavClick(e, navigate, "/login")}>Admin Login</a>
           </div>
-          <p className="ts-legal">Telecom Store is operated by <strong>Fatanett, LLC</strong>. Inventory is new surplus / warehouse stock; quantities limited and sold as-is per quote. Brand names are the property of their respective owners.</p>
+          <p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Inventory is new surplus / warehouse stock; quantities limited and sold as-is per quote. Brand names are the property of their respective owners.</p>
         </div>
       </footer>
 
+      <LeadCtaBar
+        quoteCount={cart.length}
+        onQuote={() => openQuoteDrawer("form", "sticky_lead_bar")}
+        onAsk={() => openLeadModal("item-inquiry", null, "sticky_lead_bar")}
+        onSell={() => openLeadModal("sell-equipment", null, "sticky_lead_bar")}
+      />
+
       {selectedProduct ? (
-        <StoreProductModal product={selectedProduct} added={Boolean(inCart(selectedProduct.sku))}
+        <StoreProductModal
+          product={selectedProduct}
+          added={Boolean(inCart(selectedProduct))}
           onClose={() => setSelectedProduct(null)}
-          onAdd={(qty) => { addToCart(selectedProduct, qty); setSelectedProduct(null); openDrawer(); }} />
+          onAdd={(qty) => { addToQuote(selectedProduct, qty, "product_detail"); setSelectedProduct(null); }}
+          onAsk={() => { openLeadModal("item-inquiry", selectedProduct, "product_detail"); setSelectedProduct(null); }}
+        />
       ) : null}
 
-      <QuoteTray open={drawerOpen} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={removeFromCart}
-        quoteForm={quoteForm} setQuoteForm={setQuoteForm} onSubmit={submitQuote} clearCart={() => setCart([])} />
+      <QuoteTray
+        open={drawerOpen}
+        initialStage={drawerStage}
+        cart={cart}
+        onClose={() => setDrawerOpen(false)}
+        onRemove={removeFromCart}
+        onUpdateItem={updateQuoteItem}
+        quoteForm={quoteForm}
+        setQuoteForm={setQuoteForm}
+        attribution={attribution}
+        clearCart={() => setCart([])}
+        onToast={setToast}
+      />
+
+      {leadModal ? (
+        <LeadFormModal
+          lead={leadModal}
+          attribution={attribution}
+          onClose={() => setLeadModal(null)}
+          onSuccess={setToast}
+        />
+      ) : null}
+
+      {toast ? <div className="ts-toast" role="status">{toast}</div> : null}
     </main>
   );
 }
 
-function StoreProductCard({ product, added, onDetails, onAdd }) {
+function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
   return (
     <article className="ts-card">
       <div className="ts-thumb-wrap">
@@ -539,12 +869,13 @@ function StoreProductCard({ product, added, onDetails, onAdd }) {
         <StoreImage product={product} />
       </div>
       <div className="ts-cbody">
-        <p className="ts-cbrand">{product.brand || "Telecom Store"}</p>
+        <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
         <h3 className="ts-cname">{product.short_description || product.title}</h3>
         <p className="ts-csku">{product.sku || product.barcode}</p>
-        <p className="ts-cqty">Qty available: <b>{product.quantity_available || "—"}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
+        <p className="ts-cqty">Qty available: <b>{product.quantity_available || "Verify"}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
         <div className="ts-cact">
-          <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "Added \u2713" : "Add to Quote"}</button>
+          <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In Quote List" : "Add to Quote"}</button>
+          <button className="ts-ask" type="button" onClick={onAsk}>Ask About This Item</button>
           <button className="ts-det" type="button" onClick={onDetails}>Details</button>
         </div>
       </div>
@@ -552,18 +883,30 @@ function StoreProductCard({ product, added, onDetails, onAdd }) {
   );
 }
 
-function StoreProductModal({ product, added, onClose, onAdd }) {
+function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
   const [qty, setQty] = useState(1);
+  const closeRef = useRef(null);
+  const titleId = `product-title-${product.id || productItemKey(product)}`;
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const handleKey = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
   return (
     <div className="ts-backdrop" role="presentation" onClick={onClose}>
-      <section className="ts-modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+      <section className="ts-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={(e) => e.stopPropagation()}>
         <div className="ts-mimg">
-          <button className="ts-mclose" type="button" aria-label="Close" onClick={onClose}><X size={19} /></button>
+          <button ref={closeRef} className="ts-mclose" type="button" aria-label="Close" onClick={onClose}><X size={19} /></button>
           <StoreImage product={product} large />
         </div>
         <div className="ts-mbody">
-          <p className="ts-cbrand">{product.brand || "Telecom Store"}</p>
-          <h2>{product.short_description || product.title}</h2>
+          <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
+          <h2 id={titleId}>{product.short_description || product.title}</h2>
           <div className="ts-kv"><span>Part No.</span><b className="ts-mono">{product.sku || product.barcode}</b></div>
           <div className="ts-kv"><span>Category</span><b>{product.category || "Uncategorized"}</b></div>
           <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{product.condition || "New Surplus"}</b></div>
@@ -572,64 +915,290 @@ function StoreProductModal({ product, added, onClose, onAdd }) {
           <p className="ts-mdesc">{product.long_description || product.title}</p>
           <div className="ts-qrow">
             <div className="ts-stepper">
-              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))}>&minus;</button>
-              <input value={qty} onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))} />
-              <button type="button" onClick={() => setQty((q) => q + 1)}>+</button>
+              <button type="button" aria-label="Decrease quantity" onClick={() => setQty((q) => Math.max(1, q - 1))}>&minus;</button>
+              <input aria-label="Quantity" value={qty} onChange={(e) => setQty(Math.max(1, parseInt(e.target.value, 10) || 1))} />
+              <button type="button" aria-label="Increase quantity" onClick={() => setQty((q) => q + 1)}>+</button>
             </div>
             <span className="ts-quotenote">Pricing provided by quote</span>
           </div>
-          <button className="ts-addbtn" type="button" onClick={() => onAdd(qty)}>{added ? "Update Quote Request" : "Add to Quote Request"}</button>
+          <button className="ts-addbtn" type="button" onClick={() => onAdd(qty)}>{added ? "Update Quote List" : "Add to Quote"}</button>
+          <button className="ts-askwide" type="button" onClick={onAsk}>Ask About This Item</button>
         </div>
       </section>
     </div>
   );
 }
 
-function QuoteTray({ open, cart, onClose, onRemove, quoteForm, setQuoteForm, onSubmit, clearCart }) {
-  const [stage, setStage] = useState("list");
-  useEffect(() => { if (open) setStage("list"); }, [open]);
-  function updateField(e) { const { name, value } = e.target; setQuoteForm((cur) => ({ ...cur, [name]: value })); }
+function LeadCtaBar({ quoteCount, onQuote, onAsk, onSell }) {
+  return (
+    <div className="ts-leadbar" aria-label="Lead actions">
+      <button type="button" onClick={onQuote}><ClipboardList size={17} /> <span>Request Quote</span>{quoteCount ? <b>{quoteCount}</b> : null}</button>
+      <button type="button" onClick={onAsk}><Mail size={17} /> <span>Ask About an Item</span></button>
+      <button type="button" onClick={onSell}><PackagePlus size={17} /> <span>Sell Us Equipment</span></button>
+    </div>
+  );
+}
+
+function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, quoteForm, setQuoteForm, attribution, clearCart, onToast }) {
+  const [stage, setStage] = useState(initialStage || "list");
+  const [status, setStatus] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const closeRef = useRef(null);
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    setStage(initialStage || "list");
+    setStatus(null);
+    window.requestAnimationFrame(() => {
+      (initialStage === "form" ? firstInputRef.current : closeRef.current)?.focus();
+    });
+    const handleKey = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [initialStage, open]);
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setQuoteForm((current) => ({ ...current, [name]: value }));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const validation = validateLeadForm(event.currentTarget);
+    if (validation) {
+      setStatus({ type: "error", message: validation });
+      return;
+    }
+
+    setBusy(true);
+    setStatus(null);
+    try {
+      const formData = new FormData(event.currentTarget);
+      await submitNetlifyForm(formData);
+      trackLeadEvent("quote_form_submit", { source: "quote_tray", quote_items: cart.length });
+      trackEvent("quote_request", {
+        source: "quote_tray",
+        item_count: cart.length,
+        product_id: cart[0]?.sku || cart[0]?.key || "",
+        product_name: cart[0]?.name || "",
+        category: cart[0]?.category || ""
+      });
+      clearCart();
+      setQuoteForm(QUOTE_FORM);
+      setStage("success");
+      setStatus({ type: "success", message: "Quote request sent. We will reply with pricing and availability." });
+      onToast("Quote request sent.");
+    } catch (error) {
+      setStatus({ type: "error", message: `${error.message} ${leadFallbackMessage()}` });
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <>
       <div className={open ? "ts-scrim on" : "ts-scrim"} onClick={onClose} />
-      <aside className={open ? "ts-drawer on" : "ts-drawer"}>
-        <div className="ts-dhead"><h4>Quote Request</h4><button type="button" onClick={onClose}><X size={20} /></button></div>
+      <aside className={open ? "ts-drawer on" : "ts-drawer"} aria-label="Quote List" aria-hidden={!open}>
+        <div className="ts-dhead"><h4>Quote List</h4><button ref={closeRef} type="button" aria-label="Close Quote List" onClick={onClose}><X size={20} /></button></div>
 
-        {cart.length === 0 ? (
-          <div className="ts-dempty">Your quote request is empty.<br /><br />Add parts from the catalog and send them over — we’ll reply with pricing and availability.</div>
+        {stage === "success" ? (
+          <div className="ts-dempty"><b>Request sent.</b><br /><br />We will review the details and reply with pricing, availability, and freight options.</div>
         ) : stage === "list" ? (
           <>
-            <div className="ts-ditems">
-              {cart.map((i) => (
-                <div className="ts-qitem" key={i.sku}>
-                  <span className="ts-qg" style={{ background: hexToRgba(catColor(i.category), 0.1) }}><CatGlyph category={i.category} size={24} /></span>
-                  <div className="ts-qn"><b>{i.title}</b><span className="ts-mono">{i.sku}</span></div>
-                  <span className="ts-qq">x{i.qty}</span>
-                  <button className="ts-rm" type="button" onClick={() => onRemove(i.sku)}>Remove</button>
-                </div>
-              ))}
-            </div>
+            {cart.length === 0 ? (
+              <div className="ts-dempty">
+                Your Quote List is empty.<br /><br />Add catalog parts or send us the part numbers you need.
+                <button className="ts-req" type="button" onClick={() => setStage("form")}>Tell us what you need</button>
+              </div>
+            ) : (
+              <div className="ts-ditems">
+                {cart.map((item) => (
+                  <div className="ts-qitem" key={item.key}>
+                    <span className="ts-qg" style={{ background: hexToRgba(catColor(item.category), 0.1) }}><CatGlyph category={item.category} size={24} /></span>
+                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span></div>
+                    <label className="ts-mini-field">
+                      <span>Qty</span>
+                      <input type="number" min="1" value={item.qty || 1} onChange={(event) => onUpdateItem(item.key, { qty: event.target.value })} />
+                    </label>
+                    <button className="ts-rm" type="button" onClick={() => onRemove(item.key)}>Remove</button>
+                    <label className="ts-item-note">
+                      <span>Item notes</span>
+                      <textarea rows="2" value={item.notes || ""} onChange={(event) => onUpdateItem(item.key, { notes: event.target.value })} placeholder="Quantity breaks, substitutions, timing, or freight notes" />
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="ts-dfoot">
-              <p className="ts-dnote">No payment is taken here. Send your list and we’ll reply with pricing, availability, and freight.</p>
-              <button className="ts-req" type="button" onClick={() => setStage("form")}>Continue ({cart.length})</button>
+              <p className="ts-dnote">No payment is taken here. Send your list and we will reply with pricing, availability, and freight.</p>
+              <button className="ts-req" type="button" onClick={() => setStage("form")}>Continue ({cart.length || "manual"})</button>
             </div>
           </>
         ) : (
-          <form className="ts-dform" onSubmit={onSubmit}>
-            <p className="ts-formcount">{cart.length} part{cart.length === 1 ? "" : "s"} on this request.</p>
-            <label>Name</label><input name="name" value={quoteForm.name} onChange={updateField} autoComplete="name" />
-            <label>Company</label><input name="company" value={quoteForm.company} onChange={updateField} autoComplete="organization" />
-            <label>Email</label><input name="email" type="email" value={quoteForm.email} onChange={updateField} autoComplete="email" />
-            <label>Phone</label><input name="phone" type="tel" value={quoteForm.phone} onChange={updateField} autoComplete="tel" />
-            <label>Project location</label><input name="projectLocation" value={quoteForm.projectLocation} onChange={updateField} />
-            <label>Notes</label><textarea name="notes" rows="3" value={quoteForm.notes} onChange={updateField} />
-            <button className="ts-req" type="submit"><Mail size={16} /> Send Quote Request</button>
-            <button className="ts-back" type="button" onClick={() => setStage("list")}>&larr; Back to list</button>
+          <form className="ts-dform" name="quote-request" method="POST" action={NETLIFY_SUCCESS_PATH} data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}>
+            <NetlifyHiddenFields formName="quote-request" attribution={attribution} selectedItems={cart} leadSource="quote_tray" />
+            <p className="ts-formcount">{cart.length ? `${cart.length} part${cart.length === 1 ? "" : "s"} on this request.` : "Send part numbers, quantities, or a short material list."}</p>
+            <LeadContactFields form={quoteForm} onChange={updateField} firstInputRef={firstInputRef} />
+            <label><span>Project location</span><input name="project_location" value={quoteForm.project_location} onChange={updateField} autoComplete="shipping address-level2" /></label>
+            <label><span>Need-by date</span><input name="need_by" type="date" value={quoteForm.need_by} onChange={updateField} /></label>
+            <label><span>Message / notes</span><textarea name="message" rows="4" value={quoteForm.message} onChange={updateField} placeholder="Part numbers, quantities, substitutions, freight details, or timing" /></label>
+            {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
+            <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Send size={16} />} Send Quote Request</button>
+            <button className="ts-back" type="button" onClick={() => setStage("list")}>Back to list</button>
           </form>
         )}
       </aside>
     </>
+  );
+}
+
+function LeadItemSummary({ item }) {
+  if (!item) return null;
+  return (
+    <div className="ts-lead-item">
+      <span className="ts-qg" style={{ background: hexToRgba(catColor(item.category), 0.1) }}><CatGlyph category={item.category} size={24} /></span>
+      <div>
+        <strong>{item.name}</strong>
+        <span className="ts-mono">{item.sku || "No SKU"} &bull; {item.category || "Uncategorized"} &bull; {item.price}</span>
+      </div>
+    </div>
+  );
+}
+
+function LeadContactFields({ form, onChange, firstInputRef }) {
+  return (
+    <div className="ts-form-grid">
+      <label><span>Name</span><input ref={firstInputRef} name="name" value={form.name} onChange={onChange} autoComplete="name" required /></label>
+      <label><span>Company</span><input name="company" value={form.company} onChange={onChange} autoComplete="organization" /></label>
+      <label><span>Email</span><input name="email" type="email" value={form.email} onChange={onChange} autoComplete="email" /></label>
+      <label><span>Phone</span><input name="phone" type="tel" value={form.phone} onChange={onChange} autoComplete="tel" /></label>
+      <label><span>Preferred contact method</span><select name="preferred_contact" value={form.preferred_contact} onChange={onChange}>
+        <option value="email">Email</option>
+        <option value="phone">Phone call</option>
+        <option value="text">Text</option>
+      </select></label>
+    </div>
+  );
+}
+
+function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
+  const item = lead.item;
+  const formName = lead.type;
+  const closeRef = useRef(null);
+  const firstInputRef = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [form, setForm] = useState(() => ({
+    ...LEAD_FORM_DEFAULTS,
+    part_number: item?.sku || lead.query || "",
+    item_name: item?.name || "",
+    brand_manufacturer: item?.brand || "",
+    condition: item?.condition || "",
+    message: lead.query ? `I am looking for: ${lead.query}` : ""
+  }));
+
+  const title = {
+    "item-inquiry": item ? "Ask About This Item" : "Ask About an Item",
+    "sell-equipment": "Sell Us Equipment",
+    "buyer-list": "Join the Buyer List"
+  }[formName];
+  const titleId = `lead-${formName}-title`;
+
+  useEffect(() => {
+    window.requestAnimationFrame(() => (firstInputRef.current || closeRef.current)?.focus());
+    const handleKey = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  function updateField(event) {
+    const { name, type, checked, value } = event.target;
+    setForm((current) => ({ ...current, [name]: type === "checkbox" ? checked : value }));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const validation = validateLeadForm(event.currentTarget);
+    if (validation) {
+      setStatus({ type: "error", message: validation });
+      return;
+    }
+
+    setBusy(true);
+    setStatus(null);
+    try {
+      const formData = new FormData(event.currentTarget);
+      if (formName === "sell-equipment") {
+        formData.set("photos_available", form.photos_available ? "Yes" : "No");
+      }
+      await submitNetlifyForm(formData);
+      const submitEvent = leadSubmitEvent(formName);
+      if (submitEvent) trackLeadEvent(submitEvent, { source: lead.source, sku: item?.sku || "", form: formName });
+      setStatus({ type: "success", message: "Thanks. Your request was sent." });
+      onSuccess("Lead form sent.");
+    } catch (error) {
+      setStatus({ type: "error", message: `${error.message} ${leadFallbackMessage()}` });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="ts-backdrop" role="presentation" onClick={onClose}>
+      <section className="ts-lead-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={(event) => event.stopPropagation()}>
+        <div className="ts-lead-head">
+          <div>
+            <p className="ts-eyebrow">Telecom Store lead request</p>
+            <h2 id={titleId}>{title}</h2>
+          </div>
+          <button ref={closeRef} className="ts-mclose" type="button" aria-label="Close" onClick={onClose}><X size={19} /></button>
+        </div>
+
+        <form name={formName} method="POST" action={NETLIFY_SUCCESS_PATH} data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}>
+          <NetlifyHiddenFields formName={formName} attribution={attribution} item={item} leadSource={lead.source} />
+          {item ? <LeadItemSummary item={item} /> : null}
+          {item ? <input type="hidden" name="part_number" value={form.part_number} /> : null}
+          {formName === "item-inquiry" && !item ? (
+            <div className="ts-form-grid">
+              <label><span>Part number / SKU</span><input name="part_number" value={form.part_number} onChange={updateField} placeholder="Example: 80-6110-4831-7" /></label>
+              <label><span>Item name / description</span><input name="item_name" value={form.item_name} onChange={updateField} placeholder="Closure, terminal, module, tool..." /></label>
+            </div>
+          ) : null}
+
+          {formName === "sell-equipment" ? (
+            <div className="ts-form-grid">
+              <label><span>Equipment type</span><input name="equipment_type" value={form.equipment_type} onChange={updateField} placeholder="Closures, terminals, modules, cable hardware..." /></label>
+              <label><span>Brand / manufacturer</span><input name="brand_manufacturer" value={form.brand_manufacturer} onChange={updateField} /></label>
+              <label><span>Part number / SKU</span><input name="part_number" value={form.part_number} onChange={updateField} /></label>
+              <label><span>Quantity</span><input name="quantity" type="number" min="1" value={form.quantity} onChange={updateField} /></label>
+              <label><span>Condition</span><input name="condition" value={form.condition} onChange={updateField} placeholder="New surplus, used, open box..." /></label>
+              <label className="ts-checkrow"><input name="photos_available" type="checkbox" value="Yes" checked={form.photos_available} onChange={updateField} /> <span>I have photos available</span></label>
+            </div>
+          ) : null}
+
+          {formName === "buyer-list" ? (
+            <div className="ts-form-grid">
+              <label><span>What they buy</span><textarea name="what_they_buy" rows="3" value={form.what_they_buy} onChange={updateField} placeholder="Fiber, copper splicing, closures, terminals, cabinets, test gear..." /></label>
+              <label><span>Regions served</span><input name="regions_served" value={form.regions_served} onChange={updateField} placeholder="States, regions, or nationwide" /></label>
+            </div>
+          ) : null}
+
+          <LeadContactFields form={form} onChange={updateField} firstInputRef={firstInputRef} />
+          {formName === "item-inquiry" ? <label><span>Quantity</span><input name="quantity" type="number" min="1" value={form.quantity} onChange={updateField} /></label> : null}
+          <label><span>Message / notes</span><textarea name="message" rows="4" value={form.message} onChange={updateField} placeholder="Timing, quantities, substitutions, photos, freight, or project details" /></label>
+          {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
+          <div className="ts-modal-actions">
+            <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : formName === "buyer-list" ? <UserPlus size={16} /> : <Send size={16} />} Send</button>
+            <button className="ts-back" type="button" onClick={onClose}>Cancel</button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }
 
@@ -2000,10 +2569,6 @@ function Navigate({ to, navigate }) {
   return null;
 }
 
-function buildMailto(subject, bodyLines) {
-  return `mailto:sales@telecomstore.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
-}
-
 function handleNavClick(event, navigate, to) {
   event.preventDefault();
   navigate(to);
@@ -2039,5 +2604,10 @@ function adminTitle(path) {
 function labelize(value) {
   return value.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
+
+initAnalytics(import.meta.env.VITE_GA_MEASUREMENT_ID, {
+  debug: import.meta.env.VITE_GA_DEBUG === "true"
+});
+installLinkTracking();
 
 createRoot(document.getElementById("root")).render(<App />);

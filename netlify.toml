@@ -2,7 +2,69 @@
   command = "npm run build"
   publish = "dist"
 
+# Block common scanner targets before any SPA rewrites. These rules are forced so
+# a mistakenly uploaded file at one of these paths is not exposed.
 [[redirects]]
-  from = "/*"
+  from = "/wp/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wordpress/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/backup/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/old/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/new/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Only the application's known client-side routes receive the SPA shell.
+[[redirects]]
+  from = "/login"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+
+# Keep the extensionless success route used by the existing forms.
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 200
+
+# Existing files (including robots.txt, sitemap.xml, and assets) are served before
+# this non-forced fallback. Everything else, including arbitrary .php paths, is 404.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
