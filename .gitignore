@@ -25,6 +25,7 @@ telecomstore-baintu-starter-pack.zip
 /20260108_tilegrid.jpg
 
 # Unverified local inventory/OCR working datasets
+/prodlist.csv
 /part_numbers_raw.json
 /part_numbers.csv
 /part_numbers1.csv
