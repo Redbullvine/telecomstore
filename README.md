@@ -54,10 +54,13 @@ Admin features include inventory counts, status workflows, item add/edit, duplic
 ## Supabase Setup
 
 1. Create a Supabase project.
-2. Run the SQL migration:
+2. Run the SQL migrations in order:
 
 ```text
-supabase/migrations/001_telecom_inventory.sql
+supabase/migrations/20260703191104_photo_intake.sql
+supabase/migrations/20260703204304_fix_delete_activity_trigger.sql
+supabase/migrations/20260801140000_supplier_catalog_architecture.sql
+supabase/migrations/20260801140500_public_product_catalog_rpc.sql
 ```
 
 3. Add environment variables locally and in Netlify:

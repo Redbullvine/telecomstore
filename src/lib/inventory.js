@@ -95,9 +95,12 @@ export function normalizeProduct(product = {}) {
     category: valueOrEmpty(product.category),
     condition: valueOrEmpty(product.condition || EMPTY_PRODUCT.condition),
     quantity_available: valueOrEmpty(product.quantity_available ?? product.quantityAvailable),
+    public_availability: valueOrEmpty(
+      product.public_availability || derivePublicAvailability(product.quantity_available ?? product.quantityAvailable)
+    ),
     unit: valueOrEmpty(product.unit),
     price: valueOrEmpty(product.price),
-    price_note: valueOrEmpty(product.price_note || EMPTY_PRODUCT.price_note),
+    price_note: valueOrEmpty(product.public_price_note || product.price_note || EMPTY_PRODUCT.price_note),
     warehouse_location: valueOrEmpty(product.warehouse_location),
     aisle: valueOrEmpty(product.aisle),
     rack: valueOrEmpty(product.rack),
@@ -111,6 +114,17 @@ export function normalizeProduct(product = {}) {
     photo_label: valueOrEmpty(product.photo_label || product.images?.[1]),
     photo_extra_1: valueOrEmpty(product.photo_extra_1 || product.images?.[2]),
     photo_extra_2: valueOrEmpty(product.photo_extra_2 || product.images?.[3]),
+    slug: valueOrEmpty(product.slug),
+    manufacturer_mpn: valueOrEmpty(product.manufacturer_mpn),
+    gtin: valueOrEmpty(product.gtin),
+    specifications: product.specifications || {},
+    currency_code: valueOrEmpty(product.currency_code || "USD"),
+    meta_title: valueOrEmpty(product.meta_title),
+    meta_description: valueOrEmpty(product.meta_description),
+    search_keywords: Array.isArray(product.search_keywords) ? product.search_keywords : [],
+    google_product_category: valueOrEmpty(product.google_product_category),
+    canonical_url_override: valueOrEmpty(product.canonical_url_override),
+    published_at: product.published_at,
     created_at: product.created_at,
     updated_at: product.updated_at,
     created_by: product.created_by,
@@ -120,6 +134,28 @@ export function normalizeProduct(product = {}) {
 
 export function fallbackInventory() {
   return fallbackProducts.map(normalizeProduct).filter((product) => product.status === "available");
+}
+
+export function derivePublicAvailability(quantity) {
+  if (quantity === null || quantity === undefined || quantity === "") return "quote_only";
+  const numeric = Number.parseFloat(String(quantity).replace(/,/g, ""));
+  if (!Number.isFinite(numeric)) return "quote_only";
+  return numeric > 0 ? "in_stock" : "out_of_stock";
+}
+
+export function publicAvailabilityLabel(product = {}) {
+  const labels = {
+    in_stock: "In stock",
+    out_of_stock: "Out of stock",
+    backorder: "Backorder",
+    quote_only: "Availability by quote"
+  };
+  return labels[product.public_availability] || "Availability by quote";
+}
+
+export function publicAvailabilityRank(product = {}) {
+  const ranks = { in_stock: 4, backorder: 3, quote_only: 2, out_of_stock: 1 };
+  return ranks[product.public_availability] || 0;
 }
 
 export function productSearchText(product) {
@@ -165,18 +201,16 @@ export async function fetchPublicProducts() {
     return fallbackInventory();
   }
 
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("status", "available")
-    .order("updated_at", { ascending: false, nullsFirst: false });
+  const { data, error } = await supabase.rpc("get_public_product_catalog");
 
   if (error) {
-    console.warn("Using fallback inventory after public products query failed.", error);
+    console.warn("Using fallback inventory after public catalog RPC failed.", error);
     return fallbackInventory();
   }
 
-  return data.map(normalizeProduct);
+  return (data || [])
+    .map(normalizeProduct)
+    .sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
 }
 
 export async function fetchAdminProducts() {
