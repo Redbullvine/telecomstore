@@ -60,7 +60,7 @@ export const EMPTY_PRODUCT = {
   brand: "",
   title: "",
   category: "",
-  condition: "New surplus / warehouse stock",
+  condition: "",
   quantity_available: "",
   unit: "",
   price: "",
@@ -93,7 +93,7 @@ export function normalizeProduct(product = {}) {
     brand: valueOrEmpty(product.brand),
     title: valueOrEmpty(product.title),
     category: valueOrEmpty(product.category),
-    condition: valueOrEmpty(product.condition || EMPTY_PRODUCT.condition),
+    condition: valueOrEmpty(product.condition),
     quantity_available: valueOrEmpty(product.quantity_available ?? product.quantityAvailable),
     public_availability: valueOrEmpty(
       product.public_availability || derivePublicAvailability(product.quantity_available ?? product.quantityAvailable)
