@@ -80,6 +80,7 @@ import {
   trackPageView
 } from "./lib/analytics.mjs";
 import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
+import { storefrontBadgeLabel, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -350,7 +351,7 @@ function CatGlyph({ category, size = 54 }) {
 
 function StoreImage({ product, large = false }) {
   const [failed, setFailed] = useState(false);
-  const src = product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2;
+  const src = storefrontImageSource(product);
   if (src && !failed) {
     return <div className="ts-thumb"><img src={src} alt={`${product.brand} ${product.title}`} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
   }
@@ -682,7 +683,7 @@ function PublicStorefront({ navigate }) {
             <a href="#contact">Contact</a>
           </nav>
           <div className="ts-ubadges">
-            <span><ShieldCheck size={13} /> New Surplus Stock</span>
+            <span><ShieldCheck size={13} /> Quote-Ready Inventory</span>
             <span><QrCode size={13} /> Fast SKU Quotes</span>
             <span><ClipboardList size={13} /> Genuine OSP Brands</span>
           </div>
@@ -693,7 +694,7 @@ function PublicStorefront({ navigate }) {
         <div className="ts-wrap">
           <a className="ts-brand" href="/" onClick={(e) => { e.preventDefault(); selectCategory("All"); }}>
             <span className="ts-mark">TS</span>
-            <span className="ts-brandtxt"><strong>Telecom Store</strong><small>New Surplus Telecom Materials</small></span>
+            <span className="ts-brandtxt"><strong>Telecom Store</strong><small>Telecom Materials by Quote</small></span>
           </a>
           <form className="ts-search" onSubmit={handleSearchSubmit}>
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by part number, brand, or keyword&hellip;" />
@@ -737,7 +738,7 @@ function PublicStorefront({ navigate }) {
 
       <section className="ts-trust">
         <div className="ts-wrap">
-          <div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>New Surplus</b><small>Unused warehouse stock</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>Quote-Ready Inventory</b><small>Details confirmed per quote</small></div></div>
           <div className="ts-titem"><span className="ts-tic"><Mail size={19} /></span><div><b>Same-day quotes</b><small>Reply by SKU or photo</small></div></div>
           <div className="ts-titem"><span className="ts-tic"><ShieldCheck size={19} /></span><div><b>Genuine brands</b><small>3M, Corning, PLP, Tyco</small></div></div>
           <div className="ts-titem"><span className="ts-tic"><PackageSearch size={19} /></span><div><b>Nationwide shipping</b><small>Pallet &amp; freight ready</small></div></div>
@@ -794,7 +795,7 @@ function PublicStorefront({ navigate }) {
         <div className="ts-wrap ts-foot-grid">
           <div>
             <div className="ts-fbrand">Telecom Store</div>
-            <p>New surplus, warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
+            <p>Warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
             <p>Quotes: <a href={contactEmailHref()} onClick={() => handleEmailClick("footer")}>{CONTACT_CONFIG.email}</a></p>
             <div className="ts-foot-cta">
               <strong>Looking for bulk telecom material?</strong>
@@ -812,7 +813,7 @@ function PublicStorefront({ navigate }) {
             <a href={contactEmailHref("Telecom Store inquiry")} onClick={() => handleEmailClick("footer_service")}>Contact Us</a>
             <a href="/login" onClick={(e) => handleNavClick(e, navigate, "/login")}>Admin Login</a>
           </div>
-          <p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Inventory is new surplus / warehouse stock; quantities limited and sold as-is per quote. Brand names are the property of their respective owners.</p>
+          <p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Product details, condition, and availability are confirmed per quote; quantities are limited. Brand names are the property of their respective owners.</p>
         </div>
       </footer>
 
@@ -865,7 +866,7 @@ function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
   return (
     <article className="ts-card">
       <div className="ts-thumb-wrap">
-        <span className="ts-cond">New Surplus</span>
+        <span className="ts-cond">{storefrontBadgeLabel(product)}</span>
         <StoreImage product={product} />
       </div>
       <div className="ts-cbody">
@@ -887,6 +888,7 @@ function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
   const [qty, setQty] = useState(1);
   const closeRef = useRef(null);
   const titleId = `product-title-${product.id || productItemKey(product)}`;
+  const conditionLabel = supportedConditionLabel(product);
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -909,7 +911,7 @@ function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
           <h2 id={titleId}>{product.short_description || product.title}</h2>
           <div className="ts-kv"><span>Part No.</span><b className="ts-mono">{product.sku || product.barcode}</b></div>
           <div className="ts-kv"><span>Category</span><b>{product.category || "Uncategorized"}</b></div>
-          <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{product.condition || "New Surplus"}</b></div>
+          {conditionLabel ? <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{conditionLabel}</b></div> : null}
           <div className="ts-kv"><span>Available</span><b>{product.quantity_available || "Verify"}</b></div>
           <div className="ts-kv"><span>Price</span><b>{priceLabel(product)}</b></div>
           <p className="ts-mdesc">{product.long_description || product.title}</p>
@@ -1176,7 +1178,7 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
               <label><span>Brand / manufacturer</span><input name="brand_manufacturer" value={form.brand_manufacturer} onChange={updateField} /></label>
               <label><span>Part number / SKU</span><input name="part_number" value={form.part_number} onChange={updateField} /></label>
               <label><span>Quantity</span><input name="quantity" type="number" min="1" value={form.quantity} onChange={updateField} /></label>
-              <label><span>Condition</span><input name="condition" value={form.condition} onChange={updateField} placeholder="New surplus, used, open box..." /></label>
+              <label><span>Condition</span><input name="condition" value={form.condition} onChange={updateField} placeholder="Describe condition and packaging" /></label>
               <label className="ts-checkrow"><input name="photos_available" type="checkbox" value="Yes" checked={form.photos_available} onChange={updateField} /> <span>I have photos available</span></label>
             </div>
           ) : null}
