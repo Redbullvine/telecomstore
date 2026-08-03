@@ -43,3 +43,7 @@ telecomstore-baintu-starter-pack.zip
 
 # Redundant local copy; the tracked Vite static asset is public/tts_logo.png
 /src/assets/tts_logo.png
+
+# Local catalog-preparation dry-run output (never commit generated catalogs)
+/tmp/
+/tmp/catalog-prep/
