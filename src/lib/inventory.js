@@ -1,4 +1,5 @@
-import fallbackProducts from "../data/products.json";
+import openingCatalog from "../data/opening-catalog.json";
+import openingPricing from "../data/opening-pricing.json";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export const PRODUCT_STATUSES = ["draft", "available", "hold", "sold", "archived"];
@@ -99,7 +100,11 @@ export function normalizeProduct(product = {}) {
       product.public_availability || derivePublicAvailability(product.quantity_available ?? product.quantityAvailable)
     ),
     unit: valueOrEmpty(product.unit),
-    price: valueOrEmpty(product.price),
+    price: valueOrEmpty(product.public_price ?? product.price),
+    public_price: product.public_price ?? null,
+    price_mode: valueOrEmpty(product.price_mode || "request_quote"),
+    checkout_active: product.checkout_active === true,
+    availability_text: valueOrEmpty(product.availability_text || publicAvailabilityLabel(product)),
     price_note: valueOrEmpty(product.public_price_note || product.price_note || EMPTY_PRODUCT.price_note),
     warehouse_location: valueOrEmpty(product.warehouse_location),
     aisle: valueOrEmpty(product.aisle),
@@ -133,7 +138,8 @@ export function normalizeProduct(product = {}) {
 }
 
 export function fallbackInventory() {
-  return fallbackProducts.map(normalizeProduct).filter((product) => product.status === "available");
+  const prices = new Map(openingPricing.map((row) => [row.public_sku, row]));
+  return openingCatalog.map((product) => normalizeProduct({ ...product, ...prices.get(product.sku) })).filter((product) => product.status === "available");
 }
 
 export function derivePublicAvailability(quantity) {

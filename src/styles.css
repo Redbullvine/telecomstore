@@ -1328,6 +1328,12 @@ dd {
   }
 }
 
+.ts-commerce-total{display:grid;grid-template-columns:1fr auto;gap:6px;padding:18px 0;margin-top:auto;border-top:1px solid var(--ts-line)}
+.ts-commerce-total strong{font-size:20px}.ts-commerce-total small{grid-column:1/-1;color:var(--ts-muted)}
+.ts-drawer-head{display:flex;align-items:center;justify-content:space-between}.ts-drawer-head button{background:transparent;border:0;color:inherit}
+.ts-catalog-controls{display:flex;gap:8px;flex-wrap:wrap}
+.ts-cdesc{margin:6px 0;color:var(--ts-muted);font-size:13px;line-height:1.45}
+
 /* ============================================================
    CURSOR ACCENT
    ============================================================ */

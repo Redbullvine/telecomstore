@@ -81,10 +81,12 @@ import {
 } from "./lib/analytics.mjs";
 import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
 import { storefrontBadgeLabel, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
+import { addCartItem, cartSubtotal, isPurchasable, reconcileCart, removeCartItem, updateCartQuantity } from "./lib/commerce.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
 const QUOTE_BASKET_KEY = "telecomstore.quoteBasket.v1";
+const PURCHASE_CART_KEY = "telecomstore.purchaseCart.v1";
 const ATTRIBUTION_KEY = "telecomstore.attribution.v1";
 const NETLIFY_FORM_ENDPOINT = "/__forms.html";
 const NETLIFY_SUCCESS_PATH = "/thank-you";
@@ -366,7 +368,7 @@ function StoreImage({ product, large = false }) {
 }
 
 function priceLabel(product) {
-  if (product.price) return `$${Number(product.price).toLocaleString()}`;
+  if (isPurchasable(product)) return `$${Number(product.public_price ?? product.price).toFixed(2)}`;
   return product.price_note || "Request quote";
 }
 
@@ -428,7 +430,7 @@ function productItemKey(product = {}) {
 function productLeadItem(product = {}, qty = 1, notes = "") {
   return {
     key: productItemKey(product),
-    name: product.short_description || product.title || product.sku || "Telecom material",
+    name: product.title || product.short_description || product.sku || "Telecom material",
     sku: product.sku || product.barcode || "",
     brand: product.brand || "",
     category: product.category || "",
@@ -533,9 +535,12 @@ function PublicStorefront({ navigate }) {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [manufacturer, setManufacturer] = useState("All");
   const [sort, setSort] = useState("brand");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState(() => readQuoteBasket());
+  const [purchaseCart, setPurchaseCart] = useState(() => readStoredJson(PURCHASE_CART_KEY, []));
+  const [purchaseOpen, setPurchaseOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerStage, setDrawerStage] = useState("list");
   const [quoteForm, setQuoteForm] = useState(QUOTE_FORM);
@@ -554,6 +559,13 @@ function PublicStorefront({ navigate }) {
   useEffect(() => {
     writeStoredJson(QUOTE_BASKET_KEY, cart);
   }, [cart]);
+
+  useEffect(() => {
+    if (loading) return;
+    const safeCart = reconcileCart(purchaseCart, products);
+    if (JSON.stringify(safeCart) !== JSON.stringify(purchaseCart)) setPurchaseCart(safeCart);
+    writeStoredJson(PURCHASE_CART_KEY, safeCart);
+  }, [purchaseCart, products, loading]);
 
   useEffect(() => {
     if (loading) return;
@@ -586,18 +598,27 @@ function PublicStorefront({ navigate }) {
     products.forEach((p) => { map[p.category] = (map[p.category] || 0) + 1; });
     return map;
   }, [products]);
+  const manufacturers = useMemo(() => [...new Set(products.map((product) => product.brand).filter(Boolean))].sort(), [products]);
 
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
+    if (manufacturer !== "All") list = list.filter((product) => product.brand === manufacturer);
     list = [...list].sort((a, b) => {
-      if (sort === "qtyd") return (b.quantity_available || 0) - (a.quantity_available || 0);
+      if (sort === "availability") return Number(isPurchasable(b)) - Number(isPurchasable(a));
       if (sort === "name") return (a.short_description || a.title || "").localeCompare(b.short_description || b.title || "");
       return `${a.brand}${a.sku}`.localeCompare(`${b.brand}${b.sku}`);
     });
     return list;
-  }, [products, query, category, sort]);
+  }, [products, query, category, manufacturer, sort]);
 
   const inCart = useCallback((product) => cart.find((i) => i.key === productItemKey(product)), [cart]);
+  const inPurchaseCart = useCallback((product) => purchaseCart.find((i) => i.sku === product.sku), [purchaseCart]);
+
+  function addToPurchaseCart(product, qty = 1) {
+    setPurchaseCart((current) => addCartItem(current, product, qty));
+    setPurchaseOpen(true);
+    setToast(`${product.title} added to your cart.`);
+  }
 
   function addToQuote(product, qty = 1, source = "product_card") {
     const item = productLeadItem(product, qty);
@@ -703,6 +724,9 @@ function PublicStorefront({ navigate }) {
           <button className="ts-quotebtn" type="button" onClick={() => openQuoteDrawer("list", "header_quote_list")}>
             <ShoppingBag size={17} /> Quote List <span className="ts-cnt">{cart.length}</span>
           </button>
+          <button className="ts-quotebtn" type="button" onClick={() => setPurchaseOpen(true)}>
+            <ShoppingBag size={17} /> Cart <span className="ts-cnt">{purchaseCart.reduce((sum, item) => sum + item.quantity, 0)}</span>
+          </button>
           <button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} title="Warehouse Admin">
             <Lock size={14} /> Admin
           </button>
@@ -722,7 +746,7 @@ function PublicStorefront({ navigate }) {
         <div className="ts-wrap ts-hero-grid">
           <div>
             <p className="ts-eyebrow">Outside Plant &bull; Copper &bull; Fiber</p>
-            <h1>Warehouse-stock telecom materials,<br /><em>priced by the SKU.</em></h1>
+            <h1>Telecom materials by part number,<br /><em>ready for your request.</em></h1>
             <p className="ts-herocopy">Need telecom material fast? Request a quote by SKU, quantity, or photo-ready notes and we will reply with pricing, availability, and freight options.</p>
             <div className="ts-herocta">
               <button className="ts-btn-pri" type="button" onClick={() => openQuoteDrawer("form", "hero_request_quote")}>Need telecom material fast? Request a quote.</button>
@@ -731,7 +755,7 @@ function PublicStorefront({ navigate }) {
           </div>
           <div className="ts-herostats">
             <div className="ts-hstat"><strong>{products.length}</strong><span>available SKUs,<br />ready to quote</span></div>
-            <div className="ts-hstat"><strong>{orderedCats.length}</strong><span>material categories<br />in stock</span></div>
+            <div className="ts-hstat"><strong>{orderedCats.length}</strong><span>material categories<br />in the catalog</span></div>
           </div>
         </div>
       </section>
@@ -752,17 +776,23 @@ function PublicStorefront({ navigate }) {
               <h2>{category === "All" ? "All Products" : category}</h2>
               <p><strong>{filtered.length}</strong> items &nbsp;&bull;&nbsp; request a quote on any part</p>
             </div>
-            <select className="ts-sort" value={sort} onChange={(e) => setSort(e.target.value)}>
-              <option value="brand">Sort: Brand A&ndash;Z</option>
-              <option value="name">Sort: Name A&ndash;Z</option>
-              <option value="qtyd">Sort: Qty (high &rarr; low)</option>
-            </select>
+            <div className="ts-catalog-controls">
+              <select className="ts-sort" aria-label="Filter by manufacturer" value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
+                <option value="All">All manufacturers</option>
+                {manufacturers.map((name) => <option key={name} value={name}>{name}</option>)}
+              </select>
+              <select className="ts-sort" aria-label="Sort products" value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="brand">Sort: Brand A&ndash;Z</option>
+                <option value="name">Sort: Name A&ndash;Z</option>
+                <option value="availability">Sort: Purchase availability</option>
+              </select>
+            </div>
           </div>
 
           <div className="ts-search-lead">
             <div>
               <strong>Don&apos;t see the part number?</strong>
-              <span>Send us what you need and we will check current warehouse stock.</span>
+              <span>Send us what you need and we will confirm current availability.</span>
             </div>
             <button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button>
           </div>
@@ -782,8 +812,10 @@ function PublicStorefront({ navigate }) {
                 key={product.id || product.sku}
                 product={product}
                 added={Boolean(inCart(product))}
+                purchaseAdded={Boolean(inPurchaseCart(product))}
                 onDetails={() => openProductDetails(product)}
                 onAdd={() => addToQuote(product, 1, "product_card")}
+                onPurchase={() => addToPurchaseCart(product)}
                 onAsk={() => openLeadModal("item-inquiry", product, "product_card")}
               />
             ))}
@@ -795,7 +827,7 @@ function PublicStorefront({ navigate }) {
         <div className="ts-wrap ts-foot-grid">
           <div>
             <div className="ts-fbrand">Telecom Store</div>
-            <p>Warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
+            <p>Telecom materials for outside plant, copper, and fiber networks.</p>
             <p>Quotes: <a href={contactEmailHref()} onClick={() => handleEmailClick("footer")}>{CONTACT_CONFIG.email}</a></p>
             <div className="ts-foot-cta">
               <strong>Looking for bulk telecom material?</strong>
@@ -828,8 +860,10 @@ function PublicStorefront({ navigate }) {
         <StoreProductModal
           product={selectedProduct}
           added={Boolean(inCart(selectedProduct))}
+          purchaseAdded={Boolean(inPurchaseCart(selectedProduct))}
           onClose={() => setSelectedProduct(null)}
           onAdd={(qty) => { addToQuote(selectedProduct, qty, "product_detail"); setSelectedProduct(null); }}
+          onPurchase={(qty) => { addToPurchaseCart(selectedProduct, qty); setSelectedProduct(null); }}
           onAsk={() => { openLeadModal("item-inquiry", selectedProduct, "product_detail"); setSelectedProduct(null); }}
         />
       ) : null}
@@ -848,6 +882,15 @@ function PublicStorefront({ navigate }) {
         onToast={setToast}
       />
 
+      <PurchaseCart
+        open={purchaseOpen}
+        cart={purchaseCart}
+        products={products}
+        onClose={() => setPurchaseOpen(false)}
+        onRemove={(sku) => setPurchaseCart((current) => removeCartItem(current, sku))}
+        onQuantity={(sku, quantity) => setPurchaseCart((current) => updateCartQuantity(current, sku, quantity))}
+      />
+
       {leadModal ? (
         <LeadFormModal
           lead={leadModal}
@@ -862,7 +905,51 @@ function PublicStorefront({ navigate }) {
   );
 }
 
-function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
+function PurchaseCart({ open, cart, products, onClose, onRemove, onQuantity }) {
+  const [checkoutState, setCheckoutState] = useState("idle");
+  const bySku = useMemo(() => new Map(products.map((product) => [product.sku, product])), [products]);
+  const subtotal = cartSubtotal(cart, products);
+
+  async function checkout() {
+    setCheckoutState("loading");
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ items: cart.map(({ sku, quantity }) => ({ sku, quantity })) })
+      });
+      const result = await response.json();
+      if (!response.ok || !result.url) throw new Error(result.error || "Checkout is unavailable");
+      window.location.assign(result.url);
+    } catch (error) {
+      setCheckoutState(error.message || "Checkout is unavailable");
+    }
+  }
+
+  if (!open) return null;
+  return (
+    <div className="ts-backdrop" role="presentation" onClick={onClose}>
+      <aside className="ts-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" onClick={(event) => event.stopPropagation()}>
+        <div className="ts-drawer-head"><h2>Shopping Cart</h2><button type="button" aria-label="Close cart" onClick={onClose}><X size={19} /></button></div>
+        {!cart.length ? <div className="ts-empty"><b>Your cart is empty.</b><span>Products without an approved price remain available through the Quote List.</span></div> : null}
+        {cart.map((item) => {
+          const product = bySku.get(item.sku);
+          if (!product) return null;
+          return <div className="ts-qitem" key={item.sku}>
+            <CatGlyph category={product.category} size={36} />
+            <div><b>{product.title}</b><small>{item.sku} · ${Number(product.public_price).toFixed(2)} each</small></div>
+            <input aria-label={`Quantity for ${item.sku}`} type="number" min="1" max="99" value={item.quantity} onChange={(event) => onQuantity(item.sku, event.target.value)} />
+            <button className="ts-rm" type="button" onClick={() => onRemove(item.sku)}>Remove</button>
+          </div>;
+        })}
+        {cart.length ? <div className="ts-commerce-total"><span>Subtotal</span><strong>${subtotal.toFixed(2)}</strong><small>Shipping and applicable tax are calculated in secure checkout.</small></div> : null}
+        {cart.length ? <button className="ts-addbtn" type="button" disabled={checkoutState === "loading"} onClick={checkout}>{checkoutState === "loading" ? "Starting secure checkout…" : "Secure Checkout"}</button> : null}
+        {checkoutState !== "idle" && checkoutState !== "loading" ? <p className="form-error" role="alert">{checkoutState}</p> : null}
+      </aside>
+    </div>
+  );
+}
+
+function StoreProductCard({ product, added, purchaseAdded, onDetails, onAdd, onPurchase, onAsk }) {
   return (
     <article className="ts-card">
       <div className="ts-thumb-wrap">
@@ -871,11 +958,14 @@ function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
       </div>
       <div className="ts-cbody">
         <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
-        <h3 className="ts-cname">{product.short_description || product.title}</h3>
+        <h3 className="ts-cname">{product.title}</h3>
+        {product.short_description && product.short_description !== product.title ? <p className="ts-cdesc">{product.short_description}</p> : null}
         <p className="ts-csku">{product.sku || product.barcode}</p>
-        <p className="ts-cqty">Qty available: <b>{product.quantity_available || "Verify"}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
+        <p className="ts-cqty">{product.availability_text || "Availability by Quote"} &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
         <div className="ts-cact">
-          <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In Quote List" : "Add to Quote"}</button>
+          {isPurchasable(product)
+            ? <button className={purchaseAdded ? "ts-add in" : "ts-add"} type="button" onClick={onPurchase}>{purchaseAdded ? "In Cart" : "Add to Cart"}</button>
+            : <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In Quote List" : "Add to Quote"}</button>}
           <button className="ts-ask" type="button" onClick={onAsk}>Ask About This Item</button>
           <button className="ts-det" type="button" onClick={onDetails}>Details</button>
         </div>
@@ -884,7 +974,7 @@ function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
   );
 }
 
-function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
+function StoreProductModal({ product, added, purchaseAdded, onClose, onAdd, onPurchase, onAsk }) {
   const [qty, setQty] = useState(1);
   const closeRef = useRef(null);
   const titleId = `product-title-${product.id || productItemKey(product)}`;
@@ -908,22 +998,25 @@ function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
         </div>
         <div className="ts-mbody">
           <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
-          <h2 id={titleId}>{product.short_description || product.title}</h2>
+          <h2 id={titleId}>{product.title}</h2>
           <div className="ts-kv"><span>Part No.</span><b className="ts-mono">{product.sku || product.barcode}</b></div>
+          {product.manufacturer_mpn ? <div className="ts-kv"><span>Manufacturer MPN</span><b className="ts-mono">{product.manufacturer_mpn}</b></div> : null}
           <div className="ts-kv"><span>Category</span><b>{product.category || "Uncategorized"}</b></div>
           {conditionLabel ? <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{conditionLabel}</b></div> : null}
-          <div className="ts-kv"><span>Available</span><b>{product.quantity_available || "Verify"}</b></div>
+          <div className="ts-kv"><span>Availability</span><b>{product.availability_text || "Availability by Quote"}</b></div>
           <div className="ts-kv"><span>Price</span><b>{priceLabel(product)}</b></div>
-          <p className="ts-mdesc">{product.long_description || product.title}</p>
+          <p className="ts-mdesc">{product.short_description || product.long_description || product.title}</p>
           <div className="ts-qrow">
             <div className="ts-stepper">
               <button type="button" aria-label="Decrease quantity" onClick={() => setQty((q) => Math.max(1, q - 1))}>&minus;</button>
               <input aria-label="Quantity" value={qty} onChange={(e) => setQty(Math.max(1, parseInt(e.target.value, 10) || 1))} />
               <button type="button" aria-label="Increase quantity" onClick={() => setQty((q) => q + 1)}>+</button>
             </div>
-            <span className="ts-quotenote">Pricing provided by quote</span>
+            <span className="ts-quotenote">{isPurchasable(product) ? "Price shown before shipping and tax" : "Pricing provided by quote"}</span>
           </div>
-          <button className="ts-addbtn" type="button" onClick={() => onAdd(qty)}>{added ? "Update Quote List" : "Add to Quote"}</button>
+          {isPurchasable(product)
+            ? <button className="ts-addbtn" type="button" onClick={() => onPurchase(qty)}>{purchaseAdded ? "Update Cart" : "Add to Cart"}</button>
+            : <button className="ts-addbtn" type="button" onClick={() => onAdd(qty)}>{added ? "Update Quote List" : "Add to Quote"}</button>}
           <button className="ts-askwide" type="button" onClick={onAsk}>Ask About This Item</button>
         </div>
       </section>

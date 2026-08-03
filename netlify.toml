@@ -2,6 +2,19 @@
   command = "npm run build"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/checkout/success"
+  to = "/checkout/success.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout/cancel"
+  to = "/checkout/cancel.html"
+  status = 200
+
 # Block common scanner targets before any SPA rewrites. These rules are forced so
 # a mistakenly uploaded file at one of these paths is not exposed.
 [[redirects]]
