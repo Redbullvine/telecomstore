@@ -21,5 +21,7 @@ test("excluded products and private supplier data never enter the public catalog
 test("public pricing mirrors all SKUs without enabling checkout", () => {
   assert.equal(pricing.length, 206);
   assert.deepEqual(new Set(pricing.map((p) => p.public_sku)), new Set(catalog.map((p) => p.sku)));
-  assert.ok(pricing.every((p) => p.public_price === null && p.checkout_active === false));
+  // Researched opening prices may be set (approved candidates only), but
+  // checkout stays disabled and every product remains request-quote.
+  assert.ok(pricing.every((p) => (p.public_price === null || p.public_price > 0) && p.checkout_active === false && p.price_mode === "request_quote"));
 });
