@@ -4,6 +4,7 @@ import test from "node:test";
 
 import {
   storefrontBadgeLabel,
+  storefrontImageAlt,
   storefrontImageSource,
   supportedConditionLabel
 } from "../src/lib/storefront-product.mjs";
@@ -38,6 +39,19 @@ test("image-free products retain the category-glyph fallback", () => {
   assert.equal(storefrontImageSource({}), "");
   assert.match(storefrontSource, /<CatGlyph category=\{product\.category\}/);
   assert.match(storefrontSource, /if \(src && !failed\)/);
+});
+
+test("approved product images receive manufacturer and MPN alt text", () => {
+  assert.equal(
+    storefrontImageAlt({ brand: "Example", title: "Cable", manufacturer_mpn: "CAB-1" }),
+    "Example Cable (CAB-1) product image"
+  );
+});
+
+test("catalog states the payment confirmation boundary and fixed prices remain labels only", () => {
+  assert.match(storefrontSource, /Availability and shipping are confirmed before payment\./);
+  assert.match(storefrontSource, /Fixed price · \$/);
+  assert.doesNotMatch(storefrontSource, /available SKUs|Same-day quotes|Nationwide shipping|Pallet &amp; freight ready/);
 });
 
 test("quote controls remain available on product cards and details", () => {

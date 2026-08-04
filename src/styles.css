@@ -1658,6 +1658,7 @@ body:has(.ts-backdrop),body:has(.ts-drawer.on){overflow:hidden}
 .ts-cathead h2{font-family:'Archivo';font-weight:800;font-size:24px;letter-spacing:-.5px;margin:0}
 .ts-cathead p{color:var(--ts-muted);font-size:13.5px;margin:4px 0 0}
 .ts-cathead p strong{color:var(--ts-ink)}
+.ts-cathead .ts-confirmation{color:var(--ts-green);font-weight:700}
 .ts-sort{border:1px solid var(--ts-line);background:#fff;border-radius:7px;padding:9px 12px;font-size:13px;color:var(--ts-ink);font-weight:500;font-family:inherit}
 .ts-search-lead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 18px;padding:14px 16px;background:#fff;border:1px solid var(--ts-line);border-left:4px solid var(--ts-gold);border-radius:8px}
 .ts-search-lead strong{display:block;font-family:'Archivo';font-size:15px}

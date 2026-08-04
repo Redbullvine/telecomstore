@@ -80,7 +80,7 @@ import {
   trackPageView
 } from "./lib/analytics.mjs";
 import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
-import { storefrontBadgeLabel, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
+import { storefrontBadgeLabel, storefrontImageAlt, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
 import { addCartItem, cartSubtotal, isPurchasable, reconcileCart, removeCartItem, updateCartQuantity } from "./lib/commerce.mjs";
 import "./styles.css";
 
@@ -327,7 +327,15 @@ const STORE_CAT_META = {
   "Test Equipment": "#9c2bad",
   "Misc Telecom Material": "#74807a"
 };
-const STORE_CAT_ORDER = ["Fiber", "Closures", "Terminals", "Copper Splicing", "Cable Hardware", "Pedestals / Cabinets", "Tools", "Test Equipment", "Misc Telecom Material"];
+const STORE_CAT_ORDER = [
+  "Network Cabling & Connectors",
+  "Network Equipment",
+  "Telephone Equipment",
+  "Antennas & RF",
+  "Terminals, Jacks & Wall Plates",
+  "Telecom Tools",
+  "Cable Management"
+];
 
 function catColor(cat) { return STORE_CAT_META[cat] || "#74807a"; }
 function hexToRgba(hex, a) {
@@ -355,7 +363,7 @@ function StoreImage({ product, large = false }) {
   const [failed, setFailed] = useState(false);
   const src = storefrontImageSource(product);
   if (src && !failed) {
-    return <div className="ts-thumb"><img src={src} alt={`${product.brand} ${product.title}`} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
+    return <div className="ts-thumb"><img src={src} alt={storefrontImageAlt(product)} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
   }
   return (
     <div className="ts-thumb">
@@ -368,7 +376,8 @@ function StoreImage({ product, large = false }) {
 }
 
 function priceLabel(product) {
-  if (isPurchasable(product)) return `$${Number(product.public_price ?? product.price).toFixed(2)}`;
+  const fixedPrice = Number(product.public_price ?? product.price);
+  if (product.price_mode === "fixed" && product.pricing_approved === true && fixedPrice > 0) return `Fixed price · $${fixedPrice.toFixed(2)}`;
   return product.price_note || "Request quote";
 }
 
@@ -704,9 +713,9 @@ function PublicStorefront({ navigate }) {
             <a href="#contact">Contact</a>
           </nav>
           <div className="ts-ubadges">
-            <span><ShieldCheck size={13} /> Quote-Ready Inventory</span>
+            <span><ShieldCheck size={13} /> Quote-Ready Catalog</span>
             <span><QrCode size={13} /> Fast SKU Quotes</span>
-            <span><ClipboardList size={13} /> Genuine OSP Brands</span>
+            <span><ClipboardList size={13} /> Manufacturer-Based Catalog</span>
           </div>
         </div>
       </div>
@@ -754,7 +763,7 @@ function PublicStorefront({ navigate }) {
             </div>
           </div>
           <div className="ts-herostats">
-            <div className="ts-hstat"><strong>{products.length}</strong><span>available SKUs,<br />ready to quote</span></div>
+            <div className="ts-hstat"><strong>{products.length}</strong><span>catalog SKUs,<br />ready to quote</span></div>
             <div className="ts-hstat"><strong>{orderedCats.length}</strong><span>material categories<br />in the catalog</span></div>
           </div>
         </div>
@@ -762,10 +771,10 @@ function PublicStorefront({ navigate }) {
 
       <section className="ts-trust">
         <div className="ts-wrap">
-          <div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>Quote-Ready Inventory</b><small>Details confirmed per quote</small></div></div>
-          <div className="ts-titem"><span className="ts-tic"><Mail size={19} /></span><div><b>Same-day quotes</b><small>Reply by SKU or photo</small></div></div>
-          <div className="ts-titem"><span className="ts-tic"><ShieldCheck size={19} /></span><div><b>Genuine brands</b><small>3M, Corning, PLP, Tyco</small></div></div>
-          <div className="ts-titem"><span className="ts-tic"><PackageSearch size={19} /></span><div><b>Nationwide shipping</b><small>Pallet &amp; freight ready</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>Quote-Ready Catalog</b><small>Details confirmed per quote</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><Mail size={19} /></span><div><b>Quote support</b><small>Reply by SKU or photo</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><ShieldCheck size={19} /></span><div><b>Manufacturer-based records</b><small>Organized by exact MPN</small></div></div>
+          <div className="ts-titem"><span className="ts-tic"><PackageSearch size={19} /></span><div><b>Shipping confirmed per order</b><small>Options reviewed before payment</small></div></div>
         </div>
       </section>
 
@@ -775,6 +784,7 @@ function PublicStorefront({ navigate }) {
             <div>
               <h2>{category === "All" ? "All Products" : category}</h2>
               <p><strong>{filtered.length}</strong> items &nbsp;&bull;&nbsp; request a quote on any part</p>
+              <p className="ts-confirmation">Availability and shipping are confirmed before payment.</p>
             </div>
             <div className="ts-catalog-controls">
               <select className="ts-sort" aria-label="Filter by manufacturer" value={manufacturer} onChange={(e) => setManufacturer(e.target.value)}>
@@ -960,7 +970,7 @@ function StoreProductCard({ product, added, purchaseAdded, onDetails, onAdd, onP
         <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
         <h3 className="ts-cname">{product.title}</h3>
         {product.short_description && product.short_description !== product.title ? <p className="ts-cdesc">{product.short_description}</p> : null}
-        <p className="ts-csku">{product.sku || product.barcode}</p>
+        <p className="ts-csku">SKU / MPN: {product.sku || product.manufacturer_mpn || product.barcode}</p>
         <p className="ts-cqty">{product.availability_text || "Availability by Quote"} &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
         <div className="ts-cact">
           {isPurchasable(product)

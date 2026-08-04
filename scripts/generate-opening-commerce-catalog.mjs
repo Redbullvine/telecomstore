@@ -15,6 +15,8 @@ const catalog = input.filter((row) => !EXCLUDED.has(row.public_sku)).map((row) =
   category: row.category,
   brand: row.brand || "",
   manufacturer_mpn: row.manufacturer_mpn || "",
+  gtin: row.gtin || "",
+  search_keywords: [row.brand, row.manufacturer_mpn, row.gtin, row.category, row.title].filter(Boolean),
   public_price: null,
   price_note: "Request quote",
   price_mode: "request_quote",

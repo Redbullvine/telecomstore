@@ -19,3 +19,9 @@ export function storefrontBadgeLabel(product = {}) {
 export function storefrontImageSource(product = {}) {
   return product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2 || "";
 }
+
+export function storefrontImageAlt(product = {}) {
+  const identity = [product.brand, product.title].filter(Boolean).join(" ").trim() || "Telecom product";
+  const mpn = String(product.manufacturer_mpn || product.sku || "").trim();
+  return `${identity}${mpn ? ` (${mpn})` : ""} product image`;
+}

@@ -9,6 +9,8 @@ test("opening catalog contains exactly 206 unique approved public products", () 
   assert.equal(catalog.length, 206);
   assert.equal(new Set(catalog.map((p) => p.sku)).size, 206);
   assert.ok(catalog.every((p) => p.opening_approved && p.price_mode === "request_quote" && p.public_price === null && !p.checkout_active));
+  assert.ok(catalog.every((p) => /^\d{8}$|^\d{12,14}$/.test(p.gtin)));
+  assert.ok(catalog.every((p) => p.search_keywords.includes(p.manufacturer_mpn) && p.search_keywords.includes(p.gtin)));
 });
 test("excluded products and private supplier data never enter the public catalog", () => {
   const text = JSON.stringify(catalog);

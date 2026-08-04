@@ -14,7 +14,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "853748001095",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "C4-CJM",
+      "853748001095",
+      "Clearstream",
+      "Outdoor",
+      "Antenna"
+    ]
   },
   {
     "sku": "C4-V-CJM",
@@ -31,7 +41,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "817848011118",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "C4-V-CJM",
+      "817848011118",
+      "Ind",
+      "outdr",
+      "Hdtv",
+      "Ant",
+      "mnt"
+    ]
   },
   {
     "sku": "C5",
@@ -48,7 +70,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "853748001354",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "C5",
+      "853748001354",
+      "Clearstream",
+      "Dtv",
+      "Antenna"
+    ]
   },
   {
     "sku": "CJMOUNT",
@@ -65,7 +97,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "853748001392",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "CJMOUNT",
+      "853748001392",
+      "Antenna",
+      "Mount"
+    ]
   },
   {
     "sku": "DB8-E",
@@ -82,7 +123,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "817848011620",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "DB8-E",
+      "817848011620",
+      "DB8E",
+      "Bowtie",
+      "UHF",
+      "Antenna"
+    ]
   },
   {
     "sku": "MAST40",
@@ -99,7 +151,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "817848012542",
+    "search_keywords": [
+      "Antennas Direct",
+      "Antennas & RF",
+      "MAST40",
+      "817848012542",
+      "40IN",
+      "ClearStream",
+      "Universal",
+      "Mast"
+    ]
   },
   {
     "sku": "BK350",
@@ -116,7 +179,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304016298",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BK350",
+      "731304016298",
+      "Back",
+      "UPS",
+      "CS",
+      "350",
+      "VA",
+      "Tower"
+    ]
   },
   {
     "sku": "BE550G",
@@ -133,7 +209,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304258940",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BE550G",
+      "731304258940",
+      "550VA",
+      "OUT",
+      "Back",
+      "ups",
+      "Es"
+    ]
   },
   {
     "sku": "BE650G1",
@@ -150,7 +238,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304285434",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BE650G1",
+      "731304285434",
+      "Back",
+      "UPS",
+      "650",
+      "VA",
+      "Battery",
+      "Backup"
+    ]
   },
   {
     "sku": "BK500",
@@ -167,7 +268,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304016304",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BK500",
+      "731304016304",
+      "Back",
+      "ups",
+      "500",
+      "System"
+    ]
   },
   {
     "sku": "BR1500MS2",
@@ -184,7 +296,27 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304426103",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BR1500MS2",
+      "731304426103",
+      "Back",
+      "UPS",
+      "Pro",
+      "1500",
+      "VA",
+      "Tower",
+      "with",
+      "10",
+      "AC",
+      "Outlets",
+      "and",
+      "USB",
+      "Ports"
+    ]
   },
   {
     "sku": "BX1000M",
@@ -201,7 +333,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304331766",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BX1000M",
+      "731304331766",
+      "1000VA",
+      "OUT",
+      "Back",
+      "Ups",
+      "Pro"
+    ]
   },
   {
     "sku": "BX850M",
@@ -218,7 +362,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "731304331797",
+    "search_keywords": [
+      "APC",
+      "Network Equipment",
+      "BX850M",
+      "731304331797",
+      "850VA",
+      "OUT",
+      "Back",
+      "Ups",
+      "Pro"
+    ]
   },
   {
     "sku": "ATCRL32102",
@@ -235,7 +391,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "650530024269",
+    "search_keywords": [
+      "At&t",
+      "Telephone Equipment",
+      "ATCRL32102",
+      "650530024269",
+      "DECT",
+      "Big",
+      "Button",
+      "Cordless",
+      "Das"
+    ]
   },
   {
     "sku": "P300",
@@ -252,7 +420,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "759599765936",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "P300",
+      "759599765936",
+      "Amplified",
+      "Photo",
+      "Phone"
+    ]
   },
   {
     "sku": "52703",
@@ -269,7 +447,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "017229135543",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "52703",
+      "017229135543",
+      "Expandable",
+      "Handset"
+    ]
   },
   {
     "sku": "53712",
@@ -286,7 +473,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "017229134959",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "53712",
+      "017229134959",
+      "Amp",
+      "Cordless",
+      "Phone",
+      "dig",
+      "Answr"
+    ]
   },
   {
     "sku": "53714",
@@ -303,7 +502,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "017229134874",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "53714",
+      "017229134874",
+      "D714",
+      "40DB",
+      "Ampd",
+      "Cordless",
+      "Phone"
+    ]
   },
   {
     "sku": "54505.001",
@@ -320,7 +531,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "017229139855",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "54505.001",
+      "017229139855",
+      "Alto",
+      "Plus",
+      "Amp",
+      "Corded",
+      "Phone"
+    ]
   },
   {
     "sku": "59865.001",
@@ -337,7 +560,22 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "859365007267",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "59865.001",
+      "859365007267",
+      "XLC8",
+      "DECT",
+      "50",
+      "dB",
+      "Amplified",
+      "Cordless",
+      "Phone",
+      "System"
+    ]
   },
   {
     "sku": "59234.001",
@@ -354,7 +592,23 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "017229154612",
+    "search_keywords": [
+      "Clarity",
+      "Telephone Equipment",
+      "59234.001",
+      "017229154612",
+      "DECT",
+      "50",
+      "dB",
+      "Amplified",
+      "Cordless",
+      "Phone",
+      "with",
+      "Big",
+      "Buttons"
+    ]
   },
   {
     "sku": "CP1500AVRLCD3",
@@ -371,7 +625,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "649532933570",
+    "search_keywords": [
+      "Cyberpower",
+      "Network Cabling & Connectors",
+      "CP1500AVRLCD3",
+      "649532933570",
+      "Intelligent",
+      "Lcd",
+      "Ups"
+    ]
   },
   {
     "sku": "45-0001-UWH",
@@ -388,7 +652,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "660559018002",
+    "search_keywords": [
+      "Datacomm Electronics",
+      "Terminals, Jacks & Wall Plates",
+      "45-0001-UWH",
+      "660559018002",
+      "Uwhite",
+      "Gang",
+      "Recessed"
+    ]
   },
   {
     "sku": "50-3321-WH-KIT",
@@ -405,7 +679,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "660559007983",
+    "search_keywords": [
+      "Datacomm Electronics",
+      "Terminals, Jacks & Wall Plates",
+      "50-3321-WH-KIT",
+      "660559007983",
+      "Flat",
+      "Panel",
+      "Cable",
+      "Org",
+      "Rem",
+      "Kit"
+    ]
   },
   {
     "sku": "50-3323-WH-KIT",
@@ -422,7 +709,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "660559007990",
+    "search_keywords": [
+      "Datacomm Electronics",
+      "Cable Management",
+      "50-3323-WH-KIT",
+      "660559007990",
+      "Recessed",
+      "Pair",
+      "Power",
+      "Kit"
+    ]
   },
   {
     "sku": "50-6623-WH-KIT",
@@ -439,7 +737,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "660559010167",
+    "search_keywords": [
+      "Datacomm Electronics",
+      "Terminals, Jacks & Wall Plates",
+      "50-6623-WH-KIT",
+      "660559010167",
+      "Flat",
+      "Panel",
+      "Cable",
+      "Org",
+      "Dup",
+      "Power"
+    ]
   },
   {
     "sku": "500256",
@@ -456,7 +767,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430002567",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Antennas & RF",
+      "500256",
+      "601430002567",
+      "25",
+      "Db",
+      "Distribution",
+      "Amp"
+    ]
   },
   {
     "sku": "DTV2BUHF",
@@ -473,7 +795,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430111719",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Antennas & RF",
+      "DTV2BUHF",
+      "601430111719",
+      "BAY",
+      "UHF",
+      "Outdoor",
+      "Antenna"
+    ]
   },
   {
     "sku": "500302",
@@ -490,7 +823,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430003021",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Antennas & RF",
+      "500302",
+      "601430003021",
+      "WAY",
+      "1000",
+      "MHz",
+      "Splitter"
+    ]
   },
   {
     "sku": "500303",
@@ -507,7 +851,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430003038",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Antennas & RF",
+      "500303",
+      "601430003038",
+      "3WAY",
+      "All",
+      "Port",
+      "Power",
+      "Splittr"
+    ]
   },
   {
     "sku": "500308",
@@ -524,7 +880,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430003083",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Network Cabling & Connectors",
+      "500308",
+      "601430003083",
+      "WAY",
+      "Splitter"
+    ]
   },
   {
     "sku": "500312",
@@ -541,7 +906,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "601430003120",
+    "search_keywords": [
+      "Eagle Aspen",
+      "Network Cabling & Connectors",
+      "500312",
+      "601430003120",
+      "WAY",
+      "Splitter"
+    ]
   },
   {
     "sku": "EIS3-1004-WHT",
@@ -558,7 +932,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "805106871925",
+    "search_keywords": [
+      "Energizer Connect",
+      "Network Equipment",
+      "EIS3-1004-WHT",
+      "805106871925",
+      "6OT",
+      "Smart",
+      "Surge",
+      "Protector"
+    ]
   },
   {
     "sku": "AS-HP-5R",
@@ -575,7 +960,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429378531",
+    "search_keywords": [
+      "Helios",
+      "Network Equipment",
+      "AS-HP-5R",
+      "086429378531",
+      "5OUT",
+      "2USB",
+      "Surge",
+      "Wall",
+      "Tap"
+    ]
   },
   {
     "sku": "CS-1X4HDMSPL5",
@@ -592,7 +989,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429377459",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "CS-1X4HDMSPL5",
+      "086429377459",
+      "1IN",
+      "4OUT",
+      "HDMI",
+      "Splitter"
+    ]
   },
   {
     "sku": "CS-C5DE",
@@ -609,7 +1017,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429373420",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "CS-C5DE",
+      "086429373420",
+      "CAT5",
+      "Digital",
+      "Aud",
+      "Extension"
+    ]
   },
   {
     "sku": "CS-DAC2",
@@ -626,7 +1045,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429400027",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "CS-DAC2",
+      "086429400027",
+      "Toslink",
+      "opt",
+      "Spdif",
+      "Converter"
+    ]
   },
   {
     "sku": "CS-HDEXT4KPOEU",
@@ -643,7 +1073,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429419722",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "CS-HDEXT4KPOEU",
+      "086429419722",
+      "4K",
+      "Extender",
+      "Cat6",
+      "Black"
+    ]
   },
   {
     "sku": "MHX-LHDME12",
@@ -660,7 +1101,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429344826",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "MHX-LHDME12",
+      "086429344826",
+      "12M",
+      "HDMI",
+      "Cable",
+      "10",
+      "2G"
+    ]
   },
   {
     "sku": "MHX-LHDME2",
@@ -677,7 +1130,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429344758",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "MHX-LHDME2",
+      "086429344758",
+      "2M",
+      "HDMI",
+      "Cable",
+      "18G"
+    ]
   },
   {
     "sku": "MHX-LHDME4",
@@ -694,7 +1158,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429344772",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "MHX-LHDME4",
+      "086429344772",
+      "4M",
+      "HDMI",
+      "Cable",
+      "18G"
+    ]
   },
   {
     "sku": "MHX-T15",
@@ -711,7 +1186,22 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "086429387946",
+    "search_keywords": [
+      "Ethereal",
+      "Network Cabling & Connectors",
+      "MHX-T15",
+      "086429387946",
+      "MHX",
+      "Series",
+      "TOSLINK",
+      "Digital",
+      "Optical",
+      "Audio",
+      "Cable",
+      "15"
+    ]
   },
   {
     "sku": "UHF-04M-S1234",
@@ -728,7 +1218,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "747705003072",
+    "search_keywords": [
+      "Gemini",
+      "Antennas & RF",
+      "UHF-04M-S1234",
+      "747705003072",
+      "UHF",
+      "04M",
+      "Wireless",
+      "Prof",
+      "System"
+    ]
   },
   {
     "sku": "30-495",
@@ -745,7 +1247,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250787494",
+    "search_keywords": [
+      "Ideal",
+      "Telecom Tools",
+      "30-495",
+      "783250787494",
+      "Mod",
+      "Plug",
+      "Crimp",
+      "Tool"
+    ]
   },
   {
     "sku": "31-340",
@@ -762,7 +1275,22 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250313402",
+    "search_keywords": [
+      "Ideal",
+      "Cable Management",
+      "31-340",
+      "783250313402",
+      "Powr",
+      "Fish",
+      "Heavy",
+      "Duty",
+      "Pull",
+      "Line",
+      "500",
+      "ft"
+    ]
   },
   {
     "sku": "33-396",
@@ -779,7 +1307,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250714490",
+    "search_keywords": [
+      "Ideal",
+      "Telecom Tools",
+      "33-396",
+      "783250714490",
+      "RJ45",
+      "RJ11",
+      "Crimp",
+      "Tool",
+      "Kit"
+    ]
   },
   {
     "sku": "33-507",
@@ -796,7 +1336,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250801220",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "33-507",
+      "783250801220",
+      "RJ45",
+      "Trmnation",
+      "Hip",
+      "Kit"
+    ]
   },
   {
     "sku": "35-088",
@@ -813,7 +1364,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250350889",
+    "search_keywords": [
+      "Ideal",
+      "Cable Management",
+      "35-088",
+      "783250350889",
+      "Electr",
+      "Scissors",
+      "With",
+      "Notch"
+    ]
   },
   {
     "sku": "45-121",
@@ -830,7 +1392,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250451210",
+    "search_keywords": [
+      "Ideal",
+      "Telecom Tools",
+      "45-121",
+      "783250451210",
+      "Stripper",
+      "Wire",
+      "for",
+      "14",
+      "24",
+      "Solid",
+      "and",
+      "16",
+      "26",
+      "Stranded"
+    ]
   },
   {
     "sku": "45-915",
@@ -847,7 +1426,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250550197",
+    "search_keywords": [
+      "Ideal",
+      "Telecom Tools",
+      "45-915",
+      "783250550197",
+      "Kinetic",
+      "Reflex",
+      "Stripper",
+      "Wire"
+    ]
   },
   {
     "sku": "62-200",
@@ -864,7 +1454,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250622009",
+    "search_keywords": [
+      "Ideal",
+      "Telecom Tools",
+      "62-200",
+      "783250622009",
+      "Linkmaster",
+      "Ethernet"
+    ]
   },
   {
     "sku": "85-366",
@@ -881,7 +1480,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853663",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-366",
+      "783250853663",
+      "Cat6",
+      "RJ45",
+      "Plug",
+      "25",
+      "CD"
+    ]
   },
   {
     "sku": "85-368",
@@ -898,7 +1509,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853687",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-368",
+      "783250853687",
+      "25PK",
+      "CAT6",
+      "Mod",
+      "Plug"
+    ]
   },
   {
     "sku": "85-369",
@@ -915,7 +1537,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853694",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-369",
+      "783250853694",
+      "50PK",
+      "CAT6",
+      "Mod",
+      "Plug"
+    ]
   },
   {
     "sku": "85-371",
@@ -932,7 +1565,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853717",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-371",
+      "783250853717",
+      "50PK",
+      "Cat5e",
+      "RJ45",
+      "Plugs"
+    ]
   },
   {
     "sku": "85-372",
@@ -949,7 +1593,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853724",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-372",
+      "783250853724",
+      "100PK",
+      "Cat5e",
+      "RJ45",
+      "Plugs"
+    ]
   },
   {
     "sku": "85-376",
@@ -966,7 +1621,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853762",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-376",
+      "783250853762",
+      "50PK",
+      "Cat6",
+      "RJ45",
+      "Plugs"
+    ]
   },
   {
     "sku": "85-377",
@@ -983,7 +1649,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250853779",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "85-377",
+      "783250853779",
+      "100PK",
+      "Cat6",
+      "RJ45",
+      "Plugs"
+    ]
   },
   {
     "sku": "86-396",
@@ -1000,7 +1677,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250863969",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "86-396",
+      "783250863969",
+      "RJ45",
+      "Mod",
+      "Plug",
+      "Bag",
+      "Of",
+      "100"
+    ]
   },
   {
     "sku": "89-5047",
@@ -1017,7 +1707,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "783250689408",
+    "search_keywords": [
+      "Ideal",
+      "Network Cabling & Connectors",
+      "89-5047",
+      "783250689408",
+      "RG59",
+      "BNC",
+      "Compression"
+    ]
   },
   {
     "sku": "DPS-1100 USB",
@@ -1034,7 +1734,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "099053053279",
+    "search_keywords": [
+      "Koblenz",
+      "Network Equipment",
+      "DPS-1100 USB",
+      "099053053279",
+      "Desk",
+      "Charging",
+      "Station"
+    ]
   },
   {
     "sku": "KRA-22M",
@@ -1051,7 +1761,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "019048134912",
+    "search_keywords": [
+      "Kenwood",
+      "Antennas & RF",
+      "KRA-22M",
+      "019048134912",
+      "UHF",
+      "Antenna"
+    ]
   },
   {
     "sku": "KRA-23M",
@@ -1068,7 +1787,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "019048134943",
+    "search_keywords": [
+      "Kenwood",
+      "Antennas & RF",
+      "KRA-23M",
+      "019048134943",
+      "VHF",
+      "Antenna"
+    ]
   },
   {
     "sku": "56-200",
@@ -1085,7 +1813,16 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136562001",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Cable Management",
+      "56-200",
+      "792136562001",
+      "Decoil",
+      "zit"
+    ]
   },
   {
     "sku": "81-000",
@@ -1102,7 +1839,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136810003",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "81-000",
+      "792136810003",
+      "Creepzit",
+      "Pro",
+      "36FT",
+      "Kit"
+    ]
   },
   {
     "sku": "81-130",
@@ -1119,7 +1867,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136811307",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "81-130",
+      "792136811307",
+      "Creep",
+      "zit",
+      "Wire",
+      "Running",
+      "Kit"
+    ]
   },
   {
     "sku": "81-230",
@@ -1136,7 +1896,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136812304",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "81-230",
+      "792136812304",
+      "Connector",
+      "Wire",
+      "Rod",
+      "Kit"
+    ]
   },
   {
     "sku": "81-600",
@@ -1153,7 +1924,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136816005",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "81-600",
+      "792136816005",
+      "Creepzit",
+      "Compact",
+      "24FT",
+      "Kit"
+    ]
   },
   {
     "sku": "81-700",
@@ -1170,7 +1952,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136817002",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "81-700",
+      "792136817002",
+      "Royrods",
+      "Wire",
+      "Running",
+      "Kit"
+    ]
   },
   {
     "sku": "82-110",
@@ -1187,7 +1980,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136821108",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "82-110",
+      "792136821108",
+      "Grabbit",
+      "Mini",
+      "10",
+      "ft",
+      "Pole"
+    ]
   },
   {
     "sku": "82-118",
@@ -1204,7 +2009,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136821184",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Network Cabling & Connectors",
+      "82-118",
+      "792136821184",
+      "18",
+      "ft",
+      "Grabbit",
+      "Pole"
+    ]
   },
   {
     "sku": "82-350",
@@ -1221,7 +2037,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136823508",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Cable Management",
+      "82-350",
+      "792136823508",
+      "Grabbit",
+      "Ztip",
+      "Adapter"
+    ]
   },
   {
     "sku": "85-124",
@@ -1238,7 +2064,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "792136851242",
+    "search_keywords": [
+      "Labor Saving Devices",
+      "Cable Management",
+      "85-124",
+      "792136851242",
+      "Wet",
+      "Noodle",
+      "Retriever"
+    ]
   },
   {
     "sku": "33202",
@@ -1255,7 +2091,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "686140332029",
+    "search_keywords": [
+      "Stanley",
+      "Network Equipment",
+      "33202",
+      "686140332029",
+      "4OUT",
+      "Surgequad",
+      "USB",
+      "Surge"
+    ]
   },
   {
     "sku": "910-1001",
@@ -1272,7 +2119,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "666365009876",
+    "search_keywords": [
+      "Nanuk",
+      "Terminals, Jacks & Wall Plates",
+      "910-1001",
+      "666365009876",
+      "910",
+      "Case",
+      "foam",
+      "Black"
+    ]
   },
   {
     "sku": "925S-060BK-0A0",
@@ -1289,7 +2147,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "666365029904",
+    "search_keywords": [
+      "Nanuk",
+      "Terminals, Jacks & Wall Plates",
+      "925S-060BK-0A0",
+      "666365029904",
+      "925",
+      "Cam",
+      "Case",
+      "org",
+      "Dividr"
+    ]
   },
   {
     "sku": "963-1001",
@@ -1306,7 +2176,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "666365023957",
+    "search_keywords": [
+      "Nanuk",
+      "Terminals, Jacks & Wall Plates",
+      "963-1001",
+      "666365023957",
+      "Case",
+      "963",
+      "With",
+      "Foam",
+      "Black"
+    ]
   },
   {
     "sku": "965-1001",
@@ -1323,7 +2205,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "666365023971",
+    "search_keywords": [
+      "Nanuk",
+      "Terminals, Jacks & Wall Plates",
+      "965-1001",
+      "666365023971",
+      "Case",
+      "965",
+      "With",
+      "Foam",
+      "Black"
+    ]
   },
   {
     "sku": "PB802105",
@@ -1340,7 +2234,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "054732807482",
+    "search_keywords": [
+      "Prime",
+      "Network Equipment",
+      "PB802105",
+      "054732807482",
+      "1OUT",
+      "900J",
+      "Surge",
+      "Tap"
+    ]
   },
   {
     "sku": "PBRUSB346S-A",
@@ -1357,7 +2262,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "054732826537",
+    "search_keywords": [
+      "Prime",
+      "Network Equipment",
+      "PBRUSB346S-A",
+      "054732826537",
+      "6OUT",
+      "1200J",
+      "Surge",
+      "Tap"
+    ]
   },
   {
     "sku": "PCBLCO102",
@@ -1374,7 +2290,22 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "842893106717",
+    "search_keywords": [
+      "Pyle",
+      "Cable Management",
+      "PCBLCO102",
+      "842893106717",
+      "Cable",
+      "Protector",
+      "Ramp",
+      "with",
+      "Flip",
+      "Open",
+      "Access",
+      "Lid"
+    ]
   },
   {
     "sku": "PDWM2145",
@@ -1391,7 +2322,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "068888758321",
+    "search_keywords": [
+      "Pyle",
+      "Antennas & RF",
+      "PDWM2145",
+      "068888758321",
+      "Fixed",
+      "Freq",
+      "Wireless",
+      "Mic",
+      "System"
+    ]
   },
   {
     "sku": "PDWM3375",
@@ -1408,7 +2351,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "068888744409",
+    "search_keywords": [
+      "Pyle",
+      "Antennas & RF",
+      "PDWM3375",
+      "068888744409",
+      "2CH",
+      "Wireless",
+      "Mic",
+      "System"
+    ]
   },
   {
     "sku": "PDWM3400",
@@ -1425,7 +2379,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "068888744416",
+    "search_keywords": [
+      "Pyle",
+      "Antennas & RF",
+      "PDWM3400",
+      "068888744416",
+      "Premier",
+      "Wireless",
+      "Mic",
+      "System"
+    ]
   },
   {
     "sku": "PDBC70",
@@ -1442,7 +2407,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "068888743822",
+    "search_keywords": [
+      "Pyle",
+      "Network Equipment",
+      "PDBC70",
+      "068888743822",
+      "9O",
+      "15A",
+      "Power",
+      "Switch",
+      "Control"
+    ]
   },
   {
     "sku": "PDWM4120",
@@ -1459,7 +2436,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "842893119755",
+    "search_keywords": [
+      "Pyle",
+      "Antennas & RF",
+      "PDWM4120",
+      "842893119755",
+      "UHF",
+      "Wireless",
+      "Mic",
+      "System"
+    ]
   },
   {
     "sku": "AMP1450E",
@@ -1476,7 +2464,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476061011",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "AMP1450E",
+      "044476061011",
+      "Digi",
+      "Amp",
+      "For",
+      "Indoor",
+      "Antna"
+    ]
   },
   {
     "sku": "ANT111E",
@@ -1493,7 +2493,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000334835",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "ANT111E",
+      "079000334835",
+      "Indoor",
+      "Passive",
+      "Antenna"
+    ]
   },
   {
     "sku": "ANT1560E1",
@@ -1510,7 +2520,21 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476125652",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "ANT1560E1",
+      "044476125652",
+      "Amplified",
+      "Indoor",
+      "Flat",
+      "Multi",
+      "Directional",
+      "HDTV",
+      "Antenna"
+    ]
   },
   {
     "sku": "ANT310E",
@@ -1527,7 +2551,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476121845",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "ANT310E",
+      "044476121845",
+      "Amplified",
+      "Indoor",
+      "Antna"
+    ]
   },
   {
     "sku": "ANT705E",
@@ -1544,7 +2578,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476128677",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "ANT705E",
+      "044476128677",
+      "Attic",
+      "outdoor",
+      "Hdtv",
+      "Antenna"
+    ]
   },
   {
     "sku": "ANT754E",
@@ -1561,7 +2606,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476151132",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "ANT754E",
+      "044476151132",
+      "Antenna",
+      "Outdoor",
+      "Attic",
+      "Compa"
+    ]
   },
   {
     "sku": "DH12HHE",
@@ -1578,7 +2634,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476042553",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "DH12HHE",
+      "044476042553",
+      "12FT",
+      "Dig",
+      "Plus",
+      "HDMI"
+    ]
   },
   {
     "sku": "DH24SPE",
@@ -1595,7 +2662,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476043024",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "DH24SPE",
+      "044476043024",
+      "4GHZ",
+      "2WAY",
+      "Digital",
+      "Splitter"
+    ]
   },
   {
     "sku": "DH3HHE",
@@ -1612,7 +2690,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476042539",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "DH3HHE",
+      "044476042539",
+      "3FT",
+      "HDMI",
+      "Cable"
+    ]
   },
   {
     "sku": "DH6HHE",
@@ -1629,7 +2717,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476042546",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "DH6HHE",
+      "044476042546",
+      "6FT",
+      "Dig",
+      "Plus",
+      "HDMI",
+      "To"
+    ]
   },
   {
     "sku": "DV10RV",
@@ -1646,7 +2746,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000316152",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "DV10RV",
+      "079000316152",
+      "6FT",
+      "Optical",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "TP210WHRV",
@@ -1663,7 +2774,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476065408",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP210WHRV",
+      "044476065408",
+      "7FT",
+      "Mod",
+      "Phone",
+      "Cord",
+      "White"
+    ]
   },
   {
     "sku": "TP231WHR",
@@ -1680,7 +2803,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476053245",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP231WHR",
+      "044476053245",
+      "15FT",
+      "Phone",
+      "Line",
+      "Cord",
+      "White"
+    ]
   },
   {
     "sku": "TP243WHR",
@@ -1697,7 +2832,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476053252",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP243WHR",
+      "044476053252",
+      "25FT",
+      "Phone",
+      "Line",
+      "Cord",
+      "White"
+    ]
   },
   {
     "sku": "TP257WHR",
@@ -1714,7 +2861,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000308614",
+    "search_keywords": [
+      "RCA",
+      "Terminals, Jacks & Wall Plates",
+      "TP257WHR",
+      "079000308614",
+      "Duplex",
+      "Mod",
+      "Jack",
+      "White"
+    ]
   },
   {
     "sku": "TP265WHR",
@@ -1731,7 +2889,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476060557",
+    "search_keywords": [
+      "RCA",
+      "Terminals, Jacks & Wall Plates",
+      "TP265WHR",
+      "044476060557",
+      "Surf",
+      "Mount",
+      "Phone",
+      "Jack",
+      "White"
+    ]
   },
   {
     "sku": "TP280WRV",
@@ -1748,7 +2918,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000404194",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP280WRV",
+      "079000404194",
+      "12FT",
+      "Phone",
+      "Coil",
+      "Cord",
+      "White"
+    ]
   },
   {
     "sku": "TP282AR",
@@ -1765,7 +2947,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000404200",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP282AR",
+      "079000404200",
+      "25FT",
+      "Phone",
+      "Coil",
+      "Cord",
+      "Ivr"
+    ]
   },
   {
     "sku": "TP282BLRV",
@@ -1782,7 +2976,21 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000404224",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP282BLRV",
+      "079000404224",
+      "Standard",
+      "Handset",
+      "Coil",
+      "Cord",
+      "25",
+      "ft",
+      "Black"
+    ]
   },
   {
     "sku": "TP282WR",
@@ -1799,7 +3007,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000404255",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP282WR",
+      "079000404255",
+      "25FT",
+      "Handset",
+      "Coil",
+      "Cord",
+      "With"
+    ]
   },
   {
     "sku": "TP443WHRV",
@@ -1816,7 +3036,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476053085",
+    "search_keywords": [
+      "RCA",
+      "Telephone Equipment",
+      "TP443WHRV",
+      "044476053085",
+      "50FT",
+      "Mod",
+      "Phone",
+      "Cord",
+      "White"
+    ]
   },
   {
     "sku": "TPH530BR",
@@ -1833,7 +3065,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476061424",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "TPH530BR",
+      "044476061424",
+      "ft",
+      "Cat5e",
+      "Cable",
+      "Blu"
+    ]
   },
   {
     "sku": "TPH532BR",
@@ -1850,7 +3093,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476048258",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "TPH532BR",
+      "044476048258",
+      "25FT",
+      "Cat5e",
+      "100MHZ",
+      "Cable",
+      "Blu"
+    ]
   },
   {
     "sku": "TPH560R1V",
@@ -1867,7 +3122,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476138997",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "TPH560R1V",
+      "044476138997",
+      "CAT5E",
+      "in",
+      "Line",
+      "Coupler",
+      "With"
+    ]
   },
   {
     "sku": "TPH633R",
@@ -1884,7 +3151,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476071959",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "TPH633R",
+      "044476071959",
+      "50FT",
+      "Cat",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VH125R",
@@ -1901,7 +3179,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476060779",
+    "search_keywords": [
+      "RCA",
+      "Antennas & RF",
+      "VH125R",
+      "044476060779",
+      "4IN",
+      "Antenna",
+      "Wall",
+      "Mount",
+      "Kit"
+    ]
   },
   {
     "sku": "VH47R",
@@ -1918,7 +3208,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000403364",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH47R",
+      "079000403364",
+      "Two",
+      "way",
+      "Splitter"
+    ]
   },
   {
     "sku": "VH603RV1",
@@ -1935,7 +3235,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000320586",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH603RV1",
+      "079000320586",
+      "3FT",
+      "RG6",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VH606R",
@@ -1952,7 +3263,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000320593",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH606R",
+      "079000320593",
+      "6FT",
+      "RG6",
+      "Coax",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VH606WHR",
@@ -1969,7 +3292,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000320630",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH606WHR",
+      "079000320630",
+      "6FT",
+      "RG6",
+      "Cable",
+      "White"
+    ]
   },
   {
     "sku": "VH612R",
@@ -1986,7 +3320,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000320609",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH612R",
+      "079000320609",
+      "12FT",
+      "RG6",
+      "Coax",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VH625RV",
@@ -2003,7 +3349,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000320616",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH625RV",
+      "079000320616",
+      "25FT",
+      "RG6",
+      "Coax",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VH66R1",
@@ -2020,7 +3378,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000403463",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VH66R1",
+      "079000403463",
+      "Coax",
+      "Cable",
+      "Feed",
+      "Connector"
+    ]
   },
   {
     "sku": "VHB6111R",
@@ -2037,7 +3406,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000316114",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VHB6111R",
+      "079000316114",
+      "100FT",
+      "RG6",
+      "Coax",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VHB655R",
@@ -2054,7 +3435,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "079000316091",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VHB655R",
+      "079000316091",
+      "50FT",
+      "RG6",
+      "Coax",
+      "Cable",
+      "Black"
+    ]
   },
   {
     "sku": "VHEXT8E",
@@ -2071,7 +3464,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476138027",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VHEXT8E",
+      "044476138027",
+      "Coax",
+      "Extension",
+      "Cable"
+    ]
   },
   {
     "sku": "VHFC015E",
@@ -2088,7 +3491,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "044476138393",
+    "search_keywords": [
+      "RCA",
+      "Network Cabling & Connectors",
+      "VHFC015E",
+      "044476138393",
+      "Flat",
+      "Coax",
+      "Extnsn",
+      "Cable"
+    ]
   },
   {
     "sku": "C380N",
@@ -2105,7 +3519,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "884945009096",
+    "search_keywords": [
+      "Eco4life",
+      "Network Equipment",
+      "C380N",
+      "884945009096",
+      "4O",
+      "Smart",
+      "Surge",
+      "Power",
+      "Strip",
+      "usb"
+    ]
   },
   {
     "sku": "84-213",
@@ -2122,7 +3549,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "076174842135",
+    "search_keywords": [
+      "Stanley",
+      "Telecom Tools",
+      "84-213",
+      "076174842135",
+      "Wire",
+      "Stripper",
+      "Cutter"
+    ]
   },
   {
     "sku": "AHD10-04290",
@@ -2139,7 +3576,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042906",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "AHD10-04290",
+      "846788042906",
+      "10FT",
+      "HDMI",
+      "30AWG",
+      "Black"
+    ]
   },
   {
     "sku": "AHD30-04293",
@@ -2156,7 +3604,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042937",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "AHD30-04293",
+      "846788042937",
+      "30FT",
+      "HDMI",
+      "28AWG",
+      "Black"
+    ]
   },
   {
     "sku": "AHD50-04294",
@@ -2173,7 +3632,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042944",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "AHD50-04294",
+      "846788042944",
+      "50FT",
+      "HDMI",
+      "24AWG",
+      "Black"
+    ]
   },
   {
     "sku": "MBW5U-00932",
@@ -2190,7 +3660,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788009329",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW5U-00932",
+      "846788009329",
+      "CAT",
+      "5e",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "MBW5U-01440",
@@ -2207,7 +3694,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788014408",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW5U-01440",
+      "846788014408",
+      "CAT",
+      "5e",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Black"
+    ]
   },
   {
     "sku": "MBW5U-01441",
@@ -2224,7 +3728,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788014415",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW5U-01441",
+      "846788014415",
+      "CAT",
+      "5e",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "White"
+    ]
   },
   {
     "sku": "MBW5U-01443",
@@ -2241,7 +3762,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788014439",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW5U-01443",
+      "846788014439",
+      "CAT",
+      "5e",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Yellow"
+    ]
   },
   {
     "sku": "MBW5U-01554",
@@ -2258,7 +3796,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788015542",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW5U-01554",
+      "846788015542",
+      "CAT",
+      "5e",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Red"
+    ]
   },
   {
     "sku": "MBW6U-00934",
@@ -2275,7 +3830,23 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788009343",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW6U-00934",
+      "846788009343",
+      "CAT",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "MBW6U-01444",
@@ -2292,7 +3863,23 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788014446",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW6U-01444",
+      "846788014446",
+      "CAT",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "White"
+    ]
   },
   {
     "sku": "MBW6U-01445",
@@ -2309,7 +3896,23 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788014453",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MBW6U-01445",
+      "846788014453",
+      "CAT",
+      "UTP",
+      "Solid",
+      "Riser",
+      "CMR",
+      "Cable",
+      "000",
+      "ft",
+      "Yellow"
+    ]
   },
   {
     "sku": "MKJ6U-01352",
@@ -2326,7 +3929,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788013524",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "MKJ6U-01352",
+      "846788013524",
+      "Kest",
+      "Coupler",
+      "Cat6",
+      "Unshld",
+      "Black"
+    ]
   },
   {
     "sku": "WTCXC-03634",
@@ -2343,7 +3958,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788036349",
+    "search_keywords": [
+      "Vericom",
+      "Telecom Tools",
+      "WTCXC-03634",
+      "846788036349",
+      "Coax",
+      "Hex",
+      "Crimp",
+      "Tool"
+    ]
   },
   {
     "sku": "WTCXS-03631",
@@ -2360,7 +3986,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788036318",
+    "search_keywords": [
+      "Vericom",
+      "Telecom Tools",
+      "WTCXS-03631",
+      "846788036318",
+      "Universal",
+      "Coax",
+      "Strip",
+      "Tool"
+    ]
   },
   {
     "sku": "WTRJC-03632",
@@ -2377,7 +4014,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788036325",
+    "search_keywords": [
+      "Vericom",
+      "Telecom Tools",
+      "WTRJC-03632",
+      "846788036325",
+      "Modular",
+      "Crimp",
+      "strip",
+      "Tool"
+    ]
   },
   {
     "sku": "XHD03-04252",
@@ -2394,7 +4042,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042524",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XHD03-04252",
+      "846788042524",
+      "3FT",
+      "HDMI",
+      "Cable",
+      "With",
+      "Ethernet",
+      "Black"
+    ]
   },
   {
     "sku": "XHD01-04253",
@@ -2411,7 +4072,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042531",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XHD01-04253",
+      "846788042531",
+      "6FT",
+      "HDMI",
+      "Cable",
+      "With",
+      "Ethernet",
+      "Black"
+    ]
   },
   {
     "sku": "XHD01-04254",
@@ -2428,7 +4102,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042548",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XHD01-04254",
+      "846788042548",
+      "10FT",
+      "HDMI",
+      "Cable",
+      "With",
+      "Ethernet",
+      "Black"
+    ]
   },
   {
     "sku": "XHD01-04255",
@@ -2445,7 +4132,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042555",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XHD01-04255",
+      "846788042555",
+      "12FT",
+      "HDMI",
+      "Cable",
+      "With",
+      "Ethernet",
+      "Black"
+    ]
   },
   {
     "sku": "XHD01-04260",
@@ -2462,7 +4162,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788042609",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XHD01-04260",
+      "846788042609",
+      "12FT",
+      "HDMI",
+      "Cable",
+      "With",
+      "Ethernet",
+      "White"
+    ]
   },
   {
     "sku": "XRG06-02404",
@@ -2479,7 +4192,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "846788024049",
+    "search_keywords": [
+      "Vericom",
+      "Network Cabling & Connectors",
+      "XRG06-02404",
+      "846788024049",
+      "1000FT",
+      "RG6",
+      "Dual",
+      "Shield",
+      "Cable"
+    ]
   },
   {
     "sku": "TLP1008TELTV",
@@ -2496,7 +4221,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332119070",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "TLP1008TELTV",
+      "037332119070",
+      "10",
+      "Outlet",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP1208TELTV",
@@ -2513,7 +4248,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332152510",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "TLP1208TELTV",
+      "037332152510",
+      "12OUT",
+      "Surge",
+      "With",
+      "Coax",
+      "tel"
+    ]
   },
   {
     "sku": "A102-02M",
@@ -2530,7 +4277,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332121912",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "A102-02M",
+      "037332121912",
+      "6FT",
+      "Digital",
+      "Optical",
+      "Cable"
+    ]
   },
   {
     "sku": "A102-04M",
@@ -2547,7 +4305,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332121929",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "A102-04M",
+      "037332121929",
+      "13FT",
+      "Digital",
+      "Optical",
+      "Cable"
+    ]
   },
   {
     "sku": "AVR750UNC",
@@ -2564,7 +4333,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332281135",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "AVR750UNC",
+      "037332281135",
+      "12O",
+      "750VA",
+      "450W",
+      "Li",
+      "Cloud",
+      "Ups"
+    ]
   },
   {
     "sku": "B118-008E-UHD-2",
@@ -2581,7 +4363,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332239907",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Antennas & RF",
+      "B118-008E-UHD-2",
+      "037332239907",
+      "8PRT",
+      "4K",
+      "HDMI",
+      "Splitter"
+    ]
   },
   {
     "sku": "BC600RNC",
@@ -2598,7 +4391,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332283504",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "BC600RNC",
+      "037332283504",
+      "Cloud",
+      "Connected",
+      "600",
+      "VA",
+      "300",
+      "Desktop",
+      "UPS",
+      "with",
+      "AC",
+      "Outlets"
+    ]
   },
   {
     "sku": "ISOBAR6 ULTRA",
@@ -2615,7 +4425,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332010544",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "ISOBAR6 ULTRA",
+      "037332010544",
+      "Out",
+      "Surge",
+      "With",
+      "6FT",
+      "Cord"
+    ]
   },
   {
     "sku": "LC1200",
@@ -2632,7 +4454,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332040022",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "LC1200",
+      "037332040022",
+      "1200W",
+      "120V",
+      "Line",
+      "Conditioner"
+    ]
   },
   {
     "sku": "LC2400",
@@ -2649,7 +4482,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332040060",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "LC2400",
+      "037332040060",
+      "2400W",
+      "120V",
+      "Power",
+      "Conditioner"
+    ]
   },
   {
     "sku": "N001-025-BK",
@@ -2666,7 +4510,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332042644",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N001-025-BK",
+      "037332042644",
+      "Cat5e",
+      "350MHZ",
+      "Cable",
+      "25",
+      "ft"
+    ]
   },
   {
     "sku": "N001-050-BK",
@@ -2683,7 +4539,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332042743",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N001-050-BK",
+      "037332042743",
+      "Cat5e",
+      "Patch",
+      "Cable",
+      "50",
+      "ft"
+    ]
   },
   {
     "sku": "N032-001",
@@ -2700,7 +4568,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332013149",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N032-001",
+      "037332013149",
+      "Cat5e",
+      "RJ45",
+      "Inline",
+      "Couplr"
+    ]
   },
   {
     "sku": "N201-007-BL",
@@ -2717,7 +4596,23 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332099884",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-007-BL",
+      "037332099884",
+      "CAT",
+      "Gigabit",
+      "Snagless",
+      "Stranded",
+      "UTP",
+      "Ethernet",
+      "Cable",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "N201-007-WH",
@@ -2734,7 +4629,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332125149",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-007-WH",
+      "037332125149",
+      "7FT",
+      "Cat6",
+      "Gigabit",
+      "Snagless"
+    ]
   },
   {
     "sku": "N201-014-BL",
@@ -2751,7 +4657,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332099945",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-014-BL",
+      "037332099945",
+      "CAT",
+      "Gigabit",
+      "Snagless",
+      "Solid",
+      "UTP",
+      "Ethernet",
+      "Cable",
+      "14",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "N201-025-BL",
@@ -2768,7 +4691,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332099983",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-025-BL",
+      "037332099983",
+      "CAT",
+      "Gigabit",
+      "Snagless",
+      "Solid",
+      "UTP",
+      "Ethernet",
+      "Cable",
+      "25",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "N201-050-BL",
@@ -2785,7 +4725,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332173041",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-050-BL",
+      "037332173041",
+      "CAT",
+      "Gigabit",
+      "Snagless",
+      "Solid",
+      "UTP",
+      "Ethernet",
+      "Cable",
+      "50",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "N201-100-BL",
@@ -2802,7 +4759,24 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332173102",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-100-BL",
+      "037332173102",
+      "CAT",
+      "Gigabit",
+      "Snagless",
+      "Solid",
+      "UTP",
+      "Ethernet",
+      "Cable",
+      "100",
+      "ft",
+      "Blue"
+    ]
   },
   {
     "sku": "N201-015-BL",
@@ -2819,7 +4793,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332172976",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "N201-015-BL",
+      "037332172976",
+      "15FT",
+      "Cat6",
+      "Snagless",
+      "RJ45",
+      "Cable"
+    ]
   },
   {
     "sku": "P131-06N",
@@ -2836,7 +4822,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332180261",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Terminals, Jacks & Wall Plates",
+      "P131-06N",
+      "037332180261",
+      "Hdmi",
+      "vga",
+      "With",
+      "Audio",
+      "Converter"
+    ]
   },
   {
     "sku": "P502-006",
@@ -2853,7 +4851,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332012319",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "P502-006",
+      "037332012319",
+      "Svga",
+      "Monitor",
+      "Cable",
+      "6F"
+    ]
   },
   {
     "sku": "P569-006-MF",
@@ -2870,7 +4879,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332191571",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "P569-006-MF",
+      "037332191571",
+      "4K",
+      "HDMI",
+      "Extension",
+      "Cable",
+      "With",
+      "Ethernet"
+    ]
   },
   {
     "sku": "P570-006-MICRO",
@@ -2887,7 +4909,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332165503",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "P570-006-MICRO",
+      "037332165503",
+      "HDMI",
+      "To",
+      "Microhdmi",
+      "Cable",
+      "6FT"
+    ]
   },
   {
     "sku": "SMART1200XLHG",
@@ -2904,7 +4938,20 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332116406",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SMART1200XLHG",
+      "037332116406",
+      "4O",
+      "120V",
+      "1KVA",
+      "750W",
+      "Med",
+      "Ups"
+    ]
   },
   {
     "sku": "SMART1500LCD",
@@ -2921,7 +4968,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332126146",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SMART1500LCD",
+      "037332126146",
+      "1500VA",
+      "Lcd",
+      "Ups"
+    ]
   },
   {
     "sku": "SPIKECUBE",
@@ -2938,7 +4995,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332010643",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SPIKECUBE",
+      "037332010643",
+      "1OUT",
+      "600J",
+      "Spikecube",
+      "Surge"
+    ]
   },
   {
     "sku": "SUPER7",
@@ -2955,7 +5023,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332095282",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SUPER7",
+      "037332095282",
+      "Outlet",
+      "Surge",
+      "Protector"
+    ]
   },
   {
     "sku": "SUPER725B",
@@ -2972,7 +5050,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332189844",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SUPER725B",
+      "037332189844",
+      "25FT",
+      "7OUT",
+      "2160J",
+      "Surge"
+    ]
   },
   {
     "sku": "SUPER7B",
@@ -2989,7 +5078,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332175168",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SUPER7B",
+      "037332175168",
+      "OTLT",
+      "Surge",
+      "Protector",
+      "2160",
+      "Joules"
+    ]
   },
   {
     "sku": "SWIVEL6USB",
@@ -3006,7 +5107,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332210944",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "SWIVEL6USB",
+      "037332210944",
+      "6OUT",
+      "Direct",
+      "Plug",
+      "Surge"
+    ]
   },
   {
     "sku": "TLM609SA",
@@ -3023,7 +5135,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332140098",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLM609SA",
+      "037332140098",
+      "9FT",
+      "6O",
+      "Protect",
+      "It",
+      "Surge"
+    ]
   },
   {
     "sku": "TLM615SA",
@@ -3040,7 +5164,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332140081",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLM615SA",
+      "037332140081",
+      "15FT",
+      "6O",
+      "Protect",
+      "It",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP1006B",
@@ -3057,7 +5193,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332200013",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP1006B",
+      "037332200013",
+      "6FT",
+      "10OUT",
+      "2880J",
+      "Surge",
+      "Black"
+    ]
   },
   {
     "sku": "TLP1208SAT",
@@ -3074,7 +5222,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332175182",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "TLP1208SAT",
+      "037332175182",
+      "12OUT",
+      "Protect",
+      "It",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP1208TEL",
@@ -3091,7 +5250,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332152503",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP1208TEL",
+      "037332152503",
+      "8FT",
+      "12OUT",
+      "2160J",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP128TTUSBB",
@@ -3108,7 +5278,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332209788",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "TLP128TTUSBB",
+      "037332209788",
+      "12OUT",
+      "8FT",
+      "Plastic",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP310USBC",
@@ -3125,7 +5306,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332198464",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP310USBC",
+      "037332198464",
+      "10FT",
+      "510J",
+      "3OUT",
+      "Surge",
+      "Black"
+    ]
   },
   {
     "sku": "TLP4BK",
@@ -3142,7 +5335,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332138392",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP4BK",
+      "037332138392",
+      "4OUT",
+      "720J",
+      "Surge",
+      "Black"
+    ]
   },
   {
     "sku": "TLP604",
@@ -3159,7 +5363,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332100498",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP604",
+      "037332100498",
+      "Out",
+      "Surge",
+      "Protector",
+      "4FT",
+      "Cord"
+    ]
   },
   {
     "sku": "TLP606DMUSB",
@@ -3176,7 +5392,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332180292",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP606DMUSB",
+      "037332180292",
+      "OTLT",
+      "Surge",
+      "clamps"
+    ]
   },
   {
     "sku": "TLP610U30CLAMPB",
@@ -3193,7 +5419,28 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332290564",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP610U30CLAMPB",
+      "037332290564",
+      "Protect",
+      "It",
+      "Desk",
+      "Clamp",
+      "Surge",
+      "Protector",
+      "with",
+      "AC",
+      "Outlets",
+      "and",
+      "USB",
+      "Ports",
+      "10",
+      "ft"
+    ]
   },
   {
     "sku": "TLP648USBC",
@@ -3210,7 +5457,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332231130",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP648USBC",
+      "037332231130",
+      "6OUT",
+      "8FT",
+      "Desk",
+      "Clamp",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP6B",
@@ -3227,7 +5486,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332166784",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP6B",
+      "037332166784",
+      "Out",
+      "Surge",
+      "Protector",
+      "6FT",
+      "Cord"
+    ]
   },
   {
     "sku": "TLP74RB",
@@ -3244,7 +5515,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332155665",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP74RB",
+      "037332155665",
+      "7OUTLT",
+      "Surge",
+      "Protectr"
+    ]
   },
   {
     "sku": "TLP76MSG",
@@ -3261,7 +5542,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332166074",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP76MSG",
+      "037332166074",
+      "Out",
+      "Surge",
+      "Protector",
+      "6FT",
+      "Cord"
+    ]
   },
   {
     "sku": "TLP76MSGB",
@@ -3278,7 +5571,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332205810",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP76MSGB",
+      "037332205810",
+      "6FT",
+      "7OUT",
+      "1080J",
+      "Surge",
+      "Black"
+    ]
   },
   {
     "sku": "TLP808B",
@@ -3295,7 +5600,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332189837",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP808B",
+      "037332189837",
+      "8FT",
+      "8OUT",
+      "1440J",
+      "Surge",
+      "Black"
+    ]
   },
   {
     "sku": "TLP810NET",
@@ -3312,7 +5629,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332095329",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "TLP810NET",
+      "037332095329",
+      "Outlet",
+      "Phone",
+      "Lan"
+    ]
   },
   {
     "sku": "TLP864USBB",
@@ -3329,7 +5656,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332223654",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP864USBB",
+      "037332223654",
+      "8OUT",
+      "6FT",
+      "Plastic",
+      "Surge"
+    ]
   },
   {
     "sku": "TLP88TUSBB",
@@ -3346,7 +5684,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332223579",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Equipment",
+      "TLP88TUSBB",
+      "037332223579",
+      "8OUT",
+      "8FT",
+      "Plastic",
+      "Surge"
+    ]
   },
   {
     "sku": "U236-000-R",
@@ -3363,7 +5712,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332163127",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "U236-000-R",
+      "037332163127",
+      "USB",
+      "Ethernet",
+      "Adapter"
+    ]
   },
   {
     "sku": "U436-06N-GBW",
@@ -3380,7 +5739,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "037332189240",
+    "search_keywords": [
+      "Tripp Lite by Eaton",
+      "Network Cabling & Connectors",
+      "U436-06N-GBW",
+      "037332189240",
+      "USB3",
+      "GEN1C",
+      "Ethernet",
+      "Adapter"
+    ]
   },
   {
     "sku": "DS6101",
@@ -3397,7 +5767,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "735078017475",
+    "search_keywords": [
+      "Vtech",
+      "Telephone Equipment",
+      "DS6101",
+      "735078017475",
+      "Add",
+      "Handset",
+      "VTEDS6151"
+    ]
   },
   {
     "sku": "DS6151",
@@ -3414,7 +5794,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "735078016584",
+    "search_keywords": [
+      "Vtech",
+      "Telephone Equipment",
+      "DS6151",
+      "735078016584",
+      "DECT",
+      "Line",
+      "Cordless",
+      "Phone"
+    ]
   },
   {
     "sku": "FL-1000",
@@ -3431,7 +5822,19 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "615798402747",
+    "search_keywords": [
+      "Winegard",
+      "Antennas & RF",
+      "FL-1000",
+      "615798402747",
+      "FL",
+      "1000",
+      "Indoor",
+      "HD",
+      "Antenna"
+    ]
   },
   {
     "sku": "HD8200U",
@@ -3448,7 +5851,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "615798398491",
+    "search_keywords": [
+      "Winegard",
+      "Antennas & RF",
+      "HD8200U",
+      "615798398491",
+      "Hdtv",
+      "Antenna",
+      "Deep",
+      "Fringe"
+    ]
   },
   {
     "sku": "TB-0005",
@@ -3465,7 +5879,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "615798101589",
+    "search_keywords": [
+      "Winegard",
+      "Antennas & RF",
+      "TB-0005",
+      "615798101589",
+      "5FT",
+      "Swedged",
+      "Masting"
+    ]
   },
   {
     "sku": "WM-2040",
@@ -3482,7 +5906,18 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "615798399207",
+    "search_keywords": [
+      "Winegard",
+      "Antennas & RF",
+      "WM-2040",
+      "615798399207",
+      "4IN",
+      "Galvanized",
+      "Wall",
+      "Mount"
+    ]
   },
   {
     "sku": "314475",
@@ -3499,6 +5934,17 @@
     "image_rights_status": "pending",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
-    "status": "available"
+    "status": "available",
+    "gtin": "811815022558",
+    "search_keywords": [
+      "Wilson Electronics",
+      "Antennas & RF",
+      "314475",
+      "811815022558",
+      "75OHM",
+      "Wdebnd",
+      "Directional",
+      "Antna"
+    ]
   }
 ]
