@@ -18,6 +18,7 @@ const catalog = input.filter((row) => !EXCLUDED.has(row.public_sku)).map((row) =
   public_price: null,
   price_note: "Request quote",
   price_mode: "request_quote",
+  pricing_approved: false,
   opening_approved: true,
   checkout_active: false,
   image_rights_status: "pending",
@@ -33,6 +34,8 @@ const pricingRows = catalog.map((product) => ({
   public_sku: product.sku,
   approved_title: product.title,
   public_price: "",
+  price_mode: "request_quote",
+  pricing_approved: "false",
   checkout_active: "false",
   shipping_class: "",
   taxable: "false",
@@ -45,9 +48,9 @@ const pricingRows = catalog.map((product) => ({
 const headers = Object.keys(pricingRows[0]);
 const csvCell = (value) => `"${String(value).replaceAll('"', '""')}"`;
 const csv = [headers.join(","), ...pricingRows.map((row) => headers.map((key) => csvCell(row[key])).join(","))].join("\n") + "\n";
-const publicPricing = catalog.map((p) => ({ public_sku: p.sku, public_price: null, checkout_active: false, price_mode: "request_quote" }));
+const publicPricing = catalog.map((p) => ({ public_sku: p.sku, public_price: null, checkout_active: false, price_mode: "request_quote", pricing_approved: false }));
 const serverPricing = catalog.map((p) => ({
-  public_sku: p.sku, title: p.title, public_price: null, price_mode: "request_quote", checkout_active: false,
+  public_sku: p.sku, title: p.title, public_price: null, price_mode: "request_quote", pricing_approved: false, checkout_active: false,
   shipping_class: null, taxable: false, stripe_price_id: null, allowed_countries: [], stripe_shipping_rate_id: null, automatic_tax: false
 }));
 

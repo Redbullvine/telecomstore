@@ -27,7 +27,7 @@ export function createCheckoutHandler({ pricing, createSession, siteUrl }) {
     for (const [sku, quantity] of merged) {
       const row = bySku.get(sku);
       if (!row) return json({ error: `Unknown product: ${sku}` }, 400);
-      if (!row.checkout_active || row.price_mode !== "fixed" || !(Number(row.public_price) > 0)) return json({ error: `${sku} requires a quote` }, 400);
+      if (!row.pricing_approved || !row.checkout_active || row.price_mode !== "fixed" || !(Number(row.public_price) > 0)) return json({ error: `${sku} requires a quote` }, 400);
       if (!row.shipping_class || !row.stripe_shipping_rate_id || !row.allowed_countries?.length) return json({ error: `${sku} is not configured for shipping` }, 409);
       if (row.taxable && !row.automatic_tax) return json({ error: `${sku} is not configured for tax` }, 409);
       rows.push({ row, quantity });

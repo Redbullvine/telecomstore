@@ -1,5 +1,5 @@
 const REQUIRED_COLUMNS = [
-  "public_sku", "approved_title", "public_price", "checkout_active", "shipping_class",
+  "public_sku", "approved_title", "public_price", "price_mode", "pricing_approved", "checkout_active", "shipping_class",
   "taxable", "stripe_price_id", "allowed_countries", "stripe_shipping_rate_id", "automatic_tax", "notes"
 ];
 
@@ -28,6 +28,9 @@ export function validatePricingRows(rows, catalog, { partial = false } = {}) {
     const rawPrice = String(row.public_price ?? "").trim();
     const price = rawPrice === "" ? null : Number(rawPrice);
     if (price !== null && (!Number.isFinite(price) || price < 0)) throw new Error(`Invalid public_price for ${sku}`);
+    const priceMode = String(row.price_mode || "").trim();
+    if (!["fixed", "request_quote"].includes(priceMode)) throw new Error(`Invalid price_mode for ${sku}`);
+    const pricingApproved = parseBoolean(row.pricing_approved, "pricing_approved", sku);
     const checkoutActive = parseBoolean(row.checkout_active, "checkout_active", sku);
     const taxable = parseBoolean(row.taxable, "taxable", sku);
     const automaticTax = parseBoolean(row.automatic_tax, "automatic_tax", sku);
@@ -36,7 +39,10 @@ export function validatePricingRows(rows, catalog, { partial = false } = {}) {
     const shippingRateId = String(row.stripe_shipping_rate_id || "").trim();
     const stripePriceId = String(row.stripe_price_id || "").trim();
 
-    if (checkoutActive && !(price > 0)) throw new Error(`Checkout requires a positive public_price for ${sku}`);
+    if (pricingApproved && (!(price > 0) || priceMode !== "fixed")) throw new Error(`Pricing approval requires fixed mode and a positive public_price for ${sku}`);
+    if (!pricingApproved && (price !== null || priceMode !== "request_quote")) throw new Error(`Unapproved pricing must remain request_quote with no public_price for ${sku}`);
+    if (checkoutActive && !pricingApproved) throw new Error(`Checkout requires pricing approval for ${sku}`);
+    if (checkoutActive && (!(price > 0) || priceMode !== "fixed")) throw new Error(`Checkout requires fixed mode and a positive public_price for ${sku}`);
     if (checkoutActive && (!shippingClass || !allowedCountries.length || !shippingRateId)) {
       throw new Error(`Checkout requires an explicit shipping class, countries, and Stripe shipping rate for ${sku}`);
     }
@@ -47,7 +53,8 @@ export function validatePricingRows(rows, catalog, { partial = false } = {}) {
       public_sku: sku,
       title: product.title,
       public_price: price,
-      price_mode: checkoutActive ? "fixed" : "request_quote",
+      price_mode: priceMode,
+      pricing_approved: pricingApproved,
       checkout_active: checkoutActive,
       shipping_class: shippingClass || null,
       taxable: taxable,
@@ -66,7 +73,7 @@ export function validatePricingRows(rows, catalog, { partial = false } = {}) {
 }
 
 export function publicPricing(rows) {
-  return rows.map(({ public_sku, public_price, checkout_active, price_mode }) => ({
-    public_sku, public_price, checkout_active, price_mode
+  return rows.map(({ public_sku, public_price, checkout_active, price_mode, pricing_approved }) => ({
+    public_sku, public_price, checkout_active, price_mode, pricing_approved
   }));
 }

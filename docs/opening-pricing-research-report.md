@@ -6,6 +6,7 @@ Research date: 2026-08-03
 
 - Products reviewed by exact manufacturer MPN: 206
 - Approved pricing candidates: 8
+- Prices approved by Danny: 8
 - Keep request quote: 0
 - Manual pricing review: 198
 - Average proposed gross margin across candidates: 45.1%
@@ -32,4 +33,4 @@ The private supplier-cost and per-item margin review is local-only at `tmp/prici
 
 ## Approval decisions required
 
-Danny must approve each candidate retail price, confirm packed dimensions and weight, select an origin ZIP and supported destinations, approve a carrier/Stripe shipping rate, decide taxable status and automatic-tax treatment, and explicitly activate checkout per SKU. No checkout flag is enabled by this research.
+Danny has approved the prices recorded in `operations/opening-approved-prices.json`. Before checkout is activated, he must still confirm packed dimensions and weight, select an origin ZIP and supported destinations, approve a carrier/Stripe shipping rate, decide taxable status and automatic-tax treatment, and explicitly activate checkout per SKU. No checkout flag is enabled by this approval.

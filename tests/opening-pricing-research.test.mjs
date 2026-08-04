@@ -16,7 +16,10 @@ const researched = csv("operations/opening-pricing-researched.csv");
 const shippingRows = csv("operations/opening-shipping-classes.csv");
 const template = csv("operations/opening-pricing-template.csv");
 const publicPricing = JSON.parse(read("src/data/opening-pricing.json"));
+const serverPricing = JSON.parse(read("netlify/functions/_shared/opening-pricing.json"));
 const evidence = JSON.parse(read("operations/opening-pricing-evidence.json"));
+const approvals = JSON.parse(read("operations/opening-approved-prices.json")).prices;
+const approvedEntries = new Map(Object.entries(approvals));
 
 test("public evidence archive covers every exact-MPN catalog product", () => {
   assert.equal(Object.keys(evidence).length, 206);
@@ -50,26 +53,59 @@ test("non-approved products carry no proposed price in committed outputs", () =>
   }
 });
 
-test("template prices exist only for approved candidates and checkout stays disabled", () => {
-  const approvedSkus = new Set(researched.filter((r) => r.pricing_status === "approved_candidate").map((r) => r.public_sku));
+test("template contains exactly Danny's eight approved prices and checkout stays disabled", () => {
+  assert.equal(approvedEntries.size, 8);
   for (const row of template) {
     assert.equal(row.checkout_active, "false", `checkout enabled for ${row.public_sku}`);
-    if (String(row.public_price).trim() !== "") {
-      assert.ok(approvedSkus.has(row.public_sku), `price on non-approved ${row.public_sku}`);
+    if (approvedEntries.has(row.public_sku)) {
+      assert.equal(Number(row.public_price), approvedEntries.get(row.public_sku), `wrong approved price for ${row.public_sku}`);
+      assert.equal(row.price_mode, "fixed");
+      assert.equal(row.pricing_approved, "true");
     } else {
-      assert.ok(!approvedSkus.has(row.public_sku), `approved ${row.public_sku} missing template price`);
+      assert.equal(row.public_price, "", `price on unapproved ${row.public_sku}`);
+      assert.equal(row.price_mode, "request_quote");
+      assert.equal(row.pricing_approved, "false");
     }
   }
 });
 
-test("public pricing JSON keeps every product request-quote with checkout off", () => {
+test("public pricing JSON mirrors eight approvals while all checkout stays off", () => {
   assert.equal(publicPricing.length, 206);
-  const approvedSkus = new Set(researched.filter((r) => r.pricing_status === "approved_candidate").map((r) => r.public_sku));
   for (const r of publicPricing) {
     assert.equal(r.checkout_active, false);
-    assert.equal(r.price_mode, "request_quote");
-    if (approvedSkus.has(r.public_sku)) assert.ok(Number(r.public_price) > 0);
-    else assert.equal(r.public_price, null, `non-approved price leaked for ${r.public_sku}`);
+    if (approvedEntries.has(r.public_sku)) {
+      assert.equal(r.public_price, approvedEntries.get(r.public_sku));
+      assert.equal(r.price_mode, "fixed");
+      assert.equal(r.pricing_approved, true);
+    } else {
+      assert.equal(r.public_price, null, `non-approved price leaked for ${r.public_sku}`);
+      assert.equal(r.price_mode, "request_quote");
+      assert.equal(r.pricing_approved, false);
+    }
+  }
+});
+
+test("pricing CSV and public/server JSON stay consistent", () => {
+  const templateBySku = new Map(template.map((row) => [row.public_sku, row]));
+  const serverBySku = new Map(serverPricing.map((row) => [row.public_sku, row]));
+  for (const row of publicPricing) {
+    const csvRow = templateBySku.get(row.public_sku);
+    const serverRow = serverBySku.get(row.public_sku);
+    assert.equal(row.public_price, csvRow.public_price === "" ? null : Number(csvRow.public_price));
+    assert.equal(row.price_mode, csvRow.price_mode);
+    assert.equal(row.pricing_approved, csvRow.pricing_approved === "true");
+    for (const field of ["public_price", "price_mode", "pricing_approved", "checkout_active"]) assert.equal(serverRow[field], row[field]);
+  }
+});
+
+test("research and review records preserve evidence and mirror approval decisions", () => {
+  const review = csv("operations/opening-pricing-review.csv");
+  for (const rows of [researched, review]) {
+    assert.equal(rows.filter((row) => row.pricing_approved === "true").length, 8);
+    for (const row of rows) {
+      if (approvedEntries.has(row.public_sku)) assert.equal(Number(row.approved_public_price), approvedEntries.get(row.public_sku));
+      else assert.equal(row.approved_public_price, "");
+    }
   }
 });
 

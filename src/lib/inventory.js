@@ -103,6 +103,7 @@ export function normalizeProduct(product = {}) {
     price: valueOrEmpty(product.public_price ?? product.price),
     public_price: product.public_price ?? null,
     price_mode: valueOrEmpty(product.price_mode || "request_quote"),
+    pricing_approved: product.pricing_approved === true,
     checkout_active: product.checkout_active === true,
     availability_text: valueOrEmpty(product.availability_text || publicAvailabilityLabel(product)),
     price_note: valueOrEmpty(product.public_price_note || product.price_note || EMPTY_PRODUCT.price_note),

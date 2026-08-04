@@ -1,7 +1,7 @@
 export const MAX_CART_QUANTITY = 99;
 
 export function isPurchasable(product = {}) {
-  return product.checkout_active === true && product.price_mode === "fixed" && Number(product.public_price ?? product.price) > 0;
+  return product.pricing_approved === true && product.checkout_active === true && product.price_mode === "fixed" && Number(product.public_price ?? product.price) > 0;
 }
 export function productPrimaryAction(product = {}) {
   return isPurchasable(product) ? "purchase" : "quote";

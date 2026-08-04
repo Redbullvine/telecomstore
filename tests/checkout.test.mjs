@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createCheckoutHandler } from "../netlify/functions/_shared/checkout-core.mjs";
 
-const ready = { public_sku: "PUBLIC-1", title: "Cable", public_price: 25.5, price_mode: "fixed", checkout_active: true, shipping_class: "parcel", taxable: true, automatic_tax: true, allowed_countries: ["US"], stripe_shipping_rate_id: "shr_test", stripe_price_id: null };
-const quote = { ...ready, public_sku: "PUBLIC-2", public_price: null, price_mode: "request_quote", checkout_active: false };
+const ready = { public_sku: "PUBLIC-1", title: "Cable", public_price: 25.5, price_mode: "fixed", pricing_approved: true, checkout_active: true, shipping_class: "parcel", taxable: true, automatic_tax: true, allowed_countries: ["US"], stripe_shipping_rate_id: "shr_test", stripe_price_id: null };
+const quote = { ...ready, public_sku: "PUBLIC-2", public_price: null, price_mode: "request_quote", pricing_approved: false, checkout_active: false };
 const request = (body, method = "POST") => new Request("http://local/api", { method, headers: { "content-type": "application/json" }, body: method === "POST" ? JSON.stringify(body) : undefined });
 const run = async (body, pricing = [ready, quote], createSession = async (params) => ({ id: "cs_test", url: "https://checkout.stripe.com/c/pay/test", params })) => {
   let params;
@@ -27,6 +27,7 @@ test("rejects client authority, empty, unknown, quote-only, invalid quantity, an
   assert.ok((await run({ items: [{ sku: "PUBLIC-1", quantity: 1 }] }, [{ ...ready, public_price: 0 }])).response.status >= 400);
   assert.ok((await run({ items: [{ sku: "PUBLIC-1", quantity: 1 }] }, [{ ...ready, public_price: null }])).response.status >= 400);
   assert.ok((await run({ items: [{ sku: "PUBLIC-1", quantity: 1 }] }, [{ ...ready, checkout_active: false }])).response.status >= 400);
+  assert.ok((await run({ items: [{ sku: "PUBLIC-1", quantity: 1 }] }, [{ ...ready, pricing_approved: false }])).response.status >= 400);
 });
 test("rejects GET and malformed JSON", async () => {
   const handler = createCheckoutHandler({ pricing: [ready], siteUrl: "https://telecomstore.net", createSession: async () => ({ url: "https://checkout.stripe.com/test" }) });
