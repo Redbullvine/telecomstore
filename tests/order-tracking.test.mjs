@@ -166,7 +166,7 @@ test("logs contain identifiers and amounts only, never customer PII", async () =
 // Strip SQL comments so prose can never satisfy or trip the statement scans.
 const migration = fs
   .readFileSync(path.join(root, "supabase", "migrations", "20260803120000_stripe_order_tracking.sql"), "utf8")
-  .split("\n").map((line) => line.replace(/--.*$/, "")).join("\n");
+  .replace(/--[^\r\n]*/g, "");
 
 test("order tables enable RLS, give anon nothing, and never grant DELETE", () => {
   for (const table of ["stripe_events", "orders", "order_items"]) {
