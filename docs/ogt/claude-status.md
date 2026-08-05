@@ -4,63 +4,52 @@
 - Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-claude-stripe`
 - Branch: `ogt/claude-stripe`
 - Starting main commit: `206b9002be79cfe4034bc6879d4842174e7d5e5d`
-- Last updated: 2026-08-05 (payment system complete, validated locally)
-- Files currently being edited: none — development complete, awaiting BAINTU
-- Files planned next: `src/main.jsx` (final route integration ONLY after BAINTU merges main)
+- BAINTU main commit integrated: `cfb20303882435dddc05c26633f2f66dd9cceeac` (merged into this branch)
+- Last updated: 2026-08-05 (synchronized with BAINTU main; ready to merge)
 
 ## Completed
 
-- Migration 007 `supabase/migrations/20260805120000_quote_to_payment.sql`:
-  quote_requests/items, orders, payments, stripe_events (unique event id),
-  status history, internal notes, product_checkout_approvals gate; RLS on all
-  8 tables, anon fully revoked, authenticated read-only (admins via
-  is_admin()), status-transition trigger. NOT applied to production.
-- Netlify Functions (self-routed, no netlify.toml changes):
-  `/api/quote-requests`, `/api/admin/quotes/:id/:action`,
-  `/api/checkout-session` (hard-gated OFF until shipping+tax rules exist),
-  `/api/stripe-webhook`, `/api/admin/payments-config`.
-- Server libs under `netlify/lib/` (env presence checks, integer-cent money,
-  validation, transitions, Stripe client + idempotency, webhook core).
-- Static `public/payment-success.html` / `public/payment-cancel.html`
-  (verified rendering in local dev, no console errors).
-- Admin Payment Center: `src/admin/PaymentCenter.jsx` + `payments-api.mjs`
-  (standalone module, NOT wired into routing yet).
-- Docs: `docs/PAYMENTS.md` (architecture, env vars, integration checklist,
-  webhook event list, rollback).
+- Quote-to-payment system: migration `20260805120000_quote_to_payment.sql`
+  (quote_requests/items, payments, status history, notes; RLS, anon revoked,
+  transition trigger), quote submission + admin action functions, admin
+  Payment Center (`/admin/payments`, wired via SHARED main.jsx commit),
+  static payment success/cancel pages, `docs/PAYMENTS.md`.
+- Payment-integration reconciliation with the opening-commerce Stripe stack
+  that arrived in main via BAINTU's merge:
+  - ONE unified `/api/stripe-webhook` (`stripe-webhook.mts`): shared
+    signature verification, livemode/key-mode guard, durable stripe_events
+    ledger + failed-event reopen; quote events dispatch to the quote core,
+    direct-checkout sessions to the order workflow. Superseded quote-branch
+    duplicates deleted (`stripe-webhook.mjs`, `create-checkout-session.mjs`).
+  - Quote migration now builds on `20260803120000_stripe_order_tracking.sql`
+    (no table collisions; shared `stripe_events`/`orders` untouched).
+- Storefront, catalog, product data, styling: untouched (BAINTU-owned).
 
-## Shared files touched
+## Tests
 
-- `package.json` / `package-lock.json`: commit `SHARED: add stripe server
-  dependency for payment functions` (stripe ^22.4.0, dependency add only).
-- No changes to `netlify.toml`, `src/main.jsx`, `src/styles.css`, or any
-  BAINTU-owned file.
+- 190 tests: 179 pass, 0 fail, 11 skipped (pre-existing DB-gated suites).
+  Includes cross-system webhook dispatch, ledger dedup/reopen, livemode
+  mismatch, tamper rejection, migration boundaries, secret boundaries.
+- Production build passes; `git diff --check` clean; bundle has no secret
+  patterns. Lint/tsconfig: not configured in repo (N/A).
 
-## Tests completed
+## Shared-file commits
 
-- 58/58 passing (`npm test`): payment validation, money arithmetic, status
-  transitions (JS/SQL parity), webhook signature (valid/tampered/wrong
-  secret), duplicate + replay + failed-retry handling, event-type whitelist,
-  paid/refund/failure transitions, migration RLS boundary, client/server
-  secret boundary, admin-auth ordering, idempotency-key coverage.
-- Production build passes (`npm run build`); `git diff --check` clean;
-  dist/ bundle scanned — no secret patterns; JSX/server modules syntax-checked.
-- Lint/type check: no lint script or tsconfig exists in this repo (N/A).
-- Stripe test-mode integration (real test API calls): BLOCKED — no keys (below).
+- `SHARED: add stripe server dependency for payment functions` (superseded by
+  main's identical stripe ^22.4.0 — merged cleanly)
+- `SHARED: register admin Payment Center route and sidebar link` (main.jsx:
+  icon import, route, sidebar entry, title — 5 lines)
 
-## Known blockers
+## Remaining blockers (deployment configuration, not code)
 
 - Netlify env: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
-  SUPABASE_SERVICE_ROLE_KEY all MISSING (presence audit only). Payment
-  functions fail safe (503/config-incomplete) until set.
-- Stripe dashboard webhook endpoint not yet created (needs deploy first).
-- Production migration 007 deferred until BAINTU completes + DB backup confirmed.
-- Final integration (main.jsx route + sidebar link, single SHARED commit)
-  deferred until BAINTU merges main.
+  SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL (server) MISSING — all payment
+  functions fail safe (503) until set. Presence audit only; no values seen.
+- Stripe dashboard webhook endpoint must be created after deploy
+  (events list in docs/PAYMENTS.md).
+- Production migrations 20260803 + 20260805 to apply at release step.
 
-## Ready to merge: No — awaiting `SAFE FOR CLAUDE OGT 1 TO MERGE: YES` from BAINTU
+## Ready to merge: YES — proceeding under BAINTU's `SAFE FOR CLAUDE OGT 1 TO MERGE: YES`
 
-## Coordination lock acknowledgment
-
-Claude will not merge/push main, deploy production, apply production
-migrations, or change production Stripe configuration while BAINTU OGT 1 is
-active.
+Claude holds the production merge slot now; BAINTU must not push production
+until Claude reports completion.

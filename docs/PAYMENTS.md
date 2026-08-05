@@ -24,11 +24,18 @@ Primary flow is **quote-to-payment** (works for the entire catalog):
    failure/refund) under guarded status transitions.
 7. Admin sees live status, payment records, status history, and internal notes.
 
-**Direct checkout** (`POST /api/checkout-session`) exists but is hard-gated:
-it requires an explicit row in `product_checkout_approvals` AND resolvable
-shipping+tax rules. The rules resolver intentionally returns `null` today, so
-every direct-checkout attempt returns the quote fallback message. Do not
-enable it by inventing shipping or assuming zero tax.
+**Direct checkout** (`POST /api/create-checkout-session`, from the
+opening-commerce effort) serves the explicitly approved opening products with
+server-side pricing (`netlify/functions/_shared/opening-pricing.json`),
+Stripe shipping rates, and automatic tax. It records orders in
+`public.orders`/`public.order_items` (migration `20260803120000`).
+
+Both flows share ONE webhook endpoint (`stripe-webhook.mts`): signature
+verification, livemode/key-mode matching, and the durable `stripe_events`
+ledger (unique event id; failed events re-open for Stripe retries) are
+common; quote events (invoices, payment links, quote sessions) dispatch to
+`netlify/lib/webhook-core.mjs`, direct-checkout sessions to the order
+workflow in `_shared/order-core.mjs`.
 
 ## Status flow
 
@@ -42,12 +49,14 @@ are enforced twice: in `netlify/lib/transitions.mjs` and by the DB trigger
 
 | Area | Path |
 |---|---|
-| Migration 007 | `supabase/migrations/20260805120000_quote_to_payment.sql` |
-| Server libs | `netlify/lib/*.mjs` |
+| Order-tracking migration | `supabase/migrations/20260803120000_stripe_order_tracking.sql` |
+| Quote migration | `supabase/migrations/20260805120000_quote_to_payment.sql` |
+| Server libs (quote) | `netlify/lib/*.mjs` |
+| Shared payment cores | `netlify/functions/_shared/*.mjs` |
 | Quote submission | `netlify/functions/submit-quote-request.mjs` → `/api/quote-requests` |
 | Admin actions | `netlify/functions/admin-quote-actions.mjs` → `/api/admin/quotes/:id/:action` |
-| Direct checkout (gated) | `netlify/functions/create-checkout-session.mjs` → `/api/checkout-session` |
-| Webhook | `netlify/functions/stripe-webhook.mjs` → `/api/stripe-webhook` |
+| Direct checkout | `netlify/functions/create-checkout-session.mts` → `/api/create-checkout-session` |
+| Unified webhook | `netlify/functions/stripe-webhook.mts` → `/api/stripe-webhook` |
 | Config audit | `netlify/functions/admin-payments-config.mjs` → `/api/admin/payments-config` |
 | Success / cancel pages | `public/payment-success.html`, `public/payment-cancel.html` |
 | Admin UI | `src/admin/PaymentCenter.jsx`, `src/admin/payments-api.mjs` |
