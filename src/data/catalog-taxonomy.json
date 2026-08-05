@@ -1,0 +1,185 @@
+{
+  "categories": [
+    {
+      "name": "Antennas & RF",
+      "slug": "antennas-and-rf",
+      "color": "#126a8a",
+      "count": 30,
+      "description": "Browse antennas & rf by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Network Equipment",
+      "slug": "network-equipment",
+      "color": "#1d6b5a",
+      "count": 43,
+      "description": "Browse network equipment by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Telephone Equipment",
+      "slug": "telephone-equipment",
+      "color": "#7653a6",
+      "count": 18,
+      "description": "Browse telephone equipment by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Network Cabling & Connectors",
+      "slug": "network-cabling-and-connectors",
+      "color": "#b25f2b",
+      "count": 89,
+      "description": "Browse network cabling & connectors by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Terminals, Jacks & Wall Plates",
+      "slug": "terminals-jacks-and-wall-plates",
+      "color": "#355d91",
+      "count": 10,
+      "description": "Browse terminals, jacks & wall plates by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Cable Management",
+      "slug": "cable-management",
+      "color": "#8a4f68",
+      "count": 7,
+      "description": "Browse cable management by exact manufacturer part number and request a quote for current availability and shipping."
+    },
+    {
+      "name": "Telecom Tools",
+      "slug": "telecom-tools",
+      "color": "#55703c",
+      "count": 9,
+      "description": "Browse telecom tools by exact manufacturer part number and request a quote for current availability and shipping."
+    }
+  ],
+  "manufacturers": [
+    {
+      "name": "Antennas Direct",
+      "slug": "antennas-direct",
+      "count": 6
+    },
+    {
+      "name": "APC",
+      "slug": "apc",
+      "count": 7
+    },
+    {
+      "name": "At&t",
+      "slug": "at-and-t",
+      "count": 1
+    },
+    {
+      "name": "Clarity",
+      "slug": "clarity",
+      "count": 7
+    },
+    {
+      "name": "Cyberpower",
+      "slug": "cyberpower",
+      "count": 1
+    },
+    {
+      "name": "Datacomm Electronics",
+      "slug": "datacomm-electronics",
+      "count": 4
+    },
+    {
+      "name": "Eagle Aspen",
+      "slug": "eagle-aspen",
+      "count": 6
+    },
+    {
+      "name": "Eco4life",
+      "slug": "eco4life",
+      "count": 1
+    },
+    {
+      "name": "Energizer Connect",
+      "slug": "energizer-connect",
+      "count": 1
+    },
+    {
+      "name": "Ethereal",
+      "slug": "ethereal",
+      "count": 8
+    },
+    {
+      "name": "Gemini",
+      "slug": "gemini",
+      "count": 1
+    },
+    {
+      "name": "Helios",
+      "slug": "helios",
+      "count": 1
+    },
+    {
+      "name": "Ideal",
+      "slug": "ideal",
+      "count": 17
+    },
+    {
+      "name": "Kenwood",
+      "slug": "kenwood",
+      "count": 2
+    },
+    {
+      "name": "Koblenz",
+      "slug": "koblenz",
+      "count": 1
+    },
+    {
+      "name": "Labor Saving Devices",
+      "slug": "labor-saving-devices",
+      "count": 10
+    },
+    {
+      "name": "Nanuk",
+      "slug": "nanuk",
+      "count": 4
+    },
+    {
+      "name": "Prime",
+      "slug": "prime",
+      "count": 2
+    },
+    {
+      "name": "Pyle",
+      "slug": "pyle",
+      "count": 6
+    },
+    {
+      "name": "RCA",
+      "slug": "rca",
+      "count": 37
+    },
+    {
+      "name": "Stanley",
+      "slug": "stanley",
+      "count": 2
+    },
+    {
+      "name": "Tripp Lite by Eaton",
+      "slug": "tripp-lite-by-eaton",
+      "count": 53
+    },
+    {
+      "name": "Vericom",
+      "slug": "vericom",
+      "count": 21
+    },
+    {
+      "name": "Vtech",
+      "slug": "vtech",
+      "count": 2
+    },
+    {
+      "name": "Wilson Electronics",
+      "slug": "wilson-electronics",
+      "count": 1
+    },
+    {
+      "name": "Winegard",
+      "slug": "winegard",
+      "count": 4
+    }
+  ]
+}
