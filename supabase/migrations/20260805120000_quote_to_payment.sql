@@ -262,6 +262,12 @@ begin
 end;
 $$;
 
+-- Trigger functions are invoked only by their trigger; nothing may call this
+-- through the PostgREST RPC surface (security advisor 0028/0029).
+revoke all on function public.enforce_quote_status_transition() from public;
+revoke all on function public.enforce_quote_status_transition() from anon;
+revoke all on function public.enforce_quote_status_transition() from authenticated;
+
 drop trigger if exists quote_requests_status_transition on public.quote_requests;
 create trigger quote_requests_status_transition
 before update of status on public.quote_requests
