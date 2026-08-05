@@ -17,6 +17,7 @@
     "papaparse": "^5.5.3",
     "react": "latest",
     "react-dom": "latest",
+    "stripe": "^22.4.0",
     "typescript": "latest",
     "vite": "latest",
     "xlsx": "^0.18.5"
