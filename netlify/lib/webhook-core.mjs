@@ -1,25 +1,27 @@
-// Stripe webhook processing core.
+// Quote-to-payment webhook processing.
 //
-// Security model:
-//   1. Signature verification (stripe.webhooks.constructEvent) happens in the
-//      HTTP handler before anything here runs — a forged or tampered payload
-//      never reaches this module.
-//   2. recordEvent() inserts the Stripe event id into stripe_events, which has
-//      a UNIQUE index. A duplicate or replayed event short-circuits to
-//      { duplicate: true } and is never processed twice.
-//   3. Event types outside HANDLED_EVENT_TYPES are recorded as "ignored".
-//   4. livemode on the event must match the mode of our configured key —
-//      a test event can never mutate live payment state and vice versa.
-//   5. Quote status changes go through applyStatusChange, which enforces the
-//      transition table both here and in the database trigger.
+// This module plugs into the unified webhook handler
+// (netlify/functions/_shared/webhook-core.mjs) as its `quoteProcessor`.
+// Signature verification, livemode matching, and the durable stripe_events
+// ledger (dedup + failed-event reopen) all live in that handler; this module
+// only decides whether an already-verified event belongs to the QUOTE system
+// and, if so, applies guarded quote/payment state transitions.
 //
-// All functions take the service client via `deps` so tests can inject fakes.
+// Contract: processQuoteEvent returns the string "unclaimed" when the event
+// belongs to the direct-checkout order system (or to nothing); any other
+// return value means the quote system owns the event. "ignored:*" results are
+// recorded as skipped by the caller, everything else as processed.
 
 import { applyStatusChange } from "./quotes.mjs";
 import { canTransition } from "./transitions.mjs";
 import { centsToDecimal } from "./money.mjs";
 
-export const HANDLED_EVENT_TYPES = [
+export const UNCLAIMED = "unclaimed";
+
+// Event types the quote system can ever own. Invoices and payment links are
+// exclusively quote vehicles; sessions/charges/intents are shared with the
+// direct-checkout system and claimed only when they match a quote.
+export const QUOTE_EVENT_TYPES = [
   "checkout.session.completed",
   "checkout.session.expired",
   "invoice.paid",
@@ -29,55 +31,6 @@ export const HANDLED_EVENT_TYPES = [
   "payment_intent.payment_failed",
   "charge.refunded"
 ];
-
-// Returns { duplicate: boolean, eventRowId? }. Uses the unique index on
-// stripe_event_id as the atomic dedup gate.
-export async function recordEvent(deps, event) {
-  const { data, error } = await deps.service
-    .from("stripe_events")
-    .upsert(
-      {
-        stripe_event_id: event.id,
-        event_type: event.type,
-        api_version: event.api_version || null,
-        livemode: Boolean(event.livemode),
-        payload: { type: event.type, id: event.id, object_id: event.data?.object?.id || null },
-        processing_status: "received"
-      },
-      { onConflict: "stripe_event_id", ignoreDuplicates: true }
-    )
-    .select("id")
-    .maybeSingle();
-
-  if (error) throw new Error(`stripe event record failed: ${error.message}`);
-  if (data) return { duplicate: false, eventRowId: data.id };
-
-  // Already recorded. A Stripe retry of an event we FAILED to process may
-  // re-open exactly that row; processed/ignored/in-flight events stay closed.
-  const { data: reopened, error: reopenError } = await deps.service
-    .from("stripe_events")
-    .update({ processing_status: "received", error_message: null })
-    .eq("stripe_event_id", event.id)
-    .eq("processing_status", "failed")
-    .select("id")
-    .maybeSingle();
-  if (reopenError) throw new Error(`stripe event reopen failed: ${reopenError.message}`);
-  if (reopened) return { duplicate: false, eventRowId: reopened.id };
-
-  return { duplicate: true };
-}
-
-export async function markEvent(deps, eventRowId, processingStatus, errorMessage = null) {
-  const { error } = await deps.service
-    .from("stripe_events")
-    .update({
-      processing_status: processingStatus,
-      error_message: errorMessage,
-      processed_at: new Date().toISOString()
-    })
-    .eq("id", eventRowId);
-  if (error) throw new Error(`stripe event update failed: ${error.message}`);
-}
 
 async function findQuoteByStripeRef(deps, column, value) {
   if (!value) return null;
@@ -113,12 +66,25 @@ async function findQuoteForEvent(deps, object) {
 }
 
 async function updatePaymentByObject(deps, objectType, objectId, patch) {
-  const { error } = await deps.service
+  const { data, error } = await deps.service
     .from("payments")
     .update(patch)
     .eq("stripe_object_type", objectType)
-    .eq("stripe_object_id", objectId);
+    .eq("stripe_object_id", objectId)
+    .select("id");
   if (error) throw new Error(`payment update failed: ${error.message}`);
+  return (data?.length ?? 0) > 0;
+}
+
+async function quotePaymentExistsForIntent(deps, paymentIntentId) {
+  if (!paymentIntentId) return false;
+  const { data, error } = await deps.service
+    .from("payments")
+    .select("id")
+    .eq("stripe_payment_intent_id", paymentIntentId)
+    .maybeSingle();
+  if (error) throw new Error(`payment lookup failed: ${error.message}`);
+  return Boolean(data);
 }
 
 async function markQuotePaid(deps, quote, object) {
@@ -135,18 +101,16 @@ async function markQuotePaid(deps, quote, object) {
   if (!updated) return "already-transitioned";
 
   const objectType = object.object === "checkout.session" ? "checkout_session" : "invoice";
-  await updatePaymentByObject(deps, objectType, object.id, {
+  const patch = {
     status: "succeeded",
     stripe_payment_intent_id: paymentIntentId,
     stripe_charge_id: typeof object.charge === "string" ? object.charge : object.charge?.id || null
-  });
-
-  if (quote.id) {
-    const { error } = await deps.service
-      .from("orders")
-      .update({ status: "paid", paid_at: new Date().toISOString() })
-      .eq("quote_request_id", quote.id);
-    if (error) throw new Error(`order update failed: ${error.message}`);
+  };
+  // Payment-link payments arrive as checkout sessions whose session id was
+  // never stored; fall back to the payment_link payment row.
+  const direct = await updatePaymentByObject(deps, objectType, object.id, patch);
+  if (!direct && object.object === "checkout.session" && object.payment_link) {
+    await updatePaymentByObject(deps, "payment_link", object.payment_link, patch);
   }
   return "paid";
 }
@@ -174,41 +138,40 @@ async function markQuoteRefunded(deps, quote, charge) {
       .eq("stripe_payment_intent_id", paymentIntentId);
     if (error) throw new Error(`payment refund update failed: ${error.message}`);
   }
-  const { error } = await deps.service
-    .from("orders")
-    .update({ status: "refunded" })
-    .eq("quote_request_id", quote.id);
-  if (error) throw new Error(`order refund update failed: ${error.message}`);
   return "refunded";
 }
 
-// Processes one verified, non-duplicate Stripe event. Returns a short result
-// string stored in the event ledger. Throws only on infrastructure errors.
-export async function processStripeEvent(deps, event) {
-  if (!HANDLED_EVENT_TYPES.includes(event.type)) return "ignored:unhandled-type";
+// Processes one verified, non-duplicate Stripe event on behalf of the quote
+// system. Returns UNCLAIMED when the direct-checkout system should handle it.
+export async function processQuoteEvent(deps, event) {
+  if (!QUOTE_EVENT_TYPES.includes(event.type)) return UNCLAIMED;
 
   const object = event.data?.object;
   if (!object || typeof object !== "object" || typeof object.id !== "string") {
-    return "ignored:invalid-object";
+    return UNCLAIMED;
   }
 
   switch (event.type) {
     case "checkout.session.completed": {
+      const quote = await findQuoteForEvent(deps, object);
+      if (!quote) return UNCLAIMED; // direct-checkout session
       if (object.payment_status && object.payment_status !== "paid") {
         return "ignored:session-not-paid";
       }
-      const quote = await findQuoteForEvent(deps, object);
-      if (!quote) return "ignored:no-matching-quote";
       return markQuotePaid(deps, quote, object);
     }
     case "invoice.paid": {
       const quote = await findQuoteForEvent(deps, object);
-      if (!quote) return "ignored:no-matching-quote";
+      if (!quote) return "ignored:no-matching-quote"; // invoices are always ours
       return markQuotePaid(deps, quote, object);
     }
     case "checkout.session.expired": {
-      await updatePaymentByObject(deps, "checkout_session", object.id, { status: "canceled" });
-      return "session-expired";
+      const patched = await updatePaymentByObject(deps, "checkout_session", object.id, { status: "canceled" });
+      if (!patched && object.payment_link) {
+        const linkPatched = await updatePaymentByObject(deps, "payment_link", object.payment_link, { status: "canceled" });
+        if (linkPatched) return "session-expired";
+      }
+      return patched ? "session-expired" : UNCLAIMED;
     }
     case "invoice.payment_failed": {
       await updatePaymentByObject(deps, "invoice", object.id, {
@@ -223,6 +186,7 @@ export async function processStripeEvent(deps, event) {
       return "invoice-canceled";
     }
     case "payment_intent.payment_failed": {
+      if (!(await quotePaymentExistsForIntent(deps, object.id))) return UNCLAIMED;
       const { error } = await deps.service
         .from("payments")
         .update({ status: "failed", failure_message: "payment intent failed" })
@@ -232,10 +196,10 @@ export async function processStripeEvent(deps, event) {
     }
     case "charge.refunded": {
       const quote = await findQuoteForEvent(deps, object);
-      if (!quote) return "ignored:no-matching-quote";
+      if (!quote) return UNCLAIMED; // direct-checkout refund
       return markQuoteRefunded(deps, quote, object);
     }
     default:
-      return "ignored:unhandled-type";
+      return UNCLAIMED;
   }
 }

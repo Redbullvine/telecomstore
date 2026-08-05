@@ -19,6 +19,18 @@ export function createSupabaseOrderStore(client) {
       }
       return { duplicate: false };
     },
+    // A Stripe retry of an event whose processing FAILED may re-open exactly
+    // that ledger row; processed/skipped/in-flight events stay closed.
+    async reopenFailedEvent(stripeEventId) {
+      const { data, error } = await client
+        .from("stripe_events")
+        .update({ processing_status: "received", processing_error: null })
+        .eq("stripe_event_id", stripeEventId)
+        .eq("processing_status", "failed")
+        .select("id");
+      if (error) fail("reopenFailedEvent", error);
+      return (data?.length ?? 0) > 0;
+    },
     async markEvent(stripeEventId, status, { orderId = null, error: processingError = null } = {}) {
       const { error } = await client
         .from("stripe_events")

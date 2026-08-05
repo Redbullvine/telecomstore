@@ -69,26 +69,31 @@ test("public quote submission snapshots product identity server-side", async () 
     "browser-supplied price/title fields must never be read");
 });
 
-test("direct checkout is gated on explicit approval and truthful shipping/tax", async () => {
-  const source = await readSource("netlify/functions/create-checkout-session.mjs");
-  assert.match(source, /product_checkout_approvals/);
-  assert.match(source, /approval\?\.approved === true/);
-  assert.match(source, /resolveShippingAndTax/);
-  assert.match(source, /function resolveShippingAndTax\(\) \{\s*return null;/, "shipping/tax resolver must refuse until real rules exist");
-  assert.match(source, /toCents\(product\.price\)/, "price must come from the curated catalog");
-  assert.ok(!source.includes("body.price") && !source.includes("item.price"),
-    "browser price must never be read");
+test("exactly one function exists per payment endpoint name", async () => {
+  const files = (await readdir(path.join(root, "netlify", "functions"))).filter((name) => /\.(mjs|mts)$/.test(name));
+  const bases = files.map((name) => name.replace(/\.(mjs|mts)$/, ""));
+  assert.deepEqual(bases, [...new Set(bases)], "duplicate function names would collide in Netlify");
+  assert.ok(files.includes("stripe-webhook.mts"), "the unified webhook is the .mts entry");
+  assert.ok(!files.includes("stripe-webhook.mjs") && !files.includes("create-checkout-session.mjs"),
+    "the superseded quote-branch shells must stay deleted");
 });
 
-test("webhook handler verifies signatures on the raw body and checks livemode", async () => {
-  const source = await readSource("netlify/functions/stripe-webhook.mjs");
-  assert.match(source, /constructEvent\(rawBody, signature, webhookSecret\)/);
-  assert.match(source, /req\.text\(\)/, "must verify the raw body, not parsed JSON");
-  assert.match(source, /event\.livemode/, "must compare event livemode to key mode");
-  const verifyIndex = source.indexOf("constructEvent(");
-  const recordIndex = source.indexOf("await recordEvent(");
-  assert.ok(recordIndex !== -1 && verifyIndex < recordIndex,
-    "signature verification must precede any processing");
+test("the unified webhook wires the quote processor and livemode guard", async () => {
+  const source = await readSource("netlify/functions/stripe-webhook.mts");
+  assert.match(source, /quoteProcessor/, "quote events must be dispatched");
+  assert.match(source, /processQuoteEvent/, "quote processor must be the quote core");
+  assert.match(source, /expectedLivemode/, "livemode guard must be configured");
+  assert.match(source, /sk_live_/, "livemode must derive from the key prefix");
+});
+
+test("the shared webhook core verifies signatures on the raw body before any processing", async () => {
+  const source = await readSource("netlify/functions/_shared/webhook-core.mjs");
+  assert.match(source, /await request\.text\(\)/, "must verify the raw body, not parsed JSON");
+  assert.match(source, /event\.livemode/, "must compare event livemode to the expected mode");
+  const verifyIndex = source.indexOf("constructEvent(rawBody");
+  const recordIndex = source.indexOf("store.recordEvent(");
+  assert.ok(verifyIndex !== -1 && recordIndex !== -1 && verifyIndex < recordIndex,
+    "signature verification must precede the ledger write");
 });
 
 test("stripe writes carry idempotency keys", async () => {

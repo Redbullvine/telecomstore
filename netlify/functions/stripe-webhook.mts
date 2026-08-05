@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { createWebhookHandler, missingWebhookEnv } from "./_shared/webhook-core.mjs";
 import { createSupabaseOrderStore } from "./_shared/supabase-order-store.mjs";
+import { processQuoteEvent } from "../lib/webhook-core.mjs";
 import pricing from "./_shared/opening-pricing.json" with { type: "json" };
 
 export default async (request: Request) => {
@@ -23,6 +24,12 @@ export default async (request: Request) => {
     store: createSupabaseOrderStore(supabase),
     pricing,
     constructEvent: (body: string, signature: string) => stripe.webhooks.constructEvent(body, signature, env.STRIPE_WEBHOOK_SECRET!),
+    // Quote-to-payment events (invoices, payment links, quote sessions) are
+    // claimed by the quote system; direct-checkout sessions fall through to
+    // the order workflow. See netlify/lib/webhook-core.mjs.
+    quoteProcessor: (event: unknown) => processQuoteEvent({ service: supabase }, event),
+    // A test-mode key only ever processes test events, and live-live.
+    expectedLivemode: String(env.STRIPE_SECRET_KEY).startsWith("sk_live_") || String(env.STRIPE_SECRET_KEY).startsWith("rk_live_"),
   })(request);
 };
 

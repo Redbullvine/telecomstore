@@ -134,6 +134,13 @@ export function createMemoryOrderStore() {
       const rec = events.get(stripeEventId);
       if (rec) { rec.processing_status = status; rec.order_id = orderId; rec.processing_error = error; }
     },
+    async reopenFailedEvent(stripeEventId) {
+      const rec = events.get(stripeEventId);
+      if (!rec || rec.processing_status !== "failed") return false;
+      rec.processing_status = "received";
+      rec.processing_error = null;
+      return true;
+    },
     async upsertOrder(order, items) {
       const existing = orders.get(order.stripe_checkout_session_id);
       if (existing) {

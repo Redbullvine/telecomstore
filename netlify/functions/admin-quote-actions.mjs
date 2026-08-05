@@ -81,11 +81,6 @@ async function simpleTransition(service, quote, toStatus, adminId, note = null) 
   }
   const updated = await applyStatusChange(service, quote, toStatus, { changedBy: adminId, note });
   if (!updated) return publicError(409, "The request changed while you were working. Reload and retry.");
-
-  if (toStatus === "canceled" || toStatus === "refunded" || toStatus === "fulfilled") {
-    const orderStatus = { canceled: "canceled", refunded: "refunded", fulfilled: "fulfilled" }[toStatus];
-    await service.from("orders").update({ status: orderStatus }).eq("quote_request_id", quote.id);
-  }
   return json(200, { ok: true, status: toStatus });
 }
 
@@ -179,28 +174,6 @@ function requireQuotedWithTotals(quote) {
   return totals;
 }
 
-async function ensureOrder(service, quote) {
-  const { data: existing, error: findError } = await service
-    .from("orders").select("id").eq("quote_request_id", quote.id).maybeSingle();
-  if (findError) throw new Error(`order lookup failed: ${findError.message}`);
-  if (existing) return existing.id;
-  const { data: order, error } = await service
-    .from("orders")
-    .insert({
-      quote_request_id: quote.id,
-      status: "pending",
-      product_subtotal: quote.product_subtotal,
-      shipping_amount: quote.shipping_amount,
-      tax_amount: quote.tax_amount,
-      final_total: quote.final_total,
-      currency_code: quote.currency_code
-    })
-    .select("id")
-    .single();
-  if (error) throw new Error(`order insert failed: ${error.message}`);
-  return order.id;
-}
-
 async function ensureStripeCustomer(stripe, quote) {
   return stripe.customers.create(
     {
@@ -281,11 +254,9 @@ async function createInvoice(service, quote, adminId) {
     idempotencyKey: idempotencyKey("invsend", quote.id, totals.total)
   });
 
-  const orderId = await ensureOrder(service, quote);
   const { error: paymentError } = await service.from("payments").upsert(
     {
       quote_request_id: quote.id,
-      order_id: orderId,
       stripe_object_type: "invoice",
       stripe_object_id: finalized.id,
       amount: quote.final_total,
@@ -346,11 +317,9 @@ async function createPaymentLink(service, quote, adminId) {
     { idempotencyKey: idempotencyKey("link", quote.id, totals.total) }
   );
 
-  const orderId = await ensureOrder(service, quote);
   const { error: paymentError } = await service.from("payments").upsert(
     {
       quote_request_id: quote.id,
-      order_id: orderId,
       stripe_object_type: "payment_link",
       stripe_object_id: link.id,
       amount: quote.final_total,

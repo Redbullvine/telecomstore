@@ -1,9 +1,17 @@
 -- ============================================================================
--- Migration 007: quote-to-payment schema (CLAUDE OGT 1)
+-- Migration 008: quote-to-payment schema (CLAUDE OGT 1)
 --
--- Adds the quote-request -> admin-approved-quote -> Stripe payment pipeline:
--- quote_requests, quote_request_items, orders, payments, stripe_events,
--- quote_status_history, quote_request_notes, product_checkout_approvals.
+-- Builds on migration 20260803120000_stripe_order_tracking.sql, which already
+-- provides the shared Stripe infrastructure this system reuses:
+--   * public.stripe_events  — durable webhook ledger (unique event id)
+--   * public.orders         — direct-checkout orders (one per session)
+--   * public.order_items    — server-priced direct-checkout lines
+--
+-- This migration adds the QUOTE side of payments:
+-- quote_requests, quote_request_items, payments, quote_status_history,
+-- quote_request_notes. A paid quote is tracked on the quote_request row
+-- itself (status + timestamps + Stripe ids); direct-checkout orders remain in
+-- public.orders untouched.
 --
 -- Design rules:
 --   * No supplier data is referenced or exposed anywhere in this schema.
@@ -13,9 +21,9 @@
 --   * All admin mutations flow through server functions (service role) so
 --     status transitions and totals are validated server-side; browser clients
 --     get SELECT only.
---   * stripe_events.stripe_event_id is unique: webhook replay/duplicate guard.
 --   * Status transitions are enforced by trigger on quote_requests.
---   * This migration does NOT touch public.products or any BAINTU-owned table.
+--   * This migration does NOT touch public.products, public.orders,
+--     public.stripe_events, or any other pre-existing table.
 -- ============================================================================
 
 begin;
@@ -102,6 +110,10 @@ create index if not exists quote_requests_stripe_link_idx
   on public.quote_requests (stripe_payment_link_id)
   where stripe_payment_link_id is not null;
 
+create index if not exists quote_requests_stripe_intent_idx
+  on public.quote_requests (stripe_payment_intent_id)
+  where stripe_payment_intent_id is not null;
+
 drop trigger if exists set_quote_requests_updated_at on public.quote_requests;
 create trigger set_quote_requests_updated_at
 before update on public.quote_requests
@@ -140,44 +152,16 @@ create index if not exists quote_request_items_product_idx
   where product_id is not null;
 
 -- --------------------------------------------------------------------------
--- 3. Orders (created when a payment vehicle is issued for an approved quote)
+-- 3. Payments (one row per Stripe payment vehicle issued for a quote)
 -- --------------------------------------------------------------------------
-
-create table if not exists public.orders (
-  id uuid primary key default gen_random_uuid(),
-  quote_request_id uuid not null unique
-    references public.quote_requests(id) on delete restrict,
-  status text not null default 'pending'
-    check (status in ('pending', 'paid', 'canceled', 'refunded', 'fulfilled')),
-  product_subtotal numeric(12,2) not null check (product_subtotal >= 0),
-  shipping_amount numeric(12,2) not null check (shipping_amount >= 0),
-  tax_amount numeric(12,2) not null check (tax_amount >= 0),
-  final_total numeric(12,2) not null check (final_total >= 0),
-  currency_code text not null default 'USD' check (currency_code ~ '^[A-Z]{3}$'),
-  paid_at timestamptz,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-  constraint orders_total_arithmetic_check
-    check (final_total = product_subtotal + shipping_amount + tax_amount)
-);
-
-create index if not exists orders_status_created_idx
-  on public.orders (status, created_at desc);
-
-drop trigger if exists set_orders_updated_at on public.orders;
-create trigger set_orders_updated_at
-before update on public.orders
-for each row execute function public.set_updated_at();
-
--- --------------------------------------------------------------------------
--- 4. Payments (one row per Stripe payment vehicle / attempt)
--- --------------------------------------------------------------------------
+-- Direct-checkout payment state lives on public.orders (migration 20260803);
+-- these rows track the quote-side vehicles: invoices and payment links (and
+-- checkout sessions if a quote is ever paid through one).
 
 create table if not exists public.payments (
   id uuid primary key default gen_random_uuid(),
   quote_request_id uuid not null
     references public.quote_requests(id) on delete restrict,
-  order_id uuid references public.orders(id) on delete restrict,
   stripe_object_type text not null
     check (stripe_object_type in ('invoice', 'payment_link', 'checkout_session', 'payment_intent')),
   stripe_object_id text not null check (btrim(stripe_object_id) <> ''),
@@ -209,32 +193,7 @@ before update on public.payments
 for each row execute function public.set_updated_at();
 
 -- --------------------------------------------------------------------------
--- 5. Stripe events (webhook idempotency ledger)
--- --------------------------------------------------------------------------
-
-create table if not exists public.stripe_events (
-  id uuid primary key default gen_random_uuid(),
-  stripe_event_id text not null check (btrim(stripe_event_id) <> ''),
-  event_type text not null,
-  api_version text,
-  livemode boolean not null default false,
-  payload jsonb not null check (jsonb_typeof(payload) = 'object'),
-  processing_status text not null default 'received'
-    check (processing_status in ('received', 'processed', 'ignored', 'failed')),
-  error_message text,
-  received_at timestamptz not null default now(),
-  processed_at timestamptz
-);
-
--- The duplicate/replay guard: a Stripe event id can be recorded exactly once.
-create unique index if not exists stripe_events_event_id_idx
-  on public.stripe_events (stripe_event_id);
-
-create index if not exists stripe_events_type_received_idx
-  on public.stripe_events (event_type, received_at desc);
-
--- --------------------------------------------------------------------------
--- 6. Status history + internal notes
+-- 4. Status history + internal notes
 -- --------------------------------------------------------------------------
 
 create table if not exists public.quote_status_history (
@@ -268,31 +227,7 @@ comment on table public.quote_request_notes is
   'Internal admin notes. Never included in any customer-facing output.';
 
 -- --------------------------------------------------------------------------
--- 7. Direct-checkout approval gate
--- --------------------------------------------------------------------------
--- Direct storefront checkout is only possible for products explicitly approved
--- here AND carrying a curated price. This table is intentionally separate from
--- public.products so the payment system never alters the catalog schema.
--- An empty table means direct checkout is fully disabled.
-
-create table if not exists public.product_checkout_approvals (
-  product_id uuid primary key references public.products(id) on delete cascade,
-  approved boolean not null default false,
-  max_quantity integer not null default 25
-    check (max_quantity > 0 and max_quantity <= 10000),
-  approved_by uuid references auth.users(id) on delete set null,
-  approved_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-drop trigger if exists set_product_checkout_approvals_updated_at
-  on public.product_checkout_approvals;
-create trigger set_product_checkout_approvals_updated_at
-before update on public.product_checkout_approvals
-for each row execute function public.set_updated_at();
-
--- --------------------------------------------------------------------------
--- 8. Quote status transition guard
+-- 5. Quote status transition guard
 -- --------------------------------------------------------------------------
 
 create or replace function public.enforce_quote_status_transition()
@@ -333,17 +268,14 @@ before update of status on public.quote_requests
 for each row execute function public.enforce_quote_status_transition();
 
 -- --------------------------------------------------------------------------
--- 9. RLS: payment data is private; admins read, server functions write
+-- 6. RLS: quote data is private; admins read, server functions write
 -- --------------------------------------------------------------------------
 
 alter table public.quote_requests enable row level security;
 alter table public.quote_request_items enable row level security;
-alter table public.orders enable row level security;
 alter table public.payments enable row level security;
-alter table public.stripe_events enable row level security;
 alter table public.quote_status_history enable row level security;
 alter table public.quote_request_notes enable row level security;
-alter table public.product_checkout_approvals enable row level security;
 
 -- Admin browser clients: read-only. All mutations flow through server
 -- functions (service role) so validation and transition rules always apply.
@@ -359,21 +291,9 @@ on public.quote_request_items for select
 to authenticated
 using (public.is_admin());
 
-drop policy if exists "Admins can read orders" on public.orders;
-create policy "Admins can read orders"
-on public.orders for select
-to authenticated
-using (public.is_admin());
-
 drop policy if exists "Admins can read payments" on public.payments;
 create policy "Admins can read payments"
 on public.payments for select
-to authenticated
-using (public.is_admin());
-
-drop policy if exists "Admins can read stripe events" on public.stripe_events;
-create policy "Admins can read stripe events"
-on public.stripe_events for select
 to authenticated
 using (public.is_admin());
 
@@ -389,35 +309,23 @@ on public.quote_request_notes for select
 to authenticated
 using (public.is_admin());
 
-drop policy if exists "Admins can read checkout approvals" on public.product_checkout_approvals;
-create policy "Admins can read checkout approvals"
-on public.product_checkout_approvals for select
-to authenticated
-using (public.is_admin());
-
 -- No anon policies exist on any table above. Belt-and-braces: also revoke the
 -- default table privileges from anon so even a future policy mistake cannot
 -- open these tables to anonymous callers.
 revoke all on table public.quote_requests from anon;
 revoke all on table public.quote_request_items from anon;
-revoke all on table public.orders from anon;
 revoke all on table public.payments from anon;
-revoke all on table public.stripe_events from anon;
 revoke all on table public.quote_status_history from anon;
 revoke all on table public.quote_request_notes from anon;
-revoke all on table public.product_checkout_approvals from anon;
 
 -- Authenticated non-admins are blocked by RLS; also remove write privileges so
 -- the only write path is the service role used by server functions.
 revoke insert, update, delete, truncate, references, trigger
   on table public.quote_requests,
            public.quote_request_items,
-           public.orders,
            public.payments,
-           public.stripe_events,
            public.quote_status_history,
-           public.quote_request_notes,
-           public.product_checkout_approvals
+           public.quote_request_notes
   from authenticated;
 
 commit;
@@ -430,12 +338,10 @@ commit;
 --   drop function public.enforce_quote_status_transition();
 --   drop table public.quote_request_notes;
 --   drop table public.quote_status_history;
---   drop table public.stripe_events;
 --   drop table public.payments;
---   drop table public.orders;
 --   drop table public.quote_request_items;
---   drop table public.product_checkout_approvals;
 --   drop table public.quote_requests;
--- No BAINTU-owned or pre-existing table is altered by this migration, so the
--- rollback surface is exactly the objects listed above.
+-- public.stripe_events, public.orders, and public.order_items belong to
+-- migration 20260803120000_stripe_order_tracking.sql and are NOT touched by
+-- this migration or its rollback.
 -- ============================================================================
