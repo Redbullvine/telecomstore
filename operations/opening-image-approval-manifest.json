@@ -1,1460 +1,1870 @@
 {
-  "schema_version": 1,
-  "generated_on": "2026-08-04",
+  "schema_version": 2,
+  "generated_on": "2026-08-05",
   "policy": {
-    "public_catalog_rule": "Only user-owned images or official manufacturer assets with explicit reseller-use permission may be approved.",
-    "supplier_rule": "Petra candidates remain private and pending_petra_confirmation; never hotlink supplier assets.",
-    "approval_workflow": "A future reviewer adds only an approved local public asset reference after MPN and rights verification."
+    "authorization": "Petra confirmed that CSV-supplied product image URLs may be displayed on telecomstore.net.",
+    "revocation": "Protected restrictions may disable an image by product, brand/manufacturer, or supplier SKU without deleting catalog data."
   },
   "counts": {
     "products": 206,
     "candidate_images": 206,
-    "approved_public_images": 0,
-    "pending_petra_confirmation": 206,
-    "placeholders_required": 206
+    "approved_public_images": 206,
+    "placeholders_required": 0
   },
   "products": {
     "33202": {
       "manufacturer_mpn": "33202",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NCC33202.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "52703": {
       "manufacturer_mpn": "52703",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR52703.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "53712": {
       "manufacturer_mpn": "53712",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR53712.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "53714": {
       "manufacturer_mpn": "53714",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR53714.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "314475": {
       "manufacturer_mpn": "314475",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WSN314475.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "500256": {
       "manufacturer_mpn": "500256",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASDISTAMP25GX.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "500302": {
       "manufacturer_mpn": "500302",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP10002AP.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "500303": {
       "manufacturer_mpn": "500303",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP1003AP.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "500308": {
       "manufacturer_mpn": "500308",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP7002.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "500312": {
       "manufacturer_mpn": "500312",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP7004AP.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "C4-CJM": {
       "manufacturer_mpn": "C4-CJM",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC4CJM.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "C4-V-CJM": {
       "manufacturer_mpn": "C4-V-CJM",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC4VCJM.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "C5": {
       "manufacturer_mpn": "C5",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC5.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CJMOUNT": {
       "manufacturer_mpn": "CJMOUNT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADICJMOUNT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DB8-E": {
       "manufacturer_mpn": "DB8-E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIDB8E.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MAST40": {
       "manufacturer_mpn": "MAST40",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ANTDMAST40.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BK350": {
       "manufacturer_mpn": "BK350",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APCBK350.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BE550G": {
       "manufacturer_mpn": "BE550G",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBE550G.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BE650G1": {
       "manufacturer_mpn": "BE650G1",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBE650G1.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BK500": {
       "manufacturer_mpn": "BK500",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBK500.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BR1500MS2": {
       "manufacturer_mpn": "BR1500MS2",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBR1500MS2.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BX1000M": {
       "manufacturer_mpn": "BX1000M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBX1000M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BX850M": {
       "manufacturer_mpn": "BX850M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBX850M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ATCRL32102": {
       "manufacturer_mpn": "ATCRL32102",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ATTATCRL32102.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "P300": {
       "manufacturer_mpn": "P300",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAP300.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "54505.001": {
       "manufacturer_mpn": "54505.001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR545051.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "59865.001": {
       "manufacturer_mpn": "59865.001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR598651.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "59234.001": {
       "manufacturer_mpn": "59234.001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLARXLC34PLUS.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CP1500AVRLCD3": {
       "manufacturer_mpn": "CP1500AVRLCD3",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CYBCP1500AVRLCD3.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "45-0001-UWH": {
       "manufacturer_mpn": "45-0001-UWH",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM450001WH.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "50-3321-WH-KIT": {
       "manufacturer_mpn": "50-3321-WH-KIT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM503321WHKIT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "50-3323-WH-KIT": {
       "manufacturer_mpn": "50-3323-WH-KIT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM503323WHKIT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "50-6623-WH-KIT": {
       "manufacturer_mpn": "50-6623-WH-KIT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM506623WHKIT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DTV2BUHF": {
       "manufacturer_mpn": "DTV2BUHF",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASDTV2BUHF.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "EIS3-1004-WHT": {
       "manufacturer_mpn": "EIS3-1004-WHT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ENRGSMTSURGE.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AS-HP-5R": {
       "manufacturer_mpn": "AS-HP-5R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHASHP5R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CS-1X4HDMSPL5": {
       "manufacturer_mpn": "CS-1X4HDMSPL5",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCS1X4HDSPL5.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CS-C5DE": {
       "manufacturer_mpn": "CS-C5DE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSC5DE.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CS-DAC2": {
       "manufacturer_mpn": "CS-DAC2",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSDAC2.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "CS-HDEXT4KPOEU": {
       "manufacturer_mpn": "CS-HDEXT4KPOEU",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSHDEXT4K.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MHX-LHDME12": {
       "manufacturer_mpn": "MHX-LHDME12",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME12.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MHX-LHDME2": {
       "manufacturer_mpn": "MHX-LHDME2",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME2.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MHX-LHDME4": {
       "manufacturer_mpn": "MHX-LHDME4",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME4.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MHX-T15": {
       "manufacturer_mpn": "MHX-T15",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXT15.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "UHF-04M-S1234": {
       "manufacturer_mpn": "UHF-04M-S1234",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/GCIUHF04MS1234.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "30-495": {
       "manufacturer_mpn": "30-495",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI30495.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "31-340": {
       "manufacturer_mpn": "31-340",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI31340.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "33-396": {
       "manufacturer_mpn": "33-396",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI33396.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "33-507": {
       "manufacturer_mpn": "33-507",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI33507.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "35-088": {
       "manufacturer_mpn": "35-088",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI35088.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "45-121": {
       "manufacturer_mpn": "45-121",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI45121.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "45-915": {
       "manufacturer_mpn": "45-915",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI45915.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "62-200": {
       "manufacturer_mpn": "62-200",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI62200.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-366": {
       "manufacturer_mpn": "85-366",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85366.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-368": {
       "manufacturer_mpn": "85-368",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85368.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-369": {
       "manufacturer_mpn": "85-369",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85369.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-371": {
       "manufacturer_mpn": "85-371",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85371.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-372": {
       "manufacturer_mpn": "85-372",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85372.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-376": {
       "manufacturer_mpn": "85-376",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85376.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-377": {
       "manufacturer_mpn": "85-377",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85377.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "86-396": {
       "manufacturer_mpn": "86-396",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI86396.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "89-5047": {
       "manufacturer_mpn": "89-5047",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI895047.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DPS-1100 USB": {
       "manufacturer_mpn": "DPS-1100 USB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KBZDPS100USB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "KRA-22M": {
       "manufacturer_mpn": "KRA-22M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KWBRKRA22M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "KRA-23M": {
       "manufacturer_mpn": "KRA-23M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KWBRKRA23M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "56-200": {
       "manufacturer_mpn": "56-200",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD56200.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "81-000": {
       "manufacturer_mpn": "81-000",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81000.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "81-130": {
       "manufacturer_mpn": "81-130",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81130.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "81-230": {
       "manufacturer_mpn": "81-230",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81230.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "81-600": {
       "manufacturer_mpn": "81-600",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81600.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "81-700": {
       "manufacturer_mpn": "81-700",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81700.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "82-110": {
       "manufacturer_mpn": "82-110",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82110.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "82-118": {
       "manufacturer_mpn": "82-118",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82118.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "82-350": {
       "manufacturer_mpn": "82-350",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82350.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "85-124": {
       "manufacturer_mpn": "85-124",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD85124.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "910-1001": {
       "manufacturer_mpn": "910-1001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9101001.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "925S-060BK-0A0": {
       "manufacturer_mpn": "925S-060BK-0A0",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK925S060BK.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "963-1001": {
       "manufacturer_mpn": "963-1001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9631001.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "965-1001": {
       "manufacturer_mpn": "965-1001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9651001.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PB802105": {
       "manufacturer_mpn": "PB802105",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PRIPB802105.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PBRUSB346S-A": {
       "manufacturer_mpn": "PBRUSB346S-A",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PRIPBRUSB346S.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PCBLCO102": {
       "manufacturer_mpn": "PCBLCO102",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPCBLCO102.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PDWM2145": {
       "manufacturer_mpn": "PDWM2145",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM2145.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PDWM3375": {
       "manufacturer_mpn": "PDWM3375",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM3375.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PDWM3400": {
       "manufacturer_mpn": "PDWM3400",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM3400.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PDBC70": {
       "manufacturer_mpn": "PDBC70",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYRPDBC70.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "PDWM4120": {
       "manufacturer_mpn": "PDWM4120",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYRPDWM4120.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AMP1450E": {
       "manufacturer_mpn": "AMP1450E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAAMP1450F.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ANT111E": {
       "manufacturer_mpn": "ANT111E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT111.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ANT1560E1": {
       "manufacturer_mpn": "ANT1560E1",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT1560E1.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ANT310E": {
       "manufacturer_mpn": "ANT310E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT310F.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ANT705E": {
       "manufacturer_mpn": "ANT705E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT705E.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ANT754E": {
       "manufacturer_mpn": "ANT754E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT754E.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DH12HHE": {
       "manufacturer_mpn": "DH12HHE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH12HHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DH24SPE": {
       "manufacturer_mpn": "DH24SPE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH24SPR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DH3HHE": {
       "manufacturer_mpn": "DH3HHE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH3HHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DH6HHE": {
       "manufacturer_mpn": "DH6HHE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH6HHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DV10RV": {
       "manufacturer_mpn": "DV10RV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADV10RV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP210WHRV": {
       "manufacturer_mpn": "TP210WHRV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP210WHRV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP231WHR": {
       "manufacturer_mpn": "TP231WHR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP231WHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP243WHR": {
       "manufacturer_mpn": "TP243WHR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP243WHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP257WHR": {
       "manufacturer_mpn": "TP257WHR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP257WHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP265WHR": {
       "manufacturer_mpn": "TP265WHR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP265WHR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP280WRV": {
       "manufacturer_mpn": "TP280WRV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP280WRV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP282AR": {
       "manufacturer_mpn": "TP282AR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282AR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP282BLRV": {
       "manufacturer_mpn": "TP282BLRV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282BLRV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP282WR": {
       "manufacturer_mpn": "TP282WR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282WR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TP443WHRV": {
       "manufacturer_mpn": "TP443WHRV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP443WHRV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TPH530BR": {
       "manufacturer_mpn": "TPH530BR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH530BR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TPH532BR": {
       "manufacturer_mpn": "TPH532BR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH532BR.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TPH560R1V": {
       "manufacturer_mpn": "TPH560R1V",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH560R1V.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TPH633R": {
       "manufacturer_mpn": "TPH633R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH633R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH125R": {
       "manufacturer_mpn": "VH125R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH125R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH47R": {
       "manufacturer_mpn": "VH47R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH47R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH603RV1": {
       "manufacturer_mpn": "VH603RV1",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH603RV1.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH606R": {
       "manufacturer_mpn": "VH606R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH606R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH606WHR": {
       "manufacturer_mpn": "VH606WHR",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH606WHRV1.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH612R": {
       "manufacturer_mpn": "VH612R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH612R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH625RV": {
       "manufacturer_mpn": "VH625RV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH625R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VH66R1": {
       "manufacturer_mpn": "VH66R1",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH66R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VHB6111R": {
       "manufacturer_mpn": "VHB6111R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHB6111R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VHB655R": {
       "manufacturer_mpn": "VHB655R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHB655R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VHEXT8E": {
       "manufacturer_mpn": "VHEXT8E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHEXT8E.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "VHFC015E": {
       "manufacturer_mpn": "VHFC015E",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHFC015E.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "C380N": {
       "manufacturer_mpn": "C380N",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/SGEC380N.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "84-213": {
       "manufacturer_mpn": "84-213",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/STY84213.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AHD10-04290": {
       "manufacturer_mpn": "AHD10-04290",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD1004290.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AHD30-04293": {
       "manufacturer_mpn": "AHD30-04293",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD3004293.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AHD50-04294": {
       "manufacturer_mpn": "AHD50-04294",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD5004294.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW5U-00932": {
       "manufacturer_mpn": "MBW5U-00932",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U00932.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW5U-01440": {
       "manufacturer_mpn": "MBW5U-01440",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01440.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW5U-01441": {
       "manufacturer_mpn": "MBW5U-01441",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01441.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW5U-01443": {
       "manufacturer_mpn": "MBW5U-01443",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01443.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW5U-01554": {
       "manufacturer_mpn": "MBW5U-01554",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01554.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW6U-00934": {
       "manufacturer_mpn": "MBW6U-00934",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U00934.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW6U-01444": {
       "manufacturer_mpn": "MBW6U-01444",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U01444.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MBW6U-01445": {
       "manufacturer_mpn": "MBW6U-01445",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U01445.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "MKJ6U-01352": {
       "manufacturer_mpn": "MKJ6U-01352",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMKJ6U01352.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "WTCXC-03634": {
       "manufacturer_mpn": "WTCXC-03634",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTCXC03634.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "WTCXS-03631": {
       "manufacturer_mpn": "WTCXS-03631",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTCXS03631.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "WTRJC-03632": {
       "manufacturer_mpn": "WTRJC-03632",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTRJC03632.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XHD03-04252": {
       "manufacturer_mpn": "XHD03-04252",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104252.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XHD01-04253": {
       "manufacturer_mpn": "XHD01-04253",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104253.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XHD01-04254": {
       "manufacturer_mpn": "XHD01-04254",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104254.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XHD01-04255": {
       "manufacturer_mpn": "XHD01-04255",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104255.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XHD01-04260": {
       "manufacturer_mpn": "XHD01-04260",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104260.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "XRG06-02404": {
       "manufacturer_mpn": "XRG06-02404",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXRG0602404.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP1008TELTV": {
       "manufacturer_mpn": "TLP1008TELTV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRP1008TELP.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP1208TELTV": {
       "manufacturer_mpn": "TLP1208TELTV",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRP1208TELTV.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "A102-02M": {
       "manufacturer_mpn": "A102-02M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPA10202M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "A102-04M": {
       "manufacturer_mpn": "A102-04M",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPA10204M.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "AVR750UNC": {
       "manufacturer_mpn": "AVR750UNC",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPAVR750UNC.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "B118-008E-UHD-2": {
       "manufacturer_mpn": "B118-008E-UHD-2",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPB118008EUHD2.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "BC600RNC": {
       "manufacturer_mpn": "BC600RNC",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPBC600RNC.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "ISOBAR6 ULTRA": {
       "manufacturer_mpn": "ISOBAR6 ULTRA",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPISOBAR6ULT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "LC1200": {
       "manufacturer_mpn": "LC1200",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPLC1200.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "LC2400": {
       "manufacturer_mpn": "LC2400",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPLC2400.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N001-025-BK": {
       "manufacturer_mpn": "N001-025-BK",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN001025BK.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N001-050-BK": {
       "manufacturer_mpn": "N001-050-BK",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN001050BK.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N032-001": {
       "manufacturer_mpn": "N032-001",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN032001.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-007-BL": {
       "manufacturer_mpn": "N201-007-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201007BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-007-WH": {
       "manufacturer_mpn": "N201-007-WH",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201007WH.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-014-BL": {
       "manufacturer_mpn": "N201-014-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201014BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-025-BL": {
       "manufacturer_mpn": "N201-025-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201025BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-050-BL": {
       "manufacturer_mpn": "N201-050-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201050BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-100-BL": {
       "manufacturer_mpn": "N201-100-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201100BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "N201-015-BL": {
       "manufacturer_mpn": "N201-015-BL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN20115BL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "P131-06N": {
       "manufacturer_mpn": "P131-06N",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP13106N.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "P502-006": {
       "manufacturer_mpn": "P502-006",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP502006.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "P569-006-MF": {
       "manufacturer_mpn": "P569-006-MF",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP569006MF.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "P570-006-MICRO": {
       "manufacturer_mpn": "P570-006-MICRO",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP570006MC.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SMART1200XLHG": {
       "manufacturer_mpn": "SMART1200XLHG",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSMART1200XLHG.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SMART1500LCD": {
       "manufacturer_mpn": "SMART1500LCD",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSMART1500.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SPIKECUBE": {
       "manufacturer_mpn": "SPIKECUBE",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSPIKECUBE.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SUPER7": {
       "manufacturer_mpn": "SUPER7",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER7.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SUPER725B": {
       "manufacturer_mpn": "SUPER725B",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER725B.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SUPER7B": {
       "manufacturer_mpn": "SUPER7B",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER7B.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "SWIVEL6USB": {
       "manufacturer_mpn": "SWIVEL6USB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSWIVEL6USB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLM609SA": {
       "manufacturer_mpn": "TLM609SA",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLM609SA.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLM615SA": {
       "manufacturer_mpn": "TLM615SA",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLM615SA.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP1006B": {
       "manufacturer_mpn": "TLP1006B",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1006B.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP1208SAT": {
       "manufacturer_mpn": "TLP1208SAT",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1208SAT.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP1208TEL": {
       "manufacturer_mpn": "TLP1208TEL",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1208TEL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP128TTUSBB": {
       "manufacturer_mpn": "TLP128TTUSBB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP128USBB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP310USBC": {
       "manufacturer_mpn": "TLP310USBC",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP310USBC.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP4BK": {
       "manufacturer_mpn": "TLP4BK",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP4BK.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP604": {
       "manufacturer_mpn": "TLP604",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP604.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP606DMUSB": {
       "manufacturer_mpn": "TLP606DMUSB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP606DMUSB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP610U30CLAMPB": {
       "manufacturer_mpn": "TLP610U30CLAMPB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP610U30CL.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP648USBC": {
       "manufacturer_mpn": "TLP648USBC",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP648USBC.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP6B": {
       "manufacturer_mpn": "TLP6B",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP6B.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP74RB": {
       "manufacturer_mpn": "TLP74RB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP74RB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP76MSG": {
       "manufacturer_mpn": "TLP76MSG",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP76MSG.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP76MSGB": {
       "manufacturer_mpn": "TLP76MSGB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP76MSGB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP808B": {
       "manufacturer_mpn": "TLP808B",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP808B.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP810NET": {
       "manufacturer_mpn": "TLP810NET",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP810NET.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP864USBB": {
       "manufacturer_mpn": "TLP864USBB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP864USBB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TLP88TUSBB": {
       "manufacturer_mpn": "TLP88TUSBB",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP88TUSBB.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "U236-000-R": {
       "manufacturer_mpn": "U236-000-R",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPU236000R.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "U436-06N-GBW": {
       "manufacturer_mpn": "U436-06N-GBW",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPU43606NGBW.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DS6101": {
       "manufacturer_mpn": "DS6101",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/VTEDS6101.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "DS6151": {
       "manufacturer_mpn": "DS6151",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/VTEDS6151.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "FL-1000": {
       "manufacturer_mpn": "FL-1000",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDFL1000.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "HD8200U": {
       "manufacturer_mpn": "HD8200U",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDHD8200U.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "TB-0005": {
       "manufacturer_mpn": "TB-0005",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDTB0005.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     },
     "WM-2040": {
       "manufacturer_mpn": "WM-2040",
-      "image_rights_status": "pending_petra_confirmation",
-      "approved_public_images": [],
-      "pending_candidate_count": 1,
-      "storefront_fallback": "category_placeholder"
+      "image_rights_status": "approved",
+      "approved_public_images": [
+        "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDWM2040.jpg"
+      ],
+      "publish_supplier_image": true,
+      "storefront_fallback": "category_placeholder_on_error"
     }
   }
 }

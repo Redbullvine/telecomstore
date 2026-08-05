@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-08-05T21:53:19.737Z",
+  "source_csv": "prodlist.csv",
+  "source_rows": 2566,
+  "source_image_fields": [
+    "IMAGE URL"
+  ],
+  "total_catalog_products": 206,
+  "matched_catalog_products": 206,
+  "match_methods": {
+    "supplier_sku": 43,
+    "manufacturer_mpn": 163,
+    "gtin": 0
+  },
+  "primary_images": 206,
+  "alternate_images": 0,
+  "placeholders_remaining": 0,
+  "invalid_image_urls": 0,
+  "unmatched_csv_rows": 2360,
+  "ambiguous_matches": 0,
+  "duplicate_urls": 0,
+  "duplicate_content_groups_from_prior_audit": 1,
+  "restricted_products_skipped": 0,
+  "rights_approved": 206,
+  "publish_supplier_image_true": 206,
+  "url_normalization": "http://petraimages.com.s3.amazonaws.com/... -> https://s3.us-east-2.amazonaws.com/petraimages.com/..."
+}

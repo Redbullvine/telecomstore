@@ -1,3 +1,5 @@
+import imageRestrictions from "../data/image-restrictions.json" with { type: "json" };
+
 const AVAILABILITY_LABELS = {
   in_stock: "In Stock",
   out_of_stock: "Out of Stock",
@@ -17,7 +19,11 @@ export function storefrontBadgeLabel(product = {}) {
 }
 
 export function storefrontImageSource(product = {}) {
-  return product.photo_main || product.photo_label || product.photo_extra_1 || product.photo_extra_2 || "";
+  const blockedProduct = imageRestrictions.blocked_products.includes(product.sku);
+  const blockedBrand = imageRestrictions.blocked_brands.some((brand) => brand.toLowerCase() === String(product.brand || "").toLowerCase());
+  const isPetraImage = /^https:\/\/s3\.us-east-2\.amazonaws\.com\/petraimages\.com\//i.test(product.photo_main || "");
+  const primary = isPetraImage && (blockedProduct || blockedBrand) ? "" : product.photo_main;
+  return primary || product.photo_label || product.photo_extra_1 || product.photo_extra_2 || "";
 }
 
 export function storefrontImageAlt(product = {}) {
