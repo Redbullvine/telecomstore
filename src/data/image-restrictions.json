@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "blocked_products": [],
+  "blocked_brands": [],
+  "blocked_supplier_skus": [],
+  "note": "Add a verified restriction here and republish, or insert an active protected database restriction for immediate RPC enforcement."
+}

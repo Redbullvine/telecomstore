@@ -15,8 +15,9 @@ test("opening catalog contains exactly 206 unique approved public products", () 
 test("excluded products and private supplier data never enter the public catalog", () => {
   const text = JSON.stringify(catalog);
   for (const sku of ["PSG100", "PSG200", "PSG300", "PSG400", "BHOC05"]) assert.equal(text.includes(sku), false);
-  for (const forbidden of ["supplier_sku", "_private", "supplier_cost", "wholesale", "raw_supplier", "petra"]) assert.equal(text.toLowerCase().includes(forbidden), false);
-  assert.ok(catalog.every((p) => !Object.keys(p).some((key) => key.includes("image") && key !== "image_rights_status")));
+  for (const forbidden of ["supplier_sku", "_private", "supplier_cost", "wholesale", "raw_supplier"]) assert.equal(text.toLowerCase().includes(forbidden), false);
+  assert.ok(catalog.every((p) => p.image_rights_status === "approved" && p.publish_supplier_image === true));
+  assert.ok(catalog.every((p) => /^https:\/\/s3\.us-east-2\.amazonaws\.com\/petraimages\.com\//.test(p.photo_main)));
   assert.ok(catalog.every((p) => !("condition" in p)));
 });
 

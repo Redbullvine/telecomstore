@@ -22,7 +22,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -36,7 +36,10 @@
       "Clearstream",
       "Outdoor",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC4CJM.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "C4-V-CJM",
@@ -61,7 +64,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -77,7 +80,10 @@
       "Hdtv",
       "Ant",
       "mnt"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC4VCJM.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "C5",
@@ -102,7 +108,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -116,7 +122,10 @@
       "Clearstream",
       "Dtv",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIC5.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CJMOUNT",
@@ -141,7 +150,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -154,7 +163,10 @@
       "853748001392",
       "Antenna",
       "Mount"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADICJMOUNT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DB8-E",
@@ -179,7 +191,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -194,7 +206,10 @@
       "Bowtie",
       "UHF",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ADIDB8E.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MAST40",
@@ -219,7 +234,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -234,7 +249,10 @@
       "ClearStream",
       "Universal",
       "Mast"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ANTDMAST40.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BK350",
@@ -259,7 +277,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -273,7 +291,10 @@
       "Back-UPS",
       "350",
       "Tower"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APCBK350.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BE550G",
@@ -298,7 +319,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -312,7 +333,10 @@
       "550VA",
       "8-OUT",
       "Back-ups"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBE550G.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BE650G1",
@@ -337,7 +361,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -352,7 +376,10 @@
       "650",
       "Battery",
       "Backup"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBE650G1.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BK500",
@@ -377,7 +404,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -391,7 +418,10 @@
       "Back-ups",
       "500",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBK500.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BR1500MS2",
@@ -416,7 +446,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -436,7 +466,10 @@
       "and",
       "USB",
       "Ports"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBR1500MS2.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BX1000M",
@@ -461,7 +494,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -477,7 +510,10 @@
       "Back",
       "Ups",
       "Pro"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBX1000M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BX850M",
@@ -502,7 +538,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -518,7 +554,10 @@
       "Back",
       "Ups",
       "Pro"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/APNBX850M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ATCRL32102",
@@ -543,7 +582,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -559,7 +598,10 @@
       "Button",
       "Cordless",
       "Das"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ATTATCRL32102.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "P300",
@@ -584,7 +626,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -598,7 +640,10 @@
       "Amplified",
       "Photo",
       "Phone"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAP300.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "52703",
@@ -623,7 +668,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -636,7 +681,10 @@
       "017229135543",
       "Expandable",
       "Handset"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR52703.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "53712",
@@ -661,7 +709,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -677,7 +725,10 @@
       "Phone",
       "dig",
       "Answr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR53712.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "53714",
@@ -702,7 +753,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -718,7 +769,10 @@
       "Ampd",
       "Cordless",
       "Phone"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR53714.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "54505.001",
@@ -743,7 +797,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -759,7 +813,10 @@
       "Amp",
       "Corded",
       "Phone"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR545051.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "59865.001",
@@ -784,7 +841,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -802,7 +859,10 @@
       "Cordless",
       "Phone",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLAR598651.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "59234.001",
@@ -827,7 +887,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -846,7 +906,10 @@
       "with",
       "Big",
       "Buttons"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CLARXLC34PLUS.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CP1500AVRLCD3",
@@ -871,7 +934,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -885,7 +948,10 @@
       "Intelligent",
       "Lcd",
       "Ups"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/CYBCP1500AVRLCD3.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "45-0001-UWH",
@@ -910,7 +976,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -924,7 +990,10 @@
       "Uwhite",
       "Gang",
       "Recessed"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM450001WH.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "50-3321-WH-KIT",
@@ -949,7 +1018,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -966,7 +1035,10 @@
       "Org",
       "Rem",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM503321WHKIT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "50-3323-WH-KIT",
@@ -991,7 +1063,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1006,7 +1078,10 @@
       "Pair",
       "Power",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM503323WHKIT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "50-6623-WH-KIT",
@@ -1031,7 +1106,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1048,7 +1123,10 @@
       "Org",
       "Dup",
       "Power"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/DCM506623WHKIT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "500256",
@@ -1073,7 +1151,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1086,7 +1164,10 @@
       "601430002567",
       "Distribution",
       "Amp"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASDISTAMP25GX.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DTV2BUHF",
@@ -1111,7 +1192,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1126,7 +1207,10 @@
       "UHF",
       "Outdoor",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASDTV2BUHF.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "500302",
@@ -1151,7 +1235,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1166,7 +1250,10 @@
       "1000",
       "MHz",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP10002AP.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "500303",
@@ -1191,7 +1278,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1207,7 +1294,10 @@
       "Port",
       "Power",
       "Splittr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP1003AP.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "500308",
@@ -1232,7 +1322,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1245,7 +1335,10 @@
       "601430003083",
       "2-WAY",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP7002.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "500312",
@@ -1270,7 +1363,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1283,7 +1376,10 @@
       "601430003120",
       "4-WAY",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/EASP7004AP.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "EIS3-1004-WHT",
@@ -1308,7 +1404,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1323,7 +1419,10 @@
       "Smart",
       "Surge",
       "Protector"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ENRGSMTSURGE.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AS-HP-5R",
@@ -1348,7 +1447,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1364,7 +1463,10 @@
       "Surge",
       "Wall",
       "Tap"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHASHP5R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CS-1X4HDMSPL5",
@@ -1389,7 +1491,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1404,7 +1506,10 @@
       "4OUT",
       "HDMI",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCS1X4HDSPL5.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CS-C5DE",
@@ -1429,7 +1534,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1444,7 +1549,10 @@
       "Digital",
       "Aud",
       "Extension"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSC5DE.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CS-DAC2",
@@ -1469,7 +1577,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1484,7 +1592,10 @@
       "opt",
       "Spdif",
       "Converter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSDAC2.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "CS-HDEXT4KPOEU",
@@ -1509,7 +1620,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1523,7 +1634,10 @@
       "Extender",
       "Cat6",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHCSHDEXT4K.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MHX-LHDME12",
@@ -1548,7 +1662,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1563,7 +1677,10 @@
       "HDMI",
       "Cable",
       "10.2G"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME12.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MHX-LHDME2",
@@ -1588,7 +1705,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1602,7 +1719,10 @@
       "HDMI",
       "Cable",
       "18G"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME2.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MHX-LHDME4",
@@ -1627,7 +1747,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1641,7 +1761,10 @@
       "HDMI",
       "Cable",
       "18G"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXLHDME4.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MHX-T15",
@@ -1666,7 +1789,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1684,7 +1807,10 @@
       "Optical",
       "Audio",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/ETHMHXT15.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "UHF-04M-S1234",
@@ -1709,7 +1835,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1724,7 +1850,10 @@
       "Wireless",
       "Prof",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/GCIUHF04MS1234.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "30-495",
@@ -1749,7 +1878,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1764,7 +1893,10 @@
       "Plug",
       "Crimp",
       "Tool"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI30495.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "31-340",
@@ -1789,7 +1921,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1805,7 +1937,10 @@
       "Pull",
       "Line",
       "500"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI31340.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "33-396",
@@ -1830,7 +1965,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1846,7 +1981,10 @@
       "Crimp",
       "Tool",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI33396.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "33-507",
@@ -1871,7 +2009,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1886,7 +2024,10 @@
       "Trmnation",
       "Hip",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI33507.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "35-088",
@@ -1911,7 +2052,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1926,7 +2067,10 @@
       "Scissors",
       "With",
       "Notch"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI35088.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "45-121",
@@ -1951,7 +2095,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -1969,7 +2113,10 @@
       "Solid",
       "and",
       "Stranded"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI45121.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "45-915",
@@ -1994,7 +2141,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2010,7 +2157,10 @@
       "T-Stripper",
       "Wire",
       "Stripper"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI45915.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "62-200",
@@ -2035,7 +2185,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2048,7 +2198,10 @@
       "783250622009",
       "Linkmaster",
       "Ethernet"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI62200.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-366",
@@ -2073,7 +2226,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2087,7 +2240,10 @@
       "Cat6",
       "RJ45",
       "Plug"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85366.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-368",
@@ -2112,7 +2268,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2127,7 +2283,10 @@
       "CAT6",
       "Mod",
       "Plug"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85368.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-369",
@@ -2152,7 +2311,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2167,7 +2326,10 @@
       "CAT6",
       "Mod",
       "Plug"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85369.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-371",
@@ -2192,7 +2354,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2207,7 +2369,10 @@
       "Cat5e",
       "RJ45",
       "Plugs"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85371.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-372",
@@ -2232,7 +2397,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2247,7 +2412,10 @@
       "Cat5e",
       "RJ45",
       "Plugs"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85372.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-376",
@@ -2272,7 +2440,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2287,7 +2455,10 @@
       "Cat6",
       "RJ45",
       "Plugs"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85376.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-377",
@@ -2312,7 +2483,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2327,7 +2498,10 @@
       "Cat6",
       "RJ45",
       "Plugs"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI85377.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "86-396",
@@ -2352,7 +2526,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2368,7 +2542,10 @@
       "Plug",
       "Bag",
       "100"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI86396.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "89-5047",
@@ -2393,7 +2570,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2407,7 +2584,10 @@
       "RG59",
       "BNC",
       "Compression"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/IDI895047.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DPS-1100 USB",
@@ -2432,7 +2612,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2446,7 +2626,10 @@
       "Desk",
       "Charging",
       "Station"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KBZDPS100USB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "KRA-22M",
@@ -2471,7 +2654,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2484,7 +2667,10 @@
       "019048134912",
       "UHF",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KWBRKRA22M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "KRA-23M",
@@ -2509,7 +2695,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2522,7 +2708,10 @@
       "019048134943",
       "VHF",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/KWBRKRA23M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "56-200",
@@ -2547,7 +2736,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2559,7 +2748,10 @@
       "56-200",
       "792136562001",
       "Decoil-zit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD56200.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "81-000",
@@ -2584,7 +2776,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2599,7 +2791,10 @@
       "Pro",
       "36FT",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81000.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "81-130",
@@ -2624,7 +2819,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2639,7 +2834,10 @@
       "Wire",
       "Running",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81130.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "81-230",
@@ -2664,7 +2862,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2679,7 +2877,10 @@
       "Wire",
       "Rod",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81230.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "81-600",
@@ -2704,7 +2905,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2719,7 +2920,10 @@
       "Compact",
       "24FT",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81600.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "81-700",
@@ -2744,7 +2948,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2759,7 +2963,10 @@
       "Wire",
       "Running",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD81700.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "82-110",
@@ -2784,7 +2991,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2798,7 +3005,10 @@
       "Grabbit",
       "Mini",
       "Pole"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82110.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "82-118",
@@ -2823,7 +3033,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2836,7 +3046,10 @@
       "792136821184",
       "Grabbit",
       "Pole"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82118.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "82-350",
@@ -2861,7 +3074,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2875,7 +3088,10 @@
       "Grabbit",
       "Ztip",
       "Adapter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD82350.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "85-124",
@@ -2900,7 +3116,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2914,7 +3130,10 @@
       "Wet",
       "Noodle",
       "Retriever"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/LSD85124.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "33202",
@@ -2939,7 +3158,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2954,7 +3173,10 @@
       "Surgequad",
       "USB",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NCC33202.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "910-1001",
@@ -2979,7 +3201,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -2994,7 +3216,10 @@
       "Case",
       "foam",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9101001.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "925S-060BK-0A0",
@@ -3019,7 +3244,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3035,7 +3260,10 @@
       "Case",
       "org",
       "Dividr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK925S060BK.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "963-1001",
@@ -3060,7 +3288,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3076,7 +3304,10 @@
       "With",
       "Foam",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9631001.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "965-1001",
@@ -3101,7 +3332,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3117,7 +3348,10 @@
       "With",
       "Foam",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/NNUK9651001.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PB802105",
@@ -3142,7 +3376,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3157,7 +3391,10 @@
       "900J",
       "Surge",
       "Tap"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PRIPB802105.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PBRUSB346S-A",
@@ -3182,7 +3419,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3197,7 +3434,10 @@
       "1200J",
       "Surge",
       "Tap"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PRIPBRUSB346S.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PCBLCO102",
@@ -3222,7 +3462,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3240,7 +3480,10 @@
       "Flip-Open",
       "Access",
       "Lid"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPCBLCO102.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PDWM2145",
@@ -3265,7 +3508,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3281,7 +3524,10 @@
       "Wireless",
       "Mic",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM2145.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PDWM3375",
@@ -3306,7 +3552,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3321,7 +3567,10 @@
       "Wireless",
       "Mic",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM3375.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PDWM3400",
@@ -3346,7 +3595,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3361,7 +3610,10 @@
       "Wireless",
       "Mic",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYLPDWM3400.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PDBC70",
@@ -3386,7 +3638,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3401,7 +3653,10 @@
       "Power",
       "Switch",
       "Control"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYRPDBC70.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "PDWM4120",
@@ -3426,7 +3681,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3441,7 +3696,10 @@
       "Wireless",
       "Mic",
       "System"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/PYRPDWM4120.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AMP1450E",
@@ -3466,7 +3724,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3482,7 +3740,10 @@
       "For",
       "Indoor",
       "Antna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAAMP1450F.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ANT111E",
@@ -3507,7 +3768,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3521,7 +3782,10 @@
       "Indoor",
       "Passive",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT111.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ANT1560E1",
@@ -3546,7 +3810,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3563,7 +3827,10 @@
       "Multi-Directional",
       "HDTV",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT1560E1.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ANT310E",
@@ -3588,7 +3855,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3602,7 +3869,10 @@
       "Amplified",
       "Indoor",
       "Antna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT310F.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ANT705E",
@@ -3627,7 +3897,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3642,7 +3912,10 @@
       "outdoor",
       "Hdtv",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT705E.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ANT754E",
@@ -3667,7 +3940,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3682,7 +3955,10 @@
       "Outdoor",
       "Attic",
       "Compa"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAANT754E.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DH12HHE",
@@ -3707,7 +3983,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3722,7 +3998,10 @@
       "Dig",
       "Plus",
       "HDMI"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH12HHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DH24SPE",
@@ -3747,7 +4026,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3762,7 +4041,10 @@
       "2WAY",
       "Digital",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH24SPR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DH3HHE",
@@ -3787,7 +4069,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3801,7 +4083,10 @@
       "3FT",
       "HDMI",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH3HHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DH6HHE",
@@ -3826,7 +4111,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3841,7 +4126,10 @@
       "Dig",
       "Plus",
       "HDMI"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADH6HHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DV10RV",
@@ -3866,7 +4154,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3881,7 +4169,10 @@
       "Optical",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCADV10RV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP210WHRV",
@@ -3906,7 +4197,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3922,7 +4213,10 @@
       "Phone",
       "Cord",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP210WHRV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP231WHR",
@@ -3947,7 +4241,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -3963,7 +4257,10 @@
       "Line",
       "Cord",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP231WHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP243WHR",
@@ -3988,7 +4285,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4004,7 +4301,10 @@
       "Line",
       "Cord",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP243WHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP257WHR",
@@ -4029,7 +4329,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4044,7 +4344,10 @@
       "Mod",
       "Jack",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP257WHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP265WHR",
@@ -4069,7 +4372,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4085,7 +4388,10 @@
       "Phone",
       "Jack",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP265WHR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP280WRV",
@@ -4110,7 +4416,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4126,7 +4432,10 @@
       "Coil",
       "Cord",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP280WRV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP282AR",
@@ -4151,7 +4460,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4167,7 +4476,10 @@
       "Coil",
       "Cord",
       "Ivr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282AR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP282BLRV",
@@ -4192,7 +4504,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4208,7 +4520,10 @@
       "Coil",
       "Cord",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282BLRV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP282WR",
@@ -4233,7 +4548,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4249,7 +4564,10 @@
       "Coil",
       "Cord",
       "With"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP282WR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TP443WHRV",
@@ -4274,7 +4592,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4290,7 +4608,10 @@
       "Phone",
       "Cord",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATP443WHRV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TPH530BR",
@@ -4315,7 +4636,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4329,7 +4650,10 @@
       "Cat5e",
       "Cable",
       "Blu"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH530BR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TPH532BR",
@@ -4354,7 +4678,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4370,7 +4694,10 @@
       "100MHZ",
       "Cable",
       "Blu"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH532BR.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TPH560R1V",
@@ -4395,7 +4722,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4410,7 +4737,10 @@
       "Line",
       "Coupler",
       "With"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH560R1V.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TPH633R",
@@ -4435,7 +4765,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4450,7 +4780,10 @@
       "Cat",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCATPH633R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH125R",
@@ -4475,7 +4808,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4491,7 +4824,10 @@
       "Wall",
       "Mount",
       "Kit"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH125R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH47R",
@@ -4516,7 +4852,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4529,7 +4865,10 @@
       "079000403364",
       "Two-way",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH47R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH603RV1",
@@ -4554,7 +4893,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4569,7 +4908,10 @@
       "RG6",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH603RV1.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH606R",
@@ -4594,7 +4936,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4610,7 +4952,10 @@
       "Coax",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH606R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH606WHR",
@@ -4635,7 +4980,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4650,7 +4995,10 @@
       "RG6",
       "Cable",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH606WHRV1.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH612R",
@@ -4675,7 +5023,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4691,7 +5039,10 @@
       "Coax",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH612R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH625RV",
@@ -4716,7 +5067,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4732,7 +5083,10 @@
       "Coax",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH625R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VH66R1",
@@ -4757,7 +5111,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4772,7 +5126,10 @@
       "Cable",
       "Feed",
       "Connector"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVH66R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VHB6111R",
@@ -4797,7 +5154,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4813,7 +5170,10 @@
       "Coax",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHB6111R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VHB655R",
@@ -4838,7 +5198,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4854,7 +5214,10 @@
       "Coax",
       "Cable",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHB655R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VHEXT8E",
@@ -4879,7 +5242,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4893,7 +5256,10 @@
       "Coax",
       "Extension",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHEXT8E.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "VHFC015E",
@@ -4918,7 +5284,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4933,7 +5299,10 @@
       "Coax",
       "Extnsn",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/RCAVHFC015E.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "C380N",
@@ -4958,7 +5327,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -4974,7 +5343,10 @@
       "Power",
       "Strip",
       "usb"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/SGEC380N.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "84-213",
@@ -4999,7 +5371,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5013,7 +5385,10 @@
       "Wire",
       "Stripper",
       "Cutter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/STY84213.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AHD10-04290",
@@ -5038,7 +5413,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5053,7 +5428,10 @@
       "HDMI",
       "30AWG",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD1004290.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AHD30-04293",
@@ -5078,7 +5456,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5093,7 +5471,10 @@
       "HDMI",
       "28AWG",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD3004293.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AHD50-04294",
@@ -5118,7 +5499,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5133,7 +5514,10 @@
       "HDMI",
       "24AWG",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTAHD5004294.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW5U-00932",
@@ -5158,7 +5542,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5177,7 +5561,10 @@
       "Cable",
       "000",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U00932.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW5U-01440",
@@ -5202,7 +5589,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5221,7 +5608,10 @@
       "Cable",
       "000",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01440.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW5U-01441",
@@ -5246,7 +5636,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5265,7 +5655,10 @@
       "Cable",
       "000",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01441.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW5U-01443",
@@ -5290,7 +5683,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5309,7 +5702,10 @@
       "Cable",
       "000",
       "Yellow"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01443.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW5U-01554",
@@ -5334,7 +5730,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5353,7 +5749,10 @@
       "Cable",
       "000",
       "Red"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW5U01554.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW6U-00934",
@@ -5378,7 +5777,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5397,7 +5796,10 @@
       "Cable",
       "000",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U00934.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW6U-01444",
@@ -5422,7 +5824,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5441,7 +5843,10 @@
       "Cable",
       "000",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U01444.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MBW6U-01445",
@@ -5466,7 +5871,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5485,7 +5890,10 @@
       "Cable",
       "000",
       "Yellow"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMBW6U01445.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "MKJ6U-01352",
@@ -5510,7 +5918,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5526,7 +5934,10 @@
       "Cat6",
       "Unshld",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTMKJ6U01352.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "WTCXC-03634",
@@ -5551,7 +5962,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5566,7 +5977,10 @@
       "Hex",
       "Crimp",
       "Tool"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTCXC03634.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "WTCXS-03631",
@@ -5591,7 +6005,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5606,7 +6020,10 @@
       "Coax",
       "Strip",
       "Tool"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTCXS03631.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "WTRJC-03632",
@@ -5631,7 +6048,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5646,7 +6063,10 @@
       "Crimp",
       "strip",
       "Tool"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTWTRJC03632.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XHD03-04252",
@@ -5671,7 +6091,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5688,7 +6108,10 @@
       "With",
       "Ethernet",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104252.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XHD01-04253",
@@ -5713,7 +6136,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5730,7 +6153,10 @@
       "With",
       "Ethernet",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104253.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XHD01-04254",
@@ -5755,7 +6181,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5772,7 +6198,10 @@
       "With",
       "Ethernet",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104254.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XHD01-04255",
@@ -5797,7 +6226,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5814,7 +6243,10 @@
       "With",
       "Ethernet",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104255.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XHD01-04260",
@@ -5839,7 +6271,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5856,7 +6288,10 @@
       "With",
       "Ethernet",
       "White"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXHD0104260.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "XRG06-02404",
@@ -5881,7 +6316,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5897,7 +6332,10 @@
       "Dual",
       "Shield",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TCTXRG0602404.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP1008TELTV",
@@ -5922,7 +6360,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5935,7 +6373,10 @@
       "037332119070",
       "Outlet",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRP1008TELP.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP1208TELTV",
@@ -5960,7 +6401,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -5976,7 +6417,10 @@
       "With",
       "Coax",
       "tel"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRP1208TELTV.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "A102-02M",
@@ -6001,7 +6445,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6016,7 +6460,10 @@
       "Digital",
       "Optical",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPA10202M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "A102-04M",
@@ -6041,7 +6488,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6056,7 +6503,10 @@
       "Digital",
       "Optical",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPA10204M.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "AVR750UNC",
@@ -6081,7 +6531,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6097,7 +6547,10 @@
       "450W",
       "Cloud",
       "Ups"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPAVR750UNC.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "B118-008E-UHD-2",
@@ -6122,7 +6575,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6136,7 +6589,10 @@
       "8PRT",
       "HDMI",
       "Splitter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPB118008EUHD2.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "BC600RNC",
@@ -6161,7 +6617,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6179,7 +6635,10 @@
       "UPS",
       "with",
       "Outlets"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPBC600RNC.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "ISOBAR6 ULTRA",
@@ -6204,7 +6663,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6220,7 +6679,10 @@
       "With",
       "6FT",
       "Cord"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPISOBAR6ULT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "LC1200",
@@ -6245,7 +6707,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6260,7 +6722,10 @@
       "120V",
       "Line",
       "Conditioner"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPLC1200.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "LC2400",
@@ -6285,7 +6750,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6300,7 +6765,10 @@
       "120V",
       "Power",
       "Conditioner"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPLC2400.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N001-025-BK",
@@ -6325,7 +6793,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6339,7 +6807,10 @@
       "Cat5e",
       "350MHZ",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN001025BK.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N001-050-BK",
@@ -6364,7 +6835,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6378,7 +6849,10 @@
       "Cat5e",
       "Patch",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN001050BK.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N032-001",
@@ -6403,7 +6877,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6418,7 +6892,10 @@
       "RJ45",
       "Inline",
       "Couplr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN032001.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-007-BL",
@@ -6443,7 +6920,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6462,7 +6939,10 @@
       "Ethernet",
       "Cable",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201007BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-007-WH",
@@ -6487,7 +6967,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6502,7 +6982,10 @@
       "Cat6",
       "Gigabit",
       "Snagless"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201007WH.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-014-BL",
@@ -6527,7 +7010,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6546,7 +7029,10 @@
       "Ethernet",
       "Cable",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201014BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-025-BL",
@@ -6571,7 +7057,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6590,7 +7076,10 @@
       "Ethernet",
       "Cable",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201025BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-050-BL",
@@ -6615,7 +7104,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6634,7 +7123,10 @@
       "Ethernet",
       "Cable",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201050BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-100-BL",
@@ -6659,7 +7151,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6679,7 +7171,10 @@
       "Cable",
       "100",
       "Blue"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN201100BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "N201-015-BL",
@@ -6704,7 +7199,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6720,7 +7215,10 @@
       "Snagless",
       "RJ45",
       "Cable"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPN20115BL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "P131-06N",
@@ -6745,7 +7243,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6761,7 +7259,10 @@
       "With",
       "Audio",
       "Converter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP13106N.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "P502-006",
@@ -6786,7 +7287,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6801,7 +7302,10 @@
       "Monitor",
       "Cable",
       "6F-"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP502006.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "P569-006-MF",
@@ -6826,7 +7330,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6842,7 +7346,10 @@
       "Cable",
       "With",
       "Ethernet"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP569006MF.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "P570-006-MICRO",
@@ -6867,7 +7374,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6882,7 +7389,10 @@
       "Microhdmi",
       "Cable",
       "6FT"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPP570006MC.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SMART1200XLHG",
@@ -6907,7 +7417,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6923,7 +7433,10 @@
       "750W",
       "Med",
       "Ups"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSMART1200XLHG.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SMART1500LCD",
@@ -6948,7 +7461,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -6962,7 +7475,10 @@
       "1500VA",
       "Lcd",
       "Ups"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSMART1500.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SPIKECUBE",
@@ -6987,7 +7503,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7002,7 +7518,10 @@
       "600J",
       "Spikecube",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSPIKECUBE.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SUPER7",
@@ -7027,7 +7546,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7041,7 +7560,10 @@
       "Outlet",
       "Surge",
       "Protector"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER7.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SUPER725B",
@@ -7066,7 +7588,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7081,7 +7603,10 @@
       "7OUT",
       "2160J",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER725B.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SUPER7B",
@@ -7106,7 +7631,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7122,7 +7647,10 @@
       "Protector",
       "2160",
       "Joules"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSUPER7B.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "SWIVEL6USB",
@@ -7147,7 +7675,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7162,7 +7690,10 @@
       "Direct",
       "Plug",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPSWIVEL6USB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLM609SA",
@@ -7187,7 +7718,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7201,7 +7732,10 @@
       "9FT",
       "Protect",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLM609SA.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLM615SA",
@@ -7226,7 +7760,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7240,7 +7774,10 @@
       "15FT",
       "Protect",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLM615SA.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP1006B",
@@ -7265,7 +7802,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7281,7 +7818,10 @@
       "2880J",
       "Surge",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1006B.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP1208SAT",
@@ -7306,7 +7846,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7320,7 +7860,10 @@
       "12OUT",
       "Protect",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1208SAT.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP1208TEL",
@@ -7345,7 +7888,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7360,7 +7903,10 @@
       "12OUT",
       "2160J",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP1208TEL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP128TTUSBB",
@@ -7385,7 +7931,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7400,7 +7946,10 @@
       "8FT",
       "Plastic",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP128USBB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP310USBC",
@@ -7425,7 +7974,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7441,7 +7990,10 @@
       "3OUT",
       "Surge",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP310USBC.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP4BK",
@@ -7466,7 +8018,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7481,7 +8033,10 @@
       "720J",
       "Surge",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP4BK.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP604",
@@ -7506,7 +8061,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7522,7 +8077,10 @@
       "Protector",
       "4FT",
       "Cord"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP604.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP606DMUSB",
@@ -7547,7 +8105,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7561,7 +8119,10 @@
       "6-OTLT",
       "Surge",
       "clamps"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP606DMUSB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP610U30CLAMPB",
@@ -7586,7 +8147,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7607,7 +8168,10 @@
       "and",
       "USB",
       "Ports"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP610U30CL.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP648USBC",
@@ -7632,7 +8196,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7648,7 +8212,10 @@
       "Desk",
       "Clamp",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP648USBC.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP6B",
@@ -7673,7 +8240,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7689,7 +8256,10 @@
       "Protector",
       "6FT",
       "Cord"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP6B.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP74RB",
@@ -7714,7 +8284,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7728,7 +8298,10 @@
       "7OUTLT",
       "Surge",
       "Protectr"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP74RB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP76MSG",
@@ -7753,7 +8326,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7769,7 +8342,10 @@
       "Protector",
       "6FT",
       "Cord"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP76MSG.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP76MSGB",
@@ -7794,7 +8370,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7810,7 +8386,10 @@
       "1080J",
       "Surge",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP76MSGB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP808B",
@@ -7835,7 +8414,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7851,7 +8430,10 @@
       "1440J",
       "Surge",
       "Black"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP808B.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP810NET",
@@ -7876,7 +8458,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7890,7 +8472,10 @@
       "Outlet",
       "Phone",
       "Lan"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP810NET.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP864USBB",
@@ -7915,7 +8500,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7930,7 +8515,10 @@
       "6FT",
       "Plastic",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP864USBB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TLP88TUSBB",
@@ -7955,7 +8543,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -7970,7 +8558,10 @@
       "8FT",
       "Plastic",
       "Surge"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPTLP88TUSBB.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "U236-000-R",
@@ -7995,7 +8586,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8009,7 +8600,10 @@
       "USB",
       "Ethernet",
       "Adapter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPU236000R.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "U436-06N-GBW",
@@ -8034,7 +8628,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8049,7 +8643,10 @@
       "GEN1C",
       "Ethernet",
       "Adapter"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/TRPU43606NGBW.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DS6101",
@@ -8074,7 +8671,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8088,7 +8685,10 @@
       "Add",
       "Handset",
       "VTEDS6151"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/VTEDS6101.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "DS6151",
@@ -8113,7 +8713,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8129,7 +8729,10 @@
       "2-Line",
       "Cordless",
       "Phone"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/VTEDS6151.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "FL-1000",
@@ -8154,7 +8757,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8167,7 +8770,10 @@
       "615798402747",
       "Indoor",
       "Antenna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDFL1000.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "HD8200U",
@@ -8192,7 +8798,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8207,7 +8813,10 @@
       "Antenna",
       "Deep",
       "Fringe"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDHD8200U.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "TB-0005",
@@ -8232,7 +8841,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8246,7 +8855,10 @@
       "5FT",
       "Swedged",
       "Masting"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDTB0005.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "WM-2040",
@@ -8271,7 +8883,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8286,7 +8898,10 @@
       "Galvanized",
       "Wall",
       "Mount"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WGDWM2040.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   },
   {
     "sku": "314475",
@@ -8311,7 +8926,7 @@
     "price_mode": "request_quote",
     "opening_approved": true,
     "checkout_active": false,
-    "image_rights_status": "pending",
+    "image_rights_status": "approved",
     "public_availability": "quote_only",
     "availability_text": "Availability by Quote",
     "status": "available",
@@ -8326,6 +8941,9 @@
       "Wdebnd",
       "Directional",
       "Antna"
-    ]
+    ],
+    "photo_main": "https://s3.us-east-2.amazonaws.com/petraimages.com/600x600/WSN314475.jpg",
+    "publish_supplier_image": true,
+    "image_source": "Petra CSV"
   }
 ]

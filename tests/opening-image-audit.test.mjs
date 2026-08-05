@@ -13,34 +13,31 @@ const publicText = [
   "operations/opening-image-audit.csv",
   "operations/opening-image-manual-review.csv",
   "operations/opening-image-approval-manifest.json",
-  "docs/opening-image-audit-report.md",
   "src/data/opening-catalog.json"
 ].map((file) => fs.readFileSync(file, "utf8")).join("\n");
 
-test("every opening product has one private-rights image candidate and a manual-review row", () => {
+test("every opening product has one Petra-authorized image and an audit row", () => {
   assert.equal(audit.length, 206);
   assert.equal(review.length, 206);
   assert.equal(new Set(audit.map((row) => row.public_sku)).size, 206);
   assert.ok(audit.every((row) => row.response_status === "working" && row.http_status === "200"));
-  assert.ok(audit.every((row) => row.rights_status === "pending_petra_confirmation"));
-  assert.ok(audit.every((row) => row.approved_public_image_count === "0" && row.storefront_image_status === "category_placeholder"));
+  assert.ok(audit.every((row) => row.rights_status === "approved"));
+  assert.ok(audit.every((row) => row.approved_public_image_count === "1" && row.storefront_image_status === "petra_csv_image"));
 });
 
-test("approval manifest publishes no supplier image and preserves the 206-product boundary", () => {
+test("approval manifest publishes all authorized images and preserves the 206-product boundary", () => {
   assert.deepEqual(manifest.counts, {
     products: 206,
     candidate_images: 206,
-    approved_public_images: 0,
-    pending_petra_confirmation: 206,
-    placeholders_required: 206
+    approved_public_images: 206,
+    placeholders_required: 0
   });
   assert.equal(Object.keys(manifest.products).length, 206);
-  assert.ok(Object.values(manifest.products).every((row) => row.approved_public_images.length === 0));
+  assert.ok(Object.values(manifest.products).every((row) => row.approved_public_images.length === 1 && row.publish_supplier_image));
 });
 
-test("tracked image deliverables contain no raw supplier URL or private supplier fields", () => {
-  assert.doesNotMatch(publicText, /https?:\/\//i);
-  assert.doesNotMatch(publicText, /supplier[_ ]sku|petra[_ ]sku|supplier[_ ]cost|wholesale|\bmap\b/i);
+test("tracked image deliverables contain no private supplier fields", () => {
+  assert.doesNotMatch(publicText, /"supplier_sku"\s*:|"petra_sku"\s*:|supplier[_ ]cost|wholesale|"map_price"\s*:/i);
 });
 
 test("the only duplicate image content is flagged for separate exact-product review", () => {
