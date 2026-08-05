@@ -113,7 +113,7 @@ ${["small", "medium", "large", "oversize", "freight", "manual_quote"].map((name)
 
 Each exact MPN was searched against current public web results. Auction sites and large third-party marketplaces were excluded. A price became an \`approved_candidate\` only when at least two distinct public sellers exposed prices, the observed spread was no greater than 75%, the median public price was not below known supplier cost or MAP, and the supplier record did not indicate discontinuation. These are recommendations for Danny's review, not final prices.
 
-The public search evidence archive is \`operations/opening-pricing-evidence.json\`. Candidate calculations count only exact-MPN title/URL matches from the reputable manufacturer, distributor, and major-retailer allowlist in the preparation script.
+The supporting search-evidence archive is kept locally in the git-ignored \`operations/opening-pricing-evidence.json\`. Candidate calculations count only exact-MPN title/URL matches from the reputable manufacturer, distributor, and major-retailer allowlist in the preparation script. Supplier URLs and research evidence are not published with the public repository.
 
 Shipping uses only supplier-recorded dimensions and estimated ship weight. UPS publishes a 139 dimensional-weight divisor for daily rates, a 150-lb package limit, a 108-in length limit, and a 165-in length-plus-girth limit. No flat rate is recommended without the ship-from ZIP, destination zone, negotiated UPS rate, packed-unit measurements, and surcharge review. Products missing any required measurement remain \`manual_quote\`.
 

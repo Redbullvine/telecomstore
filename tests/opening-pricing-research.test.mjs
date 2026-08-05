@@ -12,29 +12,35 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 const csv = (p) => Papa.parse(read(p), { header: true, skipEmptyLines: true }).data;
 
-const researched = csv("operations/opening-pricing-researched.csv");
+const privateResearchFiles = [
+  "operations/opening-pricing-evidence.json",
+  "operations/opening-pricing-researched.csv",
+  "operations/opening-pricing-review.csv"
+];
+const privateResearchAvailable = privateResearchFiles.every((file) => fs.existsSync(path.join(root, file)));
+const researched = privateResearchAvailable ? csv("operations/opening-pricing-researched.csv") : [];
 const shippingRows = csv("operations/opening-shipping-classes.csv");
 const template = csv("operations/opening-pricing-template.csv");
 const publicPricing = JSON.parse(read("src/data/opening-pricing.json"));
 const serverPricing = JSON.parse(read("netlify/functions/_shared/opening-pricing.json"));
-const evidence = JSON.parse(read("operations/opening-pricing-evidence.json"));
+const evidence = privateResearchAvailable ? JSON.parse(read("operations/opening-pricing-evidence.json")) : {};
 const approvals = JSON.parse(read("operations/opening-approved-prices.json")).prices;
 const approvedEntries = new Map(Object.entries(approvals));
 
-test("public evidence archive covers every exact-MPN catalog product", () => {
+test("private evidence archive covers every exact-MPN catalog product", { skip: !privateResearchAvailable }, () => {
   assert.equal(Object.keys(evidence).length, 206);
   for (const row of researched) {
     assert.equal(evidence[row.public_sku].manufacturer_mpn, row.manufacturer_mpn);
   }
 });
 
-test("every catalog product was researched with a valid status", () => {
+test("every catalog product was researched with a valid status", { skip: !privateResearchAvailable }, () => {
   assert.equal(researched.length, 206);
   const valid = new Set(["approved_candidate", "keep_request_quote", "manual_review"]);
   for (const r of researched) assert.ok(valid.has(r.pricing_status), `bad status for ${r.public_sku}`);
 });
 
-test("approved candidates carry a positive price, evidence, and confidence", () => {
+test("approved candidates carry a positive price, evidence, and confidence", { skip: !privateResearchAvailable }, () => {
   const approved = researched.filter((r) => r.pricing_status === "approved_candidate");
   assert.ok(approved.length > 0);
   for (const r of approved) {
@@ -47,7 +53,7 @@ test("approved candidates carry a positive price, evidence, and confidence", () 
   }
 });
 
-test("non-approved products carry no proposed price in committed outputs", () => {
+test("non-approved products carry no proposed price in private research outputs", { skip: !privateResearchAvailable }, () => {
   for (const r of researched.filter((x) => x.pricing_status !== "approved_candidate")) {
     assert.equal(r.proposed_retail_price, "", `unexpected price on ${r.public_sku} (${r.pricing_status})`);
   }
@@ -98,7 +104,7 @@ test("pricing CSV and public/server JSON stay consistent", () => {
   }
 });
 
-test("research and review records preserve evidence and mirror approval decisions", () => {
+test("private research and review records preserve evidence and mirror approval decisions", { skip: !privateResearchAvailable }, () => {
   const review = csv("operations/opening-pricing-review.csv");
   for (const rows of [researched, review]) {
     assert.equal(rows.filter((row) => row.pricing_approved === "true").length, 8);
@@ -121,8 +127,8 @@ test("every product has a shipping class and missing data is flagged, not invent
   }
 });
 
-test("no supplier cost or margin columns exist in committed research files", () => {
-  for (const file of ["operations/opening-pricing-researched.csv", "operations/opening-shipping-classes.csv", "operations/opening-pricing-review.csv", "operations/opening-pricing-template.csv"]) {
+test("no supplier cost or margin columns exist in committed pricing files", () => {
+  for (const file of ["operations/opening-shipping-classes.csv", "operations/opening-pricing-template.csv"]) {
     const header = read(file).split("\n")[0].toLowerCase();
     assert.doesNotMatch(header, /cost|wholesale|margin|msrp|\bmap\b/, `private column in ${file}`);
   }
@@ -133,4 +139,18 @@ test("the private margins file is git-ignored and untracked", () => {
   assert.equal(tracked, "", "tmp/ contents must never be tracked");
   const ignored = execFileSync("git", ["-C", root, "check-ignore", "tmp/pricing-private/opening-margins-private.csv"], { encoding: "utf8" }).trim();
   assert.ok(ignored.length > 0);
+});
+
+test("supplier research and fulfillment evidence stay git-ignored and untracked", () => {
+  const tracked = new Set(execFileSync("git", ["-C", root, "ls-files"], { encoding: "utf8" }).split(/\r?\n/));
+  for (const file of [
+    ...privateResearchFiles,
+    "docs/petra-blind-shipping-policy-audit.md",
+    "operations/petra-fulfillment-rules.csv",
+    "operations/petra-support-questions.md"
+  ]) {
+    assert.equal(tracked.has(file), false, `${file} must not be tracked`);
+    const ignored = execFileSync("git", ["-C", root, "check-ignore", file], { encoding: "utf8" }).trim();
+    assert.ok(ignored.length > 0, `${file} must be ignored`);
+  }
 });

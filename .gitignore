@@ -47,3 +47,11 @@ telecomstore-baintu-starter-pack.zip
 # Local catalog-preparation dry-run output (never commit generated catalogs)
 /tmp/
 /tmp/catalog-prep/
+
+# Private supplier research and fulfillment evidence (keep local; never publish)
+/docs/petra-blind-shipping-policy-audit.md
+/operations/opening-pricing-evidence.json
+/operations/opening-pricing-researched.csv
+/operations/opening-pricing-review.csv
+/operations/petra-fulfillment-rules.csv
+/operations/petra-support-questions.md
