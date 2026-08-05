@@ -50,8 +50,8 @@ export function relatedProducts(product, products, limit = 4) {
 
 export function storefrontMetadata(route) {
   const base = {
-    title: "Telecom Store | Manufacturer-Identified Telecom Catalog",
-    description: "Browse 206 telecom products by manufacturer, category, MPN, or GTIN and request a quote for current availability and shipping.",
+    title: "Telecom Store | Telecom Parts by MPN and GTIN",
+    description: "Search 206 telecom products by manufacturer, category, MPN, or GTIN. Build a quote list and confirm current pricing, availability, and shipping.",
     canonical: `${CATALOG_SITE_URL}/`,
     schemas: [{
       "@context": "https://schema.org",
@@ -91,7 +91,7 @@ export function storefrontMetadata(route) {
     return landingMetadata(base, route.category.name, route.category.description, categoryPath(route.category));
   }
   if (route.kind === "manufacturer" && route.manufacturer) {
-    const description = `Browse ${route.manufacturer.count} ${route.manufacturer.name} telecom catalog products and request a quote by exact manufacturer part number.`;
+    const description = `Browse ${route.manufacturer.count} ${route.manufacturer.name} telecom products by exact manufacturer part number, then request a quote for the items you need.`;
     return landingMetadata(base, `${route.manufacturer.name} Products`, description, manufacturerPath(route.manufacturer));
   }
   return base;

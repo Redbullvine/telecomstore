@@ -16,15 +16,22 @@ export default function ProductCard({ product, added, onNavigate, onAdd, onAsk }
       </a>
       <div className="ts-cbody">
         <p className="ts-cbrand">{product.brand}</p>
-        <h3 className="ts-cname"><a href={productPath(product)} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>{product.title}</a></h3>
-        <p className="ts-csku">MPN: {product.manufacturer_mpn} <span aria-hidden="true">&bull;</span> GTIN: {product.gtin}</p>
-        <p className="ts-cqty">{product.availability_text || "Availability by Quote"}</p>
-        <p className="ts-card-price">{fixedPrice ? `$${Number(product.public_price).toFixed(2)}` : "Request quote"}</p>
+        <h3 className="ts-cname"><a href={productPath(product)} title={product.title} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>{product.title}</a></h3>
+        <dl className="ts-card-identity">
+          <div><dt>MPN</dt><dd>{product.manufacturer_mpn}</dd></div>
+          <div><dt>GTIN</dt><dd>{product.gtin}</dd></div>
+        </dl>
+        <div className="ts-card-status">
+          <span>{product.availability_text || "Availability by quote"}</span>
+          <strong>{fixedPrice ? `$${Number(product.public_price).toFixed(2)}` : "Request a quote"}</strong>
+        </div>
         {fixedPrice && !isPurchasable(product) ? <p className="ts-checkout-note">Approved price; checkout is not yet available.</p> : null}
         <div className="ts-cact">
-          <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In Quote List" : "Add to Quote"}</button>
-          <button className="ts-ask" type="button" onClick={onAsk}>Ask about item</button>
-          <a className="ts-det" href={productPath(product)} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>Details</a>
+          <a className="ts-det" href={productPath(product)} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>View details <span aria-hidden="true">→</span></a>
+          <div className="ts-card-secondary">
+            <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In quote list" : "Add to quote"}</button>
+            <button className="ts-ask" type="button" onClick={onAsk}>Ask a question</button>
+          </div>
         </div>
       </div>
     </article>

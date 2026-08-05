@@ -25,12 +25,13 @@ export default function ProductPlaceholder({ product, large = false }) {
     return <div className={`ts-product-visual${large ? " is-large" : ""}`}><img src={src} alt={storefrontImageAlt(product)} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
   }
   const label = `Catalog placeholder for ${product.brand || "manufacturer"} ${product.manufacturer_mpn || product.sku} in ${product.category}; product image pending approval.`;
+  const initials = String(product.brand || "TS").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
   return (
     <div className={`ts-product-visual ts-product-placeholder${large ? " is-large" : ""}`} role="img" aria-label={label} style={{ "--cat-color": config.color }}>
-      <span className="ts-placeholder-mark">TS</span>
-      <CategoryIcon category={product.category} size={large ? 88 : 58} />
-      <span className="ts-placeholder-brand">{product.brand}</span>
-      <span className="ts-placeholder-caption">Catalog preview</span>
+      <span className="ts-placeholder-mark">{initials}</span>
+      <span className="ts-placeholder-icon"><CategoryIcon category={product.category} size={large ? 86 : 54} /></span>
+      <span className="ts-placeholder-copy"><strong>{product.brand}</strong><small>{product.manufacturer_mpn || product.sku}</small></span>
+      <span className="ts-placeholder-caption">Image pending</span>
     </div>
   );
 }
