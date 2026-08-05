@@ -49,16 +49,20 @@
   (events list in docs/PAYMENTS.md).
 - Production migrations 20260803 + 20260805 to apply at release step.
 
-## COMPLETE — merged and deployed
+## OGT 2 — COMPLETE (2026-08-05)
 
-- Production main commit: `d7b94598` (payment release `bc859a66` + advisor fix)
-- Netlify production deploy: `6a730815b248760008eb4fec` (context: production, branch: main)
-- Rollback deploy: `6a7303eb8dcc65000902e50e` (BAINTU's pre-payment production deploy)
-- Migrations applied to production Supabase: `stripe_order_tracking`,
-  `quote_to_payment`, `lock_down_quote_transition_function`
-- Live checks: storefront 200; payment + checkout pages 200; payment APIs
-  deployed and failing safe (503 until Stripe/Supabase server env is set);
-  admin endpoints 401 without auth. No charges made.
-
-CLAUDE OGT 1 IS COMPLETE. **Production lock released** — BAINTU may push
-production again.
+- Storefront quote form posts to `/api/quote-requests` (server-side SKU
+  snapshot from the approved pricing bundle, full shipping address, shipping
+  disclosure, reference code) with the Netlify Forms lead path as fallback.
+- Quote expiration gates all payment vehicles; one-time Checkout Sessions
+  (exact confirmed amount, client_reference_id, 24h expiry, idempotent +
+  reused on repeated clicks); webhook verifies amount + currency before any
+  paid transition; delayed payment methods handled; success page confirms
+  server-side via `/api/checkout-status`.
+- Migration 009 `quote_expiry_and_snapshot` applied to production (additive).
+- BAINTU's Petra image publication (PR #3, `e3274778`) merged in; their
+  migration `20260805213000_publish_petra_product_images.sql` is NOT yet
+  applied to production — BAINTU's release step, untouched by Claude.
+- Tests: 193 pass / 0 fail (11 pre-existing DB-gated skips). Build clean.
+- Stripe remains fail-safe OFF pending Netlify env keys + Dashboard webhook
+  (exact steps in docs/PAYMENTS.md).
