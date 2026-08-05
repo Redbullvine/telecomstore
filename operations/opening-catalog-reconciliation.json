@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-08-05T04:55:43.781Z",
+  "source_file": "opening-catalog-final-approved.json",
+  "source_approved_records": 211,
+  "source_unique_skus": 211,
+  "duplicate_records_merged": [],
+  "excluded_products": [
+    {
+      "public_sku": "PSG100",
+      "manufacturer_mpn": "PSG100",
+      "brand": "Pack Snap and GO",
+      "title": "Luggage Organizer Insert for Accessories and More, Large",
+      "reason": "Non-telecom luggage organizer approved in the earlier review set; excluded by Prompt 28."
+    },
+    {
+      "public_sku": "PSG200",
+      "manufacturer_mpn": "PSG200",
+      "brand": "Pack Snap and GO",
+      "title": "Luggage Organizer Insert for Accessories and More, Medium",
+      "reason": "Non-telecom luggage organizer approved in the earlier review set; excluded by Prompt 28."
+    },
+    {
+      "public_sku": "PSG300",
+      "manufacturer_mpn": "PSG300",
+      "brand": "Pack Snap and GO",
+      "title": "Luggage Organizer Insert for Garments and More, Large",
+      "reason": "Non-telecom luggage organizer approved in the earlier review set; excluded by Prompt 28."
+    },
+    {
+      "public_sku": "PSG400",
+      "manufacturer_mpn": "PSG400",
+      "brand": "Pack Snap and GO",
+      "title": "Luggage Organizer Insert for Garments and More, Medium",
+      "reason": "Non-telecom luggage organizer approved in the earlier review set; excluded by Prompt 28."
+    },
+    {
+      "public_sku": "BHOC05",
+      "manufacturer_mpn": "BHOC05",
+      "brand": "Black+decker",
+      "title": "Ceiling-Mounted Outdoor Patio Infrared Heater with Remote, 1,500 W",
+      "reason": "Non-telecom patio heater approved in the earlier review set; excluded by Prompt 28."
+    }
+  ],
+  "missing_products": [],
+  "renamed_products": [],
+  "identity_conflicts": [],
+  "final_storefront_records": 206,
+  "final_unique_skus": 206,
+  "final_unique_gtins": 206,
+  "private_fields_removed": [
+    "source_row",
+    "_private_supplier_sku",
+    "_private_raw_supplier_title",
+    "_private_raw_supplier_description",
+    "publish_supplier_image"
+  ]
+}

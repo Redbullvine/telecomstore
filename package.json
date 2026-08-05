@@ -6,10 +6,16 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
+    "lint": "node scripts/lint-storefront.mjs",
+    "typecheck": "tsc --noEmit --allowJs --checkJs false --skipLibCheck --jsx react-jsx --moduleResolution Bundler --module ESNext --target ES2022 --resolveJsonModule --esModuleInterop src/main.jsx",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "validate:catalog": "node scripts/validate-storefront-catalog.mjs",
+    "check:links": "node scripts/validate-storefront-catalog.mjs",
+    "validate:opening-pricing": "node scripts/validate-opening-pricing.mjs --input operations/opening-pricing-template.csv"
   },
   "dependencies": {
+    "@netlify/functions": "^5.3.0",
     "@supabase/supabase-js": "^2.108.2",
     "@vitejs/plugin-react": "latest",
     "@zxing/browser": "^0.2.0",
@@ -17,8 +23,12 @@
     "papaparse": "^5.5.3",
     "react": "latest",
     "react-dom": "latest",
+    "stripe": "^22.4.0",
     "typescript": "latest",
     "vite": "latest",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "pg": "^8.13.1"
   }
 }
