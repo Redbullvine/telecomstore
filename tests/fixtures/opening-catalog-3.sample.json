@@ -1,0 +1,95 @@
+[
+  {
+    "source_row": 11,
+    "supplier_source": "petra",
+    "public": {
+      "sku": "FT-100TOOL",
+      "manufacturer_mpn": "FT-100TOOL",
+      "brand": "Ideal",
+      "title": "Impact Punch Down Tool 110/66",
+      "short_description": "Impact Punch Down Tool 110/66",
+      "long_description": "Impact punch down tool for 110 and 66 blocks.",
+      "category": "Telecom Tools",
+      "gtin": "000012345014",
+      "slug": "ideal-ft-100tool",
+      "price_mode": "request_quote",
+      "public_price": null,
+      "currency_code": "USD",
+      "status_intent": "available",
+      "availability_intent": "quote_only"
+    },
+    "private": {
+      "supplier_sku": "FKTFT100TOOL",
+      "supplier_title": "IMPACT PUNCH DOWN TOOL 110/66",
+      "supplier_category": "Networking & Tools",
+      "supplier_quantity": 12,
+      "supplier_available": true,
+      "supplier_image_url": "http://example.test/img/ft-100tool.jpg",
+      "image_rights_status": "pending",
+      "publish_supplier_image": false
+    },
+    "review_flags": ["image_rights_review"]
+  },
+  {
+    "source_row": 12,
+    "supplier_source": "petra",
+    "public": {
+      "sku": "N201-BL",
+      "manufacturer_mpn": "N201-BL",
+      "brand": "Tripp Lite by Eaton",
+      "title": "Cat6 Patch Cable 10ft Blue",
+      "short_description": "Cat6 Patch Cable 10ft Blue",
+      "long_description": "Snagless molded Cat6 RJ45 ethernet patch cable, 10 ft, blue.",
+      "category": "Network Cabling & Connectors",
+      "gtin": "000098765027",
+      "slug": "tripp-lite-by-eaton-n201-bl",
+      "price_mode": "request_quote",
+      "public_price": null,
+      "currency_code": "USD",
+      "status_intent": "available",
+      "availability_intent": "quote_only"
+    },
+    "private": {
+      "supplier_sku": "TRPN201BL",
+      "supplier_title": "CAT6 PATCH CABLE 10FT BLUE",
+      "supplier_category": "Networking Cables & Connectors",
+      "supplier_quantity": 50,
+      "supplier_available": true,
+      "supplier_image_url": "http://example.test/img/n201-bl.jpg",
+      "image_rights_status": "pending",
+      "publish_supplier_image": false
+    },
+    "review_flags": ["image_rights_review"]
+  },
+  {
+    "source_row": 13,
+    "supplier_source": "petra",
+    "public": {
+      "sku": "SPL-2WAY",
+      "manufacturer_mpn": "SPL-2WAY",
+      "brand": "Eagle Aspen",
+      "title": "2-Way Coax Splitter 1000 MHz",
+      "short_description": "2-Way Coax Splitter 1000 MHz",
+      "long_description": "2-way coaxial signal splitter, 5-1000 MHz.",
+      "category": "Antennas & RF",
+      "gtin": null,
+      "slug": "eagle-aspen-spl-2way",
+      "price_mode": "request_quote",
+      "public_price": null,
+      "currency_code": "USD",
+      "status_intent": "available",
+      "availability_intent": "quote_only"
+    },
+    "private": {
+      "supplier_sku": "EASPSPL2WAY",
+      "supplier_title": "2-WAY 1000 MHZ SPLITTER",
+      "supplier_category": "TV Accessories",
+      "supplier_quantity": 0,
+      "supplier_available": false,
+      "supplier_image_url": "http://example.test/img/spl2way.jpg",
+      "image_rights_status": "pending",
+      "publish_supplier_image": false
+    },
+    "review_flags": []
+  }
+]

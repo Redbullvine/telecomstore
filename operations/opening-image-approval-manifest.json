@@ -1,0 +1,1460 @@
+{
+  "schema_version": 1,
+  "generated_on": "2026-08-04",
+  "policy": {
+    "public_catalog_rule": "Only user-owned images or official manufacturer assets with explicit reseller-use permission may be approved.",
+    "supplier_rule": "Petra candidates remain private and pending_petra_confirmation; never hotlink supplier assets.",
+    "approval_workflow": "A future reviewer adds only an approved local public asset reference after MPN and rights verification."
+  },
+  "counts": {
+    "products": 206,
+    "candidate_images": 206,
+    "approved_public_images": 0,
+    "pending_petra_confirmation": 206,
+    "placeholders_required": 206
+  },
+  "products": {
+    "33202": {
+      "manufacturer_mpn": "33202",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "52703": {
+      "manufacturer_mpn": "52703",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "53712": {
+      "manufacturer_mpn": "53712",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "53714": {
+      "manufacturer_mpn": "53714",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "314475": {
+      "manufacturer_mpn": "314475",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "500256": {
+      "manufacturer_mpn": "500256",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "500302": {
+      "manufacturer_mpn": "500302",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "500303": {
+      "manufacturer_mpn": "500303",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "500308": {
+      "manufacturer_mpn": "500308",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "500312": {
+      "manufacturer_mpn": "500312",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "C4-CJM": {
+      "manufacturer_mpn": "C4-CJM",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "C4-V-CJM": {
+      "manufacturer_mpn": "C4-V-CJM",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "C5": {
+      "manufacturer_mpn": "C5",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CJMOUNT": {
+      "manufacturer_mpn": "CJMOUNT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DB8-E": {
+      "manufacturer_mpn": "DB8-E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MAST40": {
+      "manufacturer_mpn": "MAST40",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BK350": {
+      "manufacturer_mpn": "BK350",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BE550G": {
+      "manufacturer_mpn": "BE550G",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BE650G1": {
+      "manufacturer_mpn": "BE650G1",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BK500": {
+      "manufacturer_mpn": "BK500",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BR1500MS2": {
+      "manufacturer_mpn": "BR1500MS2",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BX1000M": {
+      "manufacturer_mpn": "BX1000M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BX850M": {
+      "manufacturer_mpn": "BX850M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ATCRL32102": {
+      "manufacturer_mpn": "ATCRL32102",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "P300": {
+      "manufacturer_mpn": "P300",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "54505.001": {
+      "manufacturer_mpn": "54505.001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "59865.001": {
+      "manufacturer_mpn": "59865.001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "59234.001": {
+      "manufacturer_mpn": "59234.001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CP1500AVRLCD3": {
+      "manufacturer_mpn": "CP1500AVRLCD3",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "45-0001-UWH": {
+      "manufacturer_mpn": "45-0001-UWH",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "50-3321-WH-KIT": {
+      "manufacturer_mpn": "50-3321-WH-KIT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "50-3323-WH-KIT": {
+      "manufacturer_mpn": "50-3323-WH-KIT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "50-6623-WH-KIT": {
+      "manufacturer_mpn": "50-6623-WH-KIT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DTV2BUHF": {
+      "manufacturer_mpn": "DTV2BUHF",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "EIS3-1004-WHT": {
+      "manufacturer_mpn": "EIS3-1004-WHT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AS-HP-5R": {
+      "manufacturer_mpn": "AS-HP-5R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CS-1X4HDMSPL5": {
+      "manufacturer_mpn": "CS-1X4HDMSPL5",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CS-C5DE": {
+      "manufacturer_mpn": "CS-C5DE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CS-DAC2": {
+      "manufacturer_mpn": "CS-DAC2",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "CS-HDEXT4KPOEU": {
+      "manufacturer_mpn": "CS-HDEXT4KPOEU",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MHX-LHDME12": {
+      "manufacturer_mpn": "MHX-LHDME12",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MHX-LHDME2": {
+      "manufacturer_mpn": "MHX-LHDME2",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MHX-LHDME4": {
+      "manufacturer_mpn": "MHX-LHDME4",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MHX-T15": {
+      "manufacturer_mpn": "MHX-T15",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "UHF-04M-S1234": {
+      "manufacturer_mpn": "UHF-04M-S1234",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "30-495": {
+      "manufacturer_mpn": "30-495",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "31-340": {
+      "manufacturer_mpn": "31-340",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "33-396": {
+      "manufacturer_mpn": "33-396",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "33-507": {
+      "manufacturer_mpn": "33-507",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "35-088": {
+      "manufacturer_mpn": "35-088",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "45-121": {
+      "manufacturer_mpn": "45-121",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "45-915": {
+      "manufacturer_mpn": "45-915",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "62-200": {
+      "manufacturer_mpn": "62-200",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-366": {
+      "manufacturer_mpn": "85-366",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-368": {
+      "manufacturer_mpn": "85-368",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-369": {
+      "manufacturer_mpn": "85-369",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-371": {
+      "manufacturer_mpn": "85-371",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-372": {
+      "manufacturer_mpn": "85-372",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-376": {
+      "manufacturer_mpn": "85-376",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-377": {
+      "manufacturer_mpn": "85-377",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "86-396": {
+      "manufacturer_mpn": "86-396",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "89-5047": {
+      "manufacturer_mpn": "89-5047",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DPS-1100 USB": {
+      "manufacturer_mpn": "DPS-1100 USB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "KRA-22M": {
+      "manufacturer_mpn": "KRA-22M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "KRA-23M": {
+      "manufacturer_mpn": "KRA-23M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "56-200": {
+      "manufacturer_mpn": "56-200",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "81-000": {
+      "manufacturer_mpn": "81-000",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "81-130": {
+      "manufacturer_mpn": "81-130",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "81-230": {
+      "manufacturer_mpn": "81-230",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "81-600": {
+      "manufacturer_mpn": "81-600",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "81-700": {
+      "manufacturer_mpn": "81-700",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "82-110": {
+      "manufacturer_mpn": "82-110",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "82-118": {
+      "manufacturer_mpn": "82-118",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "82-350": {
+      "manufacturer_mpn": "82-350",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "85-124": {
+      "manufacturer_mpn": "85-124",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "910-1001": {
+      "manufacturer_mpn": "910-1001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "925S-060BK-0A0": {
+      "manufacturer_mpn": "925S-060BK-0A0",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "963-1001": {
+      "manufacturer_mpn": "963-1001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "965-1001": {
+      "manufacturer_mpn": "965-1001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PB802105": {
+      "manufacturer_mpn": "PB802105",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PBRUSB346S-A": {
+      "manufacturer_mpn": "PBRUSB346S-A",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PCBLCO102": {
+      "manufacturer_mpn": "PCBLCO102",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PDWM2145": {
+      "manufacturer_mpn": "PDWM2145",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PDWM3375": {
+      "manufacturer_mpn": "PDWM3375",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PDWM3400": {
+      "manufacturer_mpn": "PDWM3400",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PDBC70": {
+      "manufacturer_mpn": "PDBC70",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "PDWM4120": {
+      "manufacturer_mpn": "PDWM4120",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AMP1450E": {
+      "manufacturer_mpn": "AMP1450E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ANT111E": {
+      "manufacturer_mpn": "ANT111E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ANT1560E1": {
+      "manufacturer_mpn": "ANT1560E1",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ANT310E": {
+      "manufacturer_mpn": "ANT310E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ANT705E": {
+      "manufacturer_mpn": "ANT705E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ANT754E": {
+      "manufacturer_mpn": "ANT754E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DH12HHE": {
+      "manufacturer_mpn": "DH12HHE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DH24SPE": {
+      "manufacturer_mpn": "DH24SPE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DH3HHE": {
+      "manufacturer_mpn": "DH3HHE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DH6HHE": {
+      "manufacturer_mpn": "DH6HHE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DV10RV": {
+      "manufacturer_mpn": "DV10RV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP210WHRV": {
+      "manufacturer_mpn": "TP210WHRV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP231WHR": {
+      "manufacturer_mpn": "TP231WHR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP243WHR": {
+      "manufacturer_mpn": "TP243WHR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP257WHR": {
+      "manufacturer_mpn": "TP257WHR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP265WHR": {
+      "manufacturer_mpn": "TP265WHR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP280WRV": {
+      "manufacturer_mpn": "TP280WRV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP282AR": {
+      "manufacturer_mpn": "TP282AR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP282BLRV": {
+      "manufacturer_mpn": "TP282BLRV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP282WR": {
+      "manufacturer_mpn": "TP282WR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TP443WHRV": {
+      "manufacturer_mpn": "TP443WHRV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TPH530BR": {
+      "manufacturer_mpn": "TPH530BR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TPH532BR": {
+      "manufacturer_mpn": "TPH532BR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TPH560R1V": {
+      "manufacturer_mpn": "TPH560R1V",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TPH633R": {
+      "manufacturer_mpn": "TPH633R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH125R": {
+      "manufacturer_mpn": "VH125R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH47R": {
+      "manufacturer_mpn": "VH47R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH603RV1": {
+      "manufacturer_mpn": "VH603RV1",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH606R": {
+      "manufacturer_mpn": "VH606R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH606WHR": {
+      "manufacturer_mpn": "VH606WHR",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH612R": {
+      "manufacturer_mpn": "VH612R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH625RV": {
+      "manufacturer_mpn": "VH625RV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VH66R1": {
+      "manufacturer_mpn": "VH66R1",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VHB6111R": {
+      "manufacturer_mpn": "VHB6111R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VHB655R": {
+      "manufacturer_mpn": "VHB655R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VHEXT8E": {
+      "manufacturer_mpn": "VHEXT8E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "VHFC015E": {
+      "manufacturer_mpn": "VHFC015E",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "C380N": {
+      "manufacturer_mpn": "C380N",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "84-213": {
+      "manufacturer_mpn": "84-213",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AHD10-04290": {
+      "manufacturer_mpn": "AHD10-04290",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AHD30-04293": {
+      "manufacturer_mpn": "AHD30-04293",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AHD50-04294": {
+      "manufacturer_mpn": "AHD50-04294",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW5U-00932": {
+      "manufacturer_mpn": "MBW5U-00932",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW5U-01440": {
+      "manufacturer_mpn": "MBW5U-01440",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW5U-01441": {
+      "manufacturer_mpn": "MBW5U-01441",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW5U-01443": {
+      "manufacturer_mpn": "MBW5U-01443",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW5U-01554": {
+      "manufacturer_mpn": "MBW5U-01554",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW6U-00934": {
+      "manufacturer_mpn": "MBW6U-00934",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW6U-01444": {
+      "manufacturer_mpn": "MBW6U-01444",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MBW6U-01445": {
+      "manufacturer_mpn": "MBW6U-01445",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "MKJ6U-01352": {
+      "manufacturer_mpn": "MKJ6U-01352",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "WTCXC-03634": {
+      "manufacturer_mpn": "WTCXC-03634",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "WTCXS-03631": {
+      "manufacturer_mpn": "WTCXS-03631",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "WTRJC-03632": {
+      "manufacturer_mpn": "WTRJC-03632",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XHD03-04252": {
+      "manufacturer_mpn": "XHD03-04252",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XHD01-04253": {
+      "manufacturer_mpn": "XHD01-04253",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XHD01-04254": {
+      "manufacturer_mpn": "XHD01-04254",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XHD01-04255": {
+      "manufacturer_mpn": "XHD01-04255",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XHD01-04260": {
+      "manufacturer_mpn": "XHD01-04260",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "XRG06-02404": {
+      "manufacturer_mpn": "XRG06-02404",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP1008TELTV": {
+      "manufacturer_mpn": "TLP1008TELTV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP1208TELTV": {
+      "manufacturer_mpn": "TLP1208TELTV",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "A102-02M": {
+      "manufacturer_mpn": "A102-02M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "A102-04M": {
+      "manufacturer_mpn": "A102-04M",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "AVR750UNC": {
+      "manufacturer_mpn": "AVR750UNC",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "B118-008E-UHD-2": {
+      "manufacturer_mpn": "B118-008E-UHD-2",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "BC600RNC": {
+      "manufacturer_mpn": "BC600RNC",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "ISOBAR6 ULTRA": {
+      "manufacturer_mpn": "ISOBAR6 ULTRA",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "LC1200": {
+      "manufacturer_mpn": "LC1200",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "LC2400": {
+      "manufacturer_mpn": "LC2400",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N001-025-BK": {
+      "manufacturer_mpn": "N001-025-BK",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N001-050-BK": {
+      "manufacturer_mpn": "N001-050-BK",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N032-001": {
+      "manufacturer_mpn": "N032-001",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-007-BL": {
+      "manufacturer_mpn": "N201-007-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-007-WH": {
+      "manufacturer_mpn": "N201-007-WH",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-014-BL": {
+      "manufacturer_mpn": "N201-014-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-025-BL": {
+      "manufacturer_mpn": "N201-025-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-050-BL": {
+      "manufacturer_mpn": "N201-050-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-100-BL": {
+      "manufacturer_mpn": "N201-100-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "N201-015-BL": {
+      "manufacturer_mpn": "N201-015-BL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "P131-06N": {
+      "manufacturer_mpn": "P131-06N",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "P502-006": {
+      "manufacturer_mpn": "P502-006",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "P569-006-MF": {
+      "manufacturer_mpn": "P569-006-MF",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "P570-006-MICRO": {
+      "manufacturer_mpn": "P570-006-MICRO",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SMART1200XLHG": {
+      "manufacturer_mpn": "SMART1200XLHG",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SMART1500LCD": {
+      "manufacturer_mpn": "SMART1500LCD",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SPIKECUBE": {
+      "manufacturer_mpn": "SPIKECUBE",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SUPER7": {
+      "manufacturer_mpn": "SUPER7",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SUPER725B": {
+      "manufacturer_mpn": "SUPER725B",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SUPER7B": {
+      "manufacturer_mpn": "SUPER7B",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "SWIVEL6USB": {
+      "manufacturer_mpn": "SWIVEL6USB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLM609SA": {
+      "manufacturer_mpn": "TLM609SA",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLM615SA": {
+      "manufacturer_mpn": "TLM615SA",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP1006B": {
+      "manufacturer_mpn": "TLP1006B",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP1208SAT": {
+      "manufacturer_mpn": "TLP1208SAT",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP1208TEL": {
+      "manufacturer_mpn": "TLP1208TEL",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP128TTUSBB": {
+      "manufacturer_mpn": "TLP128TTUSBB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP310USBC": {
+      "manufacturer_mpn": "TLP310USBC",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP4BK": {
+      "manufacturer_mpn": "TLP4BK",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP604": {
+      "manufacturer_mpn": "TLP604",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP606DMUSB": {
+      "manufacturer_mpn": "TLP606DMUSB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP610U30CLAMPB": {
+      "manufacturer_mpn": "TLP610U30CLAMPB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP648USBC": {
+      "manufacturer_mpn": "TLP648USBC",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP6B": {
+      "manufacturer_mpn": "TLP6B",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP74RB": {
+      "manufacturer_mpn": "TLP74RB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP76MSG": {
+      "manufacturer_mpn": "TLP76MSG",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP76MSGB": {
+      "manufacturer_mpn": "TLP76MSGB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP808B": {
+      "manufacturer_mpn": "TLP808B",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP810NET": {
+      "manufacturer_mpn": "TLP810NET",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP864USBB": {
+      "manufacturer_mpn": "TLP864USBB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TLP88TUSBB": {
+      "manufacturer_mpn": "TLP88TUSBB",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "U236-000-R": {
+      "manufacturer_mpn": "U236-000-R",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "U436-06N-GBW": {
+      "manufacturer_mpn": "U436-06N-GBW",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DS6101": {
+      "manufacturer_mpn": "DS6101",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "DS6151": {
+      "manufacturer_mpn": "DS6151",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "FL-1000": {
+      "manufacturer_mpn": "FL-1000",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "HD8200U": {
+      "manufacturer_mpn": "HD8200U",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "TB-0005": {
+      "manufacturer_mpn": "TB-0005",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    },
+    "WM-2040": {
+      "manufacturer_mpn": "WM-2040",
+      "image_rights_status": "pending_petra_confirmation",
+      "approved_public_images": [],
+      "pending_candidate_count": 1,
+      "storefront_fallback": "category_placeholder"
+    }
+  }
+}
