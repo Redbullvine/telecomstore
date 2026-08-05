@@ -2,15 +2,19 @@
 // create a quote request.
 //
 // The browser supplies only: contact details, shipping address, notes, and
-// (product_id, quantity) pairs. Product identity (title, SKU, MPN, GTIN, URL)
-// is snapshotted server-side from the curated public catalog. Unknown or
-// unavailable products are rejected. Rate limiting applies per email and IP.
+// (public_sku, quantity) pairs. Product identity — title, price mode, and the
+// public price when one exists — is snapshotted server-side from the same
+// approved pricing bundle the checkout function uses. Unknown SKUs are
+// rejected. Rate limiting applies per email and IP. The stored snapshot never
+// contains supplier identity or supplier cost (the bundle has none).
 
 import { getServiceClient } from "../lib/supabase-admin.mjs";
 import { validateQuoteSubmission } from "../lib/validation.mjs";
 import { generateReferenceCode, hashIp, isRateLimited } from "../lib/quotes.mjs";
 import { json, publicError, methodNotAllowed, readJsonBody, logServerError, GENERIC_ERROR } from "../lib/http.mjs";
-import { getSiteUrl } from "../lib/env.mjs";
+import pricing from "./_shared/opening-pricing.json" with { type: "json" };
+
+const catalogBySku = new Map(pricing.map((row) => [row.public_sku, row]));
 
 export default async function handler(req, context) {
   if (req.method !== "POST") return methodNotAllowed();
@@ -38,29 +42,22 @@ export default async function handler(req, context) {
       return publicError(429, "Too many requests. Please try again later or email us.");
     }
 
-    // Server-side product lookup: only 'available' curated products qualify.
-    const productIds = submission.items.map((item) => item.product_id);
-    const { data: products, error: productsError } = await service
-      .from("products")
-      .select("id, title, sku, manufacturer_mpn, gtin, slug, status")
-      .in("id", productIds);
-    if (productsError) throw new Error(`product lookup failed: ${productsError.message}`);
-
-    const byId = new Map((products || []).map((p) => [p.id, p]));
-    const siteUrl = getSiteUrl();
+    // Server-side catalog lookup against the approved public pricing bundle.
     const itemRows = [];
     for (const item of submission.items) {
-      const product = byId.get(item.product_id);
-      if (!product || product.status !== "available") {
+      const row = catalogBySku.get(item.public_sku);
+      if (!row) {
         return publicError(400, "One or more items are no longer available. Please refresh and try again.");
       }
+      const publicPrice = row.price_mode === "fixed" && Number(row.public_price) > 0
+        ? Number(row.public_price).toFixed(2)
+        : null;
       itemRows.push({
-        product_id: product.id,
-        product_title: product.title,
-        product_sku: product.sku || null,
-        manufacturer_mpn: product.manufacturer_mpn || null,
-        gtin: product.gtin || null,
-        product_url: product.slug && siteUrl ? `${siteUrl}/products/${product.slug}` : null,
+        product_id: null,
+        product_title: row.title,
+        product_sku: row.public_sku,
+        price_mode: row.price_mode === "fixed" ? "fixed" : "request_quote",
+        public_unit_price: publicPrice,
         quantity: item.quantity
       });
     }
@@ -78,7 +75,9 @@ export default async function handler(req, context) {
         shipping_address: submission.shipping_address,
         project_notes: submission.project_notes,
         source: "storefront",
-        request_ip_hash: ipHash
+        request_ip_hash: ipHash,
+        // Which deployed catalog the snapshot came from (Netlify commit ref).
+        catalog_version: (process.env.COMMIT_REF || "").slice(0, 40) || null
       })
       .select("id, reference_code")
       .single();

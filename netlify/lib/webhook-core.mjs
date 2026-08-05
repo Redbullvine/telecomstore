@@ -14,7 +14,7 @@
 
 import { applyStatusChange } from "./quotes.mjs";
 import { canTransition } from "./transitions.mjs";
-import { centsToDecimal } from "./money.mjs";
+import { centsToDecimal, toCents } from "./money.mjs";
 
 export const UNCLAIMED = "unclaimed";
 
@@ -23,6 +23,8 @@ export const UNCLAIMED = "unclaimed";
 // direct-checkout system and claimed only when they match a quote.
 export const QUOTE_EVENT_TYPES = [
   "checkout.session.completed",
+  "checkout.session.async_payment_succeeded",
+  "checkout.session.async_payment_failed",
   "checkout.session.expired",
   "invoice.paid",
   "invoice.payment_failed",
@@ -31,6 +33,22 @@ export const QUOTE_EVENT_TYPES = [
   "payment_intent.payment_failed",
   "charge.refunded"
 ];
+
+// The webhook is the authoritative payment confirmation, so the amounts on
+// the Stripe object must match what the admin confirmed. A mismatch means a
+// stale session for a re-priced quote or something worse — either way the
+// quote must not be marked paid automatically.
+function paidAmountMatchesQuote(quote, object) {
+  const expected = toCents(quote.final_total);
+  if (expected === null) return false; // a quote without confirmed totals cannot be paid
+  const actual = object.object === "invoice"
+    ? (Number.isSafeInteger(object.amount_paid) ? object.amount_paid : object.amount_due)
+    : object.amount_total;
+  if (!Number.isSafeInteger(actual) || actual !== expected) return false;
+  const expectedCurrency = (quote.currency_code || "USD").toLowerCase();
+  const actualCurrency = typeof object.currency === "string" ? object.currency.toLowerCase() : null;
+  return actualCurrency === null || actualCurrency === expectedCurrency;
+}
 
 async function findQuoteByStripeRef(deps, column, value) {
   if (!value) return null;
@@ -92,6 +110,7 @@ async function markQuotePaid(deps, quote, object) {
   // ineligible status is a real anomaly worth surfacing in the event ledger.
   if (quote.status === "paid") return "already-paid";
   if (!canTransition(quote.status, "paid")) return "blocked-transition";
+  if (!paidAmountMatchesQuote(quote, object)) return "ignored:amount-mismatch";
   const paymentIntentId =
     typeof object.payment_intent === "string" ? object.payment_intent : object.payment_intent?.id || null;
   const updated = await applyStatusChange(deps.service, quote, "paid", {
@@ -152,13 +171,31 @@ export async function processQuoteEvent(deps, event) {
   }
 
   switch (event.type) {
-    case "checkout.session.completed": {
+    case "checkout.session.completed":
+    case "checkout.session.async_payment_succeeded": {
       const quote = await findQuoteForEvent(deps, object);
       if (!quote) return UNCLAIMED; // direct-checkout session
       if (object.payment_status && object.payment_status !== "paid") {
+        // Delayed payment methods complete the session before the money
+        // clears; async_payment_succeeded arrives with payment_status=paid.
         return "ignored:session-not-paid";
       }
       return markQuotePaid(deps, quote, object);
+    }
+    case "checkout.session.async_payment_failed": {
+      const quote = await findQuoteForEvent(deps, object);
+      if (!quote) return UNCLAIMED;
+      const patched = await updatePaymentByObject(deps, "checkout_session", object.id, {
+        status: "failed",
+        failure_message: "async payment failed"
+      });
+      if (!patched && object.payment_link) {
+        await updatePaymentByObject(deps, "payment_link", object.payment_link, {
+          status: "failed",
+          failure_message: "async payment failed"
+        });
+      }
+      return "session-async-payment-failed";
     }
     case "invoice.paid": {
       const quote = await findQuoteForEvent(deps, object);

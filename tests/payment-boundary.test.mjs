@@ -61,12 +61,36 @@ test("admin auth resolves the profile with the service client, not the caller's"
 test("public quote submission snapshots product identity server-side", async () => {
   const source = await readSource("netlify/functions/submit-quote-request.mjs");
   assert.match(source, /validateQuoteSubmission/);
-  assert.match(source, /\.from\("products"\)/, "must look products up server-side");
-  assert.match(source, /product\.status !== "available"/, "must reject unavailable products");
+  assert.match(source, /opening-pricing\.json/, "identity must come from the approved server-side pricing bundle");
+  assert.match(source, /catalogBySku\.get\(/, "must resolve SKUs against the bundle");
   assert.match(source, /isRateLimited/, "must rate limit");
   assert.ok(!source.includes("requireAdmin"), "public path must not demand admin auth");
   assert.ok(!/body\.(items\[[^\]]*\]\.)?(price|unit_amount|title)/.test(source),
     "browser-supplied price/title fields must never be read");
+  for (const forbidden of ["supplier_cost", "supplier_sku", "wholesale", "map_price", "msrp"]) {
+    assert.ok(!source.includes(forbidden), `submission path must not reference ${forbidden}`);
+  }
+});
+
+test("quote checkout sessions are one-time, tied to the order, and expiry-gated", async () => {
+  const source = await readSource("netlify/functions/admin-quote-actions.mjs");
+  assert.match(source, /client_reference_id: quote\.id/, "session must carry the internal order id");
+  assert.match(source, /expires_at: Math\.floor/, "session must expire");
+  assert.match(source, /quoteExpired\(quote\)/, "expired quotes must be refused");
+  assert.match(source, /reused: true/, "repeated clicks must reuse the open session");
+  const metadataBlocks = source.match(/metadata: \{[^}]*\}/g) || [];
+  for (const block of metadataBlocks) {
+    assert.doesNotMatch(block, /cost|supplier|email|phone|address/i,
+      "Stripe metadata must stay free of private data");
+  }
+});
+
+test("checkout-status endpoint is server-side, minimal, and shape-validated", async () => {
+  const source = await readSource("netlify/functions/checkout-status.mjs");
+  assert.match(source, /stripe\.checkout\.sessions\.retrieve/, "must confirm with Stripe server-side");
+  assert.match(source, /SESSION_ID_PATTERN/, "must validate the session id shape");
+  assert.ok(!/amount|total|address|phone/.test(source.split("return json(200,")[1].split(");")[0]),
+    "public confirmation payload must not include amounts or personal data");
 });
 
 test("exactly one function exists per payment endpoint name", async () => {

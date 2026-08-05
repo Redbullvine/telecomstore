@@ -21,6 +21,8 @@ function makeEvent(type, object, { id = "evt_test_1", livemode = false } = {}) {
 
 const QUOTE_ID = "33333333-3333-4333-8333-333333333333";
 
+const QUOTE_TOTAL_CENTS = 12990;
+
 function seededDb({ status = "payment_sent" } = {}) {
   return createFakeDb({
     quote_requests: [{
@@ -28,6 +30,8 @@ function seededDb({ status = "payment_sent" } = {}) {
       reference_code: "QR-TESTREF1",
       status,
       customer_email: "buyer@example.com",
+      final_total: "129.90",
+      currency_code: "USD",
       stripe_invoice_id: "in_test_1",
       stripe_checkout_session_id: null,
       stripe_payment_link_id: "plink_test_1",
@@ -95,7 +99,7 @@ test("quote-webhook: invoices are always quote-owned, matched or not", async () 
 test("quote-webhook: invoice.paid moves payment_sent -> paid and settles records", async () => {
   const db = seededDb();
   const result = await processQuoteEvent({ service: db }, makeEvent("invoice.paid", {
-    object: "invoice", id: "in_test_1", payment_intent: "pi_test_1", charge: "ch_test_1"
+    object: "invoice", id: "in_test_1", payment_intent: "pi_test_1", charge: "ch_test_1", amount_paid: QUOTE_TOTAL_CENTS, currency: "usd"
   }));
   assert.equal(result, "paid");
   assert.equal(db.table("quote_requests")[0].status, "paid");
@@ -134,7 +138,7 @@ test("quote-webhook: session with quote metadata but unpaid status is claimed an
 test("quote-webhook: a payment-link session pays the quote via metadata", async () => {
   const db = seededDb();
   const result = await processQuoteEvent({ service: db }, makeEvent("checkout.session.completed", {
-    object: "checkout.session", id: "cs_link_1", payment_status: "paid",
+    object: "checkout.session", id: "cs_link_1", payment_status: "paid", amount_total: QUOTE_TOTAL_CENTS, currency: "usd",
     payment_link: "plink_test_1", payment_intent: "pi_test_2", metadata: { quote_request_id: QUOTE_ID }
   }));
   assert.equal(result, "paid");
@@ -165,6 +169,8 @@ test("quote-webhook: charge.refunded moves a paid quote to refunded", async () =
 test("quote-webhook: declared quote event types match the implementation", () => {
   assert.deepEqual([...QUOTE_EVENT_TYPES].sort(), [
     "charge.refunded",
+    "checkout.session.async_payment_failed",
+    "checkout.session.async_payment_succeeded",
     "checkout.session.completed",
     "checkout.session.expired",
     "invoice.marked_uncollectible",
@@ -173,6 +179,70 @@ test("quote-webhook: declared quote event types match the implementation", () =>
     "invoice.voided",
     "payment_intent.payment_failed"
   ]);
+});
+
+// ---------------------------------------------------------------------------
+// Amount / currency verification (webhook is authoritative)
+// ---------------------------------------------------------------------------
+
+test("quote-webhook: a paid event with the wrong amount never marks the quote paid", async () => {
+  const db = seededDb();
+  const result = await processQuoteEvent({ service: db }, makeEvent("invoice.paid", {
+    object: "invoice", id: "in_test_1", amount_paid: QUOTE_TOTAL_CENTS - 1, currency: "usd"
+  }));
+  assert.equal(result, "ignored:amount-mismatch");
+  assert.equal(db.table("quote_requests")[0].status, "payment_sent");
+});
+
+test("quote-webhook: a paid event with the wrong currency never marks the quote paid", async () => {
+  const db = seededDb();
+  const result = await processQuoteEvent({ service: db }, makeEvent("invoice.paid", {
+    object: "invoice", id: "in_test_1", amount_paid: QUOTE_TOTAL_CENTS, currency: "eur"
+  }));
+  assert.equal(result, "ignored:amount-mismatch");
+  assert.equal(db.table("quote_requests")[0].status, "payment_sent");
+});
+
+test("quote-webhook: a session paid event for a quote without confirmed totals is refused", async () => {
+  const db = seededDb();
+  db.table("quote_requests")[0].final_total = null;
+  const result = await processQuoteEvent({ service: db }, makeEvent("checkout.session.completed", {
+    object: "checkout.session", id: "cs_x", payment_status: "paid", amount_total: 5000, currency: "usd",
+    metadata: { quote_request_id: QUOTE_ID }
+  }));
+  assert.equal(result, "ignored:amount-mismatch");
+});
+
+// ---------------------------------------------------------------------------
+// Delayed (async) payment methods
+// ---------------------------------------------------------------------------
+
+test("quote-webhook: async_payment_succeeded pays the quote after the money clears", async () => {
+  const db = seededDb();
+  db.table("quote_requests")[0].stripe_checkout_session_id = "cs_async_1";
+  db.table("payments")[0].stripe_object_type = "checkout_session";
+  db.table("payments")[0].stripe_object_id = "cs_async_1";
+  const result = await processQuoteEvent({ service: db }, makeEvent("checkout.session.async_payment_succeeded", {
+    object: "checkout.session", id: "cs_async_1", payment_status: "paid",
+    amount_total: QUOTE_TOTAL_CENTS, currency: "usd", metadata: { quote_request_id: QUOTE_ID }
+  }));
+  assert.equal(result, "paid");
+  assert.equal(db.table("quote_requests")[0].status, "paid");
+  assert.equal(db.table("payments")[0].status, "succeeded");
+});
+
+test("quote-webhook: async_payment_failed marks the payment failed but leaves the quote recoverable", async () => {
+  const db = seededDb();
+  db.table("quote_requests")[0].stripe_checkout_session_id = "cs_async_1";
+  db.table("payments")[0].stripe_object_type = "checkout_session";
+  db.table("payments")[0].stripe_object_id = "cs_async_1";
+  const result = await processQuoteEvent({ service: db }, makeEvent("checkout.session.async_payment_failed", {
+    object: "checkout.session", id: "cs_async_1", payment_status: "unpaid",
+    metadata: { quote_request_id: QUOTE_ID }
+  }));
+  assert.equal(result, "session-async-payment-failed");
+  assert.equal(db.table("payments")[0].status, "failed");
+  assert.equal(db.table("quote_requests")[0].status, "payment_sent");
 });
 
 // ---------------------------------------------------------------------------
@@ -205,7 +275,7 @@ test("unified: a signed quote invoice event is processed and ledgered once", asy
   const store = createMemoryOrderStore();
   const handler = unifiedHandler(db, store);
 
-  const event = makeEvent("invoice.paid", { object: "invoice", id: "in_test_1", payment_intent: "pi_test_1" });
+  const event = makeEvent("invoice.paid", { object: "invoice", id: "in_test_1", payment_intent: "pi_test_1", amount_paid: QUOTE_TOTAL_CENTS, currency: "usd" });
   const first = await handler(signedRequest(event));
   assert.equal(first.status, 200);
   assert.equal(db.table("quote_requests")[0].status, "paid");
@@ -276,7 +346,7 @@ test("unified: a failed event re-opens for the Stripe retry; processed does not"
     expectedLivemode: false
   });
 
-  const event = makeEvent("invoice.paid", { object: "invoice", id: "in_test_1", payment_intent: "pi_test_1" });
+  const event = makeEvent("invoice.paid", { object: "invoice", id: "in_test_1", payment_intent: "pi_test_1", amount_paid: QUOTE_TOTAL_CENTS, currency: "usd" });
   const first = await handler(signedRequest(event));
   assert.equal(first.status, 500, "processing failure asks Stripe to retry");
   assert.equal(store.events.get("evt_test_1").processing_status, "failed");

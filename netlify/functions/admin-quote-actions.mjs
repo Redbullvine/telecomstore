@@ -18,9 +18,18 @@ import { isValidUuid, isValidCurrency, isValidReturnUrl, cleanText, MAX_NOTES_LE
 import { json, publicError, methodNotAllowed, readJsonBody, logServerError, GENERIC_ERROR } from "../lib/http.mjs";
 
 const ACTIONS = new Set([
-  "review", "amounts", "invoice", "payment-link", "resend",
-  "cancel", "refund", "fulfill", "note"
+  "review", "amounts", "invoice", "payment-link", "checkout-session",
+  "resend", "cancel", "refund", "fulfill", "note"
 ]);
+
+// One-time Checkout Sessions for confirmed quotes live this long; after that
+// the customer needs a fresh session (checkout.session.expired cancels the
+// payment record).
+const SESSION_LIFETIME_SECONDS = 24 * 60 * 60;
+
+function quoteExpired(quote) {
+  return Boolean(quote.quote_expires_at) && new Date(quote.quote_expires_at).getTime() <= Date.now();
+}
 
 export default async function handler(req, context) {
   if (req.method !== "POST") return methodNotAllowed();
@@ -56,6 +65,8 @@ export default async function handler(req, context) {
         return createInvoice(service, quote, adminId);
       case "payment-link":
         return createPaymentLink(service, quote, adminId);
+      case "checkout-session":
+        return createQuoteCheckoutSession(service, quote, adminId);
       case "resend":
         return resendPayment(service, quote);
       case "cancel":
@@ -139,12 +150,22 @@ async function setAmounts(service, quote, body, adminId) {
     if (error) throw new Error(`item price update failed: ${error.message}`);
   }
 
+  let quoteExpiresAt = null;
+  if (body.quote_expires_at !== undefined && body.quote_expires_at !== null && body.quote_expires_at !== "") {
+    const parsed = new Date(body.quote_expires_at);
+    if (Number.isNaN(parsed.getTime()) || parsed.getTime() <= Date.now()) {
+      return publicError(400, "Quote expiration must be a future date.");
+    }
+    quoteExpiresAt = parsed.toISOString();
+  }
+
   const extra = {
     product_subtotal: centsToDecimal(totals.subtotal),
     shipping_amount: centsToDecimal(totals.shipping),
     tax_amount: centsToDecimal(totals.tax),
     final_total: centsToDecimal(totals.total),
     currency_code: (body.currency_code || quote.currency_code || "USD").toUpperCase(),
+    quote_expires_at: quoteExpiresAt,
     quoted_by: adminId
   };
 
@@ -162,7 +183,10 @@ async function setAmounts(service, quote, body, adminId) {
 
 function requireQuotedWithTotals(quote) {
   if (quote.status !== "quoted") {
-    return "A Stripe invoice or payment link can only be created for a quoted request.";
+    return "A Stripe payment can only be created for a quoted request.";
+  }
+  if (quoteExpired(quote)) {
+    return "This quote has expired. Re-price it (which sets a new expiration) before sending payment.";
   }
   const totals = validatedTotals({
     productSubtotal: quote.product_subtotal,
@@ -341,6 +365,124 @@ async function createPaymentLink(service, quote, adminId) {
   return json(200, { ok: true, status: "payment_sent", payment_link_url: link.url });
 }
 
+// One-time Stripe Checkout Session for the exact confirmed amount. The
+// session is tied to the internal order via client_reference_id and safe
+// metadata; the customer cannot alter amount, quantity, shipping, or order
+// id. An open, unexpired session is reused instead of minting a duplicate.
+async function createQuoteCheckoutSession(service, quote, adminId) {
+  const stripe = getStripe();
+  const { mode } = getStripeConfig();
+  if (!stripe) return publicError(503, "Stripe is not configured.");
+
+  // Duplicate-click protection beyond idempotency keys: if this quote already
+  // has an open session for the same confirmed amount (a repeated click after
+  // the request moved to payment_sent), hand back that URL instead of minting
+  // another session or erroring.
+  if (["quoted", "payment_sent"].includes(quote.status) && !quoteExpired(quote)
+      && quote.stripe_checkout_session_id && quote.stripe_checkout_session_url) {
+    const { data: existing } = await service
+      .from("payments")
+      .select("status, amount")
+      .eq("stripe_object_type", "checkout_session")
+      .eq("stripe_object_id", quote.stripe_checkout_session_id)
+      .maybeSingle();
+    if (existing?.status === "pending" && existing.amount === quote.final_total) {
+      return json(200, {
+        ok: true,
+        status: quote.status,
+        checkout_session_url: quote.stripe_checkout_session_url,
+        reused: true
+      });
+    }
+  }
+
+  const gate = requireQuotedWithTotals(quote);
+  if (typeof gate === "string") return publicError(409, gate);
+  const totals = gate;
+
+  const siteUrl = getSiteUrl();
+  const { successUrl, cancelUrl } = getReturnUrls();
+  if (!isValidReturnUrl(successUrl, siteUrl) || !isValidReturnUrl(cancelUrl, siteUrl)) {
+    return publicError(503, "Payment redirect URLs are not configured.");
+  }
+
+  const { data: items, error: itemsError } = await service
+    .from("quote_request_items")
+    .select("id, product_title, product_sku, quantity, unit_amount, line_total")
+    .eq("quote_request_id", quote.id);
+  if (itemsError) throw new Error(`items lookup failed: ${itemsError.message}`);
+  if (!items?.length || items.some((item) => item.unit_amount === null)) {
+    return publicError(409, "All items must be priced before creating a checkout session.");
+  }
+
+  const currency = (quote.currency_code || "USD").toLowerCase();
+  const lineItems = items.map((item) => ({
+    quantity: item.quantity,
+    price_data: {
+      currency,
+      unit_amount: toCents(item.unit_amount),
+      product_data: {
+        name: `${item.product_title}${item.product_sku ? ` (${item.product_sku})` : ""}`
+      }
+    }
+  }));
+  if (totals.shipping > 0) {
+    lineItems.push({
+      quantity: 1,
+      price_data: { currency, unit_amount: totals.shipping, product_data: { name: "Shipping & freight (confirmed)" } }
+    });
+  }
+  if (totals.tax > 0) {
+    lineItems.push({
+      quantity: 1,
+      price_data: { currency, unit_amount: totals.tax, product_data: { name: "Sales tax" } }
+    });
+  }
+
+  const session = await stripe.checkout.sessions.create(
+    {
+      mode: "payment",
+      line_items: lineItems,
+      client_reference_id: quote.id,
+      customer_email: quote.customer_email,
+      phone_number_collection: { enabled: true },
+      billing_address_collection: "required",
+      success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl,
+      expires_at: Math.floor(Date.now() / 1000) + SESSION_LIFETIME_SECONDS,
+      metadata: { quote_request_id: quote.id, reference_code: quote.reference_code }
+    },
+    { idempotencyKey: idempotencyKey("qsession", quote.id, totals.total) }
+  );
+
+  const { error: paymentError } = await service.from("payments").upsert(
+    {
+      quote_request_id: quote.id,
+      stripe_object_type: "checkout_session",
+      stripe_object_id: session.id,
+      stripe_payment_intent_id: typeof session.payment_intent === "string" ? session.payment_intent : null,
+      amount: quote.final_total,
+      currency_code: quote.currency_code,
+      status: "pending",
+      livemode: mode === "live"
+    },
+    { onConflict: "stripe_object_type,stripe_object_id" }
+  );
+  if (paymentError) throw new Error(`payment record failed: ${paymentError.message}`);
+
+  const updated = await applyStatusChange(service, quote, "payment_sent", {
+    changedBy: adminId,
+    note: `stripe checkout session ${session.id}`,
+    extra: {
+      stripe_checkout_session_id: session.id,
+      stripe_checkout_session_url: session.url
+    }
+  });
+  if (!updated) return publicError(409, "The request changed while you were working. Reload and retry.");
+
+  return json(200, { ok: true, status: "payment_sent", checkout_session_url: session.url });
+}
+
 async function resendPayment(service, quote) {
   const stripe = getStripe();
   if (!stripe) return publicError(503, "Stripe is not configured.");
@@ -353,6 +495,9 @@ async function resendPayment(service, quote) {
   }
   if (quote.stripe_payment_link_url) {
     return json(200, { ok: true, resent: "payment_link", payment_link_url: quote.stripe_payment_link_url });
+  }
+  if (quote.stripe_checkout_session_url) {
+    return json(200, { ok: true, resent: "checkout_session", checkout_session_url: quote.stripe_checkout_session_url });
   }
   return publicError(409, "No payment vehicle exists for this request.");
 }

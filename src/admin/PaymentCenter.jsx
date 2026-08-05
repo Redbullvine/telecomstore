@@ -203,6 +203,7 @@ function QuoteDetail({ id, onBack }) {
       if (successNotice) setNotice(successNotice);
       if (result.hosted_invoice_url) setNotice(`Invoice sent. Hosted invoice: ${result.hosted_invoice_url}`);
       if (result.payment_link_url) setNotice(`Payment link ready: ${result.payment_link_url}`);
+      if (result.checkout_session_url) setNotice(`${result.reused ? "Existing checkout session (still open)" : "Checkout session ready"}: ${result.checkout_session_url}`);
       await load();
       return result;
     } catch (actionError) {
@@ -260,9 +261,13 @@ function QuoteDetail({ id, onBack }) {
         <div className="panel-heading"><h2>Payment</h2></div>
         <div className="pc-kv">
           <span>Final total</span><b>{formatMoney(request.final_total, request.currency_code)}</b>
+          <span>Quote valid until</span>
+          <b>{request.quote_expires_at
+            ? `${new Date(request.quote_expires_at).toLocaleDateString()}${new Date(request.quote_expires_at) <= new Date() ? " — EXPIRED (re-price to renew)" : ""}`
+            : "—"}</b>
           <span>Invoice ID</span><b className="pc-mono">{request.stripe_invoice_id || "—"}</b>
           <span>Payment link</span><b className="pc-mono">{request.stripe_payment_link_url || request.stripe_payment_link_id || "—"}</b>
-          <span>Checkout session</span><b className="pc-mono">{request.stripe_checkout_session_id || "—"}</b>
+          <span>Checkout session</span><b className="pc-mono">{request.stripe_checkout_session_url || request.stripe_checkout_session_id || "—"}</b>
           <span>Payment intent</span><b className="pc-mono">{request.stripe_payment_intent_id || "—"}</b>
         </div>
         <div className="pc-actions" style={{ marginTop: 14 }}>
@@ -271,8 +276,9 @@ function QuoteDetail({ id, onBack }) {
           ) : null}
           {request.status === "quoted" ? (
             <>
+              <ActionButton kind="primary" label="Create Checkout Session" busyLabel="Creating session…" onClick={() => act("checkout-session")} />
               <ActionButton kind="primary" label="Create Stripe Invoice" busyLabel="Creating invoice…" onClick={() => act("invoice")} />
-              <ActionButton kind="primary" label="Create Payment Link" busyLabel="Creating link…" onClick={() => act("payment-link")} />
+              <ActionButton label="Create Payment Link" busyLabel="Creating link…" onClick={() => act("payment-link")} />
             </>
           ) : null}
           {request.status === "payment_sent" ? (
@@ -332,15 +338,17 @@ function QuoteDetail({ id, onBack }) {
 function AmountsPanel({ request, items, act }) {
   const editable = ["reviewing", "quoted"].includes(request.status);
   const [unitAmounts, setUnitAmounts] = useState(() => Object.fromEntries(
-    items.map((item) => [item.id, item.unit_amount ?? ""])
+    items.map((item) => [item.id, item.unit_amount ?? item.public_unit_price ?? ""])
   ));
   const [shipping, setShipping] = useState(request.shipping_amount ?? "");
   const [tax, setTax] = useState(request.tax_amount ?? "");
+  const [expires, setExpires] = useState(request.quote_expires_at ? request.quote_expires_at.slice(0, 10) : "");
 
   useEffect(() => {
-    setUnitAmounts(Object.fromEntries(items.map((item) => [item.id, item.unit_amount ?? ""])));
+    setUnitAmounts(Object.fromEntries(items.map((item) => [item.id, item.unit_amount ?? item.public_unit_price ?? ""])));
     setShipping(request.shipping_amount ?? "");
     setTax(request.tax_amount ?? "");
+    setExpires(request.quote_expires_at ? request.quote_expires_at.slice(0, 10) : "");
   }, [request.id, request.status]);
 
   const subtotalCents = useMemo(() => {
@@ -364,6 +372,7 @@ function AmountsPanel({ request, items, act }) {
     shipping_amount: centsToDecimal(shippingCents),
     tax_amount: centsToDecimal(taxCents),
     final_total: centsToDecimal(totalCents),
+    quote_expires_at: expires ? `${expires}T23:59:59Z` : null,
     items: items.map((item) => ({ id: item.id, unit_amount: String(unitAmounts[item.id]).trim() }))
   }, "Amounts saved — request is now Quoted.");
 
@@ -408,6 +417,7 @@ function AmountsPanel({ request, items, act }) {
           <>
             <span className="pc-amounts">Shipping: <input inputMode="decimal" placeholder="0.00" value={shipping} onChange={(e) => setShipping(e.target.value)} /></span>
             <span className="pc-amounts">Tax: <input inputMode="decimal" placeholder="0.00" value={tax} onChange={(e) => setTax(e.target.value)} /></span>
+            <span className="pc-amounts">Quote valid until: <input type="date" value={expires} onChange={(e) => setExpires(e.target.value)} /></span>
           </>
         ) : (
           <>

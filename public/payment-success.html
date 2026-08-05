@@ -17,11 +17,49 @@
 </head>
 <body>
   <main class="card">
-    <div class="mark">✓</div>
-    <h1>Payment received — thank you.</h1>
-    <p>Your payment to Telecom Store was completed successfully. A receipt from Stripe is on its way to your email.</p>
-    <p>We will confirm your order and follow up with shipping details shortly.</p>
+    <div class="mark" id="mark">✓</div>
+    <h1 id="headline">Confirming your payment…</h1>
+    <p id="detail">One moment while we verify your payment with Stripe.</p>
+    <p id="reference" hidden></p>
+    <p>A receipt from Stripe is on its way to your email. We will confirm your order and follow up with shipping details.</p>
     <a class="button" href="/">Back to Telecom Store</a>
   </main>
+  <script>
+    // Confirmation is retrieved SERVER-SIDE via the session id; nothing in
+    // the query string is trusted for amounts or status.
+    (async function () {
+      const headline = document.getElementById("headline");
+      const detail = document.getElementById("detail");
+      const reference = document.getElementById("reference");
+      const sessionId = new URLSearchParams(window.location.search).get("session_id");
+      if (!sessionId) {
+        headline.textContent = "Payment received — thank you.";
+        detail.textContent = "Your payment to Telecom Store was completed successfully.";
+        return;
+      }
+      try {
+        const response = await fetch("/api/checkout-status?session_id=" + encodeURIComponent(sessionId));
+        const result = await response.json();
+        if (response.ok && result.ok && result.paid) {
+          headline.textContent = "Payment received — thank you.";
+          detail.textContent = "Your payment to Telecom Store was verified successfully.";
+        } else if (response.ok && result.ok && result.processing) {
+          headline.textContent = "Payment processing";
+          detail.textContent = "Your payment method is processing. We will email you as soon as it completes.";
+        } else {
+          headline.textContent = "Payment not confirmed yet";
+          detail.textContent = "We could not verify this payment yet. If you completed checkout, you will receive a Stripe receipt by email.";
+          document.getElementById("mark").textContent = "…";
+        }
+        if (result && result.reference_code) {
+          reference.hidden = false;
+          reference.innerHTML = "Your order reference: <strong>" + String(result.reference_code).replace(/[^A-Z0-9-]/g, "") + "</strong>";
+        }
+      } catch (error) {
+        headline.textContent = "Payment received";
+        detail.textContent = "We could not reach the confirmation service, but your Stripe receipt email is authoritative.";
+      }
+    })();
+  </script>
 </body>
 </html>

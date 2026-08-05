@@ -14,8 +14,7 @@ import {
   MAX_ITEMS_PER_REQUEST
 } from "../netlify/lib/validation.mjs";
 
-const PRODUCT_A = "11111111-1111-4111-8111-111111111111";
-const PRODUCT_B = "22222222-2222-4222-8222-222222222222";
+const SKU_A = "DH6HHE";
 
 const GOOD_SUBMISSION = {
   customer_name: "Danny Camp",
@@ -23,7 +22,7 @@ const GOOD_SUBMISSION = {
   customer_phone: "(918) 555-0100",
   shipping_address: { line1: "1 Main St", city: "Tulsa", state: "OK", postal_code: "74101", country: "US" },
   project_notes: "Job site build-out",
-  items: [{ product_id: PRODUCT_A, quantity: 3 }]
+  items: [{ public_sku: SKU_A, quantity: 3 }]
 };
 
 test("money: toCents parses clean decimals and rejects garbage", () => {
@@ -95,7 +94,7 @@ test("quote submission: accepts a clean request and normalizes it", () => {
   const result = validateQuoteSubmission(GOOD_SUBMISSION);
   assert.equal(result.ok, true);
   assert.equal(result.submission.customer_email, "buyer@example.com");
-  assert.deepEqual(result.submission.items, [{ product_id: PRODUCT_A, quantity: 3 }]);
+  assert.deepEqual(result.submission.items, [{ public_sku: SKU_A, quantity: 3 }]);
 });
 
 test("quote submission: rejects hostile inputs", () => {
@@ -103,14 +102,15 @@ test("quote submission: rejects hostile inputs", () => {
   reject({ customer_email: "not-an-email" });
   reject({ customer_name: "   " });
   reject({ items: [] });
-  reject({ items: [{ product_id: "not-a-uuid", quantity: 1 }] });
-  reject({ items: [{ product_id: PRODUCT_A, quantity: 0 }] });
-  reject({ items: [{ product_id: PRODUCT_A, quantity: -3 }] });
-  reject({ items: [{ product_id: PRODUCT_A, quantity: 99999999 }] });
-  reject({ items: [{ product_id: PRODUCT_A, quantity: 1 }, { product_id: PRODUCT_A, quantity: 2 }] }); // duplicate
+  reject({ items: [{ public_sku: "bad sku with spaces", quantity: 1 }] });
+  reject({ items: [{ public_sku: "<script>", quantity: 1 }] });
+  reject({ items: [{ public_sku: SKU_A, quantity: 0 }] });
+  reject({ items: [{ public_sku: SKU_A, quantity: -3 }] });
+  reject({ items: [{ public_sku: SKU_A, quantity: 99999999 }] });
+  reject({ items: [{ public_sku: SKU_A, quantity: 1 }, { public_sku: SKU_A, quantity: 2 }] }); // duplicate
   reject({
     items: Array.from({ length: MAX_ITEMS_PER_REQUEST + 1 }, (_, i) => ({
-      product_id: `${String(i).padStart(8, "0")}-1111-4111-8111-111111111111`,
+      public_sku: `SKU-${i}`,
       quantity: 1
     }))
   });

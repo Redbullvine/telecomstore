@@ -110,8 +110,15 @@ const QUOTE_FORM = {
   project_location: "",
   need_by: "",
   quantity: "1",
-  message: ""
+  message: "",
+  ship_line1: "",
+  ship_line2: "",
+  ship_city: "",
+  ship_state: "",
+  ship_postal: ""
 };
+const SHIPPING_DISCLOSURE =
+  "Shipping is calculated after order review based on destination, product size, weight, and carrier charges. We will confirm the final total before payment.";
 const LEAD_FORM_DEFAULTS = {
   name: "",
   company: "",
@@ -1234,7 +1241,63 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
     setStatus(null);
     try {
       const formData = new FormData(event.currentTarget);
-      await submitNetlifyForm(formData);
+      // Primary path: the server-side quote pipeline (feeds the admin
+      // Payment Center). Falls back to the Netlify Forms lead capture if the
+      // API is unavailable so no request is ever lost. Cart-less "tell us
+      // what you need" requests always use the lead path.
+      let referenceCode = null;
+      const skuItems = cart
+        .filter((item) => item.sku)
+        .map((item) => ({ public_sku: item.sku, quantity: Number(item.qty) || 1 }));
+      if (skuItems.length && skuItems.length === cart.length) {
+        try {
+          const itemNotes = cart
+            .filter((item) => (item.notes || "").trim())
+            .map((item) => `${item.sku}: ${item.notes.trim()}`)
+            .join("\n");
+          const extras = [
+            quoteForm.project_location ? `Project location: ${quoteForm.project_location}` : "",
+            quoteForm.need_by ? `Need by: ${quoteForm.need_by}` : "",
+            `Preferred contact: ${quoteForm.preferred_contact}`,
+            itemNotes
+          ].filter(Boolean).join("\n");
+          const response = await fetch("/api/quote-requests", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              customer_name: quoteForm.name,
+              customer_email: quoteForm.email,
+              customer_phone: quoteForm.phone,
+              customer_company: quoteForm.company || undefined,
+              shipping_address: {
+                line1: quoteForm.ship_line1,
+                line2: quoteForm.ship_line2 || undefined,
+                city: quoteForm.ship_city,
+                state: quoteForm.ship_state,
+                postal_code: quoteForm.ship_postal,
+                country: "US"
+              },
+              project_notes: [quoteForm.message, extras].filter(Boolean).join("\n\n"),
+              items: skuItems
+            })
+          });
+          const result = await response.json().catch(() => null);
+          if (response.ok && result?.ok) {
+            referenceCode = result.reference_code || null;
+          } else if (response.status === 400 || response.status === 429) {
+            // Validation/limit errors are actionable — surface them instead
+            // of silently falling back.
+            throw Object.assign(new Error(result?.error || "Please check the form and try again."), { actionable: true });
+          }
+          // Other failures (503 while server env is pending, network) fall
+          // through to the Netlify Forms lead path below.
+        } catch (apiError) {
+          if (apiError.actionable) throw apiError;
+        }
+      }
+      if (!referenceCode) {
+        await submitNetlifyForm(formData);
+      }
       trackLeadEvent("quote_form_submit", { source: "quote_tray", quote_items: cart.length });
       trackEvent("quote_request", {
         source: "quote_tray",
@@ -1246,7 +1309,12 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
       clearCart();
       setQuoteForm(QUOTE_FORM);
       setStage("success");
-      setStatus({ type: "success", message: "Quote request sent. We will reply with pricing and availability." });
+      setStatus({
+        type: "success",
+        message: referenceCode
+          ? `Quote request received — reference ${referenceCode}. We will confirm pricing, availability, and freight before any payment.`
+          : "Quote request sent. We will reply with pricing and availability."
+      });
       onToast("Quote request sent.");
     } catch (error) {
       setStatus({ type: "error", message: `${error.message} ${leadFallbackMessage()}` });
@@ -1300,9 +1368,17 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
             <p className="ts-formcount">{cart.length ? `${cart.length} part${cart.length === 1 ? "" : "s"} on this request.` : "Send part numbers, quantities, or a short material list."}</p>
             <LeadContactFields form={quoteForm} onChange={updateField} firstInputRef={firstInputRef} requireComplete />
             {!cart.length ? <label><span>Quantity</span><input name="quantity" type="number" min="1" step="1" value={quoteForm.quantity} onChange={updateField} required /></label> : <input type="hidden" name="quantity" value="1" />}
-            <label><span>Project location</span><input name="project_location" value={quoteForm.project_location} onChange={updateField} autoComplete="shipping address-level2" /></label>
+            <div className="ts-form-grid">
+              <label><span>Shipping address</span><input name="ship_line1" value={quoteForm.ship_line1} onChange={updateField} autoComplete="shipping address-line1" placeholder="Street address" required /></label>
+              <label><span>Suite / unit (optional)</span><input name="ship_line2" value={quoteForm.ship_line2} onChange={updateField} autoComplete="shipping address-line2" /></label>
+              <label><span>City</span><input name="ship_city" value={quoteForm.ship_city} onChange={updateField} autoComplete="shipping address-level2" required /></label>
+              <label><span>State</span><input name="ship_state" value={quoteForm.ship_state} onChange={updateField} autoComplete="shipping address-level1" required /></label>
+              <label><span>ZIP</span><input name="ship_postal" value={quoteForm.ship_postal} onChange={updateField} autoComplete="shipping postal-code" required /></label>
+            </div>
+            <label><span>Project location</span><input name="project_location" value={quoteForm.project_location} onChange={updateField} /></label>
             <label><span>Need-by date</span><input name="need_by" type="date" value={quoteForm.need_by} onChange={updateField} /></label>
             <label><span>Message / notes</span><textarea name="message" rows="4" value={quoteForm.message} onChange={updateField} placeholder="Part numbers, quantities, substitutions, freight details, or timing" required /></label>
+            <p className="ts-dnote">{SHIPPING_DISCLOSURE}</p>
             {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
             <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Send size={16} />} Send Quote Request</button>
             <button className="ts-back" type="button" onClick={() => setStage("list")}>Back to list</button>
