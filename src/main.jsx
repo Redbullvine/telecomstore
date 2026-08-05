@@ -49,6 +49,7 @@ import {
   deleteProductImage,
   deleteStorageLocation,
   duplicateProduct,
+  fallbackInventory,
   fetchActivity,
   fetchAdminProducts,
   fetchCategories,
@@ -80,8 +81,14 @@ import {
   trackPageView
 } from "./lib/analytics.mjs";
 import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
+import { CATALOG_CATEGORIES, CATALOG_MANUFACTURERS, STORE_CAT_ORDER, categoryConfig, manufacturerConfig } from "./config/catalog.mjs";
 import { storefrontBadgeLabel, storefrontImageAlt, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
 import { addCartItem, cartSubtotal, isPurchasable, reconcileCart, removeCartItem, updateCartQuantity } from "./lib/commerce.mjs";
+import { applyStorefrontMetadata, categoryPath, manufacturerPath, productPath, relatedProducts, resolveStorefrontRoute, storefrontMetadata } from "./lib/storefront-catalog.mjs";
+import { validateGeneralLead, validateQuoteRequest } from "./lib/lead-validation.mjs";
+import CatalogFilters from "./components/storefront/CatalogFilters.jsx";
+import ProductCard from "./components/storefront/ProductCard.jsx";
+import ProductDetailPage from "./components/storefront/ProductDetailPage.jsx";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -99,6 +106,7 @@ const QUOTE_FORM = {
   preferred_contact: "email",
   project_location: "",
   need_by: "",
+  quantity: "1",
   message: ""
 };
 const LEAD_FORM_DEFAULTS = {
@@ -138,7 +146,7 @@ function App() {
   return (
     <>
       <AmbientCursor />
-      <PublicStorefront navigate={route.navigate} />
+      <PublicStorefront route={route} navigate={route.navigate} />
     </>
   );
 }
@@ -327,17 +335,7 @@ const STORE_CAT_META = {
   "Test Equipment": "#9c2bad",
   "Misc Telecom Material": "#74807a"
 };
-const STORE_CAT_ORDER = [
-  "Network Cabling & Connectors",
-  "Network Equipment",
-  "Telephone Equipment",
-  "Antennas & RF",
-  "Terminals, Jacks & Wall Plates",
-  "Telecom Tools",
-  "Cable Management"
-];
-
-function catColor(cat) { return STORE_CAT_META[cat] || "#74807a"; }
+function catColor(cat) { return categoryConfig(cat).color || STORE_CAT_META[cat] || "#74807a"; }
 function hexToRgba(hex, a) {
   const n = (hex || "#74807a").replace("#", "");
   const r = parseInt(n.substr(0, 2), 16), g = parseInt(n.substr(2, 2), 16), b = parseInt(n.substr(4, 2), 16);
@@ -441,13 +439,15 @@ function productLeadItem(product = {}, qty = 1, notes = "") {
     key: productItemKey(product),
     name: product.title || product.short_description || product.sku || "Telecom material",
     sku: product.sku || product.barcode || "",
+    mpn: product.manufacturer_mpn || product.sku || "",
+    gtin: product.gtin || product.barcode || "",
     brand: product.brand || "",
     category: product.category || "",
     condition: product.condition || "",
     price: priceLabel(product),
     qty: Math.max(1, Number(qty) || 1),
     notes,
-    page_url: window.location.href
+    page_url: product.canonical_path ? `${window.location.origin}${product.canonical_path}` : window.location.href
   };
 }
 
@@ -456,6 +456,8 @@ function serializeLeadItems(items = []) {
     items.map((item) => ({
       name: item.name,
       sku: item.sku,
+      mpn: item.mpn,
+      gtin: item.gtin,
       brand: item.brand,
       category: item.category,
       condition: item.condition,
@@ -498,13 +500,7 @@ function leadSubmitEvent(formName) {
 
 function validateLeadForm(form) {
   const formData = new FormData(form);
-  const name = String(formData.get("name") || "").trim();
-  const email = String(formData.get("email") || "").trim();
-  const phone = String(formData.get("phone") || "").trim();
-
-  if (!name) return "Please add your name so we know who to reply to.";
-  if (!email && !phone) return "Please add an email or phone number so we can follow up.";
-  return "";
+  return validateGeneralLead(formData);
 }
 
 function leadFallbackMessage() {
@@ -531,6 +527,8 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
       <input type="hidden" name="selected_item_count" value={String(items.length)} />
       <input type="hidden" name="item_name" value={item?.name || ""} />
       <input type="hidden" name="item_sku" value={item?.sku || ""} />
+      <input type="hidden" name="item_mpn" value={item?.mpn || ""} />
+      <input type="hidden" name="item_gtin" value={item?.gtin || ""} />
       <input type="hidden" name="item_category" value={item?.category || ""} />
       <input type="hidden" name="item_condition" value={item?.condition || ""} />
       <input type="hidden" name="item_price" value={item?.price || ""} />
@@ -539,7 +537,166 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
   );
 }
 
-function PublicStorefront({ navigate }) {
+function PublicStorefront({ route, navigate }) {
+  const products = useMemo(() => fallbackInventory(), []);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [manufacturer, setManufacturer] = useState("All");
+  const [availability, setAvailability] = useState("All");
+  const [sort, setSort] = useState("brand");
+  const [cart, setCart] = useState(() => readQuoteBasket());
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerStage, setDrawerStage] = useState("list");
+  const [quoteForm, setQuoteForm] = useState(QUOTE_FORM);
+  const [leadModal, setLeadModal] = useState(null);
+  const [toast, setToast] = useState("");
+  const [attribution, setAttribution] = useState(() => readAttribution());
+  const routeInfo = useMemo(() => resolveStorefrontRoute(route.path, products), [route.path, products]);
+  const categoryNames = useMemo(() => CATALOG_CATEGORIES.map((item) => item.name), []);
+  const manufacturerNames = useMemo(() => CATALOG_MANUFACTURERS.map((item) => item.name), []);
+
+  useEffect(() => setAttribution(captureAttribution()), []);
+  useEffect(() => writeStoredJson(QUOTE_BASKET_KEY, cart), [cart]);
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = window.setTimeout(() => setToast(""), 4200);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
+  useEffect(() => {
+    if (routeInfo.kind === "category" && routeInfo.category) {
+      setCategory(routeInfo.category.name);
+      setManufacturer("All");
+    } else if (routeInfo.kind === "manufacturer" && routeInfo.manufacturer) {
+      setManufacturer(routeInfo.manufacturer.name);
+      setCategory("All");
+    } else if (routeInfo.kind === "home") {
+      setCategory("All");
+      setManufacturer("All");
+    }
+  }, [routeInfo]);
+  useEffect(() => {
+    applyStorefrontMetadata(storefrontMetadata(routeInfo));
+    if (routeInfo.kind === "product" && routeInfo.product) trackEvent("product_view", productAnalyticsParams(routeInfo.product));
+  }, [routeInfo]);
+
+  const filtered = useMemo(() => {
+    let list = filterProducts(products, { query, category, status: "available" });
+    if (manufacturer !== "All") list = list.filter((product) => product.brand === manufacturer);
+    if (availability === "fixed") list = list.filter((product) => product.pricing_approved === true && product.price_mode === "fixed");
+    if (availability === "request_quote") list = list.filter((product) => product.price_mode === "request_quote");
+    return [...list].sort((a, b) => {
+      if (sort === "name") return a.title.localeCompare(b.title);
+      if (sort === "category") return `${a.category}${a.brand}${a.title}`.localeCompare(`${b.category}${b.brand}${b.title}`);
+      if (sort === "availability") return Number(b.pricing_approved) - Number(a.pricing_approved) || a.title.localeCompare(b.title);
+      return `${a.brand}${a.manufacturer_mpn}`.localeCompare(`${b.brand}${b.manufacturer_mpn}`);
+    });
+  }, [products, query, category, manufacturer, availability, sort]);
+  const counts = useMemo(() => Object.fromEntries(CATALOG_CATEGORIES.map((item) => [item.name, item.count])), []);
+  const inCart = useCallback((product) => cart.find((item) => item.key === productItemKey(product)), [cart]);
+
+  function addToQuote(product, qty = 1, source = "product_card") {
+    const item = productLeadItem(product, qty);
+    setCart((current) => {
+      const existing = current.find((entry) => entry.key === item.key);
+      return existing ? current.map((entry) => entry.key === item.key ? { ...entry, qty: Math.max(1, Number(entry.qty) || 1) + item.qty } : entry) : [...current, item];
+    });
+    trackLeadEvent("quote_add_item", { source, sku: item.sku, category: item.category });
+    setToast(`${item.name} added to your Quote List.`);
+    setDrawerStage("list");
+    setDrawerOpen(true);
+  }
+  function openQuoteDrawer(stage = "list", source = "quote_button") {
+    trackLeadEvent("quote_modal_open", { source, quote_items: cart.length });
+    setDrawerStage(stage);
+    setDrawerOpen(true);
+  }
+  function openLeadModal(type, product = null, source = "lead_cta", extra = {}) {
+    const item = product ? productLeadItem(product) : null;
+    setLeadModal({ type, item, source, ...extra });
+  }
+  function resetFilters() {
+    setQuery(""); setCategory("All"); setManufacturer("All"); setAvailability("All"); setSort("brand");
+    if (routeInfo.kind !== "home") navigate("/");
+  }
+  function navigateProduct(product) {
+    trackEvent("product_click", { ...productAnalyticsParams(product), source: "catalog_card" });
+    navigate(productPath(product));
+  }
+  function navigateCategory(name) {
+    const config = categoryConfig(name);
+    setCategory(name);
+    navigate(categoryPath(config));
+  }
+  function navigateManufacturer(name) {
+    const config = manufacturerConfig(name);
+    setManufacturer(name);
+    navigate(manufacturerPath(config));
+  }
+
+  const landing = routeInfo.kind === "category" ? routeInfo.category : routeInfo.kind === "manufacturer" ? routeInfo.manufacturer : null;
+  const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
+  return (
+    <main className="storefront">
+      <StorefrontHeader products={products} query={query} setQuery={setQuery} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
+      <nav className="ts-catnav" aria-label="Product categories"><div className="ts-wrap">
+        <a className={category === "All" ? "on" : ""} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All Products <span>{products.length}</span></a>
+        {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
+      </div></nav>
+
+      {routeInfo.kind === "product" && routeInfo.product ? (
+        <ProductDetailPage product={routeInfo.product} related={related} navigate={navigate} added={Boolean(inCart(routeInfo.product))} onAdd={(qty) => addToQuote(routeInfo.product, qty, "product_detail")} onAsk={() => openLeadModal("item-inquiry", routeInfo.product, "product_detail")} />
+      ) : routeInfo.kind === "not_found" || (routeInfo.kind !== "home" && !landing) ? (
+        <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
+      ) : (
+        <>
+          {routeInfo.kind === "home" ? <StorefrontHero products={products} onQuote={() => openQuoteDrawer("form", "hero_request_quote")} /> : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
+          {routeInfo.kind === "home" ? <CatalogDiscovery counts={counts} navigateCategory={navigateCategory} navigateManufacturer={navigateManufacturer} /> : null}
+          <section className="ts-catalog" id="catalog"><div className="ts-wrap">
+            <div className="ts-cathead"><div><p className="ts-eyebrow">Opening catalog</p><h2>{landing?.name || "All 206 products"}</h2><p><strong>{filtered.length}</strong> matching products. Availability and shipping are confirmed before payment.</p></div></div>
+            <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
+            <div className="ts-search-lead"><div><strong>Don&apos;t see the part number?</strong><span>Send us the exact MPN or GTIN and we will review it.</span></div><button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button></div>
+            {!filtered.length ? <div className="ts-empty"><b>No products match these filters.</b><span>Reset the catalog or send us the part number you need.</span><button type="button" onClick={resetFilters}>Reset filters</button></div> : null}
+            <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={() => addToQuote(product)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
+          </div></section>
+        </>
+      )}
+
+      <StorefrontFooter navigate={navigate} onQuote={() => openQuoteDrawer("form", "footer_service")} onLead={openLeadModal} />
+      <LeadCtaBar quoteCount={cart.length} onQuote={() => openQuoteDrawer("form", "sticky_lead_bar")} onAsk={() => openLeadModal("item-inquiry", null, "sticky_lead_bar")} onSell={() => openLeadModal("sell-equipment", null, "sticky_lead_bar")} />
+      <QuoteTray open={drawerOpen} initialStage={drawerStage} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={(key) => setCart((current) => current.filter((item) => item.key !== key))} onUpdateItem={(key, patch) => setCart((current) => current.map((item) => item.key === key ? { ...item, ...patch, qty: "qty" in patch ? Math.max(1, Number(patch.qty) || 1) : item.qty } : item))} quoteForm={quoteForm} setQuoteForm={setQuoteForm} attribution={attribution} clearCart={() => setCart([])} onToast={setToast} />
+      {leadModal ? <LeadFormModal lead={leadModal} attribution={attribution} onClose={() => setLeadModal(null)} onSuccess={setToast} /> : null}
+      {toast ? <div className="ts-toast" role="status">{toast}</div> : null}
+    </main>
+  );
+}
+
+function StorefrontHeader({ query, setQuery, cartCount, navigate, onQuote }) {
+  return <>
+    <div className="ts-ubar"><div className="ts-wrap"><nav className="ts-ulinks"><a href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}>Home</a><a href="/#catalog" onClick={(event) => { event.preventDefault(); navigate("/"); window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView()); }}>Catalog</a><button type="button" onClick={onQuote}>Request a Quote</button><a href="#contact">Contact</a></nav><div className="ts-ubadges"><span><ShieldCheck size={13} /> Verified identifiers</span><span><QrCode size={13} /> MPN &amp; GTIN search</span><span><ClipboardList size={13} /> Quote-first catalog</span></div></div></div>
+    <header className="ts-head"><div className="ts-wrap"><a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Manufacturer-identified telecom catalog</small></span></a><label className="ts-search"><span className="sr-only">Search catalog</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search title, MPN, GTIN, or brand…" /><button type="button" onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}><Search size={16} /> Search</button></label><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={17} /> Quote List <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")}><Lock size={14} /> Admin</button></div></header>
+  </>;
+}
+
+function StorefrontHero({ products, onQuote }) {
+  return <><section className="ts-hero"><div className="ts-wrap ts-hero-grid"><div><p className="ts-eyebrow">Exact MPNs • Verified GTINs • Quote support</p><h1>Find the telecom part.<br /><em>Quote it with confidence.</em></h1><p className="ts-herocopy">Explore a focused opening catalog organized by exact manufacturer identity. We confirm current availability, compatibility, shipping, and order details before payment.</p><div className="ts-herocta"><button className="ts-btn-pri" type="button" onClick={onQuote}>Request a quote</button><a className="ts-btn-ghost" href="#catalog">Browse all products</a></div></div><div className="ts-herostats"><div className="ts-hstat"><strong>{products.length}</strong><span>opening catalog products</span></div><div className="ts-hstat"><strong>{CATALOG_MANUFACTURERS.length}</strong><span>manufacturers represented</span></div><div className="ts-hstat"><strong>{CATALOG_CATEGORIES.length}</strong><span>telecom categories</span></div></div></div></section><section className="ts-trust"><div className="ts-wrap"><div className="ts-titem"><span className="ts-tic"><Boxes size={19} /></span><div><b>Catalog identity</b><small>Manufacturer, MPN, and GTIN</small></div></div><div className="ts-titem"><span className="ts-tic"><Mail size={19} /></span><div><b>Quote support</b><small>Send quantities and project notes</small></div></div><div className="ts-titem"><span className="ts-tic"><ShieldCheck size={19} /></span><div><b>Careful product claims</b><small>Unverified details stay out</small></div></div><div className="ts-titem"><span className="ts-tic"><PackageSearch size={19} /></span><div><b>Order review</b><small>Shipping confirmed before payment</small></div></div></div></section></>;
+}
+
+function CatalogDiscovery({ navigateCategory, navigateManufacturer }) {
+  const featuredManufacturers = [...CATALOG_MANUFACTURERS].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)).slice(0, 10);
+  return <section className="ts-discovery"><div className="ts-wrap"><div className="ts-section-title"><p className="ts-eyebrow">Browse with less friction</p><h2>Start with a category or manufacturer</h2><p>Every listing is organized around the manufacturer’s exact MPN and GTIN.</p></div><div className="ts-category-grid">{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} style={{ "--cat-color": item.color }} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><span>{String(item.count).padStart(2, "0")}</span><strong>{item.name}</strong><small>{item.description}</small></a>)}</div><div className="ts-manufacturer-cloud"><h3>Featured manufacturers</h3>{featuredManufacturers.map((item) => <a key={item.name} href={manufacturerPath(item)} onClick={(event) => { event.preventDefault(); navigateManufacturer(item.name); }}>{item.name}<span>{item.count}</span></a>)}</div></div></section>;
+}
+
+function CatalogLandingHero({ routeInfo, count }) {
+  const category = routeInfo.kind === "category" ? routeInfo.category : null;
+  const manufacturer = routeInfo.kind === "manufacturer" ? routeInfo.manufacturer : null;
+  return <section className="ts-landing-hero" style={{ "--cat-color": category?.color || "#126a8a" }}><div className="ts-wrap"><p className="ts-eyebrow">{category ? "Telecom category" : "Manufacturer catalog"}</p><h1>{category?.name || `${manufacturer.name} products`}</h1><p>{category?.description || `Browse ${manufacturer.count} ${manufacturer.name} products by exact MPN and request a quote for current availability and shipping.`}</p><strong>{count} catalog products</strong></div></section>;
+}
+
+function StorefrontFooter({ navigate, onQuote, onLead }) {
+  return <footer className="ts-foot" id="contact"><div className="ts-wrap ts-foot-grid"><div><div className="ts-fbrand">Telecom Store</div><p>A manufacturer-identified catalog for telecom products and quote requests.</p><p>Quotes: <a href={contactEmailHref()}>{CONTACT_CONFIG.email}</a></p><div className="ts-foot-cta"><strong>Need a product reviewed?</strong><button type="button" onClick={() => onLead("item-inquiry", null, "footer")}>Send an MPN or GTIN</button></div></div><div><h5>Categories</h5>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigate(categoryPath(item)); }}>{item.name}</a>)}</div><div><h5>Service</h5><button className="ts-footlink" type="button" onClick={onQuote}>Request a Quote</button><button className="ts-footlink" type="button" onClick={() => onLead("sell-equipment", null, "footer")}>Sell Us Equipment</button><a href={contactEmailHref("Telecom Store inquiry")}>Contact Us</a><a href="/login" onClick={(event) => handleNavClick(event, navigate, "/login")}>Admin Login</a></div><p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Product details and availability are confirmed per quote. Brand names are the property of their respective owners.</p></div></footer>;
+}
+
+function LegacyPublicStorefront({ navigate }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -1072,7 +1229,7 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const validation = validateLeadForm(event.currentTarget);
+    const validation = validateQuoteRequest(new FormData(event.currentTarget), cart);
     if (validation) {
       setStatus({ type: "error", message: validation });
       return;
@@ -1146,10 +1303,11 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
           <form className="ts-dform" name="quote-request" method="POST" action={NETLIFY_SUCCESS_PATH} data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}>
             <NetlifyHiddenFields formName="quote-request" attribution={attribution} selectedItems={cart} leadSource="quote_tray" />
             <p className="ts-formcount">{cart.length ? `${cart.length} part${cart.length === 1 ? "" : "s"} on this request.` : "Send part numbers, quantities, or a short material list."}</p>
-            <LeadContactFields form={quoteForm} onChange={updateField} firstInputRef={firstInputRef} />
+            <LeadContactFields form={quoteForm} onChange={updateField} firstInputRef={firstInputRef} requireComplete />
+            {!cart.length ? <label><span>Quantity</span><input name="quantity" type="number" min="1" step="1" value={quoteForm.quantity} onChange={updateField} required /></label> : <input type="hidden" name="quantity" value="1" />}
             <label><span>Project location</span><input name="project_location" value={quoteForm.project_location} onChange={updateField} autoComplete="shipping address-level2" /></label>
             <label><span>Need-by date</span><input name="need_by" type="date" value={quoteForm.need_by} onChange={updateField} /></label>
-            <label><span>Message / notes</span><textarea name="message" rows="4" value={quoteForm.message} onChange={updateField} placeholder="Part numbers, quantities, substitutions, freight details, or timing" /></label>
+            <label><span>Message / notes</span><textarea name="message" rows="4" value={quoteForm.message} onChange={updateField} placeholder="Part numbers, quantities, substitutions, freight details, or timing" required /></label>
             {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
             <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Send size={16} />} Send Quote Request</button>
             <button className="ts-back" type="button" onClick={() => setStage("list")}>Back to list</button>
@@ -1173,13 +1331,13 @@ function LeadItemSummary({ item }) {
   );
 }
 
-function LeadContactFields({ form, onChange, firstInputRef }) {
+function LeadContactFields({ form, onChange, firstInputRef, requireComplete = false }) {
   return (
     <div className="ts-form-grid">
       <label><span>Name</span><input ref={firstInputRef} name="name" value={form.name} onChange={onChange} autoComplete="name" required /></label>
       <label><span>Company</span><input name="company" value={form.company} onChange={onChange} autoComplete="organization" /></label>
-      <label><span>Email</span><input name="email" type="email" value={form.email} onChange={onChange} autoComplete="email" /></label>
-      <label><span>Phone</span><input name="phone" type="tel" value={form.phone} onChange={onChange} autoComplete="tel" /></label>
+      <label><span>Email</span><input name="email" type="email" value={form.email} onChange={onChange} autoComplete="email" required={requireComplete} /></label>
+      <label><span>Phone</span><input name="phone" type="tel" value={form.phone} onChange={onChange} autoComplete="tel" required={requireComplete} /></label>
       <label><span>Preferred contact method</span><select name="preferred_contact" value={form.preferred_contact} onChange={onChange}>
         <option value="email">Email</option>
         <option value="phone">Phone call</option>
@@ -1198,11 +1356,11 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
   const [status, setStatus] = useState(null);
   const [form, setForm] = useState(() => ({
     ...LEAD_FORM_DEFAULTS,
-    part_number: item?.sku || lead.query || "",
+    part_number: item?.mpn || item?.sku || lead.query || "",
     item_name: item?.name || "",
     brand_manufacturer: item?.brand || "",
     condition: item?.condition || "",
-    message: lead.query ? `I am looking for: ${lead.query}` : ""
+    message: item ? `Please quote ${item.name} (MPN ${item.mpn || item.sku}, GTIN ${item.gtin || "not listed"}) for quantity 1. Product page: ${item.page_url}` : lead.query ? `I am looking for: ${lead.query}` : ""
   }));
 
   const title = {
@@ -1228,7 +1386,8 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const validation = validateLeadForm(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
+    const validation = formName === "item-inquiry" ? validateQuoteRequest(formData, item ? [{ qty: formData.get("quantity") }] : []) : validateGeneralLead(formData);
     if (validation) {
       setStatus({ type: "error", message: validation });
       return;
@@ -1293,9 +1452,9 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
             </div>
           ) : null}
 
-          <LeadContactFields form={form} onChange={updateField} firstInputRef={firstInputRef} />
-          {formName === "item-inquiry" ? <label><span>Quantity</span><input name="quantity" type="number" min="1" value={form.quantity} onChange={updateField} /></label> : null}
-          <label><span>Message / notes</span><textarea name="message" rows="4" value={form.message} onChange={updateField} placeholder="Timing, quantities, substitutions, photos, freight, or project details" /></label>
+          <LeadContactFields form={form} onChange={updateField} firstInputRef={firstInputRef} requireComplete={formName === "item-inquiry"} />
+          {formName === "item-inquiry" ? <label><span>Quantity</span><input name="quantity" type="number" min="1" step="1" value={form.quantity} onChange={updateField} required /></label> : null}
+          <label><span>Message / notes</span><textarea name="message" rows="4" value={form.message} onChange={updateField} placeholder="Timing, quantities, substitutions, photos, freight, or project details" required={formName === "item-inquiry"} /></label>
           {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
           <div className="ts-modal-actions">
             <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : formName === "buyer-list" ? <UserPlus size={16} /> : <Send size={16} />} Send</button>

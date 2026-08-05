@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
+    "lint": "node scripts/lint-storefront.mjs",
+    "typecheck": "tsc --noEmit --allowJs --checkJs false --skipLibCheck --jsx react-jsx --moduleResolution Bundler --module ESNext --target ES2022 --resolveJsonModule --esModuleInterop src/main.jsx",
     "preview": "vite preview --host 0.0.0.0",
     "test": "node --test tests/*.test.mjs",
+    "validate:catalog": "node scripts/validate-storefront-catalog.mjs",
+    "check:links": "node scripts/validate-storefront-catalog.mjs",
     "validate:opening-pricing": "node scripts/validate-opening-pricing.mjs --input operations/opening-pricing-template.csv"
   },
   "dependencies": {
