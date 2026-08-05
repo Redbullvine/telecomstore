@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ClipboardList,
   Copy,
+  CreditCard,
   Edit3,
   FileSpreadsheet,
   Filter,
@@ -81,6 +82,7 @@ import {
   trackPageView
 } from "./lib/analytics.mjs";
 import { CONTACT_CONFIG, contactEmailHref } from "./config/contact";
+import PaymentCenterPage from "./admin/PaymentCenter.jsx";
 import { CATALOG_CATEGORIES, CATALOG_MANUFACTURERS, STORE_CAT_ORDER, categoryConfig, manufacturerConfig } from "./config/catalog.mjs";
 import { storefrontBadgeLabel, storefrontImageAlt, storefrontImageSource, supportedConditionLabel } from "./lib/storefront-product.mjs";
 import { addCartItem, cartSubtotal, isPurchasable, reconcileCart, removeCartItem, updateCartQuantity } from "./lib/commerce.mjs";
@@ -1615,6 +1617,7 @@ function AdminApp({ route, auth }) {
   if (route.path === "/admin/categories") page = <CategoriesPage {...commonProps} />;
   if (route.path === "/admin/locations") page = <StorageLocationsPage {...commonProps} />;
   if (route.path === "/admin/activity") page = <ActivityLogPage {...commonProps} />;
+  if (route.path === "/admin/payments") page = <PaymentCenterPage {...commonProps} />;
 
   return (
     <main className="admin-shell">
@@ -1632,6 +1635,7 @@ function AdminApp({ route, auth }) {
         <SidebarLink icon={<Layers3 size={18} />} label="Categories" to="/admin/categories" route={route} />
         <SidebarLink icon={<MapPin size={18} />} label="Storage Locations" to="/admin/locations" route={route} />
         <SidebarLink icon={<ListChecks size={18} />} label="Activity Log" to="/admin/activity" route={route} />
+        <SidebarLink icon={<CreditCard size={18} />} label="Payments" to="/admin/payments" route={route} />
       </aside>
       <section className="admin-main">
         <header className="admin-header">
@@ -2855,6 +2859,7 @@ function adminTitle(path) {
   if (path === "/admin/categories") return "Categories";
   if (path === "/admin/locations") return "Storage Locations";
   if (path === "/admin/activity") return "Activity Log";
+  if (path === "/admin/payments") return "Payment Center";
   return "Admin";
 }
 
