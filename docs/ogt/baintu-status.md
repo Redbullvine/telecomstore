@@ -3,14 +3,14 @@
 - Task: BAINTU OGT 1 — Products, Photos, and Storefront
 - Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-baintu-products`
 - Branch: `ogt/baintu-products`
-- Current commit: `206b9002be79cfe4034bc6879d4842174e7d5e5d`
-- Last updated: 2026-08-05 04:18:24 -05:00
-- Files currently being edited: `docs/ogt/baintu-status.md`
-- Files planned next: public storefront components, catalog pages, product presentation, public catalog data, placeholders, public styling, SEO, and sitemap after PR #1 is merged into `main`
+- Current commit: `e1bf5fea729a088c41e45a50a4ae8f4e88f6559a`
+- Last updated: 2026-08-05 04:34:48 -05:00
+- Files currently being edited: `docs/ogt/baintu-status.md` only
+- Files planned next: production synchronization and live smoke verification after the mandatory final Claude/main coordination check
 - Shared files that may eventually require integration: public application layout and public route registration; BAINTU will not edit `package.json`, `package-lock.json`, `netlify/functions`, Stripe code, or payment migrations
-- Tests completed: worktree/branch/commit/status verification; Claude remote branch inspection (not yet present)
-- Known blockers: PR #1 must pass full validation and merge into `main` before redesign work begins
-- Ready to merge: No
+- Tests completed: 138 tests (127 passed, 11 intentionally skipped, 0 failed); production build; lint; type check; pricing validation; 206-product catalog validation; duplicate SKU/GTIN checks; 240 route/link/sitemap checks; public privacy scan; rendered homepage, category, manufacturer, product, search, quote-list, quote-form, console, and overflow checks
+- Known blockers: 206 real product images remain blocked pending exact identity and commercial-use approval; polished local placeholders remain required
+- Ready to merge: Yes — pending mandatory final fetch/Claude branch inspection and clean-main confirmation
 
 ## Coordination lock
 
