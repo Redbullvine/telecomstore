@@ -22,7 +22,7 @@ export default function ProductPlaceholder({ product, large = false }) {
   const src = storefrontImageSource(product);
   const config = categoryConfig(product.category);
   if (src && !failed) {
-    return <div className={`ts-product-visual${large ? " is-large" : ""}`}><img src={src} alt={storefrontImageAlt(product)} loading={large ? "eager" : "lazy"} onError={() => setFailed(true)} /></div>;
+    return <div className={`ts-product-visual${large ? " is-large" : ""}`}><img src={src} alt={storefrontImageAlt(product)} loading={large ? "eager" : "lazy"} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} /></div>;
   }
   const label = `Catalog placeholder for ${product.brand || "manufacturer"} ${product.manufacturer_mpn || product.sku} in ${product.category}; product image pending approval.`;
   const initials = String(product.brand || "TS").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
