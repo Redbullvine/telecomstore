@@ -11,8 +11,9 @@ export function getStripe() {
   if (cached) return cached;
   const { secretKey, configured } = getStripeConfig();
   if (!configured) return null;
+  // No apiVersion override: the SDK pins the API version it was built for,
+  // which is the version its typed shapes actually match.
   cached = new Stripe(secretKey, {
-    apiVersion: "2025-07-30.basil",
     maxNetworkRetries: 2,
     appInfo: { name: "telecomstore-payments", url: "https://telecomstore.net" }
   });

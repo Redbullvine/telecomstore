@@ -122,11 +122,10 @@ async function updatePaymentByObject(deps, objectType, objectId, patch) {
 }
 
 async function markQuotePaid(deps, quote, object) {
-  if (!canTransition(quote.status, "paid")) {
-    // Already paid (duplicate-adjacent event) is fine; anything else is a
-    // real anomaly worth surfacing in the event ledger.
-    return quote.status === "paid" ? "already-paid" : "blocked-transition";
-  }
+  // Already paid (duplicate-adjacent event) is a benign no-op; any other
+  // ineligible status is a real anomaly worth surfacing in the event ledger.
+  if (quote.status === "paid") return "already-paid";
+  if (!canTransition(quote.status, "paid")) return "blocked-transition";
   const paymentIntentId =
     typeof object.payment_intent === "string" ? object.payment_intent : object.payment_intent?.id || null;
   const updated = await applyStatusChange(deps.service, quote, "paid", {
@@ -153,9 +152,8 @@ async function markQuotePaid(deps, quote, object) {
 }
 
 async function markQuoteRefunded(deps, quote, charge) {
-  if (!canTransition(quote.status, "refunded")) {
-    return quote.status === "refunded" ? "already-refunded" : "blocked-transition";
-  }
+  if (quote.status === "refunded") return "already-refunded";
+  if (!canTransition(quote.status, "refunded")) return "blocked-transition";
   const updated = await applyStatusChange(deps.service, quote, "refunded", {
     note: `stripe:charge:${charge.id}`
   });

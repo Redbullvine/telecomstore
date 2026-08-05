@@ -108,7 +108,7 @@ before update on public.quote_requests
 for each row execute function public.set_updated_at();
 
 comment on table public.quote_requests is
-  'Customer quote/purchase requests. Customer-facing fields only; never add supplier identity, supplier SKU, wholesale cost, or margin fields.';
+  'Customer quote/purchase requests. Customer-facing fields only; never add supplier identity or internal commercial-terms fields.';
 
 -- --------------------------------------------------------------------------
 -- 2. Quote request items
