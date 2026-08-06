@@ -1,6 +1,6 @@
 # Marketplace supplier architecture checkpoint
 
-This document describes the dry-run boundary only. It does not apply a migration, load a database, or publish a product.
+This document describes the approved implementation boundary. The migration and importer have been exercised only in a disposable local Supabase database. Nothing has been applied to production and no product has been published.
 
 ## Existing supplier-neutral foundation
 
@@ -17,14 +17,17 @@ This document describes the dry-run boundary only. It does not apply a migration
 
 These private supplier tables already use row-level security and are not part of the anonymous storefront catalog RPC.
 
-## Additive structures still required before an approved import
+## Additive review and publication structures
 
-Two private, supplier-neutral concerns do not yet have a durable review table:
+Migration `20260806120000_supplier_marketplace_review.sql` adds:
 
-- `supplier_restrictions`: source evidence, restriction type, effective state, reviewer, and resolution.
-- `pricing_reviews`: private calculation inputs, candidate price, review status, evidence date, reviewer, and approval state.
+- `marketplace_departments`: the eight stable public department identities.
+- `supplier_restrictions`: private source evidence, restriction type, effective state, reviewer, and resolution.
+- `supplier_product_quarantine`: private identity-conflict evidence and resolution state.
+- `pricing_reviews`: private calculation inputs, candidate price, review status, reviewer, and approval state.
+- `marketplace_publications`: an explicit, default-deny publication record connecting a reviewed supplier listing to a canonical public product.
 
-Their migration will be designed and validated in a disposable local database after Danny approves the dry-run totals. No draft or production migration was created in this checkpoint.
+The new private tables have RLS enabled and anonymous privileges revoked. The security-definer `get_public_marketplace_catalog(text)` RPC returns a strict public allowlist and only approved publication rows that continue to satisfy inventory, restriction, quarantine, clearance, pricing, and image gates.
 
 ## Matching and publication boundary
 
@@ -32,7 +35,7 @@ Their migration will be designed and validated in a disposable local database af
 2. Match a canonical product only by an exact normalized manufacturer/MPN identity. GTIN fallback is permitted only for a future source whose identifier fidelity is independently verified.
 3. Never match by title.
 4. Quarantine contradictory identities and malformed GTINs for review.
-5. Create or change public catalog records only in a separately approved publication step.
+5. Create or change public catalog records only in a separately approved publication step. The private importer never writes canonical products, offers, publications, public prices, or public images.
 
 The August 5 workbook contains only 104 values that happen to pass checksum validation, while 2,483 are invalid or missing. Because the export exhibits widespread numeric truncation/rounding, GTIN fallback matching is disabled for the entire snapshot—including those 104 values. Values must not be reconstructed. This does not prevent the private supplier-row import, because supplier SKU remains the supplier-layer key, but it eliminates GTIN fallback until better source data is obtained.
 
@@ -45,3 +48,11 @@ node scripts/prepare-petra-marketplace.mjs --source "C:\path\outside\repo\prodli
 ```
 
 The tracked report contains aggregate counts only. The workbook, supplier SKUs, supplier costs, MAP/MSRP values, private notes, raw rows, restriction evidence, and margin calculations remain outside tracked/public artifacts.
+
+After the private plan is generated, its validation-only command is:
+
+```powershell
+node scripts/import-petra-marketplace.mjs --dry-run
+```
+
+The importer has no production mode. `--apply-local` accepts only a guarded loopback PostgreSQL connection and was validated with clean rebuild, idempotency, and forced-rollback tests. The `/shop` client reads only the sanitized marketplace RPC and has no private-plan or static-catalog fallback. Until individual publication approvals exist, it deliberately returns zero products and uses `noindex` metadata.

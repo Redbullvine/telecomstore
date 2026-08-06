@@ -1,17 +1,17 @@
 # BAINTU OGT Status
 
-- Task: BAINTU OGT 7 — Full Petra Marketplace Expansion, private dry-run checkpoint
+- Task: BAINTU OGT 7 — Full Petra Marketplace Expansion, implementation checkpoint
 - Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-full-petra-marketplace`
 - Branch: `ogt/full-petra-marketplace`
-- Starting commit: `d001bc5b55e09e105f30bdc4501c7978d74730db`
-- Latest origin/main observed: `10904f3` (manual-quote fix merged; branch rebase is the next checkpoint action)
+- Starting commit after rebase: `10904f3` (Claude's manual-quote fix merged into `origin/main`)
+- Approved dry-run commit after rebase: `1cb1ce1982e81cc9467a3bff01fe1c7d2aae95fc`
 - Last updated: 2026-08-06
-- Files currently being edited: private dry-run script/library, dry-run tests, aggregate report, architecture checkpoint, and this status file
-- Scope: reconcile all 2,587 private supplier rows, calculate publication/pricing review classifications, and stop before any database or public-catalog mutation
-- Tests completed: 226 tests (215 passed, 11 intentional local/private-evidence skips, 0 failed); production build; storefront lint; type check; 206-product catalog validation; 206-row opening-pricing validation; private-workbook tracking and browser-bundle checks
+- Files currently being edited: additive marketplace migration, private local-only importer, sanitized marketplace RPC client/routes, marketplace tests, architecture documentation, and this status file
+- Scope: build supplier-neutral private review structures and approval-gated `/shop` routes while leaving production and the public marketplace empty
+- Verification completed so far: clean disposable migration rebuild; 2,587-row local private import; idempotency; forced rollback; SQL RLS/RPC boundary checks; focused unit tests; desktop/mobile browser checks
 - Known blockers: 2,483 workbook GTINs are invalid or missing and cannot be used for automatic canonical matching; affected rows remain protected by supplier-SKU identity and ambiguity gates
-- Ready to merge: No — dry-run totals are approved, but implementation, rebase validation, final pre-release totals, and Danny's production-release approval remain required
+- Ready to merge: No — production migration, product approval/publication, merge, and deploy require Danny's final production-release approval
 
 ## Coordination lock
 
-BAINTU is editing only this isolated marketplace dry-run worktree. No storefront source, Stripe/payment function, migration, dependency manifest, or production configuration file is in scope.
+BAINTU is editing only this isolated marketplace worktree. Stripe/payment functions, payment migrations, dependency manifests, production configuration, and production services remain out of scope. The unavoidable shared entry-point change in `src/main.jsx` is isolated in a `SHARED:` commit.

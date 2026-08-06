@@ -28,6 +28,17 @@ const roundMoney = (input) => Math.round((input + Number.EPSILON) * 100) / 100;
 const identityKey = (input) => normalizeWhitespace(input).toUpperCase().replace(/[^A-Z0-9]/g, "");
 const bool = (input) => /^[yt1]|true$/i.test(normalizeWhitespace(input));
 
+const excelDate = (input) => {
+  if (input === null || input === undefined || input === "") return null;
+  const serial = Number(input);
+  if (Number.isFinite(serial) && serial > 25569) return new Date((serial - 25569) * 86400000).toISOString().slice(0, 10);
+  const value = normalizeWhitespace(input);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const match = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!match) return null;
+  return `${match[3]}-${match[1].padStart(2, "0")}-${match[2].padStart(2, "0")}`;
+};
+
 export function mapDepartment(productClass) {
   const normalized = normalizeWhitespace(productClass).replace(/^"(.*)"$/, "$1");
   return DEPARTMENTS[normalized] || null;
@@ -163,10 +174,12 @@ export function transformMarketplaceRows(rows) {
     const publicEligible = quantity > 0 && !identityConflict && !restriction.restricted && Boolean(department) && (!discontinued || department === "deals");
     const sourceHash = crypto.createHash("sha256").update(JSON.stringify(row)).digest("hex");
     return {
+      source_row_number: index + 4,
       supplier_sku: supplierSku,
       manufacturer_mpn: manufacturerMpn,
       gtin: gtinResult.gtin,
       gtin_status: gtinResult.reason,
+      gtin_matching_allowed: false,
       brand,
       supplier_title: normalizeWhitespace(row.DESCRIPTION),
       supplier_description: normalizeWhitespace(row["LONG DESC"]),
@@ -208,7 +221,7 @@ export function transformMarketplaceRows(rows) {
       image_url: image.valid ? image.url : null,
       image_status: image.reason,
       country_of_origin: normalizeWhitespace(row["ORIGIN COUNTRY"]),
-      po_eta_date: normalizeWhitespace(row["PO ETA DATE"]),
+      po_eta_date: excelDate(row["PO ETA DATE"]),
       source_hash: sourceHash,
       raw_payload: row,
     };
