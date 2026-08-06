@@ -22,11 +22,6 @@ const ACTIONS = new Set([
   "resend", "cancel", "refund", "fulfill", "note"
 ]);
 
-// One-time Checkout Sessions for confirmed quotes live this long; after that
-// the customer needs a fresh session (checkout.session.expired cancels the
-// payment record).
-const SESSION_LIFETIME_SECONDS = 24 * 60 * 60;
-
 function quoteExpired(quote) {
   return Boolean(quote.quote_expires_at) && new Date(quote.quote_expires_at).getTime() <= Date.now();
 }
@@ -58,25 +53,25 @@ export default async function handler(req, context) {
     const adminId = auth.user.id;
     switch (action) {
       case "review":
-        return simpleTransition(service, quote, "reviewing", adminId);
+        return await simpleTransition(service, quote, "reviewing", adminId);
       case "amounts":
-        return setAmounts(service, quote, body, adminId);
+        return await setAmounts(service, quote, body, adminId);
       case "invoice":
-        return createInvoice(service, quote, adminId);
+        return await createInvoice(service, quote, adminId);
       case "payment-link":
-        return createPaymentLink(service, quote, adminId);
+        return await createPaymentLink(service, quote, adminId);
       case "checkout-session":
-        return createQuoteCheckoutSession(service, quote, adminId);
+        return await createQuoteCheckoutSession(service, quote, adminId);
       case "resend":
-        return resendPayment(service, quote);
+        return await resendPayment(service, quote);
       case "cancel":
-        return simpleTransition(service, quote, "canceled", adminId, cleanText(body.note, 500) || null);
+        return await simpleTransition(service, quote, "canceled", adminId, cleanText(body.note, 500) || null);
       case "refund":
-        return simpleTransition(service, quote, "refunded", adminId, cleanText(body.note, 500) || "refund recorded by admin");
+        return await simpleTransition(service, quote, "refunded", adminId, cleanText(body.note, 500) || "refund recorded by admin");
       case "fulfill":
-        return simpleTransition(service, quote, "fulfilled", adminId);
+        return await simpleTransition(service, quote, "fulfilled", adminId);
       case "note":
-        return addNote(service, quote, body, adminId);
+        return await addNote(service, quote, body, adminId);
       default:
         return publicError(404, "Not found.");
     }
@@ -449,7 +444,13 @@ async function createQuoteCheckoutSession(service, quote, adminId) {
       billing_address_collection: "required",
       success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
-      expires_at: Math.floor(Date.now() / 1000) + SESSION_LIFETIME_SECONDS,
+      // Tax on a confirmed quote is the explicit admin-entered line item, so
+      // Stripe Managed Payments (auto-enabled on new accounts, demands
+      // product tax codes) must not recompute it.
+      managed_payments: { enabled: false },
+      // No explicit expires_at: Stripe's default session lifetime is 24h, and
+      // deterministic params keep the idempotency key valid on retried
+      // clicks — the same request always maps to the same session.
       metadata: { quote_request_id: quote.id, reference_code: quote.reference_code }
     },
     { idempotencyKey: idempotencyKey("qsession", quote.id, totals.total) }
