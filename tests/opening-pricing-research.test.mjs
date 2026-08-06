@@ -59,23 +59,36 @@ test("non-approved products carry no proposed price in private research outputs"
   }
 });
 
-test("template contains all 206 listed merchandise prices and checkout stays disabled", () => {
+test("template publishes only evidence-supported merchandise prices and checkout stays disabled", () => {
   assert.equal(approvedEntries.size, 8);
+  assert.equal(template.length, 206);
+  assert.equal(template.filter((row) => row.pricing_approved === "true").length, 17);
+  assert.equal(template.filter((row) => row.pricing_approved === "false").length, 189);
   for (const row of template) {
     assert.equal(row.checkout_active, "false", `checkout enabled for ${row.public_sku}`);
-    assert.ok(Number(row.public_price) > 0, `missing merchandise price for ${row.public_sku}`);
-    assert.equal(row.price_mode, "listed_price_shipping_quote");
-    assert.equal(row.pricing_approved, "true");
+    if (row.pricing_approved === "true") {
+      assert.ok(Number(row.public_price) > 0, `missing merchandise price for ${row.public_sku}`);
+      assert.equal(row.price_mode, "listed_price_shipping_quote");
+    } else {
+      assert.equal(row.public_price, "");
+      assert.equal(row.price_mode, "request_quote");
+    }
   }
 });
 
-test("public pricing JSON mirrors all listed prices while all checkout stays off", () => {
+test("public pricing JSON mirrors listed and quote-only decisions while all checkout stays off", () => {
   assert.equal(publicPricing.length, 206);
+  assert.equal(publicPricing.filter((row) => row.pricing_approved).length, 17);
+  assert.equal(publicPricing.filter((row) => !row.pricing_approved).length, 189);
   for (const r of publicPricing) {
     assert.equal(r.checkout_active, false);
-    assert.ok(r.public_price > 0);
-    assert.equal(r.price_mode, "listed_price_shipping_quote");
-    assert.equal(r.pricing_approved, true);
+    if (r.pricing_approved) {
+      assert.ok(r.public_price > 0);
+      assert.equal(r.price_mode, "listed_price_shipping_quote");
+    } else {
+      assert.equal(r.public_price, null);
+      assert.equal(r.price_mode, "request_quote");
+    }
   }
 });
 

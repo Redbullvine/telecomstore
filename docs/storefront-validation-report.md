@@ -8,8 +8,8 @@
 | Unique product slugs | 206 |
 | Categories | 7 |
 | Manufacturers | 26 |
-| Listed merchandise-price records | 206 |
-| Request-quote records | 0 |
+| Listed merchandise-price records | 17 |
+| Request-quote records | 189 |
 | Checkout-enabled records | 0 |
 | Sitemap URLs | 240 |
 | Validation errors | 0 |

@@ -31,10 +31,10 @@ test("related products never include the current product", () => {
   assert.ok(related.every((item) => item.sku !== product.sku));
 });
 
-test("pricing publishes all 206 through shipping quote and keeps direct checkout disabled", () => {
-  assert.equal(pricing.filter((item) => item.pricing_approved).length, 206);
-  assert.equal(pricing.filter((item) => item.price_mode === "listed_price_shipping_quote").length, 206);
-  assert.equal(pricing.filter((item) => item.price_mode === "request_quote").length, 0);
+test("pricing publishes only verified candidates and keeps direct checkout disabled", () => {
+  assert.equal(pricing.filter((item) => item.pricing_approved).length, 17);
+  assert.equal(pricing.filter((item) => item.price_mode === "listed_price_shipping_quote").length, 17);
+  assert.equal(pricing.filter((item) => item.price_mode === "request_quote").length, 189);
   assert.equal(pricing.filter((item) => item.checkout_active).length, 0);
 });
 

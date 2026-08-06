@@ -1,207 +1,207 @@
 public_sku,approved_title,public_price,price_mode,pricing_approved,checkout_active,shipping_class,taxable,stripe_price_id,allowed_countries,stripe_shipping_rate_id,automatic_tax,notes
-C4-CJM,Clearstream 4 Outdoor Antenna,190.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-C4-V-CJM,Ind/outdr Hdtv Ant/mnt,213.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-C5,Clearstream 5 Dtv Antenna,166.78,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+C4-CJM,Clearstream 4 Outdoor Antenna,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+C4-V-CJM,Ind/outdr Hdtv Ant/mnt,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+C5,Clearstream 5 Dtv Antenna,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
 CJMOUNT,Antenna Mount,21.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DB8-E,DB8E Bowtie UHF Antenna,214.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MAST40,40IN ClearStream Universal Mast,59.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BK350,Back-UPS CS 350 VA Tower,125.40,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BE550G,550VA 8-OUT Back-ups Es,153.76,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BE650G1,Back-UPS 650 VA Battery Backup,209.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BK500,Back-ups 500 System,249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BR1500MS2,Back-UPS Pro 1500 VA Tower with 10 AC Outlets and 2 USB Ports,605.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BX1000M,1000VA 8-OUT Back Ups Pro,399.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BX850M,850VA 8-OUT Back Ups Pro,365.22,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ATCRL32102,DECT Big Button Cordless Das,115.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-P300,Amplified Photo Phone,90.48,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-52703,Expandable Handset,68.12,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-53712,Amp Cordless Phone W/dig Answr,94.62,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-53714,D714 40DB Ampd Cordless Phone,140.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-54505.001,Alto Plus Amp Corded Phone,315.14,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-59865.001,XLC8 DECT 6.0 50 dB Amplified Cordless Phone System,289.04,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-59234.001,DECT 6.0 50 dB Amplified Cordless Phone with Big Buttons,206.94,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-CP1500AVRLCD3,Intelligent Lcd Ups,365.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+DB8-E,DB8E Bowtie UHF Antenna,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+MAST40,40IN ClearStream Universal Mast,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BK350,Back-UPS CS 350 VA Tower,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BE550G,550VA 8-OUT Back-ups Es,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BE650G1,Back-UPS 650 VA Battery Backup,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BK500,Back-ups 500 System,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BR1500MS2,Back-UPS Pro 1500 VA Tower with 10 AC Outlets and 2 USB Ports,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BX1000M,1000VA 8-OUT Back Ups Pro,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BX850M,850VA 8-OUT Back Ups Pro,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+ATCRL32102,DECT Big Button Cordless Das,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+P300,Amplified Photo Phone,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+52703,Expandable Handset,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+53712,Amp Cordless Phone W/dig Answr,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+53714,D714 40DB Ampd Cordless Phone,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+54505.001,Alto Plus Amp Corded Phone,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+59865.001,XLC8 DECT 6.0 50 dB Amplified Cordless Phone System,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+59234.001,DECT 6.0 50 dB Amplified Cordless Phone with Big Buttons,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+CP1500AVRLCD3,Intelligent Lcd Ups,,request_quote,false,false,manual_quote,true,,,,false,discontinued
 45-0001-UWH,Uwhite 1 Gang Recessed,5.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-50-3321-WH-KIT,Flat Panel Cable Org Rem Kit,50.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-50-3323-WH-KIT,Recessed Pair Power Kit,91.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-50-6623-WH-KIT,Flat Panel Cable Org Dup Power,119.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-500256,25 Db Distribution Amp,37.78,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+50-3321-WH-KIT,Flat Panel Cable Org Rem Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+50-3323-WH-KIT,Recessed Pair Power Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+50-6623-WH-KIT,Flat Panel Cable Org Dup Power,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+500256,25 Db Distribution Amp,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 DTV2BUHF,2-BAY UHF Outdoor Antenna,25.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-500302,2-WAY 1000 MHz Splitter,4.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-500303,3WAY All Port Power Splittr,6.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-500308,2-WAY Splitter,4.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-500312,4-WAY Splitter,7.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-EIS3-1004-WHT,6OT Smart Surge Protector,45.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-AS-HP-5R,5OUT 2USB Surge Wall Tap,33.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-CS-1X4HDMSPL5,1IN/4OUT HDMI Splitter,189.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-CS-C5DE,CAT5/6 Digital Aud Extension,133.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-CS-DAC2,Toslink/opt Spdif Converter,115.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-CS-HDEXT4KPOEU,4K Extender Cat6 Black,310.99,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+500302,2-WAY 1000 MHz Splitter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+500303,3WAY All Port Power Splittr,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+500308,2-WAY Splitter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+500312,4-WAY Splitter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+EIS3-1004-WHT,6OT Smart Surge Protector,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+AS-HP-5R,5OUT 2USB Surge Wall Tap,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+CS-1X4HDMSPL5,1IN/4OUT HDMI Splitter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+CS-C5DE,CAT5/6 Digital Aud Extension,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+CS-DAC2,Toslink/opt Spdif Converter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+CS-HDEXT4KPOEU,4K Extender Cat6 Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 MHX-LHDME12,12M HDMI Cable 10.2G,129.99,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MHX-LHDME2,2M HDMI Cable 18G,27.99,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+MHX-LHDME2,2M HDMI Cable 18G,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 MHX-LHDME4,4M HDMI Cable 18G,37.99,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MHX-T15,"MHX Series TOSLINK Digital Optical Audio Cable, 15 m",71.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-UHF-04M-S1234,UHF-04M Wireless Prof System,273.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-30-495,Mod Plug Crimp Tool,100.94,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-31-340,"Powr-Fish Heavy-Duty Pull Line, 6,500 ft",107.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-33-396,RJ45/RJ11 Crimp Tool Kit,60.34,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-33-507,RJ45 Trmnation Hip Kit,166.56,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-35-088,Electr Scissors With Notch,38.80,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-45-121,T-Stripper Wire Stripper for 14–24 Solid and 16–26 Stranded Wire,28.06,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-45-915,Kinetic Reflex T-Stripper Wire Stripper,61.12,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-62-200,Linkmaster Ethernet,54.14,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-366,Cat6 RJ45 Plug 25/CD,36.18,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-368,25PK CAT6/5 Mod Plug,83.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-369,50PK CAT6/5 Mod Plug,142.04,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-371,50PK Cat5e RJ45 Plugs,44.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-372,100PK Cat5e RJ45 Plugs,85.60,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-376,50PK Cat6 RJ45 Plugs,54.42,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-377,100PK Cat6 RJ45 Plugs,107.50,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-86-396,RJ45 Mod Plug Bag Of 100,86.20,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-89-5047,RG59 BNC Compression,164.46,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DPS-1100 USB,Desk Charging Station,38.68,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-KRA-22M,UHF Antenna,31.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-KRA-23M,VHF Antenna,31.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-56-200,Decoil-zit,89.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-81-000,Creepzit Pro 36FT Kit,213.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-81-130,Creep-zit Wire Running Kit,195.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-81-230,Connector Wire Rod Kit,243.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-81-600,Creepzit Compact 24FT Kit,163.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-81-700,Royrods Wire Running Kit,213.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-82-110,Grabbit Mini 10 ft Pole,97.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-82-118,18 ft Grabbit Pole,319.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-82-350,Grabbit Ztip Adapter,34.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-85-124,Wet Noodle & Retriever,49.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-33202,4OUT Surgequad USB Surge,25.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-910-1001,910 Case W/foam Black,121.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-925S-060BK-0A0,925 Cam Case W/org Dividr,419.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-963-1001,Case 963 With Foam Black,598.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-965-1001,Case 965 With Foam Black,650.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PB802105,1OUT 900J Surge Tap,13.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PBRUSB346S-A,6OUT 1200J Surge Tap,41.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PCBLCO102,Cable Protector Ramp with Flip-Open Access Lid,61.90,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PDWM2145,Fixed Freq Wireless Mic System,75.84,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PDWM3375,2CH Wireless Mic System,178.04,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PDWM3400,Premier Wireless Mic System,195.06,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PDBC70,9O 15A Power Switch Control,83.56,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-PDWM4120,H&o UHF Wireless Mic System,238.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-AMP1450E,Digi Amp For Indoor Antna,38.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ANT111E,Indoor Passive Antenna,17.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ANT1560E1,Amplified Indoor Flat Multi-Directional HDTV Antenna,49.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ANT310E,Amplified Indoor Antna,40.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ANT705E,Attic/outdoor Hdtv Antenna,58.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ANT754E,Antenna Outdoor Attic Compa,78.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+MHX-T15,"MHX Series TOSLINK Digital Optical Audio Cable, 15 m",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+UHF-04M-S1234,UHF-04M Wireless Prof System,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+30-495,Mod Plug Crimp Tool,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+31-340,"Powr-Fish Heavy-Duty Pull Line, 6,500 ft",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+33-396,RJ45/RJ11 Crimp Tool Kit,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+33-507,RJ45 Trmnation Hip Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+35-088,Electr Scissors With Notch,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+45-121,T-Stripper Wire Stripper for 14–24 Solid and 16–26 Stranded Wire,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+45-915,Kinetic Reflex T-Stripper Wire Stripper,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+62-200,Linkmaster Ethernet,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-366,Cat6 RJ45 Plug 25/CD,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+85-368,25PK CAT6/5 Mod Plug,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-369,50PK CAT6/5 Mod Plug,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-371,50PK Cat5e RJ45 Plugs,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-372,100PK Cat5e RJ45 Plugs,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+85-376,50PK Cat6 RJ45 Plugs,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-377,100PK Cat6 RJ45 Plugs,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+86-396,RJ45 Mod Plug Bag Of 100,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+89-5047,RG59 BNC Compression,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+DPS-1100 USB,Desk Charging Station,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+KRA-22M,UHF Antenna,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+KRA-23M,VHF Antenna,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+56-200,Decoil-zit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+81-000,Creepzit Pro 36FT Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+81-130,Creep-zit Wire Running Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+81-230,Connector Wire Rod Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+81-600,Creepzit Compact 24FT Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+81-700,Royrods Wire Running Kit,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+82-110,Grabbit Mini 10 ft Pole,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+82-118,18 ft Grabbit Pole,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+82-350,Grabbit Ztip Adapter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+85-124,Wet Noodle & Retriever,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+33202,4OUT Surgequad USB Surge,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+910-1001,910 Case W/foam Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+925S-060BK-0A0,925 Cam Case W/org Dividr,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+963-1001,Case 963 With Foam Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+965-1001,Case 965 With Foam Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+PB802105,1OUT 900J Surge Tap,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+PBRUSB346S-A,6OUT 1200J Surge Tap,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+PCBLCO102,Cable Protector Ramp with Flip-Open Access Lid,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+PDWM2145,Fixed Freq Wireless Mic System,,request_quote,false,false,manual_quote,true,,,,false,above_market_manual_review
+PDWM3375,2CH Wireless Mic System,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+PDWM3400,Premier Wireless Mic System,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+PDBC70,9O 15A Power Switch Control,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+PDWM4120,H&o UHF Wireless Mic System,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+AMP1450E,Digi Amp For Indoor Antna,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+ANT111E,Indoor Passive Antenna,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+ANT1560E1,Amplified Indoor Flat Multi-Directional HDTV Antenna,,request_quote,false,false,manual_quote,true,,,,false,above_market_manual_review
+ANT310E,Amplified Indoor Antna,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+ANT705E,Attic/outdoor Hdtv Antenna,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+ANT754E,Antenna Outdoor Attic Compa,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
 DH12HHE,12FT Dig Plus HDMI 2 HDMI,19.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
 DH24SPE,2.4GHZ 2WAY Digital Splitter,15.18,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DH3HHE,3FT HDMI Cable,11.18,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DH6HHE,6FT Dig Plus HDMI To HDMI,13.18,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DV10RV,6FT Optical Cable Black,12.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP210WHRV,7FT Mod Phone Cord White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP231WHR,15FT Phone Line Cord White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP243WHR,25FT Phone Line Cord White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP257WHR,Duplex Mod Jack White,4.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP265WHR,Surf Mount Phone Jack White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP280WRV,12FT Phone Coil Cord White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP282AR,25FT Phone Coil Cord Ivr,8.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP282BLRV,"Standard Handset Coil Cord, 25 ft, Black",6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP282WR,25FT Handset Coil Cord With,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TP443WHRV,50FT Mod Phone Cord White,10.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TPH530BR,7 ft Cat5e Cable Blu,8.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+DH3HHE,3FT HDMI Cable,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+DH6HHE,6FT Dig Plus HDMI To HDMI,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+DV10RV,6FT Optical Cable Black,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TP210WHRV,7FT Mod Phone Cord White,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TP231WHR,15FT Phone Line Cord White,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TP243WHR,25FT Phone Line Cord White,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+TP257WHR,Duplex Mod Jack White,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TP265WHR,Surf Mount Phone Jack White,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TP280WRV,12FT Phone Coil Cord White,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TP282AR,25FT Phone Coil Cord Ivr,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TP282BLRV,"Standard Handset Coil Cord, 25 ft, Black",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TP282WR,25FT Handset Coil Cord With,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TP443WHRV,50FT Mod Phone Cord White,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TPH530BR,7 ft Cat5e Cable Blu,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
 TPH532BR,25FT Cat5e 100MHZ Cable Blu,14.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TPH560R1V,CAT5E/6 in Line Coupler With,7.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TPH633R,50FT Cat 6 Cable Black,41.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH125R,4IN Antenna Wall Mount Kit,10.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+TPH560R1V,CAT5E/6 in Line Coupler With,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TPH633R,50FT Cat 6 Cable Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+VH125R,4IN Antenna Wall Mount Kit,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
 VH47R,Two-way Splitter,4.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH603RV1,3FT RG6 Cable Black,5.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH606R,6FT RG6 Coax Cable Black,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH606WHR,6FT RG6 Cable White,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+VH603RV1,3FT RG6 Cable Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+VH606R,6FT RG6 Coax Cable Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+VH606WHR,6FT RG6 Cable White,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 VH612R,12FT RG6 Coax Cable Black,7.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH625RV,25FT RG6 Coax Cable Black,11.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VH66R1,Coax Cable Feed Connector,4.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+VH625RV,25FT RG6 Coax Cable Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+VH66R1,Coax Cable Feed Connector,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 VHB6111R,100FT RG6 Coax Cable Black,33.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VHB655R,50FT RG6 Coax Cable Black,17.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VHEXT8E,Coax Extension Cable,8.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-VHFC015E,Flat Coax Extnsn Cable,11.18,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-C380N,4O Smart Surge Power Strip W/usb,73.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-84-213,Wire Stripper & Cutter,14.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-AHD10-04290,10FT HDMI 30AWG Black,9.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-AHD30-04293,30FT HDMI 28AWG Black,21.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+VHB655R,50FT RG6 Coax Cable Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+VHEXT8E,Coax Extension Cable,,request_quote,false,false,manual_quote,true,,,,false,above_market_manual_review
+VHFC015E,Flat Coax Extnsn Cable,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+C380N,4O Smart Surge Power Strip W/usb,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+84-213,Wire Stripper & Cutter,,request_quote,false,false,manual_quote,true,,,,false,sale_or_territory_restricted
+AHD10-04290,10FT HDMI 30AWG Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+AHD30-04293,30FT HDMI 28AWG Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
 AHD50-04294,50FT HDMI 24AWG Black,49.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW5U-00932,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Blue",249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW5U-01440,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Black",249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW5U-01441,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, White",249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW5U-01443,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Yellow",249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW5U-01554,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Red",249.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW6U-00934,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, Blue",379.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW6U-01444,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, White",379.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MBW6U-01445,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, Yellow",379.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-MKJ6U-01352,Kest Coupler Cat6 Unshld Black,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-WTCXC-03634,Coax Hex Crimp Tool,21.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-WTCXS-03631,Universal Coax Strip Tool,6.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-WTRJC-03632,Modular Crimp/strip Tool,23.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XHD03-04252,3FT HDMI Cable With Ethernet Black,6.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XHD01-04253,6FT HDMI Cable With Ethernet Black,6.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XHD01-04254,10FT HDMI Cable With Ethernet Black,7.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XHD01-04255,12FT HDMI Cable With Ethernet Black,7.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XHD01-04260,12FT HDMI Cable With Ethernet White,7.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-XRG06-02404,1000FT RG6 Dual Shield Cable,169.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP1008TELTV,10 Outlet Surge,100.22,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP1208TELTV,12OUT Surge With Coax/tel,92.66,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+MBW5U-00932,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Blue",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+MBW5U-01440,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Black",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+MBW5U-01441,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, White",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+MBW5U-01443,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Yellow",,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+MBW5U-01554,"CAT 5e U/UTP Solid Riser CMR Cable, 1,000 ft, Red",,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+MBW6U-00934,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, Blue",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+MBW6U-01444,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, White",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+MBW6U-01445,"CAT 6 U/UTP Solid Riser CMR Cable, 1,000 ft, Yellow",,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+MKJ6U-01352,Kest Coupler Cat6 Unshld Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+WTCXC-03634,Coax Hex Crimp Tool,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+WTCXS-03631,Universal Coax Strip Tool,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+WTRJC-03632,Modular Crimp/strip Tool,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+XHD03-04252,3FT HDMI Cable With Ethernet Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+XHD01-04253,6FT HDMI Cable With Ethernet Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+XHD01-04254,10FT HDMI Cable With Ethernet Black,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+XHD01-04255,12FT HDMI Cable With Ethernet Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+XHD01-04260,12FT HDMI Cable With Ethernet White,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+XRG06-02404,1000FT RG6 Dual Shield Cable,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP1008TELTV,10 Outlet Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP1208TELTV,12OUT Surge With Coax/tel,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 A102-02M,6FT Digital Optical Cable,5.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-A102-04M,13FT Digital Optical Cable,13.24,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-AVR750UNC,12O 750VA 450W Li Cloud Ups,373.66,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-B118-008E-UHD-2,8PRT 4K HDMI Splitter,212.82,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-BC600RNC,Cloud-Connected 600 VA/300 W Desktop UPS with 4 AC Outlets,327.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-ISOBAR6 ULTRA,6 Out Surge With 6FT Cord,159.02,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-LC1200,1200W 120V Line Conditioner,343.52,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-LC2400,2400W 120V Power Conditioner,633.92,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N001-025-BK,Cat5e 350MHZ Cable 25 ft,10.06,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N001-050-BK,Cat5e Patch Cable 50 ft,19.60,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N032-001,Cat5e RJ45 Inline Couplr,9.84,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N201-007-BL,"CAT 6 Gigabit Snagless Stranded UTP Ethernet Cable, 7 ft, Blue",6.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N201-007-WH,7FT Cat6 Gigabit Snagless,6.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N201-014-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 14 ft, Blue",9.42,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+A102-04M,13FT Digital Optical Cable,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+AVR750UNC,12O 750VA 450W Li Cloud Ups,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+B118-008E-UHD-2,8PRT 4K HDMI Splitter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+BC600RNC,Cloud-Connected 600 VA/300 W Desktop UPS with 4 AC Outlets,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+ISOBAR6 ULTRA,6 Out Surge With 6FT Cord,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+LC1200,1200W 120V Line Conditioner,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+LC2400,2400W 120V Power Conditioner,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+N001-025-BK,Cat5e 350MHZ Cable 25 ft,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+N001-050-BK,Cat5e Patch Cable 50 ft,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+N032-001,Cat5e RJ45 Inline Couplr,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+N201-007-BL,"CAT 6 Gigabit Snagless Stranded UTP Ethernet Cable, 7 ft, Blue",,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+N201-007-WH,7FT Cat6 Gigabit Snagless,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+N201-014-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 14 ft, Blue",,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
 N201-025-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 25 ft, Blue",16.06,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
 N201-050-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 50 ft, Blue",27.54,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N201-100-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 100 ft, Blue",53.46,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-N201-015-BL,15FT Cat6 Snagless RJ45 Cable,10.88,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-P131-06N,Hdmi/vga With Audio Converter,51.26,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-P502-006,Svga Monitor Cable 6F-,12.42,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+N201-100-BL,"CAT 6 Gigabit Snagless Solid UTP Ethernet Cable, 100 ft, Blue",,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+N201-015-BL,15FT Cat6 Snagless RJ45 Cable,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+P131-06N,Hdmi/vga With Audio Converter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+P502-006,Svga Monitor Cable 6F-,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
 P569-006-MF,4K HDMI Extension Cable With Ethernet,21.36,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-P570-006-MICRO,HDMI To Microhdmi Cable 6FT,19.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SMART1200XLHG,4O 120V 1KVA 750W Med Ups,1748.68,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SMART1500LCD,1500VA Lcd Ups,602.84,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SPIKECUBE,1OUT 600J Spikecube Surge,19.78,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SUPER7,7 Outlet Surge Protector,47.42,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SUPER725B,25FT 7OUT 2160J Surge,102.82,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SUPER7B,7-OTLT Surge Protector 2160 Joules,47.46,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-SWIVEL6USB,6OUT Direct Plug Surge,47.00,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLM609SA,9FT 6O Protect It Surge,115.04,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLM615SA,15FT 6O Protect It Surge,131.14,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP1006B,6FT 10OUT 2880J Surge Black,74.58,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP1208SAT,12OUT Protect It Surge,101.70,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP1208TEL,8FT 12OUT 2160J Surge,77.96,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP128TTUSBB,12OUT 8FT Plastic Surge,73.38,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP310USBC,10FT 510J 3OUT Surge Black,123.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP4BK,4OUT 720J Surge Black,27.12,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP604,6 Out Surge Protector 4FT Cord,28.78,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP606DMUSB,6-OTLT Surge W/clamps,81.66,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP610U30CLAMPB,"Protect It Desk Clamp Surge Protector with 6 AC Outlets and 2 USB Ports, 10 ft",84.74,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP648USBC,6OUT 8FT Desk Clamp Surge,106.22,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP6B,6 Out Surge Protector 6FT Cord,28.46,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP74RB,7OUTLT Surge Protectr,35.02,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP76MSG,7 Out Surge Protector 6FT Cord,72.32,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP76MSGB,6FT 7OUT 1080J Surge Black,72.32,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP808B,8FT 8OUT 1440J Surge Black,59.88,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP810NET,8 Outlet + Phone Lan,111.86,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP864USBB,8OUT 6FT Plastic Surge,69.28,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TLP88TUSBB,8OUT 8FT Plastic Surge,60.60,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-U236-000-R,USB 2 Ethernet Adapter,31.02,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-U436-06N-GBW,USB3.1 GEN1C Ethernet Adapter,45.42,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DS6101,Add Handset: VTEDS6151,67.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-DS6151,DECT 6.0 2-Line Cordless Phone,164.50,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-FL-1000,FL-1000 Indoor HD Antenna,27.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-HD8200U,Hdtv Antenna Deep Fringe,330.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-TB-0005,5FT Swedged Masting,30.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-WM-2040,4IN Galvanized Wall Mount,25.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
-314475,75OHM Wdebnd Directional Antna,95.98,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+P570-006-MICRO,HDMI To Microhdmi Cable 6FT,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+SMART1200XLHG,4O 120V 1KVA 750W Med Ups,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+SMART1500LCD,1500VA Lcd Ups,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+SPIKECUBE,1OUT 600J Spikecube Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+SUPER7,7 Outlet Surge Protector,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+SUPER725B,25FT 7OUT 2160J Surge,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+SUPER7B,7-OTLT Surge Protector 2160 Joules,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+SWIVEL6USB,6OUT Direct Plug Surge,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+TLM609SA,9FT 6O Protect It Surge,,request_quote,false,false,manual_quote,true,,,,false,discontinued
+TLM615SA,15FT 6O Protect It Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP1006B,6FT 10OUT 2880J Surge Black,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP1208SAT,12OUT Protect It Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP1208TEL,8FT 12OUT 2160J Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP128TTUSBB,12OUT 8FT Plastic Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP310USBC,10FT 510J 3OUT Surge Black,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP4BK,4OUT 720J Surge Black,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP604,6 Out Surge Protector 4FT Cord,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP606DMUSB,6-OTLT Surge W/clamps,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP610U30CLAMPB,"Protect It Desk Clamp Surge Protector with 6 AC Outlets and 2 USB Ports, 10 ft",,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP648USBC,6OUT 8FT Desk Clamp Surge,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP6B,6 Out Surge Protector 6FT Cord,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP74RB,7OUTLT Surge Protectr,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP76MSG,7 Out Surge Protector 6FT Cord,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP76MSGB,6FT 7OUT 1080J Surge Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP808B,8FT 8OUT 1440J Surge Black,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP810NET,8 Outlet + Phone Lan,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TLP864USBB,8OUT 6FT Plastic Surge,,request_quote,false,false,manual_quote,true,,,,false,above_msrp_manual_review
+TLP88TUSBB,8OUT 8FT Plastic Surge,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock
+U236-000-R,USB 2 Ethernet Adapter,31.04,listed_price_shipping_quote,true,false,manual_quote,true,,,,false,public merchandise price; shipping and tax confirmed after review
+U436-06N-GBW,USB3.1 GEN1C Ethernet Adapter,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+DS6101,Add Handset: VTEDS6151,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+DS6151,DECT 6.0 2-Line Cordless Phone,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+FL-1000,FL-1000 Indoor HD Antenna,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+HD8200U,Hdtv Antenna Deep Fringe,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+TB-0005,5FT Swedged Masting,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+WM-2040,4IN Galvanized Wall Mount,,request_quote,false,false,manual_quote,true,,,,false,market_evidence_insufficient
+314475,75OHM Wdebnd Directional Antna,,request_quote,false,false,manual_quote,true,,,,false,out_of_stock

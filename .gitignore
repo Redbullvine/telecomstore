@@ -26,6 +26,8 @@ telecomstore-baintu-starter-pack.zip
 
 # Unverified local inventory/OCR working datasets
 /prodlist.csv
+/prodlist.xlsx
+/prodlist(1).xlsx
 /part_numbers_raw.json
 /part_numbers.csv
 /part_numbers1.csv

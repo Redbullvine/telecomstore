@@ -26,8 +26,8 @@ assert(taxonomy.categories.length === 7, `Expected 7 categories; found ${taxonom
 assert(taxonomy.manufacturers.length === 26, `Expected 26 manufacturers; found ${taxonomy.manufacturers.length}.`);
 assert(taxonomy.categories.reduce((sum, item) => sum + item.count, 0) === 206, "Category counts do not total 206.");
 assert(taxonomy.manufacturers.reduce((sum, item) => sum + item.count, 0) === 206, "Manufacturer counts do not total 206.");
-assert(listed.length === 206, `Expected 206 listed merchandise prices; found ${listed.length}.`);
-assert(quote.length === 0, `Expected 0 request-quote products; found ${quote.length}.`);
+assert(listed.length === 17, `Expected 17 evidence-supported merchandise prices; found ${listed.length}.`);
+assert(quote.length === 189, `Expected 189 request-quote products; found ${quote.length}.`);
 assert(merged.every((item) => item.checkout_active === false), "Checkout must remain disabled for all opening products.");
 assert(reconciliation.source_approved_records === 211 && reconciliation.excluded_products.length === 5 && reconciliation.final_storefront_records === 206, "The 211-to-206 reconciliation is incomplete.");
 assert(reconciliation.duplicate_records_merged.length === 0 && reconciliation.missing_products.length === 0 && reconciliation.renamed_products.length === 0, "Unexpected reconciliation changes exist.");
