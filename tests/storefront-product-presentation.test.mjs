@@ -57,6 +57,39 @@ test("catalog states the payment confirmation boundary and merchandise prices re
   assert.doesNotMatch(storefrontSource, /available SKUs|Same-day quotes|Nationwide shipping|Pallet &amp; freight ready/);
 });
 
+test("quote-to-payment wording is customer-facing and promises nothing unconfirmed", () => {
+  // The secure-payment offer must stay conditional on confirmed amounts and
+  // must appear on both the Quote List and the quote form.
+  assert.match(
+    storefrontSource,
+    /Secure card payment is available after merchandise, shipping, and tax are confirmed\./
+  );
+  assert.match(storefrontSource, /Secure checkout powered by Stripe/);
+  assert.equal(storefrontSource.match(/\{SECURE_PAYMENT_DISCLOSURE\}/g)?.length, 2);
+  assert.equal(storefrontSource.match(/\{STRIPE_TRUST_LABEL\}/g)?.length, 2);
+
+  // No universal Buy Now. The direct-purchase control is not unconditional:
+  // it only renders behind isPurchasable(), and the shipped pricing bundle has
+  // zero checkout-enabled products (see opening-pricing tests), so every
+  // product routes to the quote flow. Nothing offers payment before review.
+  assert.doesNotMatch(storefrontSource, /Buy Now/i);
+  for (const match of storefrontSource.matchAll(/"(Add to Cart|Update Cart|In Cart)"/g)) {
+    const line = storefrontSource.slice(0, match.index).split(/\r?\n/).length;
+    const context = storefrontSource.split(/\r?\n/).slice(line - 3, line).join("\n");
+    assert.match(
+      context,
+      /isPurchasable\(product\)/,
+      `direct-purchase control at line ${line} must stay gated behind isPurchasable()`
+    );
+  }
+
+  // Claims Petra freight and fulfillment cannot support.
+  assert.doesNotMatch(
+    storefrontSource,
+    /Free shipping|Ships same day|Same-day shipment|Guaranteed delivery|Pay now to reserve/i
+  );
+});
+
 test("quote controls remain available on product cards and details", () => {
   assert.match(storefrontSource, /"Add to Quote"/);
   assert.match(storefrontSource, />Ask About This Item</);
