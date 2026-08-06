@@ -31,9 +31,10 @@ test("related products never include the current product", () => {
   assert.ok(related.every((item) => item.sku !== product.sku));
 });
 
-test("pricing remains eight fixed, 198 quote-only, and zero checkout-enabled", () => {
-  assert.equal(pricing.filter((item) => item.pricing_approved).length, 8);
-  assert.equal(pricing.filter((item) => item.price_mode === "request_quote").length, 198);
+test("pricing publishes only verified candidates and keeps direct checkout disabled", () => {
+  assert.equal(pricing.filter((item) => item.pricing_approved).length, 17);
+  assert.equal(pricing.filter((item) => item.price_mode === "listed_price_shipping_quote").length, 17);
+  assert.equal(pricing.filter((item) => item.price_mode === "request_quote").length, 189);
   assert.equal(pricing.filter((item) => item.checkout_active).length, 0);
 });
 

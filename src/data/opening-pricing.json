@@ -22,10 +22,10 @@
   },
   {
     "public_sku": "CJMOUNT",
-    "public_price": null,
+    "public_price": 21.98,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "DB8-E",
@@ -155,10 +155,10 @@
   },
   {
     "public_sku": "45-0001-UWH",
-    "public_price": null,
+    "public_price": 5.98,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "50-3321-WH-KIT",
@@ -190,10 +190,10 @@
   },
   {
     "public_sku": "DTV2BUHF",
-    "public_price": null,
+    "public_price": 25.98,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "500302",
@@ -267,10 +267,10 @@
   },
   {
     "public_sku": "MHX-LHDME12",
-    "public_price": null,
+    "public_price": 129.99,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "MHX-LHDME2",
@@ -281,10 +281,10 @@
   },
   {
     "public_sku": "MHX-LHDME4",
-    "public_price": null,
+    "public_price": 37.99,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "MHX-T15",
@@ -386,10 +386,10 @@
   },
   {
     "public_sku": "85-372",
-    "public_price": 60.27,
+    "public_price": null,
     "checkout_active": false,
-    "price_mode": "fixed",
-    "pricing_approved": true
+    "price_mode": "request_quote",
+    "pricing_approved": false
   },
   {
     "public_sku": "85-376",
@@ -645,17 +645,17 @@
   },
   {
     "public_sku": "DH12HHE",
-    "public_price": null,
+    "public_price": 19.98,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "DH24SPE",
-    "public_price": null,
+    "public_price": 15.18,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "DH3HHE",
@@ -666,10 +666,10 @@
   },
   {
     "public_sku": "DH6HHE",
-    "public_price": 19.97,
+    "public_price": null,
     "checkout_active": false,
-    "price_mode": "fixed",
-    "pricing_approved": true
+    "price_mode": "request_quote",
+    "pricing_approved": false
   },
   {
     "public_sku": "DV10RV",
@@ -750,16 +750,16 @@
   },
   {
     "public_sku": "TPH530BR",
-    "public_price": 7.74,
+    "public_price": null,
     "checkout_active": false,
-    "price_mode": "fixed",
-    "pricing_approved": true
+    "price_mode": "request_quote",
+    "pricing_approved": false
   },
   {
     "public_sku": "TPH532BR",
-    "public_price": 19.09,
+    "public_price": 14.98,
     "checkout_active": false,
-    "price_mode": "fixed",
+    "price_mode": "listed_price_shipping_quote",
     "pricing_approved": true
   },
   {
@@ -785,9 +785,9 @@
   },
   {
     "public_sku": "VH47R",
-    "public_price": 4.57,
+    "public_price": 4.58,
     "checkout_active": false,
-    "price_mode": "fixed",
+    "price_mode": "listed_price_shipping_quote",
     "pricing_approved": true
   },
   {
@@ -813,10 +813,10 @@
   },
   {
     "public_sku": "VH612R",
-    "public_price": null,
+    "public_price": 7.58,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "VH625RV",
@@ -834,10 +834,10 @@
   },
   {
     "public_sku": "VHB6111R",
-    "public_price": null,
+    "public_price": 33.58,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "VHB655R",
@@ -890,9 +890,9 @@
   },
   {
     "public_sku": "AHD50-04294",
-    "public_price": 45.99,
+    "public_price": 49.98,
     "checkout_active": false,
-    "price_mode": "fixed",
+    "price_mode": "listed_price_shipping_quote",
     "pricing_approved": true
   },
   {
@@ -1037,10 +1037,10 @@
   },
   {
     "public_sku": "A102-02M",
-    "public_price": null,
+    "public_price": 5.58,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "A102-04M",
@@ -1135,17 +1135,17 @@
   },
   {
     "public_sku": "N201-025-BL",
-    "public_price": null,
+    "public_price": 16.06,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "N201-050-BL",
-    "public_price": null,
+    "public_price": 27.54,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "N201-100-BL",
@@ -1177,10 +1177,10 @@
   },
   {
     "public_sku": "P569-006-MF",
-    "public_price": null,
+    "public_price": 21.36,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "P570-006-MICRO",
@@ -1233,17 +1233,17 @@
   },
   {
     "public_sku": "SWIVEL6USB",
-    "public_price": 38.76,
+    "public_price": null,
     "checkout_active": false,
-    "price_mode": "fixed",
-    "pricing_approved": true
+    "price_mode": "request_quote",
+    "pricing_approved": false
   },
   {
     "public_sku": "TLM609SA",
-    "public_price": 76.3,
+    "public_price": null,
     "checkout_active": false,
-    "price_mode": "fixed",
-    "pricing_approved": true
+    "price_mode": "request_quote",
+    "pricing_approved": false
   },
   {
     "public_sku": "TLM615SA",
@@ -1380,10 +1380,10 @@
   },
   {
     "public_sku": "U236-000-R",
-    "public_price": null,
+    "public_price": 31.04,
     "checkout_active": false,
-    "price_mode": "request_quote",
-    "pricing_approved": false
+    "price_mode": "listed_price_shipping_quote",
+    "pricing_approved": true
   },
   {
     "public_sku": "U436-06N-GBW",

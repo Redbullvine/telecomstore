@@ -10,7 +10,7 @@ const assert = (condition, message) => { if (!condition) errors.push(message); }
 const unique = (values) => new Set(values).size === values.length;
 const priceBySku = new Map(pricing.map((item) => [item.public_sku, item]));
 const merged = catalog.map((item) => ({ ...item, ...priceBySku.get(item.sku) }));
-const fixed = merged.filter((item) => item.pricing_approved === true);
+const listed = merged.filter((item) => item.pricing_approved === true && item.price_mode === "listed_price_shipping_quote" && Number(item.public_price) > 0);
 const quote = merged.filter((item) => item.price_mode === "request_quote" && item.public_price === null);
 const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
 const netlify = fs.readFileSync("netlify.toml", "utf8");
@@ -26,8 +26,8 @@ assert(taxonomy.categories.length === 7, `Expected 7 categories; found ${taxonom
 assert(taxonomy.manufacturers.length === 26, `Expected 26 manufacturers; found ${taxonomy.manufacturers.length}.`);
 assert(taxonomy.categories.reduce((sum, item) => sum + item.count, 0) === 206, "Category counts do not total 206.");
 assert(taxonomy.manufacturers.reduce((sum, item) => sum + item.count, 0) === 206, "Manufacturer counts do not total 206.");
-assert(fixed.length === 8, `Expected 8 approved fixed prices; found ${fixed.length}.`);
-assert(quote.length === 198, `Expected 198 request-quote products; found ${quote.length}.`);
+assert(listed.length === 17, `Expected 17 evidence-supported merchandise prices; found ${listed.length}.`);
+assert(quote.length === 189, `Expected 189 request-quote products; found ${quote.length}.`);
 assert(merged.every((item) => item.checkout_active === false), "Checkout must remain disabled for all opening products.");
 assert(reconciliation.source_approved_records === 211 && reconciliation.excluded_products.length === 5 && reconciliation.final_storefront_records === 206, "The 211-to-206 reconciliation is incomplete.");
 assert(reconciliation.duplicate_records_merged.length === 0 && reconciliation.missing_products.length === 0 && reconciliation.renamed_products.length === 0, "Unexpected reconciliation changes exist.");
@@ -39,10 +39,10 @@ const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) =>
 assert(sitemapUrls.length === 240 && unique(sitemapUrls), `Expected 240 unique sitemap URLs; found ${sitemapUrls.length}.`);
 for (const route of ["/products/*", "/categories/*", "/manufacturers/*"]) assert(netlify.includes(`from = "${route}"`), `Netlify route missing ${route}.`);
 
-const report = `# Storefront catalog validation\n\n| Check | Result |\n| --- | ---: |\n| Public products | ${catalog.length} |\n| Unique public SKUs | ${new Set(catalog.map((item) => item.sku)).size} |\n| Unique GTINs | ${new Set(catalog.map((item) => item.gtin)).size} |\n| Unique product slugs | ${new Set(catalog.map((item) => item.slug)).size} |\n| Categories | ${taxonomy.categories.length} |\n| Manufacturers | ${taxonomy.manufacturers.length} |\n| Approved fixed-price records | ${fixed.length} |\n| Request-quote records | ${quote.length} |\n| Checkout-enabled records | ${merged.filter((item) => item.checkout_active).length} |\n| Sitemap URLs | ${sitemapUrls.length} |\n| Validation errors | ${errors.length} |\n\nThe public catalog contains only public product identity and approved storefront content. It contains no supplier SKU, supplier cost, MAP, MSRP, margin, raw supplier description, or source-row fields. Product, category, and manufacturer URLs are represented in the sitemap and mapped to the SPA shell by Netlify.\n\n## Browser QA\n\nLocal-only browser checks used the sanitized bundled catalog with Supabase variables blank. The desktop home rendered 206 cards, 206 placeholders, eight approved-price notices, and no console errors. Dedicated product SEO emitted Organization, Product, and BreadcrumbList schemas. The Telecom Tools category rendered nine products; the Ideal manufacturer page rendered 17. Exact-GTIN search returned the correct single product and reset restored 206. Product and quote-list inquiry paths preserved title, MPN, GTIN, quantity, and product-page URL while requiring name, valid email, phone, quantity, and message. At a 390-pixel viewport, home and product detail pages had no horizontal page overflow; category navigation remained horizontally scrollable and readable.\n`;
+const report = `# Storefront catalog validation\n\n| Check | Result |\n| --- | ---: |\n| Public products | ${catalog.length} |\n| Unique public SKUs | ${new Set(catalog.map((item) => item.sku)).size} |\n| Unique GTINs | ${new Set(catalog.map((item) => item.gtin)).size} |\n| Unique product slugs | ${new Set(catalog.map((item) => item.slug)).size} |\n| Categories | ${taxonomy.categories.length} |\n| Manufacturers | ${taxonomy.manufacturers.length} |\n| Listed merchandise-price records | ${listed.length} |\n| Request-quote records | ${quote.length} |\n| Checkout-enabled records | ${merged.filter((item) => item.checkout_active).length} |\n| Sitemap URLs | ${sitemapUrls.length} |\n| Validation errors | ${errors.length} |\n\nThe public catalog contains only public product identity, approved merchandise prices, and storefront content. It contains no supplier identity, supplier costs, MAP values, MSRP, margins, or source-row fields. Every listed price remains in the shipping-quote workflow and direct checkout is disabled.\n`;
 fs.writeFileSync("docs/storefront-validation-report.md", report, "utf8");
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));
   process.exit(1);
 }
-console.log(`Validated ${catalog.length} products, ${fixed.length} fixed prices, ${quote.length} quote-only records, and ${sitemapUrls.length} internal catalog URLs.`);
+console.log(`Validated ${catalog.length} products, ${listed.length} listed merchandise prices, ${quote.length} quote-only records, and ${sitemapUrls.length} internal catalog URLs.`);

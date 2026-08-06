@@ -1,0 +1,207 @@
+public_sku,manufacturer,manufacturer_mpn,gtin,public_price,pricing_status,pricing_basis,match_method
+C4-CJM,Antennas Direct,C4-CJM,853748001095,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+C4-V-CJM,Antennas Direct,C4-V-CJM,817848011118,,request_quote,market_evidence_insufficient,manufacturer_mpn
+C5,Antennas Direct,C5,853748001354,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+CJMOUNT,Antennas Direct,CJMOUNT,853748001392,21.98,published_candidate,cost_times_two,supplier_sku
+DB8-E,Antennas Direct,DB8-E,817848011620,,request_quote,sale_or_territory_restricted,supplier_sku
+MAST40,Antennas Direct,MAST40,817848012542,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BK350,APC,BK350,731304016298,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BE550G,APC,BE550G,731304258940,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BE650G1,APC,BE650G1,731304285434,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BK500,APC,BK500,731304016304,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BR1500MS2,APC,BR1500MS2,731304426103,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BX1000M,APC,BX1000M,731304331766,,request_quote,market_evidence_insufficient,manufacturer_mpn
+BX850M,APC,BX850M,731304331797,,request_quote,above_msrp_manual_review,manufacturer_mpn
+ATCRL32102,At&t,ATCRL32102,650530024269,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+P300,Clarity,P300,759599765936,,request_quote,above_msrp_manual_review,manufacturer_mpn
+52703,Clarity,52703,017229135543,,request_quote,market_evidence_insufficient,manufacturer_mpn
+53712,Clarity,53712,017229134959,,request_quote,market_evidence_insufficient,manufacturer_mpn
+53714,Clarity,53714,017229134874,,request_quote,market_evidence_insufficient,manufacturer_mpn
+54505.001,Clarity,54505.001,017229139855,,request_quote,market_evidence_insufficient,manufacturer_mpn
+59865.001,Clarity,59865.001,859365007267,,request_quote,above_msrp_manual_review,manufacturer_mpn
+59234.001,Clarity,59234.001,017229154612,,request_quote,market_evidence_insufficient,supplier_sku
+CP1500AVRLCD3,Cyberpower,CP1500AVRLCD3,649532933570,,request_quote,discontinued,manufacturer_mpn
+45-0001-UWH,Datacomm Electronics,45-0001-UWH,660559018002,5.98,published_candidate,cost_times_two,supplier_sku
+50-3321-WH-KIT,Datacomm Electronics,50-3321-WH-KIT,660559007983,,request_quote,market_evidence_insufficient,supplier_sku
+50-3323-WH-KIT,Datacomm Electronics,50-3323-WH-KIT,660559007990,,request_quote,market_evidence_insufficient,supplier_sku
+50-6623-WH-KIT,Datacomm Electronics,50-6623-WH-KIT,660559010167,,request_quote,above_msrp_manual_review,supplier_sku
+500256,Eagle Aspen,500256,601430002567,,request_quote,market_evidence_insufficient,supplier_sku
+DTV2BUHF,Eagle Aspen,DTV2BUHF,601430111719,25.98,published_candidate,cost_times_two,supplier_sku
+500302,Eagle Aspen,500302,601430003021,,request_quote,market_evidence_insufficient,supplier_sku
+500303,Eagle Aspen,500303,601430003038,,request_quote,above_msrp_manual_review,supplier_sku
+500308,Eagle Aspen,500308,601430003083,,request_quote,market_evidence_insufficient,supplier_sku
+500312,Eagle Aspen,500312,601430003120,,request_quote,market_evidence_insufficient,manufacturer_mpn
+EIS3-1004-WHT,Energizer Connect,EIS3-1004-WHT,805106871925,,request_quote,market_evidence_insufficient,manufacturer_mpn
+AS-HP-5R,Helios,AS-HP-5R,086429378531,,request_quote,market_evidence_insufficient,manufacturer_mpn
+CS-1X4HDMSPL5,Ethereal,CS-1X4HDMSPL5,086429377459,,request_quote,market_evidence_insufficient,manufacturer_mpn
+CS-C5DE,Ethereal,CS-C5DE,086429373420,,request_quote,market_evidence_insufficient,manufacturer_mpn
+CS-DAC2,Ethereal,CS-DAC2,086429400027,,request_quote,market_evidence_insufficient,manufacturer_mpn
+CS-HDEXT4KPOEU,Ethereal,CS-HDEXT4KPOEU,086429419722,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MHX-LHDME12,Ethereal,MHX-LHDME12,086429344826,129.99,published_candidate,map_floor,manufacturer_mpn
+MHX-LHDME2,Ethereal,MHX-LHDME2,086429344758,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MHX-LHDME4,Ethereal,MHX-LHDME4,086429344772,37.99,published_candidate,map_floor,manufacturer_mpn
+MHX-T15,Ethereal,MHX-T15,086429387946,,request_quote,market_evidence_insufficient,manufacturer_mpn
+UHF-04M-S1234,Gemini,UHF-04M-S1234,747705003072,,request_quote,market_evidence_insufficient,manufacturer_mpn
+30-495,Ideal,30-495,783250787494,,request_quote,market_evidence_insufficient,supplier_sku
+31-340,Ideal,31-340,783250313402,,request_quote,market_evidence_insufficient,supplier_sku
+33-396,Ideal,33-396,783250714490,,request_quote,sale_or_territory_restricted,supplier_sku
+33-507,Ideal,33-507,783250801220,,request_quote,market_evidence_insufficient,manufacturer_mpn
+35-088,Ideal,35-088,783250350889,,request_quote,sale_or_territory_restricted,supplier_sku
+45-121,Ideal,45-121,783250451210,,request_quote,market_evidence_insufficient,supplier_sku
+45-915,Ideal,45-915,783250550197,,request_quote,market_evidence_insufficient,supplier_sku
+62-200,Ideal,62-200,783250622009,,request_quote,market_evidence_insufficient,supplier_sku
+85-366,Ideal,85-366,783250853663,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+85-368,Ideal,85-368,783250853687,,request_quote,market_evidence_insufficient,manufacturer_mpn
+85-369,Ideal,85-369,783250853694,,request_quote,market_evidence_insufficient,manufacturer_mpn
+85-371,Ideal,85-371,783250853717,,request_quote,market_evidence_insufficient,manufacturer_mpn
+85-372,Ideal,85-372,783250853724,,request_quote,above_msrp_manual_review,manufacturer_mpn
+85-376,Ideal,85-376,783250853762,,request_quote,market_evidence_insufficient,manufacturer_mpn
+85-377,Ideal,85-377,783250853779,,request_quote,above_msrp_manual_review,manufacturer_mpn
+86-396,Ideal,86-396,783250863969,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+89-5047,Ideal,89-5047,783250689408,,request_quote,market_evidence_insufficient,manufacturer_mpn
+DPS-1100 USB,Koblenz,DPS-1100 USB,099053053279,,request_quote,market_evidence_insufficient,manufacturer_mpn
+KRA-22M,Kenwood,KRA-22M,019048134912,,request_quote,market_evidence_insufficient,manufacturer_mpn
+KRA-23M,Kenwood,KRA-23M,019048134943,,request_quote,above_msrp_manual_review,manufacturer_mpn
+56-200,Labor Saving Devices,56-200,792136562001,,request_quote,market_evidence_insufficient,supplier_sku
+81-000,Labor Saving Devices,81-000,792136810003,,request_quote,market_evidence_insufficient,manufacturer_mpn
+81-130,Labor Saving Devices,81-130,792136811307,,request_quote,market_evidence_insufficient,manufacturer_mpn
+81-230,Labor Saving Devices,81-230,792136812304,,request_quote,market_evidence_insufficient,manufacturer_mpn
+81-600,Labor Saving Devices,81-600,792136816005,,request_quote,market_evidence_insufficient,manufacturer_mpn
+81-700,Labor Saving Devices,81-700,792136817002,,request_quote,market_evidence_insufficient,manufacturer_mpn
+82-110,Labor Saving Devices,82-110,792136821108,,request_quote,market_evidence_insufficient,manufacturer_mpn
+82-118,Labor Saving Devices,82-118,792136821184,,request_quote,market_evidence_insufficient,manufacturer_mpn
+82-350,Labor Saving Devices,82-350,792136823508,,request_quote,market_evidence_insufficient,supplier_sku
+85-124,Labor Saving Devices,85-124,792136851242,,request_quote,market_evidence_insufficient,supplier_sku
+33202,Stanley,33202,686140332029,,request_quote,out_of_stock,manufacturer_mpn
+910-1001,Nanuk,910-1001,666365009876,,request_quote,out_of_stock,manufacturer_mpn
+925S-060BK-0A0,Nanuk,925S-060BK-0A0,666365029904,,request_quote,out_of_stock,manufacturer_mpn
+963-1001,Nanuk,963-1001,666365023957,,request_quote,out_of_stock,manufacturer_mpn
+965-1001,Nanuk,965-1001,666365023971,,request_quote,out_of_stock,manufacturer_mpn
+PB802105,Prime,PB802105,054732807482,,request_quote,market_evidence_insufficient,manufacturer_mpn
+PBRUSB346S-A,Prime,PBRUSB346S-A,054732826537,,request_quote,out_of_stock,manufacturer_mpn
+PCBLCO102,Pyle,PCBLCO102,842893106717,,request_quote,market_evidence_insufficient,supplier_sku
+PDWM2145,Pyle,PDWM2145,068888758321,,request_quote,above_market_manual_review,manufacturer_mpn
+PDWM3375,Pyle,PDWM3375,068888744409,,request_quote,market_evidence_insufficient,manufacturer_mpn
+PDWM3400,Pyle,PDWM3400,068888744416,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+PDBC70,Pyle,PDBC70,068888743822,,request_quote,market_evidence_insufficient,manufacturer_mpn
+PDWM4120,Pyle,PDWM4120,842893119755,,request_quote,market_evidence_insufficient,manufacturer_mpn
+AMP1450E,RCA,AMP1450E,044476061011,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+ANT111E,RCA,ANT111E,079000334835,,request_quote,above_msrp_manual_review,manufacturer_mpn
+ANT1560E1,RCA,ANT1560E1,044476125652,,request_quote,above_market_manual_review,manufacturer_mpn
+ANT310E,RCA,ANT310E,044476121845,,request_quote,sale_or_territory_restricted,supplier_sku
+ANT705E,RCA,ANT705E,044476128677,,request_quote,out_of_stock,manufacturer_mpn
+ANT754E,RCA,ANT754E,044476151132,,request_quote,out_of_stock,manufacturer_mpn
+DH12HHE,RCA,DH12HHE,044476042553,19.98,published_candidate,cost_times_two,manufacturer_mpn
+DH24SPE,RCA,DH24SPE,044476043024,15.18,published_candidate,cost_times_two,manufacturer_mpn
+DH3HHE,RCA,DH3HHE,044476042539,,request_quote,market_evidence_insufficient,manufacturer_mpn
+DH6HHE,RCA,DH6HHE,044476042546,,request_quote,out_of_stock,manufacturer_mpn
+DV10RV,RCA,DV10RV,079000316152,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TP210WHRV,RCA,TP210WHRV,044476065408,,request_quote,market_evidence_insufficient,supplier_sku
+TP231WHR,RCA,TP231WHR,044476053245,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TP243WHR,RCA,TP243WHR,044476053252,,request_quote,out_of_stock,manufacturer_mpn
+TP257WHR,RCA,TP257WHR,079000308614,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TP265WHR,RCA,TP265WHR,044476060557,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TP280WRV,RCA,TP280WRV,079000404194,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TP282AR,RCA,TP282AR,079000404200,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TP282BLRV,RCA,TP282BLRV,079000404224,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TP282WR,RCA,TP282WR,079000404255,,request_quote,market_evidence_insufficient,supplier_sku
+TP443WHRV,RCA,TP443WHRV,044476053085,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TPH530BR,RCA,TPH530BR,044476061424,,request_quote,out_of_stock,manufacturer_mpn
+TPH532BR,RCA,TPH532BR,044476048258,14.98,published_candidate,cost_times_two,manufacturer_mpn
+TPH560R1V,RCA,TPH560R1V,044476138997,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TPH633R,RCA,TPH633R,044476071959,,request_quote,out_of_stock,manufacturer_mpn
+VH125R,RCA,VH125R,044476060779,,request_quote,out_of_stock,manufacturer_mpn
+VH47R,RCA,VH47R,079000403364,4.58,published_candidate,cost_times_two,manufacturer_mpn
+VH603RV1,RCA,VH603RV1,079000320586,,request_quote,market_evidence_insufficient,manufacturer_mpn
+VH606R,RCA,VH606R,079000320593,,request_quote,market_evidence_insufficient,manufacturer_mpn
+VH606WHR,RCA,VH606WHR,079000320630,,request_quote,market_evidence_insufficient,manufacturer_mpn
+VH612R,RCA,VH612R,079000320609,7.58,published_candidate,cost_times_two,manufacturer_mpn
+VH625RV,RCA,VH625RV,079000320616,,request_quote,out_of_stock,manufacturer_mpn
+VH66R1,RCA,VH66R1,079000403463,,request_quote,market_evidence_insufficient,manufacturer_mpn
+VHB6111R,RCA,VHB6111R,079000316114,33.58,published_candidate,cost_times_two,manufacturer_mpn
+VHB655R,RCA,VHB655R,079000316091,,request_quote,out_of_stock,manufacturer_mpn
+VHEXT8E,RCA,VHEXT8E,044476138027,,request_quote,above_market_manual_review,manufacturer_mpn
+VHFC015E,RCA,VHFC015E,044476138393,,request_quote,market_evidence_insufficient,manufacturer_mpn
+C380N,Eco4life,C380N,884945009096,,request_quote,above_msrp_manual_review,manufacturer_mpn
+84-213,Stanley,84-213,076174842135,,request_quote,sale_or_territory_restricted,manufacturer_mpn
+AHD10-04290,Vericom,AHD10-04290,846788042906,,request_quote,market_evidence_insufficient,manufacturer_mpn
+AHD30-04293,Vericom,AHD30-04293,846788042937,,request_quote,out_of_stock,manufacturer_mpn
+AHD50-04294,Vericom,AHD50-04294,846788042944,49.98,published_candidate,cost_times_two,manufacturer_mpn
+MBW5U-00932,Vericom,MBW5U-00932,846788009329,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MBW5U-01440,Vericom,MBW5U-01440,846788014408,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MBW5U-01441,Vericom,MBW5U-01441,846788014415,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MBW5U-01443,Vericom,MBW5U-01443,846788014439,,request_quote,above_msrp_manual_review,manufacturer_mpn
+MBW5U-01554,Vericom,MBW5U-01554,846788015542,,request_quote,out_of_stock,manufacturer_mpn
+MBW6U-00934,Vericom,MBW6U-00934,846788009343,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MBW6U-01444,Vericom,MBW6U-01444,846788014446,,request_quote,market_evidence_insufficient,manufacturer_mpn
+MBW6U-01445,Vericom,MBW6U-01445,846788014453,,request_quote,above_msrp_manual_review,manufacturer_mpn
+MKJ6U-01352,Vericom,MKJ6U-01352,846788013524,,request_quote,market_evidence_insufficient,supplier_sku
+WTCXC-03634,Vericom,WTCXC-03634,846788036349,,request_quote,market_evidence_insufficient,manufacturer_mpn
+WTCXS-03631,Vericom,WTCXS-03631,846788036318,,request_quote,market_evidence_insufficient,supplier_sku
+WTRJC-03632,Vericom,WTRJC-03632,846788036325,,request_quote,market_evidence_insufficient,supplier_sku
+XHD03-04252,Vericom,XHD03-04252,846788042524,,request_quote,market_evidence_insufficient,supplier_sku
+XHD01-04253,Vericom,XHD01-04253,846788042531,,request_quote,out_of_stock,manufacturer_mpn
+XHD01-04254,Vericom,XHD01-04254,846788042548,,request_quote,out_of_stock,manufacturer_mpn
+XHD01-04255,Vericom,XHD01-04255,846788042555,,request_quote,market_evidence_insufficient,supplier_sku
+XHD01-04260,Vericom,XHD01-04260,846788042609,,request_quote,above_msrp_manual_review,manufacturer_mpn
+XRG06-02404,Vericom,XRG06-02404,846788024049,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP1008TELTV,Tripp Lite by Eaton,TLP1008TELTV,037332119070,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP1208TELTV,Tripp Lite by Eaton,TLP1208TELTV,037332152510,,request_quote,market_evidence_insufficient,supplier_sku
+A102-02M,Tripp Lite by Eaton,A102-02M,037332121912,5.58,published_candidate,cost_times_two,supplier_sku
+A102-04M,Tripp Lite by Eaton,A102-04M,037332121929,,request_quote,market_evidence_insufficient,manufacturer_mpn
+AVR750UNC,Tripp Lite by Eaton,AVR750UNC,037332281135,,request_quote,market_evidence_insufficient,manufacturer_mpn
+B118-008E-UHD-2,Tripp Lite by Eaton,B118-008E-UHD-2,037332239907,,request_quote,market_evidence_insufficient,supplier_sku
+BC600RNC,Tripp Lite by Eaton,BC600RNC,037332283504,,request_quote,market_evidence_insufficient,manufacturer_mpn
+ISOBAR6 ULTRA,Tripp Lite by Eaton,ISOBAR6 ULTRA,037332010544,,request_quote,market_evidence_insufficient,manufacturer_mpn
+LC1200,Tripp Lite by Eaton,LC1200,037332040022,,request_quote,out_of_stock,manufacturer_mpn
+LC2400,Tripp Lite by Eaton,LC2400,037332040060,,request_quote,market_evidence_insufficient,manufacturer_mpn
+N001-025-BK,Tripp Lite by Eaton,N001-025-BK,037332042644,,request_quote,market_evidence_insufficient,manufacturer_mpn
+N001-050-BK,Tripp Lite by Eaton,N001-050-BK,037332042743,,request_quote,out_of_stock,manufacturer_mpn
+N032-001,Tripp Lite by Eaton,N032-001,037332013149,,request_quote,market_evidence_insufficient,manufacturer_mpn
+N201-007-BL,Tripp Lite by Eaton,N201-007-BL,037332099884,,request_quote,market_evidence_insufficient,manufacturer_mpn
+N201-007-WH,Tripp Lite by Eaton,N201-007-WH,037332125149,,request_quote,out_of_stock,manufacturer_mpn
+N201-014-BL,Tripp Lite by Eaton,N201-014-BL,037332099945,,request_quote,out_of_stock,manufacturer_mpn
+N201-025-BL,Tripp Lite by Eaton,N201-025-BL,037332099983,16.06,published_candidate,cost_times_two,manufacturer_mpn
+N201-050-BL,Tripp Lite by Eaton,N201-050-BL,037332173041,27.54,published_candidate,cost_times_two,supplier_sku
+N201-100-BL,Tripp Lite by Eaton,N201-100-BL,037332173102,,request_quote,out_of_stock,manufacturer_mpn
+N201-015-BL,Tripp Lite by Eaton,N201-015-BL,037332172976,,request_quote,market_evidence_insufficient,manufacturer_mpn
+P131-06N,Tripp Lite by Eaton,P131-06N,037332180261,,request_quote,market_evidence_insufficient,supplier_sku
+P502-006,Tripp Lite by Eaton,P502-006,037332012319,,request_quote,market_evidence_insufficient,manufacturer_mpn
+P569-006-MF,Tripp Lite by Eaton,P569-006-MF,037332191571,21.36,published_candidate,cost_times_two,manufacturer_mpn
+P570-006-MICRO,Tripp Lite by Eaton,P570-006-MICRO,037332165503,,request_quote,market_evidence_insufficient,manufacturer_mpn
+SMART1200XLHG,Tripp Lite by Eaton,SMART1200XLHG,037332116406,,request_quote,out_of_stock,manufacturer_mpn
+SMART1500LCD,Tripp Lite by Eaton,SMART1500LCD,037332126146,,request_quote,out_of_stock,manufacturer_mpn
+SPIKECUBE,Tripp Lite by Eaton,SPIKECUBE,037332010643,,request_quote,market_evidence_insufficient,supplier_sku
+SUPER7,Tripp Lite by Eaton,SUPER7,037332095282,,request_quote,out_of_stock,manufacturer_mpn
+SUPER725B,Tripp Lite by Eaton,SUPER725B,037332189844,,request_quote,out_of_stock,manufacturer_mpn
+SUPER7B,Tripp Lite by Eaton,SUPER7B,037332175168,,request_quote,market_evidence_insufficient,supplier_sku
+SWIVEL6USB,Tripp Lite by Eaton,SWIVEL6USB,037332210944,,request_quote,out_of_stock,manufacturer_mpn
+TLM609SA,Tripp Lite by Eaton,TLM609SA,037332140098,,request_quote,discontinued,manufacturer_mpn
+TLM615SA,Tripp Lite by Eaton,TLM615SA,037332140081,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP1006B,Tripp Lite by Eaton,TLP1006B,037332200013,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP1208SAT,Tripp Lite by Eaton,TLP1208SAT,037332175182,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP1208TEL,Tripp Lite by Eaton,TLP1208TEL,037332152503,,request_quote,market_evidence_insufficient,supplier_sku
+TLP128TTUSBB,Tripp Lite by Eaton,TLP128TTUSBB,037332209788,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP310USBC,Tripp Lite by Eaton,TLP310USBC,037332198464,,request_quote,above_msrp_manual_review,supplier_sku
+TLP4BK,Tripp Lite by Eaton,TLP4BK,037332138392,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP604,Tripp Lite by Eaton,TLP604,037332100498,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP606DMUSB,Tripp Lite by Eaton,TLP606DMUSB,037332180292,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP610U30CLAMPB,Tripp Lite by Eaton,TLP610U30CLAMPB,037332290564,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP648USBC,Tripp Lite by Eaton,TLP648USBC,037332231130,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP6B,Tripp Lite by Eaton,TLP6B,037332166784,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP74RB,Tripp Lite by Eaton,TLP74RB,037332155665,,request_quote,above_msrp_manual_review,manufacturer_mpn
+TLP76MSG,Tripp Lite by Eaton,TLP76MSG,037332166074,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP76MSGB,Tripp Lite by Eaton,TLP76MSGB,037332205810,,request_quote,market_evidence_insufficient,supplier_sku
+TLP808B,Tripp Lite by Eaton,TLP808B,037332189837,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP810NET,Tripp Lite by Eaton,TLP810NET,037332095329,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TLP864USBB,Tripp Lite by Eaton,TLP864USBB,037332223654,,request_quote,above_msrp_manual_review,supplier_sku
+TLP88TUSBB,Tripp Lite by Eaton,TLP88TUSBB,037332223579,,request_quote,out_of_stock,manufacturer_mpn
+U236-000-R,Tripp Lite by Eaton,U236-000-R,037332163127,31.04,published_candidate,cost_times_two,manufacturer_mpn
+U436-06N-GBW,Tripp Lite by Eaton,U436-06N-GBW,037332189240,,request_quote,market_evidence_insufficient,manufacturer_mpn
+DS6101,Vtech,DS6101,735078017475,,request_quote,market_evidence_insufficient,manufacturer_mpn
+DS6151,Vtech,DS6151,735078016584,,request_quote,market_evidence_insufficient,supplier_sku
+FL-1000,Winegard,FL-1000,615798402747,,request_quote,market_evidence_insufficient,manufacturer_mpn
+HD8200U,Winegard,HD8200U,615798398491,,request_quote,market_evidence_insufficient,manufacturer_mpn
+TB-0005,Winegard,TB-0005,615798101589,,request_quote,market_evidence_insufficient,manufacturer_mpn
+WM-2040,Winegard,WM-2040,615798399207,,request_quote,market_evidence_insufficient,manufacturer_mpn
+314475,Wilson Electronics,314475,811815022558,,request_quote,out_of_stock,manufacturer_mpn

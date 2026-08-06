@@ -16,6 +16,18 @@ import pricing from "./_shared/opening-pricing.json" with { type: "json" };
 
 const catalogBySku = new Map(pricing.map((row) => [row.public_sku, row]));
 
+export function buildQuoteItemSnapshot(row, quantity) {
+  const hasPublicPrice = ["fixed", "listed_price_shipping_quote"].includes(row?.price_mode) && Number(row?.public_price) > 0;
+  return {
+    product_id: null,
+    product_title: row.title,
+    product_sku: row.public_sku,
+    price_mode: hasPublicPrice ? row.price_mode : "request_quote",
+    public_unit_price: hasPublicPrice ? Number(row.public_price).toFixed(2) : null,
+    quantity
+  };
+}
+
 export default async function handler(req, context) {
   if (req.method !== "POST") return methodNotAllowed();
 
@@ -49,17 +61,7 @@ export default async function handler(req, context) {
       if (!row) {
         return publicError(400, "One or more items are no longer available. Please refresh and try again.");
       }
-      const publicPrice = row.price_mode === "fixed" && Number(row.public_price) > 0
-        ? Number(row.public_price).toFixed(2)
-        : null;
-      itemRows.push({
-        product_id: null,
-        product_title: row.title,
-        product_sku: row.public_sku,
-        price_mode: row.price_mode === "fixed" ? "fixed" : "request_quote",
-        public_unit_price: publicPrice,
-        quantity: item.quantity
-      });
+      itemRows.push(buildQuoteItemSnapshot(row, item.quantity));
     }
 
     const referenceCode = generateReferenceCode();

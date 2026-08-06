@@ -118,7 +118,7 @@ const QUOTE_FORM = {
   ship_postal: ""
 };
 const SHIPPING_DISCLOSURE =
-  "Shipping is calculated after order review based on destination, product size, weight, and carrier charges. We will confirm the final total before payment.";
+  "Shipping is calculated after order review based on destination, product size, weight, and carrier charges. Tax and shipping are confirmed before payment.";
 const LEAD_FORM_DEFAULTS = {
   name: "",
   company: "",
@@ -386,6 +386,7 @@ function StoreImage({ product, large = false }) {
 function priceLabel(product) {
   const fixedPrice = Number(product.public_price ?? product.price);
   if (product.price_mode === "fixed" && product.pricing_approved === true && fixedPrice > 0) return `Fixed price · $${fixedPrice.toFixed(2)}`;
+  if (product.price_mode === "listed_price_shipping_quote" && product.pricing_approved === true && fixedPrice > 0) return `Merchandise price · $${fixedPrice.toFixed(2)}`;
   return product.price_note || "Request quote";
 }
 
@@ -455,6 +456,7 @@ function productLeadItem(product = {}, qty = 1, notes = "") {
     category: product.category || "",
     condition: product.condition || "",
     price: priceLabel(product),
+    public_price: product.pricing_approved === true && Number(product.public_price) > 0 ? Number(product.public_price) : null,
     qty: Math.max(1, Number(qty) || 1),
     notes,
     page_url: product.canonical_path ? `${window.location.origin}${product.canonical_path}` : window.location.href
@@ -592,7 +594,7 @@ function PublicStorefront({ route, navigate }) {
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
     if (manufacturer !== "All") list = list.filter((product) => product.brand === manufacturer);
-    if (availability === "fixed") list = list.filter((product) => product.pricing_approved === true && product.price_mode === "fixed");
+    if (availability === "fixed") list = list.filter((product) => product.pricing_approved === true && ["fixed", "listed_price_shipping_quote"].includes(product.price_mode));
     if (availability === "request_quote") list = list.filter((product) => product.price_mode === "request_quote");
     return [...list].sort((a, b) => {
       if (sort === "name") return a.title.localeCompare(b.title);
@@ -666,7 +668,7 @@ function PublicStorefront({ route, navigate }) {
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
             <div className="ts-search-lead"><div><strong>Don&apos;t see the part number?</strong><span>Send us the exact MPN or GTIN and we will review it.</span></div><button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button></div>
             {!filtered.length ? <div className="ts-empty"><b>No products match these filters.</b><span>Reset the catalog or send us the part number you need.</span><button type="button" onClick={resetFilters}>Reset filters</button></div> : null}
-            <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={() => addToQuote(product)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
+            <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={(qty) => addToQuote(product, qty)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
           </div></section>
         </>
       )}
@@ -1209,6 +1211,7 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
   const [busy, setBusy] = useState(false);
   const closeRef = useRef(null);
   const firstInputRef = useRef(null);
+  const merchandiseSubtotal = cart.reduce((sum, item) => sum + (Number(item.public_price) > 0 ? Number(item.public_price) * (Number(item.qty) || 1) : 0), 0);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -1343,7 +1346,7 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
                 {cart.map((item) => (
                   <div className="ts-qitem" key={item.key}>
                     <span className="ts-qg" style={{ background: hexToRgba(catColor(item.category), 0.1) }}><CatGlyph category={item.category} size={24} /></span>
-                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span></div>
+                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span>{Number(item.public_price) > 0 ? <span>Merchandise price: ${Number(item.public_price).toFixed(2)} each</span> : null}</div>
                     <label className="ts-mini-field">
                       <span>Qty</span>
                       <input type="number" min="1" value={item.qty || 1} onChange={(event) => onUpdateItem(item.key, { qty: event.target.value })} />
@@ -1358,7 +1361,9 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
               </div>
             )}
             <div className="ts-dfoot">
-              <p className="ts-dnote">No payment is taken here. Send your list and we will reply with pricing, availability, and freight.</p>
+              {merchandiseSubtotal > 0 ? <p className="ts-quote-subtotal"><span>Merchandise subtotal</span><strong>${merchandiseSubtotal.toFixed(2)}</strong></p> : null}
+              <p className="ts-dnote">{SHIPPING_DISCLOSURE}</p>
+              <p className="ts-dnote">No payment is taken here. Send your list for availability and final order review.</p>
               <button className="ts-req" type="button" onClick={() => setStage("form")}>Continue ({cart.length || "manual"})</button>
             </div>
           </>
