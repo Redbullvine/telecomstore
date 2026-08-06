@@ -39,6 +39,13 @@ test("client code never references server secrets or the Stripe SDK", async () =
   }
 });
 
+test("admin action dispatch awaits every handler so raw errors never leak", async () => {
+  const source = await readSource("netlify/functions/admin-quote-actions.mjs");
+  const unawaited = source.match(/case "[a-z-]+":\s*\n\s*return (?!await |publicError)/g) || [];
+  assert.deepEqual(unawaited, [],
+    "an un-awaited returned promise rejects outside the try/catch and leaks the raw Stripe error to the client");
+});
+
 test("admin endpoints authenticate before doing anything", async () => {
   for (const fn of ["admin-quote-actions.mjs", "admin-payments-config.mjs"]) {
     const source = await readSource(`netlify/functions/${fn}`);
@@ -75,7 +82,10 @@ test("public quote submission snapshots product identity server-side", async () 
 test("quote checkout sessions are one-time, tied to the order, and expiry-gated", async () => {
   const source = await readSource("netlify/functions/admin-quote-actions.mjs");
   assert.match(source, /client_reference_id: quote\.id/, "session must carry the internal order id");
-  assert.match(source, /expires_at: Math\.floor/, "session must expire");
+  assert.match(source, /managed_payments: \{ enabled: false \}/,
+    "Stripe must not recompute tax on an admin-confirmed total");
+  assert.doesNotMatch(source, /expires_at: Math\.floor/,
+    "session params must be deterministic so idempotent retries succeed");
   assert.match(source, /quoteExpired\(quote\)/, "expired quotes must be refused");
   assert.match(source, /reused: true/, "repeated clicks must reuse the open session");
   const metadataBlocks = source.match(/metadata: \{[^}]*\}/g) || [];
