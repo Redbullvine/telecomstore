@@ -1,16 +1,17 @@
 # BAINTU OGT Status
 
-- Task: BAINTU OGT 5 — Compact Product-First Homepage
-- Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-baintu-products`
-- Branch: `ogt/product-first-homepage`
-- Starting commit: `941f1ac5968c06994cd8fb1025bdf36f4c7deae7`
+- Task: BAINTU OGT 7 — Full Petra Marketplace Expansion, private dry-run checkpoint
+- Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-full-petra-marketplace`
+- Branch: `ogt/full-petra-marketplace`
+- Starting commit: `d001bc5b55e09e105f30bdc4501c7978d74730db`
+- Latest origin/main observed: `10904f3` (manual-quote fix merged; branch rebase is the next checkpoint action)
 - Last updated: 2026-08-06
-- Files currently being edited: `src/main.jsx`, `src/styles.css`, `src/components/storefront/CatalogFilters.jsx`, `tests/product-first-homepage.test.mjs`, and this status file
-- Scope: compact public header/search/category/filter/catalog layout only; product, pricing, image, quote, Stripe, Supabase, and migration behavior is preserved
-- Tests completed: 219 tests (208 passed, 11 intentional local-database/private-evidence skips, 0 failed); production build; lint; type check; catalog and pricing validation; responsive browser verification at 320, 360, 390, 430, 768, 1024, 1366, 1440, and 1920 pixels; search, category, manufacturer, availability, sort, reset, Quote List, product detail, price, image, and overflow checks
-- Known blockers: none
-- Ready to merge: Yes — pending final diff review, commit, push, pull request, and production release checks
+- Files currently being edited: private dry-run script/library, dry-run tests, aggregate report, architecture checkpoint, and this status file
+- Scope: reconcile all 2,587 private supplier rows, calculate publication/pricing review classifications, and stop before any database or public-catalog mutation
+- Tests completed: 226 tests (215 passed, 11 intentional local/private-evidence skips, 0 failed); production build; storefront lint; type check; 206-product catalog validation; 206-row opening-pricing validation; private-workbook tracking and browser-bundle checks
+- Known blockers: 2,483 workbook GTINs are invalid or missing and cannot be used for automatic canonical matching; affected rows remain protected by supplier-SKU identity and ambiguity gates
+- Ready to merge: No — dry-run totals are approved, but implementation, rebase validation, final pre-release totals, and Danny's production-release approval remain required
 
 ## Coordination lock
 
-BAINTU is editing only the product storefront branch. No Stripe/payment function, migration, dependency, or production configuration file is in scope.
+BAINTU is editing only this isolated marketplace dry-run worktree. No storefront source, Stripe/payment function, migration, dependency manifest, or production configuration file is in scope.
