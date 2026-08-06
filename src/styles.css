@@ -2328,6 +2328,10 @@ button.metric-card:hover {
 .storefront .ts-cact .ts-det { display: flex; grid-column: auto; align-items: center; justify-content: space-between; min-height: 46px; padding: 0 15px; color: #fff; background: #0c579e; border: 1px solid #0c579e; border-radius: 7px; font-size: 14px; font-weight: 850; text-decoration: none; }
 .storefront .ts-cact .ts-det:hover { background: #073e73; }
 .storefront .ts-card-secondary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+.storefront .ts-card-quantity { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #596760; font-size: 12px; font-weight: 700; }
+.storefront .ts-card-quantity input { width: 76px; min-height: 38px; padding: 7px 9px; border: 1px solid #cbd8d3; border-radius: 7px; background: #fff; }
+.ts-quote-subtotal { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; font-size: 14px; }
+.ts-quote-subtotal strong { font-size: 18px; }
 .storefront .ts-card-secondary button { min-height: 41px; padding: 6px 8px; color: #263832; background: #fff; border: 1px solid #d5dfdb; border-radius: 7px; font-size: 12px; font-weight: 750; }
 .storefront .ts-card-secondary .ts-add.in { color: #fff; background: #187149; border-color: #187149; }
 .storefront .ts-card-secondary button:hover { border-color: #3576ad; color: #0b579c; }

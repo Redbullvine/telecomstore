@@ -218,8 +218,9 @@ export async function fetchPublicProducts() {
     return fallbackInventory();
   }
 
+  const prices = new Map(openingPricing.map((row) => [row.public_sku, row]));
   return (data || [])
-    .map(normalizeProduct)
+    .map((product) => normalizeProduct({ ...product, ...prices.get(product.sku) }))
     .sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
 }
 

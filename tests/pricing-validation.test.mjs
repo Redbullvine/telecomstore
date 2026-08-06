@@ -26,6 +26,11 @@ test("allows an approved fixed price while checkout remains disabled", () => {
   assert.equal(row.pricing_approved, true);
   assert.equal(row.checkout_active, false);
 });
+test("allows a listed merchandise price only with direct checkout disabled", () => {
+  const listed = { ...base, public_price: "12.34", price_mode: "listed_price_shipping_quote", pricing_approved: "true" };
+  assert.equal(validatePricingRows([listed], catalog)[0].price_mode, "listed_price_shipping_quote");
+  assert.throws(() => validatePricingRows([{ ...listed, checkout_active: "true" }], catalog), /cannot enable direct checkout/);
+});
 test("rejects missing full-catalog rows unless partial is explicit", () => {
   assert.throws(() => validatePricingRows([base], [...catalog, { sku: "PUBLIC-2", title: "Two" }]), /missing/);
   assert.equal(validatePricingRows([base], [...catalog, { sku: "PUBLIC-2", title: "Two" }], { partial: true }).length, 1);

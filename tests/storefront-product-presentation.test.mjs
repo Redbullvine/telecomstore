@@ -11,6 +11,8 @@ import {
 
 const storefrontSource = await readFile(new URL("../src/main.jsx", import.meta.url), "utf8");
 const inventorySource = await readFile(new URL("../src/lib/inventory.js", import.meta.url), "utf8");
+const productCardSource = await readFile(new URL("../src/components/storefront/ProductCard.jsx", import.meta.url), "utf8");
+const productDetailSource = await readFile(new URL("../src/components/storefront/ProductDetailPage.jsx", import.meta.url), "utf8");
 const indexSource = await readFile(new URL("../index.html", import.meta.url), "utf8");
 
 test("quote-only products receive neutral quote wording", () => {
@@ -48,9 +50,10 @@ test("approved product images receive manufacturer and MPN alt text", () => {
   );
 });
 
-test("catalog states the payment confirmation boundary and fixed prices remain labels only", () => {
+test("catalog states the payment confirmation boundary and merchandise prices remain quote-only", () => {
   assert.match(storefrontSource, /Availability and shipping are confirmed before payment\./);
-  assert.match(storefrontSource, /Fixed price · \$/);
+  assert.match(storefrontSource, /Merchandise price · \$/);
+  assert.match(`${productCardSource}\n${productDetailSource}`, /Request Shipping Quote/);
   assert.doesNotMatch(storefrontSource, /available SKUs|Same-day quotes|Nationwide shipping|Pallet &amp; freight ready/);
 });
 

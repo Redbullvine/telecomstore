@@ -12,7 +12,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
   const [quantity, setQuantity] = useState(1);
   const category = categoryConfig(product.category);
   const manufacturer = manufacturerConfig(product.brand);
-  const fixedPrice = product.price_mode === "fixed" && product.pricing_approved === true && Number(product.public_price) > 0;
+  const listedPrice = ["fixed", "listed_price_shipping_quote"].includes(product.price_mode) && product.pricing_approved === true && Number(product.public_price) > 0;
   const specifications = Object.entries(product.specifications || {});
   const features = Array.isArray(product.features) ? product.features.filter(Boolean) : [];
   return (
@@ -36,8 +36,8 @@ export default function ProductDetailPage({ product, related, navigate, added, o
               <div><dt>Availability</dt><dd>{product.availability_text}</dd></div>
             </dl>
             <div className="ts-detail-price">
-              <strong>{fixedPrice ? `$${Number(product.public_price).toFixed(2)}` : "Request quote"}</strong>
-              <span>{fixedPrice ? "Approved public price. Checkout is not yet available; shipping, destination, and tax must be confirmed." : "Pricing, availability, and shipping are confirmed before payment."}</span>
+              <strong>{listedPrice ? `Merchandise price · $${Number(product.public_price).toFixed(2)}` : "Request quote"}</strong>
+              <span>{listedPrice ? "Request Shipping Quote. Shipping is calculated after order review based on destination, product size, weight, and carrier charges. Tax and shipping are confirmed before payment." : "Pricing, availability, and shipping are confirmed before payment."}</span>
             </div>
             <div className="ts-detail-actions">
               <label><span>Quantity</span><input type="number" min="1" max="99999" value={quantity} onChange={(event) => setQuantity(Math.max(1, Number.parseInt(event.target.value, 10) || 1))} /></label>
@@ -53,7 +53,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
           <div><h2>Product identifiers</h2><dl>{specifications.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></div>
         </section>
 
-        {related.length ? <section className="ts-related"><p className="ts-eyebrow">Keep exploring</p><h2>Related catalog products</h2><div>{related.map((item) => <RouteLink key={item.sku} href={productPath(item)} navigate={navigate}><span>{item.brand}</span><strong>{item.title}</strong><small>MPN {item.manufacturer_mpn}</small></RouteLink>)}</div></section> : null}
+        {related.length ? <section className="ts-related"><p className="ts-eyebrow">Keep exploring</p><h2>Related catalog products</h2><div>{related.map((item) => <RouteLink key={item.sku} href={productPath(item)} navigate={navigate}><span>{item.brand}</span><strong>{item.title}</strong><small>MPN {item.manufacturer_mpn}</small>{item.pricing_approved && Number(item.public_price) > 0 ? <small>Merchandise price · ${Number(item.public_price).toFixed(2)}</small> : <small>Request quote</small>}</RouteLink>)}</div></section> : null}
       </div>
     </div>
   );

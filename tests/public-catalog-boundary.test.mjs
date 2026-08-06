@@ -19,6 +19,7 @@ test("the public storefront uses only the public catalog RPC", () => {
   assert.match(source, /supabase\.rpc\("get_public_product_catalog"\)/);
   assert.doesNotMatch(source, /\.from\("products"\)/);
   assert.match(source, /return fallbackInventory\(\)/);
+  assert.match(source, /prices\.get\(product\.sku\)/, "RPC rows must receive the same public-only pricing overlay as fallback rows");
 });
 
 test("admin inventory keeps its authorized products table query", () => {

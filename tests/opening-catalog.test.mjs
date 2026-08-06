@@ -25,7 +25,6 @@ test("public pricing mirrors all SKUs without enabling checkout", () => {
   assert.equal(pricing.length, 206);
   assert.deepEqual(new Set(pricing.map((p) => p.public_sku)), new Set(catalog.map((p) => p.sku)));
   const approved = pricing.filter((p) => p.pricing_approved);
-  assert.equal(approved.length, 8);
-  assert.ok(approved.every((p) => p.public_price > 0 && p.checkout_active === false && p.price_mode === "fixed"));
-  assert.ok(pricing.filter((p) => !p.pricing_approved).every((p) => p.public_price === null && p.checkout_active === false && p.price_mode === "request_quote"));
+  assert.equal(approved.length, 206);
+  assert.ok(approved.every((p) => p.public_price > 0 && p.checkout_active === false && p.price_mode === "listed_price_shipping_quote"));
 });

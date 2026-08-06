@@ -1,0 +1,23 @@
+{
+  "approved_catalog_products": 206,
+  "matched_products": 206,
+  "public_prices": 206,
+  "quote_only": 0,
+  "exact_cost_times_two": 202,
+  "raised_to_map": 4,
+  "missing_cost": 0,
+  "invalid_cost": 0,
+  "pricing_restrictions": 0,
+  "ambiguous_matches": 0,
+  "unmatched_products": 0,
+  "matched_by_supplier_sku": 43,
+  "matched_by_manufacturer_mpn": 163,
+  "matched_by_gtin": 0,
+  "positive_map_reported": 40,
+  "no_positive_map_reported": 166,
+  "lowest_published_price": "4.58",
+  "highest_published_price": "1748.68",
+  "median_published_price": "54.28",
+  "source_catalog_generated_at": "2026-07-29T16:25:02-05:00",
+  "authoritative_cost_column": "PRICE"
+}
