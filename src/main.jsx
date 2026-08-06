@@ -603,7 +603,6 @@ function PublicStorefront({ route, navigate }) {
       return `${a.brand}${a.manufacturer_mpn}`.localeCompare(`${b.brand}${b.manufacturer_mpn}`);
     });
   }, [products, query, category, manufacturer, availability, sort]);
-  const counts = useMemo(() => Object.fromEntries(CATALOG_CATEGORIES.map((item) => [item.name, item.count])), []);
   const inCart = useCallback((product) => cart.find((item) => item.key === productItemKey(product)), [cart]);
 
   function addToQuote(product, qty = 1, source = "product_card") {
@@ -630,6 +629,19 @@ function PublicStorefront({ route, navigate }) {
     setQuery(""); setCategory("All"); setManufacturer("All"); setAvailability("All"); setSort("brand");
     if (routeInfo.kind !== "home") navigate("/");
   }
+  function submitSearch(event) {
+    event.preventDefault();
+    const searchTerm = sanitizeSearchTerm(query);
+    if (searchTerm) {
+      trackEvent("site_search", {
+        search_term: searchTerm,
+        category: category === "All" ? "all_products" : category,
+        result_count: filtered.length
+      });
+    }
+    if (routeInfo.kind !== "home") navigate("/");
+    window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" }));
+  }
   function navigateProduct(product) {
     trackEvent("product_click", { ...productAnalyticsParams(product), source: "catalog_card" });
     navigate(productPath(product));
@@ -649,10 +661,10 @@ function PublicStorefront({ route, navigate }) {
   const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
   return (
     <main className="storefront">
-      <StorefrontHeader products={products} query={query} setQuery={setQuery} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
+      <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
       <nav className="ts-catnav" aria-label="Product categories"><div className="ts-wrap">
-        <a className={category === "All" ? "on" : ""} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All products <span>{products.length}</span></a>
-        {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
+        <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All Products <span>{products.length}</span></a>
+        {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} aria-current={category === item.name ? "page" : undefined} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
       </div></nav>
 
       {routeInfo.kind === "product" && routeInfo.product ? (
@@ -661,14 +673,13 @@ function PublicStorefront({ route, navigate }) {
         <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
       ) : (
         <>
-          {routeInfo.kind === "home" ? <StorefrontHero products={products} onQuote={() => openQuoteDrawer("form", "hero_request_quote")} /> : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
-          {routeInfo.kind === "home" ? <CatalogDiscovery counts={counts} navigateCategory={navigateCategory} navigateManufacturer={navigateManufacturer} /> : null}
+          {routeInfo.kind === "home" ? null : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
           <section className="ts-catalog" id="catalog"><div className="ts-wrap">
-            <div className="ts-cathead"><div><p className="ts-eyebrow">Product catalog</p><h2>{landing?.name || "Browse all products"}</h2><p><strong>{filtered.length}</strong> products match your current view. We confirm availability and shipping when preparing your quote.</p></div></div>
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
-            <div className="ts-search-lead"><div><strong>Don&apos;t see the part number?</strong><span>Send us the exact MPN or GTIN and we will review it.</span></div><button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button></div>
+            <div className="ts-cathead"><div><h1>{landing?.name || "Browse Products"}</h1><p><strong>{filtered.length}</strong> products</p></div></div>
             {!filtered.length ? <div className="ts-empty"><b>No products match these filters.</b><span>Reset the catalog or send us the part number you need.</span><button type="button" onClick={resetFilters}>Reset filters</button></div> : null}
             <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={(qty) => addToQuote(product, qty)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
+            <div className="ts-search-lead"><div><strong>Don&apos;t see the part number?</strong><span>Send us the exact MPN or GTIN and we will review it.</span></div><button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button></div>
           </div></section>
         </>
       )}
@@ -681,14 +692,17 @@ function PublicStorefront({ route, navigate }) {
   );
 }
 
-function StorefrontHeader({ query, setQuery, cartCount, navigate, onQuote }) {
-  return <header className="ts-head"><div className="ts-wrap">
-    <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
-    <nav className="ts-mainnav" aria-label="Primary navigation"><a href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><Home size={16} /> Home</a><a href="/#catalog" onClick={(event) => { event.preventDefault(); navigate("/"); window.requestAnimationFrame(() => document.getElementById("catalog")?.scrollIntoView()); }}>Products</a></nav>
-    <label className="ts-search"><span className="sr-only">Search catalog</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, or keyword" /><button type="button" onClick={() => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })}><Search size={17} /> Search</button></label>
-    <button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> Quote list <span className="ts-cnt">{cartCount}</span></button>
-    <button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button>
-  </div></header>;
+function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navigate, onQuote }) {
+  return <header className="ts-head">
+    <div className="ts-head-main"><div className="ts-wrap">
+      <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
+      <div className="ts-head-actions"><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
+    </div></div>
+    <div className="ts-search-row"><div className="ts-wrap"><form className="ts-search" role="search" onSubmit={onSubmit}>
+      <label className="sr-only" htmlFor="storefront-search">Search catalog</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, product, or keyword" autoComplete="off" />
+      {query ? <button className="ts-search-clear" type="button" onClick={onClear} aria-label="Clear search and filters"><X size={18} /></button> : null}<button className="ts-search-submit" type="submit"><Search size={17} /> <span>Search</span></button>
+    </form></div></div>
+  </header>;
 }
 
 function StorefrontHero({ products, onQuote }) {
