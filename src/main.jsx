@@ -92,6 +92,8 @@ import CatalogFilters from "./components/storefront/CatalogFilters.jsx";
 import ProductCard from "./components/storefront/ProductCard.jsx";
 import ProductDetailPage from "./components/storefront/ProductDetailPage.jsx";
 import { CategoryIcon } from "./components/storefront/ProductPlaceholder.jsx";
+import MarketplaceStorefront from "./components/marketplace/MarketplaceStorefront.jsx";
+import { isMarketplacePath } from "./lib/marketplace-catalog.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -556,6 +558,7 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
 }
 
 function PublicStorefront({ route, navigate }) {
+  const marketplacePath = isMarketplacePath(route.path);
   const products = useMemo(() => fallbackInventory(), []);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
@@ -593,9 +596,10 @@ function PublicStorefront({ route, navigate }) {
     }
   }, [routeInfo]);
   useEffect(() => {
+    if (marketplacePath) return;
     applyStorefrontMetadata(storefrontMetadata(routeInfo));
     if (routeInfo.kind === "product" && routeInfo.product) trackEvent("product_view", productAnalyticsParams(routeInfo.product));
-  }, [routeInfo]);
+  }, [marketplacePath, routeInfo]);
 
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
@@ -663,6 +667,25 @@ function PublicStorefront({ route, navigate }) {
     navigate(manufacturerPath(config));
   }
 
+  if (marketplacePath) {
+    return (
+      <main className="storefront marketplace-storefront">
+        <MarketplaceStorefront
+          route={route}
+          navigate={navigate}
+          quoteCount={cart.length}
+          isQuoted={(product) => Boolean(inCart(product))}
+          onAddQuote={(product, qty) => addToQuote(product, qty, "marketplace")}
+          onOpenQuote={() => openQuoteDrawer("list", "marketplace_header")}
+          onAsk={(product) => openLeadModal("item-inquiry", product, "marketplace")}
+        />
+        <QuoteTray open={drawerOpen} initialStage={drawerStage} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={(key) => setCart((current) => current.filter((item) => item.key !== key))} onUpdateItem={(key, patch) => setCart((current) => current.map((item) => item.key === key ? { ...item, ...patch, qty: "qty" in patch ? Math.max(1, Number(patch.qty) || 1) : item.qty } : item))} quoteForm={quoteForm} setQuoteForm={setQuoteForm} attribution={attribution} clearCart={() => setCart([])} onToast={setToast} />
+        {leadModal ? <LeadFormModal lead={leadModal} attribution={attribution} onClose={() => setLeadModal(null)} onSuccess={setToast} /> : null}
+        {toast ? <div className="ts-toast" role="status">{toast}</div> : null}
+      </main>
+    );
+  }
+
   const landing = routeInfo.kind === "category" ? routeInfo.category : routeInfo.kind === "manufacturer" ? routeInfo.manufacturer : null;
   const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
   return (
@@ -702,7 +725,7 @@ function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navig
   return <header className="ts-head">
     <div className="ts-head-main"><div className="ts-wrap">
       <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
-      <div className="ts-head-actions"><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
+      <div className="ts-head-actions"><button className="ts-adminbtn" type="button" onClick={() => navigate("/shop")}><ShoppingBag size={15} /> Marketplace</button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
     </div></div>
     <div className="ts-search-row"><div className="ts-wrap"><form className="ts-search" role="search" onSubmit={onSubmit}>
       <label className="sr-only" htmlFor="storefront-search">Search catalog</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, product, or keyword" autoComplete="off" />
