@@ -1264,63 +1264,64 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
     setStatus(null);
     try {
       const formData = new FormData(event.currentTarget);
-      // Primary path: the server-side quote pipeline (feeds the admin
-      // Payment Center). Falls back to the Netlify Forms lead capture if the
-      // API is unavailable so no request is ever lost. Cart-less "tell us
-      // what you need" requests always use the lead path.
-      let referenceCode = null;
+      // Every quote request — with a cart or without one — goes through the
+      // server-side pipeline that feeds the admin Payment Center. There is no
+      // Netlify Forms fallback: Netlify Forms is disabled for this project, so
+      // falling back only produced a failed submission and a lost customer.
       const skuItems = cart
         .filter((item) => item.sku)
         .map((item) => ({ public_sku: item.sku, quantity: Number(item.qty) || 1 }));
-      if (skuItems.length && skuItems.length === cart.length) {
-        try {
-          const itemNotes = cart
-            .filter((item) => (item.notes || "").trim())
-            .map((item) => `${item.sku}: ${item.notes.trim()}`)
-            .join("\n");
-          const extras = [
-            quoteForm.project_location ? `Project location: ${quoteForm.project_location}` : "",
-            quoteForm.need_by ? `Need by: ${quoteForm.need_by}` : "",
-            `Preferred contact: ${quoteForm.preferred_contact}`,
-            itemNotes
-          ].filter(Boolean).join("\n");
-          const response = await fetch("/api/quote-requests", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              customer_name: quoteForm.name,
-              customer_email: quoteForm.email,
-              customer_phone: quoteForm.phone,
-              customer_company: quoteForm.company || undefined,
-              shipping_address: {
-                line1: quoteForm.ship_line1,
-                line2: quoteForm.ship_line2 || undefined,
-                city: quoteForm.ship_city,
-                state: quoteForm.ship_state,
-                postal_code: quoteForm.ship_postal,
-                country: "US"
-              },
-              project_notes: [quoteForm.message, extras].filter(Boolean).join("\n\n"),
-              items: skuItems
-            })
-          });
-          const result = await response.json().catch(() => null);
-          if (response.ok && result?.ok) {
-            referenceCode = result.reference_code || null;
-          } else if (response.status === 400 || response.status === 429) {
-            // Validation/limit errors are actionable — surface them instead
-            // of silently falling back.
-            throw Object.assign(new Error(result?.error || "Please check the form and try again."), { actionable: true });
-          }
-          // Other failures (503 while server env is pending, network) fall
-          // through to the Netlify Forms lead path below.
-        } catch (apiError) {
-          if (apiError.actionable) throw apiError;
-        }
+      const unmatched = cart.filter((item) => !item.sku);
+      const itemNotes = cart
+        .filter((item) => (item.notes || "").trim())
+        .map((item) => `${item.sku || item.name}: ${item.notes.trim()}`)
+        .join("\n");
+      const extras = [
+        quoteForm.project_location ? `Project location: ${quoteForm.project_location}` : "",
+        quoteForm.need_by ? `Need by: ${quoteForm.need_by}` : "",
+        `Preferred contact: ${quoteForm.preferred_contact}`,
+        // A cart entry with no SKU cannot be resolved server-side; name it in
+        // the notes so review still sees it rather than dropping it.
+        unmatched.length ? `Also requested: ${unmatched.map((item) => item.name).join(", ")}` : "",
+        itemNotes
+      ].filter(Boolean).join("\n");
+      const payload = {
+        customer_name: quoteForm.name,
+        customer_email: quoteForm.email,
+        customer_phone: quoteForm.phone,
+        customer_company: quoteForm.company || undefined,
+        shipping_address: {
+          line1: quoteForm.ship_line1,
+          line2: quoteForm.ship_line2 || undefined,
+          city: quoteForm.ship_city,
+          state: quoteForm.ship_state,
+          postal_code: quoteForm.ship_postal,
+          country: "US"
+        },
+        project_notes: [quoteForm.message, extras].filter(Boolean).join("\n\n"),
+        // Server-side honeypot, mirroring the form's hidden bot-field.
+        website: String(formData.get("bot-field") || "")
+      };
+      if (skuItems.length) {
+        payload.items = skuItems;
+      } else {
+        // Cart-less request: the customer describes what they need and we
+        // attach no catalog product.
+        payload.manual_request = {
+          description: quoteForm.message,
+          quantity: Number(quoteForm.quantity) || 1
+        };
       }
-      if (!referenceCode) {
-        await submitNetlifyForm(formData);
+      const response = await fetch("/api/quote-requests", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || "We could not send your request right now. Please try again.");
       }
+      const referenceCode = result.reference_code || null;
       trackLeadEvent("quote_form_submit", { source: "quote_tray", quote_items: cart.length });
       trackEvent("quote_request", {
         source: "quote_tray",
@@ -1390,7 +1391,10 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
             </div>
           </>
         ) : (
-          <form className="ts-dform" name="quote-request" method="POST" action={NETLIFY_SUCCESS_PATH} data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}>
+          // Posts to /api/quote-requests via handleSubmit — deliberately not a
+          // Netlify Forms form. The hidden fields still supply the honeypot and
+          // attribution, which the API path forwards and validates.
+          <form className="ts-dform" name="quote-request" onSubmit={handleSubmit}>
             <NetlifyHiddenFields formName="quote-request" attribution={attribution} selectedItems={cart} leadSource="quote_tray" />
             <p className="ts-formcount">{cart.length ? `${cart.length} part${cart.length === 1 ? "" : "s"} on this request.` : "Send part numbers, quantities, or a short material list."}</p>
             <LeadContactFields form={quoteForm} onChange={updateField} firstInputRef={firstInputRef} requireComplete />

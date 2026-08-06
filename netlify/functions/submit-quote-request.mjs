@@ -7,14 +7,35 @@
 // approved pricing bundle the checkout function uses. Unknown SKUs are
 // rejected. Rate limiting applies per email and IP. The stored snapshot never
 // contains supplier identity or supplier cost (the bundle has none).
+//
+// Cart-less requests ("tell us what you need") send `manual_request` instead of
+// `items` and land here on the same server path, with the same validation, rate
+// limiting, and honeypot. They become one quote-priced manual line item and show
+// up in the Payment Center like any other request. There is no Netlify Forms
+// fallback: this endpoint is the only path a quote request takes.
 
 import { getServiceClient } from "../lib/supabase-admin.mjs";
-import { validateQuoteSubmission } from "../lib/validation.mjs";
+import { validateQuoteSubmission, manualRequestTitle } from "../lib/validation.mjs";
 import { generateReferenceCode, hashIp, isRateLimited } from "../lib/quotes.mjs";
 import { json, publicError, methodNotAllowed, readJsonBody, logServerError, GENERIC_ERROR } from "../lib/http.mjs";
 import pricing from "./_shared/opening-pricing.json" with { type: "json" };
 
 const catalogBySku = new Map(pricing.map((row) => [row.public_sku, row]));
+
+// A cart-less request becomes exactly one line item with no catalog identity:
+// product_id, SKU, MPN, and GTIN all stay null so it can never be mistaken for
+// (or reconciled against) a real catalog product. It is always quote-priced —
+// the admin sets the unit price during review, same as any quote-only part.
+export function buildManualItemSnapshot(manual) {
+  return {
+    product_id: null,
+    product_title: manualRequestTitle(manual.description),
+    product_sku: null,
+    price_mode: "request_quote",
+    public_unit_price: null,
+    quantity: manual.quantity
+  };
+}
 
 export function buildQuoteItemSnapshot(row, quantity) {
   const hasPublicPrice = ["fixed", "listed_price_shipping_quote"].includes(row?.price_mode) && Number(row?.public_price) > 0;
@@ -55,13 +76,18 @@ export default async function handler(req, context) {
     }
 
     // Server-side catalog lookup against the approved public pricing bundle.
+    // A manual request has no SKU to look up and yields a single manual item.
     const itemRows = [];
-    for (const item of submission.items) {
-      const row = catalogBySku.get(item.public_sku);
-      if (!row) {
-        return publicError(400, "One or more items are no longer available. Please refresh and try again.");
+    if (submission.manual) {
+      itemRows.push(buildManualItemSnapshot(submission.manual));
+    } else {
+      for (const item of submission.items) {
+        const row = catalogBySku.get(item.public_sku);
+        if (!row) {
+          return publicError(400, "One or more items are no longer available. Please refresh and try again.");
+        }
+        itemRows.push(buildQuoteItemSnapshot(row, item.quantity));
       }
-      itemRows.push(buildQuoteItemSnapshot(row, item.quantity));
     }
 
     const referenceCode = generateReferenceCode();
