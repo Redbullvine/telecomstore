@@ -119,6 +119,12 @@ const QUOTE_FORM = {
 };
 const SHIPPING_DISCLOSURE =
   "Shipping is calculated after order review based on destination, product size, weight, and carrier charges. Tax and shipping are confirmed before payment.";
+// Customer-facing statement of the quote-to-payment boundary. Card payment is
+// offered only after merchandise, freight, and tax are confirmed by review —
+// never as an up-front checkout, because freight is not known until then.
+const SECURE_PAYMENT_DISCLOSURE =
+  "Secure card payment is available after merchandise, shipping, and tax are confirmed.";
+const STRIPE_TRUST_LABEL = "Secure checkout powered by Stripe";
 const LEAD_FORM_DEFAULTS = {
   name: "",
   company: "",
@@ -1378,6 +1384,8 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
               {merchandiseSubtotal > 0 ? <p className="ts-quote-subtotal"><span>Merchandise subtotal</span><strong>${merchandiseSubtotal.toFixed(2)}</strong></p> : null}
               <p className="ts-dnote">{SHIPPING_DISCLOSURE}</p>
               <p className="ts-dnote">No payment is taken here. Send your list for availability and final order review.</p>
+              <p className="ts-dnote">{SECURE_PAYMENT_DISCLOSURE}</p>
+              <p className="ts-secure-note"><Lock size={12} aria-hidden="true" />{STRIPE_TRUST_LABEL}</p>
               <button className="ts-req" type="button" onClick={() => setStage("form")}>Continue ({cart.length || "manual"})</button>
             </div>
           </>
@@ -1398,6 +1406,8 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
             <label><span>Need-by date</span><input name="need_by" type="date" value={quoteForm.need_by} onChange={updateField} /></label>
             <label><span>Message / notes</span><textarea name="message" rows="4" value={quoteForm.message} onChange={updateField} placeholder="Part numbers, quantities, substitutions, freight details, or timing" required /></label>
             <p className="ts-dnote">{SHIPPING_DISCLOSURE}</p>
+            <p className="ts-dnote">{SECURE_PAYMENT_DISCLOSURE}</p>
+            <p className="ts-secure-note"><Lock size={12} aria-hidden="true" />{STRIPE_TRUST_LABEL}</p>
             {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
             <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Send size={16} />} Send Quote Request</button>
             <button className="ts-back" type="button" onClick={() => setStage("list")}>Back to list</button>

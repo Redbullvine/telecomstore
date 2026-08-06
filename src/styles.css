@@ -1853,6 +1853,7 @@ body:has(.ts-backdrop),body:has(.ts-drawer.on){overflow:hidden}
 .ts-dempty b{color:var(--ts-ink);font-family:'Archivo';font-size:17px}
 .ts-dempty .ts-req{margin-top:18px}
 .ts-dfoot{border-top:1px solid var(--ts-line);padding:18px 20px}
+.ts-secure-note{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ts-green);margin:0 0 12px;line-height:1.45}
 .ts-dnote{font-size:12px;color:var(--ts-muted);margin:0 0 12px;line-height:1.45}
 .ts-req{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--ts-accent);color:#fff;font-family:'Archivo';font-weight:700;font-size:15px;padding:14px;border-radius:9px;border:none;cursor:pointer}
 .ts-req:hover{background:var(--ts-accent-d)}
