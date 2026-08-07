@@ -18,11 +18,21 @@ test("homepage places compact controls and products before support content", () 
 });
 
 test("header search supports live input, submit analytics, and clear", () => {
-  assert.match(mainSource, /placeholder="Search MPN, GTIN, brand, product, or keyword"/);
+  assert.match(mainSource, /placeholder="Search Telecom Store"/);
   assert.match(mainSource, /onChange=\{\(event\) => setQuery\(event\.target\.value\)\}/);
   assert.match(mainSource, /<form className="ts-search" role="search" onSubmit=\{onSubmit\}>/);
   assert.match(mainSource, /trackEvent\("site_search"/);
   assert.match(mainSource, /aria-label="Clear search and filters"/);
+});
+
+test("retail homepage uses actual departments, workwear, and catalog products", () => {
+  assert.match(mainSource, /function RetailHomepage/);
+  assert.match(mainSource, /Shop by department/);
+  assert.match(mainSource, /<WorkwearHomepageShelf navigate=\{navigate\}/);
+  assert.match(mainSource, /Featured telecom equipment/);
+  assert.match(mainSource, /CATALOG_CATEGORIES\.map/);
+  assert.match(mainSource, /<ProductCard compact/);
+  assert.doesNotMatch(mainSource, /Top Seller|Best Seller|star rating/i);
 });
 
 test("category and filter controls stay synchronized and keyboard accessible", () => {

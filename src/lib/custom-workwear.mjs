@@ -41,7 +41,7 @@ export function searchWorkwearProducts(query = "", subcategory = "All") {
   return WORKWEAR_PRODUCTS.filter((product) => {
     if (subcategory !== "All" && product.subcategory !== subcategory) return false;
     if (!needle) return true;
-    return [product.name, product.collection, product.subcategory, product.description, ...product.colors, ...product.styles]
+    return [product.name, product.collection, product.subcategory, product.description, ...(product.search_keywords || []), ...product.colors, ...product.styles]
       .join(" ").toLowerCase().includes(needle);
   });
 }

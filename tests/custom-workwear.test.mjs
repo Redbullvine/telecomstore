@@ -14,15 +14,22 @@ import {
   workwearProductPath
 } from "../src/lib/custom-workwear.mjs";
 
-test("custom workwear catalog contains ten approved product concepts and truthful pricing states", () => {
-  assert.equal(WORKWEAR_PRODUCTS.length, 10);
+test("custom workwear catalog contains thirteen public product concepts and truthful pricing states", () => {
+  assert.equal(WORKWEAR_PRODUCTS.length, 13);
   assert.deepEqual(WORKWEAR_PRODUCTS.map((item) => [item.name, item.base_price]), [
-    ["Custom Logo T-Shirt", 19.99], ["Support Your Local Pole Dancer T-Shirt", 24.99], ["Custom Company Ball Cap", null],
+    ["Custom Logo T-Shirt", 19.99], ["Custom Company Ball Cap", 19.99],
+    ["Professional Pole Dancer — Utility Division T-Shirt", null],
+    ["Certified Pole Dancer — Utility Division T-Shirt", null],
+    ["Pole Dancing Pays the Bills — Utility Division T-Shirt", null],
+    ["I Pole Dance for a Living — Utility Division T-Shirt", null],
     ["Custom Hard Hat", 29.99], ["Custom Work Jacket", 64.99], ["Custom Work Vest", 34.99],
     ["Custom Hi-Vis Reflective Construction Shirt", 34.99], ["Custom Hi-Vis Hard Hat", 29.99], ["Custom Hi-Vis Work Jacket", 79.99], ["Custom Hi-Vis Safety Vest", 24.99]
   ]);
   for (const product of WORKWEAR_PRODUCTS.filter((item) => item.base_price)) assert.match(startingPriceLabel(product), /^Starting at \$\d+\.\d{2}$/);
-  assert.equal(startingPriceLabel(WORKWEAR_PRODUCTS.find((item) => item.sku === "CW-COMPANY-CAP")), "Request Quote");
+  for (const product of WORKWEAR_PRODUCTS.filter((item) => !item.base_price)) assert.equal(startingPriceLabel(product), "Request Quote");
+  const cap = WORKWEAR_PRODUCTS.find((item) => item.sku === "CW-COMPANY-CAP");
+  assert.equal(startingPriceLabel(cap), "Starting at $19.99");
+  assert.equal(cap.starting_configuration, "Basic adjustable ball cap with one standard customer logo in the front-center placement.");
 });
 
 test("every workwear product has a generated local image and dedicated route", () => {
@@ -37,6 +44,26 @@ test("search finds workwear by product, department, color, and style", () => {
   assert.equal(searchWorkwearProducts("safety orange").length, 3);
   assert.equal(searchWorkwearProducts("long sleeve").length, 1);
   assert.equal(searchWorkwearProducts("jacket", "Jackets").length, 2);
+  for (const phrase of ["ball cap", "cap", "custom cap", "company cap", "logo cap", "embroidered cap"]) {
+    assert.deepEqual(searchWorkwearProducts(phrase).map((item) => item.sku), ["CW-COMPANY-CAP"], phrase);
+  }
+  assert.deepEqual(searchWorkwearProducts("professional pole dancer").map((item) => item.sku), ["TS-PRO-POLE-DANCER"]);
+  assert.equal(searchWorkwearProducts("utility division").filter((item) => item.owned_design).length, 4);
+});
+
+test("unverified pole-dancer artwork stays private and under a rights hold", () => {
+  const publicCatalog = fs.readFileSync("src/data/custom-workwear.json", "utf8");
+  const serverCatalog = fs.readFileSync("netlify/functions/_shared/workwear-catalog.json", "utf8");
+  const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
+  const review = JSON.parse(fs.readFileSync("operations/workwear-artwork-rights-review.json", "utf8"));
+  for (const publicSurface of [publicCatalog, serverCatalog, sitemap]) {
+    assert.doesNotMatch(publicSurface, /support-your-local-pole-dancer/i);
+    assert.doesNotMatch(publicSurface, /TS-POLE-DANCER-TEE/);
+  }
+  assert.equal(fs.existsSync("public/images/custom-workwear/support-your-local-pole-dancer-t-shirt.png"), false);
+  assert.equal(review.status, "ARTWORK RIGHTS REVIEW REQUIRED");
+  assert.equal(review.public_catalog_eligible, false);
+  assert.equal(review.public_image_eligible, false);
 });
 
 test("unapproved configuration fees force quote review instead of a guessed checkout price", () => {

@@ -20,6 +20,7 @@ import {
   Lock,
   LogOut,
   Mail,
+  Menu,
   MapPin,
   PackagePlus,
   PackageSearch,
@@ -34,6 +35,7 @@ import {
   Trash2,
   Upload,
   UserPlus,
+  UserRound,
   Warehouse,
   X
 } from "lucide-react";
@@ -95,7 +97,7 @@ import { CategoryIcon } from "./components/storefront/ProductPlaceholder.jsx";
 import MarketplaceStorefront from "./components/marketplace/MarketplaceStorefront.jsx";
 import { isMarketplacePath } from "./lib/marketplace-catalog.mjs";
 import CustomWorkwearStorefront, { WorkwearHomepageShelf } from "./components/workwear/CustomWorkwearStorefront.jsx";
-import { isWorkwearPath, searchWorkwearProducts } from "./lib/custom-workwear.mjs";
+import { isWorkwearPath, searchWorkwearProducts, WORKWEAR_PRODUCTS } from "./lib/custom-workwear.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -578,6 +580,12 @@ function PublicStorefront({ route, navigate }) {
   const routeInfo = useMemo(() => resolveStorefrontRoute(route.path, products), [route.path, products]);
   const categoryNames = useMemo(() => CATALOG_CATEGORIES.map((item) => item.name), []);
   const manufacturerNames = useMemo(() => CATALOG_MANUFACTURERS.map((item) => item.name), []);
+  const featuredProducts = useMemo(() => [...products].sort((a, b) => {
+    const priced = Number(b.pricing_approved === true && Number(b.public_price) > 0) - Number(a.pricing_approved === true && Number(a.public_price) > 0);
+    if (priced) return priced;
+    const imaged = Number(Boolean(b.photo_main)) - Number(Boolean(a.photo_main));
+    return imaged || a.title.localeCompare(b.title);
+  }).slice(0, 12), [products]);
 
   useEffect(() => setAttribution(captureAttribution()), []);
   useEffect(() => writeStoredJson(QUOTE_BASKET_KEY, cart), [cart]);
@@ -720,11 +728,12 @@ function PublicStorefront({ route, navigate }) {
   const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
   return (
     <main className="storefront">
-      <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
-      <nav className="ts-catnav" aria-label="Product categories"><div className="ts-wrap">
-        <a href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}>Custom Workwear <span>8</span></a>
-        <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All Products <span>{products.length}</span></a>
+      <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} onCategory={navigateCategory} />
+      <nav className="ts-catnav" aria-label="Store departments"><div className="ts-wrap">
+        <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}><Menu size={15} /> All Departments</a>
+        <a href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}>Custom Workwear <span>{WORKWEAR_PRODUCTS.length}</span></a>
         {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} aria-current={category === item.name ? "page" : undefined} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
+        <a href="#catalog" onClick={(event) => { event.preventDefault(); openQuoteDrawer("form", "department_nav"); }}>Request a Quote</a>
       </div></nav>
 
       {routeInfo.kind === "product" && routeInfo.product ? (
@@ -733,7 +742,7 @@ function PublicStorefront({ route, navigate }) {
         <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
       ) : (
         <>
-          {routeInfo.kind === "home" ? <WorkwearHomepageShelf navigate={navigate} /> : null}
+          {routeInfo.kind === "home" ? <RetailHomepage products={featuredProducts} navigate={navigate} navigateCategory={navigateCategory} navigateProduct={navigateProduct} isQuoted={(product) => Boolean(inCart(product))} onAddQuote={(product, qty) => addToQuote(product, qty, "homepage_featured")} onAsk={(product) => openLeadModal("item-inquiry", product, "homepage_featured")} onQuote={() => openQuoteDrawer("form", "homepage_promo")} /> : null}
           {routeInfo.kind === "home" ? null : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
           <section className="ts-catalog" id="catalog"><div className="ts-wrap">
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
@@ -753,17 +762,33 @@ function PublicStorefront({ route, navigate }) {
   );
 }
 
-function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navigate, onQuote }) {
-  return <header className="ts-head">
+function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navigate, onQuote, onCategory }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return <header className="ts-head ts-retail-head">
     <div className="ts-head-main"><div className="ts-wrap">
-      <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
-      <div className="ts-head-actions"><button className="ts-adminbtn" type="button" onClick={() => navigate("/custom-workwear")}><ShieldCheck size={15} /> Workwear</button><button className="ts-adminbtn" type="button" onClick={() => navigate("/shop")}><ShoppingBag size={15} /> Marketplace</button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
+      <button className="ts-mobile-menu-button" type="button" aria-expanded={menuOpen} aria-controls="mobile-store-menu" onClick={() => setMenuOpen((current) => !current)}><Menu size={22} /><span className="sr-only">Store menu</span></button>
+      <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark"><img src="/images/custom-workwear/telecom-store-lineworker-mark.png" alt="" width="44" height="44" /></span><span className="ts-brandtxt"><strong>TelecomStore.net</strong><small>Telecom equipment, custom workwear, and tools</small></span></a>
+      <form className="ts-search" role="search" onSubmit={onSubmit}>
+        <label className="sr-only" htmlFor="storefront-search">Search Telecom Store</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Telecom Store" autoComplete="off" />
+        {query ? <button className="ts-search-clear" type="button" onClick={onClear} aria-label="Clear search and filters"><X size={18} /></button> : null}<button className="ts-search-submit" type="submit"><Search size={17} /> <span>Search</span></button>
+      </form>
+      <div className="ts-head-actions"><button className="ts-accountbtn" type="button" onClick={() => navigate("/login")}><UserRound size={18} /><span>Account</span></button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button></div>
     </div></div>
-    <div className="ts-search-row"><div className="ts-wrap"><form className="ts-search" role="search" onSubmit={onSubmit}>
-      <label className="sr-only" htmlFor="storefront-search">Search catalog</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, product, or keyword" autoComplete="off" />
-      {query ? <button className="ts-search-clear" type="button" onClick={onClear} aria-label="Clear search and filters"><X size={18} /></button> : null}<button className="ts-search-submit" type="submit"><Search size={17} /> <span>Search</span></button>
-    </form></div></div>
+    {menuOpen ? <nav className="ts-mobile-store-menu" id="mobile-store-menu" aria-label="Mobile store menu"><button type="button" onClick={() => { navigate("/custom-workwear"); setMenuOpen(false); }}>Custom Workwear</button>{CATALOG_CATEGORIES.map((item) => <button key={item.name} type="button" onClick={() => { onCategory(item.name); setMenuOpen(false); }}>{item.name}</button>)}<button type="button" onClick={() => { onQuote(); setMenuOpen(false); }}>Request a Quote</button></nav> : null}
   </header>;
+}
+
+function RetailHomepage({ products, navigate, navigateCategory, navigateProduct, isQuoted, onAddQuote, onAsk, onQuote }) {
+  return <div className="ts-retail-home">
+    <section className="ts-promo-strip" aria-label="Store services"><div className="ts-wrap"><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Custom company gear</strong><span>Shirts, caps, jackets, and safety wear</span></button><a href="#catalog"><strong>Shop by part number</strong><span>206 exact-MPN telecom products</span></a><button type="button" onClick={onQuote}><strong>Request a quote</strong><span>Send quantities and project details</span></button><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Volume pricing available</strong><span>Build a crew or project quote</span></button></div></section>
+    <section className="ts-department-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Shop by department</p><h1>Find what you need faster</h1></div><a href="#catalog">View all products</a></div><div className="ts-department-grid">
+      <a className="ts-department-tile is-workwear" href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}><img src="/images/custom-workwear/custom-company-ball-cap.png" alt="Custom company ball caps in black, navy, charcoal, and khaki" width="200" height="200" /><span><strong>Custom Workwear &amp; Safety Gear</strong><small>{WORKWEAR_PRODUCTS.length} products</small></span></a>
+      {CATALOG_CATEGORIES.map((item) => <a className="ts-department-tile" key={item.name} href={categoryPath(item)} style={{ "--cat-color": item.color }} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={38} /><span><strong>{item.name}</strong><small>{item.count} products</small></span></a>)}
+    </div></div></section>
+    <WorkwearHomepageShelf navigate={navigate} />
+    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all 206 products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
+    <section className="ts-category-rail"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Browse the full telecom catalog</p><h2>Telecom categories</h2></div></div><div>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={27} /><span><strong>{item.name}</strong><small>{item.count} products</small></span><span aria-hidden="true">→</span></a>)}</div></div></section>
+  </div>;
 }
 
 function StorefrontHero({ products, onQuote }) {
