@@ -3,6 +3,7 @@ import path from "node:path";
 import catalog from "../src/data/opening-catalog.json" with { type: "json" };
 import pricing from "../src/data/opening-pricing.json" with { type: "json" };
 import taxonomy from "../src/data/catalog-taxonomy.json" with { type: "json" };
+import workwear from "../src/data/custom-workwear.json" with { type: "json" };
 import reconciliation from "../operations/opening-catalog-reconciliation.json" with { type: "json" };
 
 const errors = [];
@@ -35,8 +36,14 @@ for (const forbidden of ["_private_supplier", "supplier_cost", "wholesale", "mar
 for (const item of catalog) assert(sitemap.includes(`<loc>https://telecomstore.net${item.canonical_path}</loc>`), `Sitemap missing ${item.canonical_path}.`);
 for (const item of taxonomy.categories) assert(sitemap.includes(`<loc>https://telecomstore.net/categories/${item.slug}</loc>`), `Sitemap missing category ${item.slug}.`);
 for (const item of taxonomy.manufacturers) assert(sitemap.includes(`<loc>https://telecomstore.net/manufacturers/${item.slug}</loc>`), `Sitemap missing manufacturer ${item.slug}.`);
+assert(sitemap.includes("<loc>https://telecomstore.net/custom-workwear</loc>"), "Sitemap missing custom workwear department.");
+for (const item of workwear) {
+  const route = `/custom-workwear/products/${item.slug}`;
+  assert(sitemap.includes(`<loc>https://telecomstore.net${route}</loc>`), `Sitemap missing ${route}.`);
+}
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert(sitemapUrls.length === 240 && unique(sitemapUrls), `Expected 240 unique sitemap URLs; found ${sitemapUrls.length}.`);
+const expectedSitemapUrls = 240 + 1 + workwear.length;
+assert(sitemapUrls.length === expectedSitemapUrls && unique(sitemapUrls), `Expected ${expectedSitemapUrls} unique sitemap URLs; found ${sitemapUrls.length}.`);
 for (const route of ["/products/*", "/categories/*", "/manufacturers/*"]) assert(netlify.includes(`from = "${route}"`), `Netlify route missing ${route}.`);
 
 const report = `# Storefront catalog validation\n\n| Check | Result |\n| --- | ---: |\n| Public products | ${catalog.length} |\n| Unique public SKUs | ${new Set(catalog.map((item) => item.sku)).size} |\n| Unique GTINs | ${new Set(catalog.map((item) => item.gtin)).size} |\n| Unique product slugs | ${new Set(catalog.map((item) => item.slug)).size} |\n| Categories | ${taxonomy.categories.length} |\n| Manufacturers | ${taxonomy.manufacturers.length} |\n| Listed merchandise-price records | ${listed.length} |\n| Request-quote records | ${quote.length} |\n| Checkout-enabled records | ${merged.filter((item) => item.checkout_active).length} |\n| Sitemap URLs | ${sitemapUrls.length} |\n| Validation errors | ${errors.length} |\n\nThe public catalog contains only public product identity, approved merchandise prices, and storefront content. It contains no supplier identity, supplier costs, MAP values, MSRP, margins, or source-row fields. Every listed price remains in the shipping-quote workflow and direct checkout is disabled.\n`;

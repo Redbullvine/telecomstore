@@ -94,6 +94,8 @@ import ProductDetailPage from "./components/storefront/ProductDetailPage.jsx";
 import { CategoryIcon } from "./components/storefront/ProductPlaceholder.jsx";
 import MarketplaceStorefront from "./components/marketplace/MarketplaceStorefront.jsx";
 import { isMarketplacePath } from "./lib/marketplace-catalog.mjs";
+import CustomWorkwearStorefront, { WorkwearHomepageShelf } from "./components/workwear/CustomWorkwearStorefront.jsx";
+import { isWorkwearPath, searchWorkwearProducts } from "./lib/custom-workwear.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -559,6 +561,7 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
 
 function PublicStorefront({ route, navigate }) {
   const marketplacePath = isMarketplacePath(route.path);
+  const workwearPath = isWorkwearPath(route.path);
   const products = useMemo(() => fallbackInventory(), []);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
@@ -596,10 +599,10 @@ function PublicStorefront({ route, navigate }) {
     }
   }, [routeInfo]);
   useEffect(() => {
-    if (marketplacePath) return;
+    if (marketplacePath || workwearPath) return;
     applyStorefrontMetadata(storefrontMetadata(routeInfo));
     if (routeInfo.kind === "product" && routeInfo.product) trackEvent("product_view", productAnalyticsParams(routeInfo.product));
-  }, [marketplacePath, routeInfo]);
+  }, [marketplacePath, workwearPath, routeInfo]);
 
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
@@ -626,6 +629,18 @@ function PublicStorefront({ route, navigate }) {
     setDrawerStage("list");
     setDrawerOpen(true);
   }
+  function addWorkwearToQuote(item) {
+    setCart((current) => {
+      const existing = current.find((entry) => entry.key === item.key);
+      return existing
+        ? current.map((entry) => entry.key === item.key ? { ...entry, qty: Math.min(10000, (Number(entry.qty) || 1) + item.qty) } : entry)
+        : [...current, item];
+    });
+    trackLeadEvent("quote_add_item", { source: "custom_workwear", sku: item.sku, category: item.category });
+    setToast(`${item.name} configuration added to your Quote List.`);
+    setDrawerStage("list");
+    setDrawerOpen(true);
+  }
   function openQuoteDrawer(stage = "list", source = "quote_button") {
     trackLeadEvent("quote_modal_open", { source, quote_items: cart.length });
     setDrawerStage(stage);
@@ -642,6 +657,11 @@ function PublicStorefront({ route, navigate }) {
   function submitSearch(event) {
     event.preventDefault();
     const searchTerm = sanitizeSearchTerm(query);
+    if (searchTerm && searchWorkwearProducts(searchTerm).length) {
+      trackEvent("site_search", { search_term: searchTerm, category: "custom_workwear", result_count: searchWorkwearProducts(searchTerm).length });
+      navigate(`/custom-workwear?search=${encodeURIComponent(searchTerm)}`);
+      return;
+    }
     if (searchTerm) {
       trackEvent("site_search", {
         search_term: searchTerm,
@@ -686,12 +706,23 @@ function PublicStorefront({ route, navigate }) {
     );
   }
 
+  if (workwearPath) {
+    return (
+      <main className="storefront custom-workwear-storefront">
+        <CustomWorkwearStorefront route={route} navigate={navigate} quoteCount={cart.length} onOpenQuote={() => openQuoteDrawer("list", "workwear_header")} onAddQuote={addWorkwearToQuote} />
+        <QuoteTray open={drawerOpen} initialStage={drawerStage} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={(key) => setCart((current) => current.filter((item) => item.key !== key))} onUpdateItem={(key, patch) => setCart((current) => current.map((item) => item.key === key ? { ...item, ...patch, qty: "qty" in patch ? Math.max(1, Number(patch.qty) || 1) : item.qty } : item))} quoteForm={quoteForm} setQuoteForm={setQuoteForm} attribution={attribution} clearCart={() => setCart([])} onToast={setToast} />
+        {toast ? <div className="ts-toast" role="status">{toast}</div> : null}
+      </main>
+    );
+  }
+
   const landing = routeInfo.kind === "category" ? routeInfo.category : routeInfo.kind === "manufacturer" ? routeInfo.manufacturer : null;
   const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
   return (
     <main className="storefront">
       <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
       <nav className="ts-catnav" aria-label="Product categories"><div className="ts-wrap">
+        <a href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}>Custom Workwear <span>8</span></a>
         <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All Products <span>{products.length}</span></a>
         {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} aria-current={category === item.name ? "page" : undefined} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
       </div></nav>
@@ -702,6 +733,7 @@ function PublicStorefront({ route, navigate }) {
         <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
       ) : (
         <>
+          {routeInfo.kind === "home" ? <WorkwearHomepageShelf navigate={navigate} /> : null}
           {routeInfo.kind === "home" ? null : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
           <section className="ts-catalog" id="catalog"><div className="ts-wrap">
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
@@ -725,7 +757,7 @@ function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navig
   return <header className="ts-head">
     <div className="ts-head-main"><div className="ts-wrap">
       <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
-      <div className="ts-head-actions"><button className="ts-adminbtn" type="button" onClick={() => navigate("/shop")}><ShoppingBag size={15} /> Marketplace</button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
+      <div className="ts-head-actions"><button className="ts-adminbtn" type="button" onClick={() => navigate("/custom-workwear")}><ShieldCheck size={15} /> Workwear</button><button className="ts-adminbtn" type="button" onClick={() => navigate("/shop")}><ShoppingBag size={15} /> Marketplace</button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
     </div></div>
     <div className="ts-search-row"><div className="ts-wrap"><form className="ts-search" role="search" onSubmit={onSubmit}>
       <label className="sr-only" htmlFor="storefront-search">Search catalog</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, product, or keyword" autoComplete="off" />
@@ -1293,11 +1325,21 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
       // falling back only produced a failed submission and a lost customer.
       const skuItems = cart
         .filter((item) => item.sku)
-        .map((item) => ({ public_sku: item.sku, quantity: Number(item.qty) || 1 }));
+        .map((item) => ({
+          public_sku: item.sku,
+          quantity: Number(item.qty) || 1,
+          ...(item.configuration ? { configuration: item.configuration } : {}),
+          ...(item.artwork_reference ? { artwork_reference: item.artwork_reference } : {})
+        }));
       const unmatched = cart.filter((item) => !item.sku);
       const itemNotes = cart
-        .filter((item) => (item.notes || "").trim())
-        .map((item) => `${item.sku || item.name}: ${item.notes.trim()}`)
+        .filter((item) => (item.notes || "").trim() || item.configuration)
+        .map((item) => {
+          const configuration = item.configuration
+            ? Object.entries(item.configuration).filter(([, value]) => value).map(([key, value]) => `${key.replaceAll("_", " ")}: ${value}`).join("; ")
+            : "";
+          return `${item.sku || item.name}: ${[configuration, (item.notes || "").trim()].filter(Boolean).join(" — ")}`;
+        })
         .join("\n");
       const extras = [
         quoteForm.project_location ? `Project location: ${quoteForm.project_location}` : "",
@@ -1390,7 +1432,7 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
                 {cart.map((item) => (
                   <div className="ts-qitem" key={item.key}>
                     <span className="ts-qg" style={{ background: hexToRgba(catColor(item.category), 0.1) }}><CatGlyph category={item.category} size={24} /></span>
-                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span>{Number(item.public_price) > 0 ? <span>Merchandise price: ${Number(item.public_price).toFixed(2)} each</span> : null}</div>
+                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span>{Number(item.public_price) > 0 ? <span>Merchandise price: ${Number(item.public_price).toFixed(2)} each</span> : null}{Number(item.base_price) > 0 ? <span>Starting at ${Number(item.base_price).toFixed(2)} · final configuration by quote</span> : null}{item.configuration ? <span>{[item.configuration.color, item.configuration.size, item.configuration.style, item.configuration.logo_placement].filter(Boolean).join(" · ")}</span> : null}</div>
                     <label className="ts-mini-field">
                       <span>Qty</span>
                       <input type="number" min="1" value={item.qty || 1} onChange={(event) => onUpdateItem(item.key, { qty: event.target.value })} />
