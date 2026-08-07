@@ -1,16 +1,17 @@
 # BAINTU OGT Status
 
-- Task: BAINTU OGT 5 — Compact Product-First Homepage
-- Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-baintu-products`
-- Branch: `ogt/product-first-homepage`
-- Starting commit: `941f1ac5968c06994cd8fb1025bdf36f4c7deae7`
+- Task: BAINTU OGT 7 — Full Petra Marketplace Expansion, implementation checkpoint
+- Worktree: `C:\Users\redbu\Projects\telecomstore-ogt-full-petra-marketplace`
+- Branch: `ogt/full-petra-marketplace`
+- Starting commit after rebase: `10904f3` (Claude's manual-quote fix merged into `origin/main`)
+- Approved dry-run commit after rebase: `1cb1ce1982e81cc9467a3bff01fe1c7d2aae95fc`
 - Last updated: 2026-08-06
-- Files currently being edited: `src/main.jsx`, `src/styles.css`, `src/components/storefront/CatalogFilters.jsx`, `tests/product-first-homepage.test.mjs`, and this status file
-- Scope: compact public header/search/category/filter/catalog layout only; product, pricing, image, quote, Stripe, Supabase, and migration behavior is preserved
-- Tests completed: 219 tests (208 passed, 11 intentional local-database/private-evidence skips, 0 failed); production build; lint; type check; catalog and pricing validation; responsive browser verification at 320, 360, 390, 430, 768, 1024, 1366, 1440, and 1920 pixels; search, category, manufacturer, availability, sort, reset, Quote List, product detail, price, image, and overflow checks
-- Known blockers: none
-- Ready to merge: Yes — pending final diff review, commit, push, pull request, and production release checks
+- Files currently being edited: additive marketplace migration, private local-only importer, sanitized marketplace RPC client/routes, marketplace tests, architecture documentation, and this status file
+- Scope: build supplier-neutral private review structures and approval-gated `/shop` routes while leaving production and the public marketplace empty
+- Verification completed so far: clean disposable migration rebuild; 2,587-row local private import; idempotency; forced rollback; SQL RLS/RPC boundary checks; focused unit tests; desktop/mobile browser checks
+- Known blockers: 2,483 workbook GTINs are invalid or missing and cannot be used for automatic canonical matching; affected rows remain protected by supplier-SKU identity and ambiguity gates
+- Ready to merge: No — production migration, product approval/publication, merge, and deploy require Danny's final production-release approval
 
 ## Coordination lock
 
-BAINTU is editing only the product storefront branch. No Stripe/payment function, migration, dependency, or production configuration file is in scope.
+BAINTU is editing only this isolated marketplace worktree. Stripe/payment functions, payment migrations, dependency manifests, production configuration, and production services remain out of scope. The unavoidable shared entry-point change in `src/main.jsx` is isolated in a `SHARED:` commit.
