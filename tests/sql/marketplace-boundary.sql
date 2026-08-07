@@ -135,13 +135,59 @@ do $$ begin
   if (select count(*) from public.get_public_marketplace_catalog('TEST-SUPPLIER-1')) <> 1 then
     raise exception 'internal supplier SKU search must find the public product without exposing the SKU';
   end if;
-  if has_table_privilege('anon', 'public.pricing_reviews', 'select') then
-    raise exception 'anon can read pricing reviews';
-  end if;
-  if has_table_privilege('anon', 'public.supplier_restrictions', 'select') then
-    raise exception 'anon can read supplier restrictions';
-  end if;
 end $$;
 
 reset role;
+
+do $$
+declare
+  private_table text;
+  private_tables text[] := array[
+    'suppliers',
+    'supplier_catalog_runs',
+    'supplier_products',
+    'supplier_product_snapshots',
+    'product_supplier_offers',
+    'inventory_levels',
+    'marketplace_departments',
+    'supplier_restrictions',
+    'supplier_product_quarantine',
+    'pricing_reviews',
+    'marketplace_publications'
+  ];
+begin
+  foreach private_table in array private_tables loop
+    if has_table_privilege('anon', format('public.%I', private_table), 'select')
+      or has_table_privilege('anon', format('public.%I', private_table), 'insert')
+      or has_table_privilege('anon', format('public.%I', private_table), 'update')
+      or has_table_privilege('anon', format('public.%I', private_table), 'delete')
+      or has_table_privilege('anon', format('public.%I', private_table), 'truncate')
+      or has_table_privilege('anon', format('public.%I', private_table), 'references')
+      or has_table_privilege('anon', format('public.%I', private_table), 'trigger') then
+      raise exception 'anon retains a direct privilege on public.%', private_table;
+    end if;
+
+    if not has_table_privilege('authenticated', format('public.%I', private_table), 'select') then
+      raise exception 'authenticated staff lost select on public.%', private_table;
+    end if;
+    if not has_table_privilege('service_role', format('public.%I', private_table), 'select') then
+      raise exception 'service_role lost select on public.%', private_table;
+    end if;
+  end loop;
+
+  if exists (
+    select 1
+    from information_schema.role_table_grants
+    where grantee = 'PUBLIC'
+      and table_schema = 'public'
+      and table_name = any(private_tables)
+  ) then
+    raise exception 'PUBLIC retains a direct supplier/marketplace table privilege';
+  end if;
+
+  if not has_function_privilege('anon', 'public.get_public_marketplace_catalog(text)', 'execute') then
+    raise exception 'anon lost sanitized marketplace RPC access';
+  end if;
+end $$;
+
 rollback;

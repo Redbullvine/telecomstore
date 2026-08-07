@@ -97,6 +97,29 @@ test("restriction types are supplier-neutral and marketplace migration keeps rev
   assert.doesNotMatch(sql.match(/returns table[\s\S]*?\)\s*language sql/i)?.[0] || "", /supplier|cost|margin|restriction|quarantine/i);
 });
 
+test("supplier privilege hardening removes direct anon access without weakening staff roles", () => {
+  const sql = fs.readFileSync("supabase/migrations/20260806170000_revoke_anon_supplier_privileges.sql", "utf8");
+  for (const table of [
+    "suppliers",
+    "supplier_catalog_runs",
+    "supplier_products",
+    "supplier_product_snapshots",
+    "product_supplier_offers",
+    "inventory_levels",
+    "marketplace_departments",
+    "supplier_restrictions",
+    "supplier_product_quarantine",
+    "pricing_reviews",
+    "marketplace_publications",
+  ]) {
+    assert.match(sql, new RegExp(`public\\.${table}`, "i"));
+  }
+  assert.match(sql, /revoke all privileges on table[\s\S]*from anon, public/i);
+  assert.match(sql, /grant all privileges on table[\s\S]*to authenticated, service_role/i);
+  assert.match(sql, /public\.marketplace_publications[\s\S]*to service_role/i);
+  assert.doesNotMatch(sql, /grant[\s\S]*?to anon\b/i);
+});
+
 test("marketplace implementation never edits payment-owned files or embeds a private catalog", () => {
   const component = fs.readFileSync("src/components/marketplace/MarketplaceStorefront.jsx", "utf8");
   const catalog = fs.readFileSync("src/lib/marketplace-catalog.mjs", "utf8");
