@@ -19,8 +19,10 @@ import { validateQuoteSubmission, manualRequestTitle } from "../lib/validation.m
 import { generateReferenceCode, hashIp, isRateLimited } from "../lib/quotes.mjs";
 import { json, publicError, methodNotAllowed, readJsonBody, logServerError, GENERIC_ERROR } from "../lib/http.mjs";
 import pricing from "./_shared/opening-pricing.json" with { type: "json" };
+import workwear from "./_shared/workwear-catalog.json" with { type: "json" };
+import { cleanWorkwearConfiguration, validateWorkwearSelection } from "../lib/workwear.mjs";
 
-const catalogBySku = new Map(pricing.map((row) => [row.public_sku, row]));
+const catalogBySku = new Map([...pricing, ...workwear].map((row) => [row.public_sku, row]));
 
 // A cart-less request becomes exactly one line item with no catalog identity:
 // product_id, SKU, MPN, and GTIN all stay null so it can never be mistaken for
@@ -37,9 +39,9 @@ export function buildManualItemSnapshot(manual) {
   };
 }
 
-export function buildQuoteItemSnapshot(row, quantity) {
+export function buildQuoteItemSnapshot(row, quantity, item = {}) {
   const hasPublicPrice = ["fixed", "listed_price_shipping_quote"].includes(row?.price_mode) && Number(row?.public_price) > 0;
-  return {
+  const snapshot = {
     product_id: null,
     product_title: row.title,
     product_sku: row.public_sku,
@@ -47,6 +49,12 @@ export function buildQuoteItemSnapshot(row, quantity) {
     public_unit_price: hasPublicPrice ? Number(row.public_price).toFixed(2) : null,
     quantity
   };
+  if (row?.department === "custom_workwear") {
+    snapshot.base_unit_price = Number(row.base_price) > 0 ? Number(row.base_price).toFixed(2) : null;
+    snapshot.configuration = item.configuration;
+    snapshot.artwork_reference = item.artwork_reference || item.configuration?.artwork_reference || null;
+  }
+  return snapshot;
 }
 
 export default async function handler(req, context) {
@@ -86,7 +94,18 @@ export default async function handler(req, context) {
         if (!row) {
           return publicError(400, "One or more items are no longer available. Please refresh and try again.");
         }
-        itemRows.push(buildQuoteItemSnapshot(row, item.quantity));
+        if (row.department === "custom_workwear") {
+          const configuration = cleanWorkwearConfiguration(item.configuration);
+          if (!validateWorkwearSelection(row, configuration)) {
+            return publicError(400, "Please review the selected workwear options and try again.");
+          }
+          itemRows.push(buildQuoteItemSnapshot(row, item.quantity, {
+            configuration,
+            artwork_reference: configuration.artwork_reference,
+          }));
+        } else {
+          itemRows.push(buildQuoteItemSnapshot(row, item.quantity));
+        }
       }
     }
 

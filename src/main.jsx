@@ -20,6 +20,7 @@ import {
   Lock,
   LogOut,
   Mail,
+  Menu,
   MapPin,
   PackagePlus,
   PackageSearch,
@@ -34,6 +35,7 @@ import {
   Trash2,
   Upload,
   UserPlus,
+  UserRound,
   Warehouse,
   X
 } from "lucide-react";
@@ -94,6 +96,8 @@ import ProductDetailPage from "./components/storefront/ProductDetailPage.jsx";
 import { CategoryIcon } from "./components/storefront/ProductPlaceholder.jsx";
 import MarketplaceStorefront from "./components/marketplace/MarketplaceStorefront.jsx";
 import { isMarketplacePath } from "./lib/marketplace-catalog.mjs";
+import CustomWorkwearStorefront, { WorkwearHomepageShelf } from "./components/workwear/CustomWorkwearStorefront.jsx";
+import { isWorkwearPath, searchWorkwearProducts, WORKWEAR_PRODUCTS } from "./lib/custom-workwear.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];
@@ -559,6 +563,7 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
 
 function PublicStorefront({ route, navigate }) {
   const marketplacePath = isMarketplacePath(route.path);
+  const workwearPath = isWorkwearPath(route.path);
   const products = useMemo(() => fallbackInventory(), []);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
@@ -575,6 +580,12 @@ function PublicStorefront({ route, navigate }) {
   const routeInfo = useMemo(() => resolveStorefrontRoute(route.path, products), [route.path, products]);
   const categoryNames = useMemo(() => CATALOG_CATEGORIES.map((item) => item.name), []);
   const manufacturerNames = useMemo(() => CATALOG_MANUFACTURERS.map((item) => item.name), []);
+  const featuredProducts = useMemo(() => [...products].sort((a, b) => {
+    const priced = Number(b.pricing_approved === true && Number(b.public_price) > 0) - Number(a.pricing_approved === true && Number(a.public_price) > 0);
+    if (priced) return priced;
+    const imaged = Number(Boolean(b.photo_main)) - Number(Boolean(a.photo_main));
+    return imaged || a.title.localeCompare(b.title);
+  }).slice(0, 12), [products]);
 
   useEffect(() => setAttribution(captureAttribution()), []);
   useEffect(() => writeStoredJson(QUOTE_BASKET_KEY, cart), [cart]);
@@ -596,10 +607,10 @@ function PublicStorefront({ route, navigate }) {
     }
   }, [routeInfo]);
   useEffect(() => {
-    if (marketplacePath) return;
+    if (marketplacePath || workwearPath) return;
     applyStorefrontMetadata(storefrontMetadata(routeInfo));
     if (routeInfo.kind === "product" && routeInfo.product) trackEvent("product_view", productAnalyticsParams(routeInfo.product));
-  }, [marketplacePath, routeInfo]);
+  }, [marketplacePath, workwearPath, routeInfo]);
 
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
@@ -626,6 +637,18 @@ function PublicStorefront({ route, navigate }) {
     setDrawerStage("list");
     setDrawerOpen(true);
   }
+  function addWorkwearToQuote(item) {
+    setCart((current) => {
+      const existing = current.find((entry) => entry.key === item.key);
+      return existing
+        ? current.map((entry) => entry.key === item.key ? { ...entry, qty: Math.min(10000, (Number(entry.qty) || 1) + item.qty) } : entry)
+        : [...current, item];
+    });
+    trackLeadEvent("quote_add_item", { source: "custom_workwear", sku: item.sku, category: item.category });
+    setToast(`${item.name} configuration added to your Quote List.`);
+    setDrawerStage("list");
+    setDrawerOpen(true);
+  }
   function openQuoteDrawer(stage = "list", source = "quote_button") {
     trackLeadEvent("quote_modal_open", { source, quote_items: cart.length });
     setDrawerStage(stage);
@@ -642,6 +665,11 @@ function PublicStorefront({ route, navigate }) {
   function submitSearch(event) {
     event.preventDefault();
     const searchTerm = sanitizeSearchTerm(query);
+    if (searchTerm && searchWorkwearProducts(searchTerm).length) {
+      trackEvent("site_search", { search_term: searchTerm, category: "custom_workwear", result_count: searchWorkwearProducts(searchTerm).length });
+      navigate(`/custom-workwear?search=${encodeURIComponent(searchTerm)}`);
+      return;
+    }
     if (searchTerm) {
       trackEvent("site_search", {
         search_term: searchTerm,
@@ -686,14 +714,26 @@ function PublicStorefront({ route, navigate }) {
     );
   }
 
+  if (workwearPath) {
+    return (
+      <main className="storefront custom-workwear-storefront">
+        <CustomWorkwearStorefront route={route} navigate={navigate} quoteCount={cart.length} onOpenQuote={() => openQuoteDrawer("list", "workwear_header")} onAddQuote={addWorkwearToQuote} />
+        <QuoteTray open={drawerOpen} initialStage={drawerStage} cart={cart} onClose={() => setDrawerOpen(false)} onRemove={(key) => setCart((current) => current.filter((item) => item.key !== key))} onUpdateItem={(key, patch) => setCart((current) => current.map((item) => item.key === key ? { ...item, ...patch, qty: "qty" in patch ? Math.max(1, Number(patch.qty) || 1) : item.qty } : item))} quoteForm={quoteForm} setQuoteForm={setQuoteForm} attribution={attribution} clearCart={() => setCart([])} onToast={setToast} />
+        {toast ? <div className="ts-toast" role="status">{toast}</div> : null}
+      </main>
+    );
+  }
+
   const landing = routeInfo.kind === "category" ? routeInfo.category : routeInfo.kind === "manufacturer" ? routeInfo.manufacturer : null;
   const related = routeInfo.kind === "product" ? relatedProducts(routeInfo.product, products) : [];
   return (
     <main className="storefront">
-      <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} />
-      <nav className="ts-catnav" aria-label="Product categories"><div className="ts-wrap">
-        <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}>All Products <span>{products.length}</span></a>
+      <StorefrontHeader query={query} setQuery={setQuery} onSubmit={submitSearch} onClear={resetFilters} cartCount={cart.length} navigate={navigate} onQuote={() => openQuoteDrawer("list", "header_quote_list")} onCategory={navigateCategory} />
+      <nav className="ts-catnav" aria-label="Store departments"><div className="ts-wrap">
+        <a className={category === "All" ? "on" : ""} aria-current={category === "All" ? "page" : undefined} href="/" onClick={(event) => { event.preventDefault(); resetFilters(); }}><Menu size={15} /> All Departments</a>
+        <a href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}>Custom Workwear <span>{WORKWEAR_PRODUCTS.length}</span></a>
         {CATALOG_CATEGORIES.map((item) => <a key={item.name} className={category === item.name ? "on" : ""} aria-current={category === item.name ? "page" : undefined} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}>{item.name} <span>{item.count}</span></a>)}
+        <a href="#catalog" onClick={(event) => { event.preventDefault(); openQuoteDrawer("form", "department_nav"); }}>Request a Quote</a>
       </div></nav>
 
       {routeInfo.kind === "product" && routeInfo.product ? (
@@ -702,6 +742,7 @@ function PublicStorefront({ route, navigate }) {
         <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
       ) : (
         <>
+          {routeInfo.kind === "home" ? <RetailHomepage products={featuredProducts} navigate={navigate} navigateCategory={navigateCategory} navigateProduct={navigateProduct} isQuoted={(product) => Boolean(inCart(product))} onAddQuote={(product, qty) => addToQuote(product, qty, "homepage_featured")} onAsk={(product) => openLeadModal("item-inquiry", product, "homepage_featured")} onQuote={() => openQuoteDrawer("form", "homepage_promo")} /> : null}
           {routeInfo.kind === "home" ? null : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
           <section className="ts-catalog" id="catalog"><div className="ts-wrap">
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
@@ -721,17 +762,33 @@ function PublicStorefront({ route, navigate }) {
   );
 }
 
-function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navigate, onQuote }) {
-  return <header className="ts-head">
+function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navigate, onQuote, onCategory }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return <header className="ts-head ts-retail-head">
     <div className="ts-head-main"><div className="ts-wrap">
-      <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark">TS</span><span className="ts-brandtxt"><strong>Telecom Store</strong><small>Parts matched by exact manufacturer number</small></span></a>
-      <div className="ts-head-actions"><button className="ts-adminbtn" type="button" onClick={() => navigate("/shop")}><ShoppingBag size={15} /> Marketplace</button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button><button className="ts-adminbtn" type="button" onClick={() => navigate("/login")} aria-label="Open warehouse admin"><Lock size={15} /> Admin</button></div>
+      <button className="ts-mobile-menu-button" type="button" aria-expanded={menuOpen} aria-controls="mobile-store-menu" onClick={() => setMenuOpen((current) => !current)}><Menu size={22} /><span className="sr-only">Store menu</span></button>
+      <a className="ts-brand" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }}><span className="ts-mark"><img src="/images/custom-workwear/telecom-store-lineworker-mark.png" alt="" width="44" height="44" /></span><span className="ts-brandtxt"><strong>TelecomStore.net</strong><small>Telecom equipment, custom workwear, and tools</small></span></a>
+      <form className="ts-search" role="search" onSubmit={onSubmit}>
+        <label className="sr-only" htmlFor="storefront-search">Search Telecom Store</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Telecom Store" autoComplete="off" />
+        {query ? <button className="ts-search-clear" type="button" onClick={onClear} aria-label="Clear search and filters"><X size={18} /></button> : null}<button className="ts-search-submit" type="submit"><Search size={17} /> <span>Search</span></button>
+      </form>
+      <div className="ts-head-actions"><button className="ts-accountbtn" type="button" onClick={() => navigate("/login")}><UserRound size={18} /><span>Account</span></button><button className="ts-quotebtn" type="button" onClick={onQuote}><ShoppingBag size={18} /> <span>Quote List</span> <span className="ts-cnt">{cartCount}</span></button></div>
     </div></div>
-    <div className="ts-search-row"><div className="ts-wrap"><form className="ts-search" role="search" onSubmit={onSubmit}>
-      <label className="sr-only" htmlFor="storefront-search">Search catalog</label><Search className="ts-search-icon" size={19} aria-hidden="true" /><input id="storefront-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search MPN, GTIN, brand, product, or keyword" autoComplete="off" />
-      {query ? <button className="ts-search-clear" type="button" onClick={onClear} aria-label="Clear search and filters"><X size={18} /></button> : null}<button className="ts-search-submit" type="submit"><Search size={17} /> <span>Search</span></button>
-    </form></div></div>
+    {menuOpen ? <nav className="ts-mobile-store-menu" id="mobile-store-menu" aria-label="Mobile store menu"><button type="button" onClick={() => { navigate("/custom-workwear"); setMenuOpen(false); }}>Custom Workwear</button>{CATALOG_CATEGORIES.map((item) => <button key={item.name} type="button" onClick={() => { onCategory(item.name); setMenuOpen(false); }}>{item.name}</button>)}<button type="button" onClick={() => { onQuote(); setMenuOpen(false); }}>Request a Quote</button></nav> : null}
   </header>;
+}
+
+function RetailHomepage({ products, navigate, navigateCategory, navigateProduct, isQuoted, onAddQuote, onAsk, onQuote }) {
+  return <div className="ts-retail-home">
+    <section className="ts-promo-strip" aria-label="Store services"><div className="ts-wrap"><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Custom company gear</strong><span>Shirts, caps, jackets, and safety wear</span></button><a href="#catalog"><strong>Shop by part number</strong><span>206 exact-MPN telecom products</span></a><button type="button" onClick={onQuote}><strong>Request a quote</strong><span>Send quantities and project details</span></button><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Volume pricing available</strong><span>Build a crew or project quote</span></button></div></section>
+    <section className="ts-department-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Shop by department</p><h1>Find what you need faster</h1></div><a href="#catalog">View all products</a></div><div className="ts-department-grid">
+      <a className="ts-department-tile is-workwear" href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}><img src="/images/custom-workwear/custom-company-ball-cap.png" alt="Custom company ball caps in black, navy, charcoal, and khaki" width="200" height="200" /><span><strong>Custom Workwear &amp; Safety Gear</strong><small>{WORKWEAR_PRODUCTS.length} products</small></span></a>
+      {CATALOG_CATEGORIES.map((item) => <a className="ts-department-tile" key={item.name} href={categoryPath(item)} style={{ "--cat-color": item.color }} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={38} /><span><strong>{item.name}</strong><small>{item.count} products</small></span></a>)}
+    </div></div></section>
+    <WorkwearHomepageShelf navigate={navigate} />
+    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all 206 products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
+    <section className="ts-category-rail"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Browse the full telecom catalog</p><h2>Telecom categories</h2></div></div><div>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={27} /><span><strong>{item.name}</strong><small>{item.count} products</small></span><span aria-hidden="true">→</span></a>)}</div></div></section>
+  </div>;
 }
 
 function StorefrontHero({ products, onQuote }) {
@@ -1293,11 +1350,21 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
       // falling back only produced a failed submission and a lost customer.
       const skuItems = cart
         .filter((item) => item.sku)
-        .map((item) => ({ public_sku: item.sku, quantity: Number(item.qty) || 1 }));
+        .map((item) => ({
+          public_sku: item.sku,
+          quantity: Number(item.qty) || 1,
+          ...(item.configuration ? { configuration: item.configuration } : {}),
+          ...(item.artwork_reference ? { artwork_reference: item.artwork_reference } : {})
+        }));
       const unmatched = cart.filter((item) => !item.sku);
       const itemNotes = cart
-        .filter((item) => (item.notes || "").trim())
-        .map((item) => `${item.sku || item.name}: ${item.notes.trim()}`)
+        .filter((item) => (item.notes || "").trim() || item.configuration)
+        .map((item) => {
+          const configuration = item.configuration
+            ? Object.entries(item.configuration).filter(([, value]) => value).map(([key, value]) => `${key.replaceAll("_", " ")}: ${value}`).join("; ")
+            : "";
+          return `${item.sku || item.name}: ${[configuration, (item.notes || "").trim()].filter(Boolean).join(" — ")}`;
+        })
         .join("\n");
       const extras = [
         quoteForm.project_location ? `Project location: ${quoteForm.project_location}` : "",
@@ -1390,7 +1457,7 @@ function QuoteTray({ open, initialStage, cart, onClose, onRemove, onUpdateItem, 
                 {cart.map((item) => (
                   <div className="ts-qitem" key={item.key}>
                     <span className="ts-qg" style={{ background: hexToRgba(catColor(item.category), 0.1) }}><CatGlyph category={item.category} size={24} /></span>
-                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span>{Number(item.public_price) > 0 ? <span>Merchandise price: ${Number(item.public_price).toFixed(2)} each</span> : null}</div>
+                    <div className="ts-qn"><b>{item.name}</b><span className="ts-mono">{item.sku}</span>{Number(item.public_price) > 0 ? <span>Merchandise price: ${Number(item.public_price).toFixed(2)} each</span> : null}{Number(item.base_price) > 0 ? <span>Starting at ${Number(item.base_price).toFixed(2)} · final configuration by quote</span> : null}{item.configuration ? <span>{[item.configuration.color, item.configuration.size, item.configuration.style, item.configuration.logo_placement].filter(Boolean).join(" · ")}</span> : null}</div>
                     <label className="ts-mini-field">
                       <span>Qty</span>
                       <input type="number" min="1" value={item.qty || 1} onChange={(event) => onUpdateItem(item.key, { qty: event.target.value })} />
