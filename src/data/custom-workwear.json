@@ -37,7 +37,7 @@
     "name": "Professional Pole Dancer — Utility Division T-Shirt",
     "collection": "Telecom Store Lineworker Collection",
     "subcategory": "Company Apparel",
-    "base_price": null,
+    "base_price": 24.99,
     "image": "/images/custom-workwear/professional-pole-dancer-utility-division.png",
     "image_alt": "Front and back navy Telecom Store Professional Pole Dancer Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
@@ -47,6 +47,7 @@
     "customizable": false,
     "owned_design": true,
     "search_keywords": ["professional pole dancer", "utility division", "lineman shirt", "lineworker shirt"],
+    "starting_configuration": "Least-expensive approved navy crew-neck shirt configuration with small left-chest branding and one full back print.",
     "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
   },
   {
@@ -55,7 +56,7 @@
     "name": "Certified Pole Dancer — Utility Division T-Shirt",
     "collection": "Telecom Store Lineworker Collection",
     "subcategory": "Company Apparel",
-    "base_price": null,
+    "base_price": 24.99,
     "image": "/images/custom-workwear/certified-pole-dancer-utility-division.png",
     "image_alt": "Front and back charcoal Telecom Store Certified Pole Dancer Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
@@ -65,6 +66,7 @@
     "customizable": false,
     "owned_design": true,
     "search_keywords": ["certified pole dancer", "utility division", "lineman shirt", "lineworker shirt"],
+    "starting_configuration": "Least-expensive approved charcoal crew-neck shirt configuration with small left-chest branding and one full back print.",
     "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
   },
   {
@@ -73,7 +75,7 @@
     "name": "Pole Dancing Pays the Bills — Utility Division T-Shirt",
     "collection": "Telecom Store Lineworker Collection",
     "subcategory": "Company Apparel",
-    "base_price": null,
+    "base_price": 24.99,
     "image": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division.png",
     "image_alt": "Front and back forest-green Telecom Store Pole Dancing Pays the Bills Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
@@ -83,6 +85,7 @@
     "customizable": false,
     "owned_design": true,
     "search_keywords": ["pole dancing pays the bills", "utility division", "lineman shirt", "lineworker shirt"],
+    "starting_configuration": "Least-expensive approved forest-green crew-neck shirt configuration with small left-chest branding and one full back print.",
     "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
   },
   {
@@ -91,7 +94,7 @@
     "name": "I Pole Dance for a Living — Utility Division T-Shirt",
     "collection": "Telecom Store Lineworker Collection",
     "subcategory": "Company Apparel",
-    "base_price": null,
+    "base_price": 24.99,
     "image": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division.png",
     "image_alt": "Front and back black Telecom Store I Pole Dance for a Living Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
@@ -101,6 +104,7 @@
     "customizable": false,
     "owned_design": true,
     "search_keywords": ["i pole dance for a living", "utility division", "lineman shirt", "lineworker shirt"],
+    "starting_configuration": "Least-expensive approved black crew-neck shirt configuration with small left-chest branding and one full back print.",
     "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
   },
   {

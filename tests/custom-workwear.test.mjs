@@ -18,10 +18,10 @@ test("custom workwear catalog contains thirteen public product concepts and trut
   assert.equal(WORKWEAR_PRODUCTS.length, 13);
   assert.deepEqual(WORKWEAR_PRODUCTS.map((item) => [item.name, item.base_price]), [
     ["Custom Logo T-Shirt", 19.99], ["Custom Company Ball Cap", 19.99],
-    ["Professional Pole Dancer — Utility Division T-Shirt", null],
-    ["Certified Pole Dancer — Utility Division T-Shirt", null],
-    ["Pole Dancing Pays the Bills — Utility Division T-Shirt", null],
-    ["I Pole Dance for a Living — Utility Division T-Shirt", null],
+    ["Professional Pole Dancer — Utility Division T-Shirt", 24.99],
+    ["Certified Pole Dancer — Utility Division T-Shirt", 24.99],
+    ["Pole Dancing Pays the Bills — Utility Division T-Shirt", 24.99],
+    ["I Pole Dance for a Living — Utility Division T-Shirt", 24.99],
     ["Custom Hard Hat", 29.99], ["Custom Work Jacket", 64.99], ["Custom Work Vest", 34.99],
     ["Custom Hi-Vis Reflective Construction Shirt", 34.99], ["Custom Hi-Vis Hard Hat", 29.99], ["Custom Hi-Vis Work Jacket", 79.99], ["Custom Hi-Vis Safety Vest", 24.99]
   ]);
@@ -30,6 +30,11 @@ test("custom workwear catalog contains thirteen public product concepts and trut
   const cap = WORKWEAR_PRODUCTS.find((item) => item.sku === "CW-COMPANY-CAP");
   assert.equal(startingPriceLabel(cap), "Starting at $19.99");
   assert.equal(cap.starting_configuration, "Basic adjustable ball cap with one standard customer logo in the front-center placement.");
+  for (const sku of ["TS-PRO-POLE-DANCER", "TS-CERT-POLE-DANCER", "TS-POLE-PAYS-BILLS", "TS-POLE-DANCE-LIVING"]) {
+    const shirt = WORKWEAR_PRODUCTS.find((item) => item.sku === sku);
+    assert.equal(startingPriceLabel(shirt), "Starting at $24.99");
+    assert.match(shirt.starting_configuration, /Least-expensive approved/);
+  }
 });
 
 test("every workwear product has a generated local image and dedicated route", () => {
