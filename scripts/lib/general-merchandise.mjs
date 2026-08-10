@@ -253,11 +253,22 @@ export function buildPublicRecord(row, index = 0, { capAtMsrp = false } = {}) {
   const pricing = calculatePublicPrice({ cost: row["PRICE"], map: row["MAP"] });
   const msrp = Number(String(row["MSRP"] ?? "").replace(/[$,\s]/g, ""));
   const mapFloor = Number(String(row["MAP"] ?? "").replace(/[$,\s]/g, ""));
+  // 25 rows in this workbook have a dealer cost ABOVE MSRP, so capping them at
+  // MSRP would publish a price below what we pay Petra — a guaranteed loss (up to
+  // $23.99 per unit on one item). The cap is therefore skipped whenever MSRP does
+  // not clear the dealer cost, and those rows keep the doubled price and are
+  // flagged for review instead.
+  const cost = Number(String(row["PRICE"] ?? "").replace(/[$,\s]/g, ""));
+  const msrpClearsCost = Number.isFinite(cost) && cost > 0 ? msrp > cost : true;
+  if (capAtMsrp && pricing.status === "priced" && Number.isFinite(msrp) && msrp > 0 && pricing.publicPrice > msrp && !msrpClearsCost) {
+    flags.push("msrp_below_cost_cap_skipped");
+  }
   if (
     capAtMsrp
     && pricing.status === "priced"
     && Number.isFinite(msrp) && msrp > 0
     && pricing.publicPrice > msrp
+    && msrpClearsCost
     && !(Number.isFinite(mapFloor) && mapFloor > msrp) // never price under MAP
   ) {
     pricing.publicPrice = Math.round((msrp + Number.EPSILON) * 100) / 100;

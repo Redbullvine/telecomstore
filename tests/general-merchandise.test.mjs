@@ -66,6 +66,18 @@ test("the MSRP cap is opt-in and never prices below the MAP floor", () => {
   assert.equal(buildPublicRecord(row({ PRICE: 10, MAP: 90, MSRP: 50 }), 0, { capAtMsrp: true }).record.public_price, 90);
 });
 
+test("the MSRP cap never prices below the dealer cost", () => {
+  // 25 workbook rows have a dealer cost above MSRP; capping them at MSRP would
+  // sell at a loss, so the cap is skipped and the row is flagged.
+  const belowCost = row({ PRICE: 54.99, MSRP: 31, MAP: 0 });
+  const built = buildPublicRecord(belowCost, 0, { capAtMsrp: true });
+  assert.equal(built.record.public_price, 109.98, "must keep the doubled price, not drop to MSRP");
+  assert.ok(built.record.public_price > 54.99, "published price must clear the dealer cost");
+  assert.ok(built.flags.includes("msrp_below_cost_cap_skipped"));
+  // A near-miss (MSRP a few cents under cost) is treated the same way.
+  assert.equal(buildPublicRecord(row({ PRICE: 21.99, MSRP: 21.95 }), 0, { capAtMsrp: true }).record.public_price, 43.98);
+});
+
 test("no supplier-private field ever reaches a published record", () => {
   const { record } = buildPublicRecord(row());
   for (const key of Object.keys(record)) assert.ok(ALLOWED_PUBLIC_KEYS.includes(key), `unexpected key ${key}`);

@@ -48,6 +48,31 @@ unchanged: **dealer cost x 2, raised to MAP where MAP is higher, rounded to
 cents.** A price is never derived from MSRP and never invented; a row with no
 usable cost publishes as request-a-quote instead.
 
+### What Petra's PRICE column is
+
+`PRICE`, `MAP`, and `MSRP` are three independent columns. **`PRICE` is the dealer
+cost we pay Petra, not the manufacturer's price.** Petra's discount off MSRP is
+inconsistent across the catalog, which is what makes a flat multiplier behave
+unevenly:
+
+| Dealer cost as a share of MSRP | 10th pct | 25th | Median | 75th | 90th |
+| --- | --- | --- | --- | --- | --- |
+| | 35% | 46% | **57%** | 70% | 81% |
+
+Consequences:
+
+- Doubling stays under MSRP only when cost is ≤50% of MSRP — **878 of 2,556
+  items (34%)**. The other 66% exceed MSRP.
+- Selling at MSRP would still return a **median 43% margin** (30% on the weaker
+  quartile), so the cap below is an ordinary retail markup, not a giveaway.
+- **25 items have a dealer cost above MSRP.** Capping those at MSRP would publish
+  a price below what we pay Petra (up to $23.99 per unit on `ADD-AKSA`), so the
+  cap skips them, leaves the doubled price, and flags
+  `msrp_below_cost_cap_skipped`. With `--cap-at-msrp` on, zero published prices
+  fall below dealer cost, and items above MSRP drop from 1,679 to 44 (the 25
+  cost-above-MSRP rows plus MAP floors).
+- `MAP` is set on only 594 of 2,557 rows; 0 means Petra sets no advertising floor.
+
 ### Open pricing question
 
 **1,679 of 2,556 priced items (66%) list above the manufacturer's suggested
