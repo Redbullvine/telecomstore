@@ -29,7 +29,6 @@ import {
   normalizeWhitespace,
   slugify,
 } from "./petra-transform.mjs";
-import { calculatePublicPrice } from "../generate-petra-public-pricing.mjs";
 
 // --- Department mapping -------------------------------------------------------
 //
@@ -122,6 +121,66 @@ export function normalizeImageUrl(raw) {
   // Keep it to a plain image filename: no traversal, no nested path.
   if (!/^[A-Za-z0-9._-]+\.(jpg|jpeg|png|webp|gif)$/i.test(file)) return "";
   return `${IMAGE_PROXY_PREFIX}${file}`;
+}
+
+// --- Telecom Store pricing rule ----------------------------------------------
+//
+// Authorized by Danny, 2026-08-10, replacing the earlier cost x 2 rule:
+//
+//     Our Price = Cost + ((MSRP - Cost) * 0.65)
+//
+// The price sits 65% of the way from dealer cost up to MSRP, so it is always
+// strictly between the two whenever MSRP > Cost. That fixes the flaw in doubling:
+// Petra's discount off MSRP ranges from 9% to 91% of MSRP, so a flat multiplier
+// overshot MSRP on 66% of the catalog while under-pricing the deeply discounted
+// items.
+//
+// Rules, in order:
+//   1. Apply only when Cost and MSRP are both valid and MSRP > Cost.
+//   2. Never publish below dealer cost.
+//   3. If MAP exists and the calculated price is below MAP, use MAP.
+//   4. Missing / zero / invalid MSRP, or MSRP <= Cost -> no public price; the
+//      product is flagged for review instead of guessed at.
+//
+// Petra's Cost, MSRP, and MAP are inputs only. Nothing here writes them.
+export const PRICE_POSITION = 0.65;
+
+const money = (input) => {
+  const cleaned = String(input ?? "").replace(/[$,\s]/g, "");
+  if (cleaned === "") return null;
+  const parsed = Number(cleaned);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+const roundMoney = (input) => Math.round((input + Number.EPSILON) * 100) / 100;
+
+export function telecomStorePrice({ cost, msrp, map } = {}) {
+  const dealerCost = money(cost);
+  const suggested = money(msrp);
+  const advertisedFloor = money(map);
+
+  if (dealerCost === null) return { status: "review", reason: "missing_cost", publicPrice: null, basis: null };
+  if (!(dealerCost > 0)) return { status: "review", reason: "invalid_cost", publicPrice: null, basis: null };
+  if (suggested === null) return { status: "review", reason: "missing_msrp", publicPrice: null, basis: null };
+  if (!(suggested > 0)) return { status: "review", reason: "invalid_msrp", publicPrice: null, basis: null };
+  if (suggested <= dealerCost) return { status: "review", reason: "msrp_not_above_cost", publicPrice: null, basis: null };
+
+  let price = roundMoney(dealerCost + (suggested - dealerCost) * PRICE_POSITION);
+  let basis = "cost_plus_65_percent_of_spread";
+
+  // Rule 3: MAP is a floor, so it only ever raises the price.
+  if (advertisedFloor !== null && advertisedFloor > 0 && price < advertisedFloor) {
+    price = roundMoney(advertisedFloor);
+    basis = "map_floor";
+  }
+
+  // Rule 2, belt and braces. Rounding cannot breach cost given MSRP > Cost, but
+  // the guarantee is explicit rather than inferred.
+  if (price < dealerCost) {
+    price = roundMoney(dealerCost);
+    basis = "cost_floor";
+  }
+
+  return { status: "priced", reason: null, publicPrice: price, basis };
 }
 
 // --- GTIN recovery ------------------------------------------------------------
@@ -227,12 +286,7 @@ export function buildSearchKeywords(row, { brand, mpn }) {
 
 // Every key here is part of the published contract. Adding a supplier-side key
 // is a boundary violation; assertPublicRecordClean() is the enforcement.
-// `capAtMsrp` is off by default: the authorized rule is cost x 2 (2026-08-10).
-// Turning it on keeps the doubling wherever it lands at or under the
-// manufacturer's suggested retail and caps the rest at MSRP, never going below
-// the MAP floor. Offered because doubling puts ~66% of this workbook above MSRP,
-// which competes against the Google Shopping ranking goal.
-export function buildPublicRecord(row, index = 0, { capAtMsrp = false } = {}) {
+export function buildPublicRecord(row, index = 0) {
   const flags = [];
   const brand = normalizeManufacturer(row["BRAND NAME"]);
   const mpn = normalizeMpn(row["VENDOR SKU"]);
@@ -250,31 +304,7 @@ export function buildPublicRecord(row, index = 0, { capAtMsrp = false } = {}) {
   const shortDescription = descriptiveTitle || terseTitle;
   const specs = parseSpecBullets(row["SPECS"]);
 
-  const pricing = calculatePublicPrice({ cost: row["PRICE"], map: row["MAP"] });
-  const msrp = Number(String(row["MSRP"] ?? "").replace(/[$,\s]/g, ""));
-  const mapFloor = Number(String(row["MAP"] ?? "").replace(/[$,\s]/g, ""));
-  // 25 rows in this workbook have a dealer cost ABOVE MSRP, so capping them at
-  // MSRP would publish a price below what we pay Petra — a guaranteed loss (up to
-  // $23.99 per unit on one item). The cap is therefore skipped whenever MSRP does
-  // not clear the dealer cost, and those rows keep the doubled price and are
-  // flagged for review instead.
-  const cost = Number(String(row["PRICE"] ?? "").replace(/[$,\s]/g, ""));
-  const msrpClearsCost = Number.isFinite(cost) && cost > 0 ? msrp > cost : true;
-  if (capAtMsrp && pricing.status === "priced" && Number.isFinite(msrp) && msrp > 0 && pricing.publicPrice > msrp && !msrpClearsCost) {
-    flags.push("msrp_below_cost_cap_skipped");
-  }
-  if (
-    capAtMsrp
-    && pricing.status === "priced"
-    && Number.isFinite(msrp) && msrp > 0
-    && pricing.publicPrice > msrp
-    && msrpClearsCost
-    && !(Number.isFinite(mapFloor) && mapFloor > msrp) // never price under MAP
-  ) {
-    pricing.publicPrice = Math.round((msrp + Number.EPSILON) * 100) / 100;
-    pricing.basis = "msrp_cap";
-    flags.push("price_capped_at_msrp");
-  }
+  const pricing = telecomStorePrice({ cost: row["PRICE"], msrp: row["MSRP"], map: row["MAP"] });
   const discontinued = isDiscontinued(row);
   const quantity = availableQuantity(row);
   const imageUrl = normalizeImageUrl(row["IMAGE URL"]);
@@ -285,7 +315,9 @@ export function buildPublicRecord(row, index = 0, { capAtMsrp = false } = {}) {
   if (!imageUrl) flags.push("missing_image");
   if (!gtin.valid) flags.push("unverified_gtin");
   if (gtin.basis === "leading_zero_restored") flags.push("gtin_leading_zero_restored");
-  if (pricing.status !== "priced") flags.push(`price_${pricing.status}`);
+  // Rule 4: an unpriceable row is flagged for review, never guessed at.
+  if (pricing.status !== "priced") flags.push(`price_review_${pricing.reason}`);
+  if (pricing.basis === "map_floor") flags.push("price_raised_to_map");
   // Recorded for review: the manufacturer part number and the supplier SKU are
   // the same string here, so the public SKU is worth a human glance even though
   // the value itself is the manufacturer's and public.
@@ -387,7 +419,7 @@ export function assertPublicRecordClean(record, sourceRow = {}) {
   }
 
   // The dealer cost is the one figure that must never surface. MAP is NOT
-  // checked here: calculatePublicPrice() legitimately publishes MAP as the price
+  // checked here: the pricing rule legitimately publishes MAP as the price
   // floor, so a MAP-basis price is correct, not a leak. The check is limited to
   // the record's price fields — scanning free text would false-positive on spec
   // bullets that happen to contain the same number (weights, dimensions).

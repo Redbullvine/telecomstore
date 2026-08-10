@@ -14,6 +14,7 @@ import {
   recoverGtin,
   resolveDepartment,
   supplierSkuInCopy,
+  telecomStorePrice,
 } from "../scripts/lib/general-merchandise.mjs";
 import { filterMarketplaceProducts, sanitizeMarketplaceProduct } from "../src/lib/marketplace-catalog.mjs";
 
@@ -40,42 +41,81 @@ const row = (patch = {}) => ({
   ...patch,
 });
 
-test("the published price is the dealer cost doubled, with MAP as a floor", () => {
-  assert.equal(buildPublicRecord(row()).record.public_price, 183.98);
-  // MAP above the doubled cost wins; MAP below it does not.
-  assert.equal(buildPublicRecord(row({ PRICE: 10, MAP: 25 })).record.public_price, 25);
-  assert.equal(buildPublicRecord(row({ PRICE: 10, MAP: 15 })).record.public_price, 20);
+test("the price sits 65% of the way from dealer cost to MSRP", () => {
+  // 10 + (100 - 10) * 0.65 = 68.50
+  assert.deepEqual(telecomStorePrice({ cost: 10, msrp: 100 }), {
+    status: "priced", reason: null, publicPrice: 68.5, basis: "cost_plus_65_percent_of_spread",
+  });
+  // The workbook row: 91.99 + (109.99 - 91.99) * 0.65 = 103.69
+  assert.equal(buildPublicRecord(row()).record.public_price, 103.69);
   // Cents are rounded, never truncated.
-  assert.equal(buildPublicRecord(row({ PRICE: 1.117, MAP: 0 })).record.public_price, 2.23);
+  assert.equal(telecomStorePrice({ cost: 1.11, msrp: 2.22 }).publicPrice, 1.83);
+  // The result is always strictly between cost and MSRP.
+  for (const [cost, msrp] of [[1, 2], [0.09, 0.99], [54.99, 300], [7.99, 19.99]]) {
+    const price = telecomStorePrice({ cost, msrp }).publicPrice;
+    assert.ok(price > cost && price < msrp, `${price} must fall between ${cost} and ${msrp}`);
+  }
 });
 
-test("a row with no usable cost is published as request-a-quote, not guessed", () => {
-  const built = buildPublicRecord(row({ PRICE: 0 }));
+test("rule 3: MAP raises a price below it, and never lowers one above it", () => {
+  // Calculated 68.50, MAP 80 -> MAP wins.
+  const raised = telecomStorePrice({ cost: 10, msrp: 100, map: 80 });
+  assert.equal(raised.publicPrice, 80);
+  assert.equal(raised.basis, "map_floor");
+  // Calculated 68.50, MAP 20 -> calculation stands; MAP is a floor, not a cap.
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 20 }).publicPrice, 68.5);
+  // A zero or blank MAP is "no floor", not a floor of zero.
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 0 }).publicPrice, 68.5);
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: "" }).publicPrice, 68.5);
+  assert.ok(buildPublicRecord(row({ PRICE: 10, MSRP: 100, MAP: 80 })).flags.includes("price_raised_to_map"));
+});
+
+test("rules 1 and 4: an unpriceable row is flagged for review, never guessed", () => {
+  const cases = [
+    [{ cost: 10, msrp: 0 }, "invalid_msrp"],
+    [{ cost: 10, msrp: "" }, "missing_msrp"],
+    [{ cost: 10, msrp: "n/a" }, "missing_msrp"],
+    [{ cost: 10, msrp: 10 }, "msrp_not_above_cost"],
+    [{ cost: 54.99, msrp: 31 }, "msrp_not_above_cost"],
+    [{ cost: "", msrp: 100 }, "missing_cost"],
+    [{ cost: 0, msrp: 100 }, "invalid_cost"],
+    [{ cost: -5, msrp: 100 }, "invalid_cost"],
+  ];
+  for (const [input, reason] of cases) {
+    const result = telecomStorePrice(input);
+    assert.equal(result.status, "review", `${JSON.stringify(input)} must not be priced`);
+    assert.equal(result.publicPrice, null);
+    assert.equal(result.reason, reason);
+  }
+  // Such a product still publishes, as request-a-quote, and carries the flag.
+  const built = buildPublicRecord(row({ PRICE: 54.99, MSRP: 31 }));
   assert.equal(built.record.public_price, null);
   assert.equal(built.record.price_mode, "request_quote");
+  assert.ok(built.flags.includes("price_review_msrp_not_above_cost"));
 });
 
-test("the MSRP cap is opt-in and never prices below the MAP floor", () => {
-  // Default: doubling stands even when it exceeds MSRP.
-  assert.equal(buildPublicRecord(row()).record.public_price, 183.98);
-  // Opt in: capped at MSRP.
-  assert.equal(buildPublicRecord(row(), 0, { capAtMsrp: true }).record.public_price, 109.99);
-  // Doubling already under MSRP is left alone.
-  assert.equal(buildPublicRecord(row({ PRICE: 20, MSRP: 100 }), 0, { capAtMsrp: true }).record.public_price, 40);
-  // MAP outranks the cap, so the price stays at MAP rather than dropping under it.
-  assert.equal(buildPublicRecord(row({ PRICE: 10, MAP: 90, MSRP: 50 }), 0, { capAtMsrp: true }).record.public_price, 90);
+test("rule 2: no published price is ever below the dealer cost", () => {
+  // Exhaustive over the real workbook shapes, including the 25 rows where the
+  // dealer cost exceeds MSRP — those must come back unpriced, not underwater.
+  for (const cost of [0.09, 0.99, 1.99, 10, 21.99, 54.99, 300]) {
+    for (const msrp of [0, 0.89, 1, 10, 21.95, 31, 100, 500]) {
+      for (const map of [0, 1, 25, 90]) {
+        const result = telecomStorePrice({ cost, msrp, map });
+        if (result.status !== "priced") continue;
+        assert.ok(result.publicPrice >= cost, `price ${result.publicPrice} is below cost ${cost}`);
+      }
+    }
+  }
 });
 
-test("the MSRP cap never prices below the dealer cost", () => {
-  // 25 workbook rows have a dealer cost above MSRP; capping them at MSRP would
-  // sell at a loss, so the cap is skipped and the row is flagged.
-  const belowCost = row({ PRICE: 54.99, MSRP: 31, MAP: 0 });
-  const built = buildPublicRecord(belowCost, 0, { capAtMsrp: true });
-  assert.equal(built.record.public_price, 109.98, "must keep the doubled price, not drop to MSRP");
-  assert.ok(built.record.public_price > 54.99, "published price must clear the dealer cost");
-  assert.ok(built.flags.includes("msrp_below_cost_cap_skipped"));
-  // A near-miss (MSRP a few cents under cost) is treated the same way.
-  assert.equal(buildPublicRecord(row({ PRICE: 21.99, MSRP: 21.95 }), 0, { capAtMsrp: true }).record.public_price, 43.98);
+test("rule 5: the pricing rule reads Petra's figures and writes none of them", () => {
+  const source = row();
+  const before = JSON.stringify(source);
+  const built = buildPublicRecord(source);
+  assert.equal(JSON.stringify(source), before, "the workbook row must not be mutated");
+  // Cost, MSRP, and MAP appear nowhere in the published record.
+  const serialized = JSON.stringify({ ...built.record, image_url: "", image_alt: "" });
+  assert.doesNotMatch(serialized, /91\.99|109\.99/);
 });
 
 test("no supplier-private field ever reaches a published record", () => {
