@@ -1,0 +1,41 @@
+{
+  "product_count": 2557,
+  "clearance_count": 315,
+  "departments": [
+    {
+      "slug": "home-kitchen",
+      "name": "Home & Kitchen",
+      "count": 832
+    },
+    {
+      "slug": "electronics",
+      "name": "Electronics",
+      "count": 688
+    },
+    {
+      "slug": "tools",
+      "name": "Tools & Home Improvement",
+      "count": 365
+    },
+    {
+      "slug": "appliance-parts",
+      "name": "Appliance Parts",
+      "count": 272
+    },
+    {
+      "slug": "automotive-marine",
+      "name": "Automotive & Marine",
+      "count": 223
+    },
+    {
+      "slug": "outdoor-fitness",
+      "name": "Outdoor & Fitness",
+      "count": 141
+    },
+    {
+      "slug": "health-beauty",
+      "name": "Health & Beauty",
+      "count": 36
+    }
+  ]
+}

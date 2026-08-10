@@ -4,3 +4,4 @@ Disallow: /admin
 Disallow: /login
 
 Sitemap: https://telecomstore.net/sitemap.xml
+Sitemap: https://telecomstore.net/sitemap-shop.xml

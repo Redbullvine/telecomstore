@@ -110,6 +110,28 @@
   to = "/thank-you.html"
   status = 200
 
+# Supplier product imagery proxy.
+#
+# The Petra bucket is named "petraimages.com", and a bucket name containing dots
+# cannot be served over valid TLS: the virtual-hosted host
+# petraimages.com.s3.amazonaws.com does not match AWS's *.s3.amazonaws.com
+# wildcard certificate, and S3 rejects path-style addressing for this bucket with
+# a PermanentRedirect. The images are therefore reachable over http only, and an
+# http <img> on an https page is blocked as mixed content.
+#
+# Proxying through the site fixes that: Netlify fetches the http origin
+# server-side and serves the bytes over the site's own certificate. It also gives
+# every image a first-party https URL, which is what Google Merchant Center and
+# Googlebot need to fetch.
+#
+# The rule is deliberately narrow — one hard-coded bucket and prefix — so it
+# cannot be used as an open proxy for arbitrary hosts.
+[[redirects]]
+  from = "/shop-images/*"
+  to = "http://petraimages.com.s3.amazonaws.com/600x600/:splat"
+  status = 200
+  force = true
+
 # Existing files (including robots.txt, sitemap.xml, and assets) are served before
 # this non-forced fallback. Everything else, including arbitrary .php paths, is 404.
 [[redirects]]

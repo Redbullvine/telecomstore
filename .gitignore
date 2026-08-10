@@ -24,6 +24,11 @@ telecomstore-baintu-starter-pack.zip
 /20260108_stream45.jpg
 /20260108_tilegrid.jpg
 
+# Supplier workbooks: these carry dealer cost, MAP/MSRP and supplier SKUs and
+# must never be committed. Only the derived public catalog is tracked.
+/Petra_Products.xlsx
+/*_Products.xlsx
+
 # Unverified local inventory/OCR working datasets
 /prodlist.csv
 /prodlist.xlsx

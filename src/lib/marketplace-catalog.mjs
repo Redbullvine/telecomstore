@@ -30,20 +30,36 @@ export function sanitizeMarketplaceProduct(row = {}) {
   const priceMode = row.price_mode === "fixed" ? "fixed" : "request_quote";
   const publicPrice = priceMode === "fixed" && Number(row.public_price) > 0 ? Number(row.public_price) : null;
   const slug = String(row.slug || "");
+  const title = String(row.title || "");
+  const shortDescription = String(row.short_description || "");
+  const brand = String(row.brand || "");
+  // The published list payload omits these three because each is the title or
+  // short description plus a fixed suffix. Deriving them here keeps the record
+  // shape identical for callers whether the source is the RPC or the static
+  // catalog, and keeps ~0.7 MB of duplicated text off the wire.
+  const metaTitle = String(row.meta_title || "") || (title ? `${title} | Telecom Store Marketplace` : "");
+  const metaDescription = String(row.meta_description || "")
+    || (shortDescription ? `${shortDescription} Buy ${brand || "this item"} at Telecom Store.`.slice(0, 320) : "");
+  const imageAlt = String(row.image_alt || "") || (title ? `${title} product image` : "");
   return {
     id: row.id || "",
     sku: String(row.sku || ""),
     slug,
     canonical_path: slug ? `${PRODUCT_PREFIX}${slug}` : "",
-    brand: String(row.brand || ""),
-    title: String(row.title || ""),
+    brand,
+    title,
     manufacturer_mpn: String(row.manufacturer_mpn || ""),
     gtin: String(row.gtin || ""),
+    // Google Shopping attributes: condition and category are required/strongly
+    // recommended by Merchant Center, and product_type carries our taxonomy.
+    condition: row.condition === "refurbished" ? "refurbished" : "new",
+    google_product_category: String(row.google_product_category || ""),
+    product_type: String(row.product_type || ""),
     department_slug: String(row.department_slug || ""),
     department_name: String(row.department_name || ""),
     category: String(row.department_name || ""),
     subcategory: String(row.subcategory || ""),
-    short_description: String(row.short_description || ""),
+    short_description: shortDescription,
     long_description: String(row.long_description || ""),
     search_keywords: Array.isArray(row.search_keywords) ? row.search_keywords.map(String) : [],
     availability_text: String(row.availability || "Availability by quote"),
@@ -53,9 +69,9 @@ export function sanitizeMarketplaceProduct(row = {}) {
     pricing_approved: publicPrice !== null,
     currency_code: String(row.currency_code || "USD"),
     image_url: String(row.image_url || ""),
-    image_alt: String(row.image_alt || ""),
-    meta_title: String(row.meta_title || ""),
-    meta_description: String(row.meta_description || ""),
+    image_alt: imageAlt,
+    meta_title: metaTitle,
+    meta_description: metaDescription,
     published_at: row.published_at || null,
     updated_at: row.updated_at || null,
   };
@@ -77,10 +93,15 @@ export function filterMarketplaceProducts(products, filters = {}) {
     if (priceRange === "request-price") return price === null;
     return true;
   };
+  // "deals" is a cross-cutting department: no product carries it as a
+  // department_slug, so /shop/deals must select clearance stock instead of
+  // matching the slug — otherwise the page can only ever render empty.
+  const dealsDepartment = department === "deals";
   const result = products.filter((product) => {
-    const searchText = [product.title, product.brand, product.manufacturer_mpn, product.gtin, product.subcategory, ...product.search_keywords].join(" ").toLowerCase();
+    const searchText = [product.title, product.brand, product.manufacturer_mpn, product.gtin, product.subcategory, product.product_type, ...product.search_keywords].join(" ").toLowerCase();
     return (!query || searchText.includes(query))
-      && (department === "all" || product.department_slug === department)
+      && (department === "all" || dealsDepartment || product.department_slug === department)
+      && (!dealsDepartment || product.clearance)
       && (subcategory === "all" || product.subcategory === subcategory)
       && (brand === "all" || product.brand === brand)
       && (availability === "all" || (availability === "priced" ? product.public_price !== null : product.public_price === null))
@@ -115,9 +136,25 @@ export function marketplaceMetadata(route, productCount = 0) {
   if (route.kind === "marketplace_product" && route.product) {
     const product = route.product;
     const path = marketplaceProductPath(product);
-    const schema = { "@context": "https://schema.org", "@type": "Product", name: product.title, sku: product.sku, mpn: product.manufacturer_mpn, brand: { "@type": "Brand", name: product.brand }, category: product.department_name, description: product.long_description || product.short_description, url: `${MARKETPLACE_SITE_URL}${path}` };
-    if (product.image_url) schema.image = [product.image_url];
-    if (product.public_price !== null) schema.offers = { "@type": "Offer", priceCurrency: product.currency_code, price: product.public_price, availability: "https://schema.org/InStock", url: `${MARKETPLACE_SITE_URL}${path}` };
+    const schema = { "@context": "https://schema.org", "@type": "Product", name: product.title, sku: product.sku, mpn: product.manufacturer_mpn, brand: { "@type": "Brand", name: product.brand }, category: product.product_type || product.department_name, description: product.long_description || product.short_description, url: `${MARKETPLACE_SITE_URL}${path}` };
+    // schema.org image must be absolute for Google to resolve it; the catalog
+    // stores a first-party proxy path.
+    if (product.image_url) {
+      schema.image = [/^https?:\/\//i.test(product.image_url) ? product.image_url : `${MARKETPLACE_SITE_URL}${product.image_url}`];
+    }
+    // Google cross-checks the landing page against the Shopping feed, so stock
+    // state and condition are derived rather than asserted as always-in-stock.
+    schema.itemCondition = product.condition === "refurbished" ? "https://schema.org/RefurbishedCondition" : "https://schema.org/NewCondition";
+    if (product.public_price !== null) {
+      schema.offers = {
+        "@type": "Offer",
+        priceCurrency: product.currency_code,
+        price: product.public_price,
+        availability: /^In stock/i.test(product.availability_text) ? "https://schema.org/InStock" : "https://schema.org/BackOrder",
+        itemCondition: schema.itemCondition,
+        url: `${MARKETPLACE_SITE_URL}${path}`,
+      };
+    }
     if (/^\d{12}$/.test(product.gtin)) schema.gtin12 = product.gtin;
     if (/^\d{13}$/.test(product.gtin)) schema.gtin13 = product.gtin;
     if (/^\d{14}$/.test(product.gtin)) schema.gtin14 = product.gtin;
