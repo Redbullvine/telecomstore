@@ -145,7 +145,13 @@ function MarketplaceCard({ product, quoted, navigate, onAddQuote, onAsk }) {
 }
 
 function MarketplaceImage({ product }) {
-  return <div className="mp-image">{product.image_url ? <img src={product.image_url} alt={product.image_alt || `${product.brand} ${product.manufacturer_mpn}`} loading="lazy" /> : <span><PackageSearch size={40} /><b>{product.brand}</b><small>Approved image pending</small></span>}</div>;
+  // The build publishes only products whose supplier image was verified, but the
+  // supplier can remove one between builds, so a load failure falls back to the
+  // placeholder rather than leaving a broken-image icon in the grid.
+  const [failed, setFailed] = useState(false);
+  useEffect(() => { setFailed(false); }, [product.image_url]);
+  const showImage = product.image_url && !failed;
+  return <div className="mp-image">{showImage ? <img src={product.image_url} alt={product.image_alt || `${product.brand} ${product.manufacturer_mpn}`} loading="lazy" onError={() => setFailed(true)} /> : <span><PackageSearch size={40} /><b>{product.brand}</b><small>Photo unavailable</small></span>}</div>;
 }
 
 function MarketplaceProductDetail({ product, navigate, quoted, onAddQuote, onAsk }) {

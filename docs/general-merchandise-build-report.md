@@ -5,7 +5,7 @@ only — the workbook, supplier SKUs, dealer costs, and MAP/MSRP values stay in
 the gitignored private review file.
 
 - Source rows read: **2558**
-- Published products: **2557**
+- Published products: **2475**
 - Source SHA-256: `b0df0c80650a2a238ba48f7c71598c0df851ae3672b69830057b5f0bdc7b372c`
 - Sheet: `prodlist`
 
@@ -13,14 +13,14 @@ the gitignored private review file.
 
 | Measure | Count | Share |
 | --- | --- | --- |
-| Priced (`price_mode: fixed`) | 2557 | 100.0% |
-| Request-a-quote | 0 | 0.0% |
-| Priced at the MAP floor | 79 | 3.1% |
-| In stock now | 1948 | 76.2% |
-| Clearance (Deals) | 315 | 12.3% |
-| With a product image | 2557 | 100.0% |
-| With a checksum-valid GTIN | 2519 | 98.5% |
-| GTIN recovered by restoring Excel's dropped leading zero | 1236 | 48.3% |
+| Priced (`price_mode: fixed`) | 2439 | 98.5% |
+| Request-a-quote | 36 | 1.5% |
+| Priced at the MAP floor | 342 | 13.8% |
+| In stock now | 1943 | 78.5% |
+| Clearance (Deals) | 311 | 12.6% |
+| With a product image | 2475 | 100.0% |
+| With a checksum-valid GTIN | 2442 | 98.7% |
+| GTIN recovered by restoring Excel's dropped leading zero | 1206 | 48.7% |
 | Refurbished condition | 1 | — |
 
 ## Google Shopping readiness
@@ -28,26 +28,26 @@ the gitignored private review file.
 Every published record carries the Merchant Center essentials: `title`,
 `short_description`, `image_url`, `brand`, `condition`, `price`,
 `availability`, `google_product_category` (top-level taxonomy only, which is
-safe to assert) and a full `product_type` path. **2519** records
-carry a verified GTIN and **38**
+safe to assert) and a full `product_type` path. **2442** records
+carry a verified GTIN and **33**
 rely on brand + MPN identification instead.
 
 ## Departments
 
 | Department | Slug | Products |
 | --- | --- | --- |
-| Home & Kitchen | `home-kitchen` | 832 |
-| Electronics | `electronics` | 688 |
-| Tools & Home Improvement | `tools` | 365 |
-| Appliance Parts | `appliance-parts` | 272 |
+| Home & Kitchen | `home-kitchen` | 823 |
+| Electronics | `electronics` | 640 |
+| Tools & Home Improvement | `tools` | 362 |
+| Appliance Parts | `appliance-parts` | 262 |
 | Automotive & Marine | `automotive-marine` | 223 |
-| Outdoor & Fitness | `outdoor-fitness` | 141 |
-| Health & Beauty | `health-beauty` | 36 |
+| Outdoor & Fitness | `outdoor-fitness` | 130 |
+| Health & Beauty | `health-beauty` | 35 |
 
 ## Pricing note
 
 The published price is **dealer cost x 2**, raised to MAP where MAP is higher
-(authorized 2026-08-10). **1679** published prices land above the
+(authorized 2026-08-10). **7** published prices land above the
 manufacturer's suggested retail price in the source workbook. MSRP is not
 published and is recorded only in the private review file; this count is here so
 the overage is reviewable rather than silent.
@@ -56,14 +56,26 @@ the overage is reviewable rather than silent.
 
 | Flag | Rows |
 | --- | --- |
-| `gtin_leading_zero_restored` | 1236 |
-| `department_subcategory` | 603 |
-| `discontinued` | 580 |
-| `unverified_gtin` | 38 |
+| `gtin_leading_zero_restored` | 1206 |
+| `department_subcategory` | 572 |
+| `discontinued` | 509 |
+| `price_raised_to_map` | 342 |
+| `price_raised_to_margin_floor` | 196 |
+| `thin_margin_review` | 131 |
+| `price_review_msrp_not_above_cost` | 36 |
 | `supplier_sku_in_supplier_copy` | 36 |
-| `supplier_sku_matches_mpn` | 29 |
+| `unverified_gtin` | 33 |
+| `supplier_sku_matches_mpn` | 22 |
 | `department_default` | 20 |
 
 ## Skipped rows
 
 - `duplicate_slug`: 1
+
+## Excluded for having no photo
+
+Only products whose supplier image is confirmed to exist are published. The
+workbook supplies an image URL for every row, but **82** of
+them are absent from the supplier bucket (HTTP 403), so **82**
+products were withheld. Regenerate the allowlist with
+`node scripts/audit-shop-images.mjs`.

@@ -54,8 +54,28 @@ const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { range: 2, de
 const sourceBytes = fs.readFileSync(sourcePath);
 const sourceSha256 = crypto.createHash("sha256").update(sourceBytes).digest("hex");
 
-const capAtMsrp = process.argv.includes("--cap-at-msrp");
-const { built, skipped } = buildCatalog(rows, { capAtMsrp });
+// Only products with a REAL photo are published (Danny, 2026-08-12). The
+// workbook lists an image URL for every row, but 82 are absent from the supplier
+// bucket, so the allowlist produced by scripts/audit-shop-images.mjs is the
+// authority. The build fails closed if that audit is missing rather than
+// publishing products whose images were never verified.
+const auditPath = path.resolve(ROOT, "scripts/data/shop-image-audit.json");
+if (!fs.existsSync(auditPath)) {
+  console.error("Image audit not found. Run: node scripts/audit-shop-images.mjs");
+  console.error("It records which supplier images actually exist, and the shop publishes only those.");
+  process.exit(1);
+}
+const audit = JSON.parse(fs.readFileSync(auditPath, "utf8"));
+const availableImages = new Set(audit.available_files || []);
+
+const { built: allBuilt, skipped } = buildCatalog(rows);
+const withoutPhoto = [];
+const built = allBuilt.filter((item) => {
+  const file = String(item.record.image_url || "").replace("/shop-images/", "");
+  if (file && availableImages.has(file)) return true;
+  withoutPhoto.push({ sku: item.record.sku, file: file || "(none)" });
+  return false;
+});
 const records = built.map((item) => item.record);
 
 // --- Aggregate counts --------------------------------------------------------
@@ -113,9 +133,7 @@ const payload = {
   generated_from: "supplier catalog workbook",
   source_sha256: sourceSha256,
   schema: "marketplace-public-v1",
-  pricing_rule: capAtMsrp
-    ? "dealer cost x 2, capped at MSRP, never below the MAP floor"
-    : "dealer cost x 2, raised to MAP when MAP is higher",
+  pricing_rule: "cost + 60% of the cost-to-MSRP spread; minimum 15% / $1.00 margin where it fits under MSRP; MAP is a hard floor",
   product_count: listRecords.length,
   departments: Object.keys(byDepartment).sort(),
   products: listRecords,
@@ -237,6 +255,14 @@ ${flagTable}
 ## Skipped rows
 
 ${Object.entries(skipReasons).map(([reason, count]) => `- \`${reason}\`: ${count}`).join("\n") || "- none"}
+
+## Excluded for having no photo
+
+Only products whose supplier image is confirmed to exist are published. The
+workbook supplies an image URL for every row, but **${audit.missing_count}** of
+them are absent from the supplier bucket (HTTP 403), so **${withoutPhoto.length}**
+products were withheld. Regenerate the allowlist with
+\`node scripts/audit-shop-images.mjs\`.
 `;
 
 fs.mkdirSync(path.dirname(reportPath), { recursive: true });
@@ -246,6 +272,7 @@ const bytes = fs.statSync(outputPath).size;
 const detailBytes = fs.statSync(detailsPath).size;
 console.log(`Read ${rows.length} source rows from ${sheetName}.`);
 console.log(`Pricing: ${payload.pricing_rule}.`);
+console.log(`Excluded ${withoutPhoto.length} products with no verified photo (image audit: ${audit.available} available, ${audit.missing_count} missing).`);
 console.log(`Published ${records.length} products (${priced.length} priced, ${clearance.length} clearance, ${withImage.length} with images).`);
 console.log(`Departments: ${Object.entries(byDepartment).sort((a, b) => b[1] - a[1]).map(([slug, count]) => `${slug}=${count}`).join(", ")}`);
 console.log(`Skipped ${skipped.length} rows: ${Object.entries(skipReasons).map(([reason, count]) => `${reason}=${count}`).join(", ") || "none"}`);
