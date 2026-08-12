@@ -287,6 +287,70 @@ export function productType(row, departmentName) {
     .join(" > ");
 }
 
+// --- Shipping weight and dimensions (Google Shopping / FedEx rating) ---------
+//
+// The workbook carries two weights. `WEIGHT-UNPACKED` is the bare product;
+// `ESTIMATED SHIP WEIGHT` is the PACKAGED shipping weight and is the correct
+// figure for a carrier — the two differ on 1,457 of 2,439 rows (a 0.31 lb fitness
+// tracker ships at 0.72 lb).
+//
+// We deliberately do NOT fall back to the unpacked weight: it understates the
+// package, which would under-quote carrier-calculated shipping. A row without a
+// packaged weight yields null and is excluded from the Google feed rather than
+// given a guessed figure.
+export function packagedShipWeightLb(row) {
+  const raw = String(row["ESTIMATED SHIP WEIGHT"] ?? "").replace(/[^\d.]/g, "");
+  if (!raw) return null;
+  const weight = Number(raw);
+  if (!Number.isFinite(weight) || weight <= 0) return null;
+  // Petra supplies pounds; the observed range is 0.01–142.77 lb, consistent with
+  // that. Guard against an implausible figure rather than shipping it to Google.
+  if (weight > 2000) return null;
+  return Math.round(weight * 100) / 100;
+}
+
+// Package dimensions in inches. All three must be present or none are emitted —
+// a partial box is not a box, and Google rejects incomplete dimension sets.
+export function shipDimensionsIn(row) {
+  const read = (key) => {
+    const raw = String(row[key] ?? "").replace(/[^\d.]/g, "");
+    const value = Number(raw);
+    return Number.isFinite(value) && value > 0 ? Math.round(value * 100) / 100 : null;
+  };
+  const length = read("LENGTH");
+  const width = read("WIDTH");
+  const height = read("HEIGHT");
+  if (!length || !width || !height) return null;
+  return { length, width, height };
+}
+
+// --- Availability date --------------------------------------------------------
+//
+// `PO ETA DATE` is an Excel serial number (46251 -> 2026-08-14), not a string.
+// 616 rows carry one. Returns an ISO date or null; nothing is invented.
+export function excelSerialToISO(serial) {
+  const value = Number(String(serial ?? "").trim());
+  // Bound the range so a stray quantity or price can never be read as a date.
+  if (!Number.isFinite(value) || value < 20000 || value > 60000) return null;
+  const date = new Date(Date.UTC(1899, 11, 30) + value * 86400000);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString().slice(0, 10);
+}
+
+// Google requires availability_date for backorder/preorder, and the date must be
+// in the future. An item out of stock whose ETA has already lapsed is not
+// genuinely on backorder any more, so it is reported out_of_stock instead of
+// being advertised with a stale promise.
+export function availabilityState(row, { today } = {}) {
+  const reference = today || new Date().toISOString().slice(0, 10);
+  const quantity = availableQuantity(row);
+  if (quantity > 0) return { state: "in_stock", date: null };
+
+  const eta = excelSerialToISO(row["PO ETA DATE"]);
+  if (eta && eta > reference) return { state: "backorder", date: eta };
+  return { state: "out_of_stock", date: null };
+}
+
 export function isDiscontinued(row) {
   return /discontinued/i.test(normalizeWhitespace(row["NOTES1"]));
 }
@@ -296,10 +360,17 @@ export function availableQuantity(row) {
   return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 0;
 }
 
-export function availabilityText(row) {
+// The storefront copy must agree with what the feed tells Google, including the
+// expected date on a backorder — Merchant Center cross-checks the landing page.
+export function availabilityText(row, { today } = {}) {
   const quantity = availableQuantity(row);
   if (quantity > 0) return quantity >= 10 ? "In stock" : `In stock — only ${quantity} left`;
-  return isDiscontinued(row) ? "Final stock — ask us to check" : "Available to order";
+  const { state, date } = availabilityState(row, { today });
+  if (state === "backorder" && date) {
+    const label = new Date(`${date}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    return `Available to order — expected ${label}`;
+  }
+  return isDiscontinued(row) ? "Out of stock — ask us to check" : "Out of stock";
 }
 
 // Keywords power the shop's client-side filter. Keep them public-safe: brand,
@@ -330,7 +401,7 @@ export function buildSearchKeywords(row, { brand, mpn }) {
 
 // Every key here is part of the published contract. Adding a supplier-side key
 // is a boundary violation; assertPublicRecordClean() is the enforcement.
-export function buildPublicRecord(row, index = 0) {
+export function buildPublicRecord(row, index = 0, { today } = {}) {
   const flags = [];
   const brand = normalizeManufacturer(row["BRAND NAME"]);
   const mpn = normalizeMpn(row["VENDOR SKU"]);
@@ -352,11 +423,19 @@ export function buildPublicRecord(row, index = 0) {
   const discontinued = isDiscontinued(row);
   const quantity = availableQuantity(row);
   const imageUrl = normalizeImageUrl(row["IMAGE URL"]);
+  const availability = availabilityState(row, { today });
+  const shipWeight = packagedShipWeightLb(row);
+  const shipDims = shipDimensionsIn(row);
 
   if (!mpn) flags.push("missing_mpn");
   if (!title) flags.push("missing_title");
   if (!brand) flags.push("missing_brand");
   if (!imageUrl) flags.push("missing_image");
+  // A row with no packaged weight cannot be rate-shipped or fed to Google.
+  if (!shipWeight) flags.push("missing_ship_weight");
+  if (!shipDims) flags.push("missing_ship_dimensions");
+  if (availability.state === "backorder") flags.push("backorder_with_eta");
+  if (availability.state === "out_of_stock") flags.push("out_of_stock");
   if (!gtin.valid) flags.push("unverified_gtin");
   if (gtin.basis === "leading_zero_restored") flags.push("gtin_leading_zero_restored");
   // Rule 4: an unpriceable row is flagged for review, never guessed at.
@@ -405,7 +484,16 @@ export function buildPublicRecord(row, index = 0) {
       short_description: shortDescription,
       long_description: specs.join("\n"),
       search_keywords: buildSearchKeywords(row, { brand, mpn }),
-      availability: availabilityText(row),
+      availability: availabilityText(row, { today }),
+      // Google Shopping: availability + availability_date (required for
+      // backorder/preorder), and the packaged weight/dimensions that
+      // carrier-calculated shipping needs.
+      availability_state: availability.state,
+      availability_date: availability.date,
+      shipping_weight_lb: shipWeight,
+      shipping_length_in: shipDims ? shipDims.length : null,
+      shipping_width_in: shipDims ? shipDims.width : null,
+      shipping_height_in: shipDims ? shipDims.height : null,
       // Discontinued stock is the shop's clearance/Deals pool.
       clearance: discontinued && quantity > 0,
       price_mode: priced ? "fixed" : "request_quote",
@@ -430,6 +518,8 @@ export const ALLOWED_PUBLIC_KEYS = Object.freeze([
   "google_product_category", "product_type",
   "department_slug", "department_name", "subcategory", "short_description",
   "long_description", "search_keywords", "availability", "clearance",
+  "availability_state", "availability_date",
+  "shipping_weight_lb", "shipping_length_in", "shipping_width_in", "shipping_height_in",
   "price_mode", "public_price", "currency_code", "image_url", "image_alt",
   "meta_title", "meta_description", "published_at", "updated_at",
 ]);

@@ -59,9 +59,11 @@ the overage is reviewable rather than silent.
 | `gtin_leading_zero_restored` | 1206 |
 | `department_subcategory` | 572 |
 | `discontinued` | 509 |
+| `out_of_stock` | 413 |
 | `price_raised_to_map` | 342 |
 | `price_raised_to_margin_floor` | 196 |
 | `thin_margin_review` | 131 |
+| `backorder_with_eta` | 119 |
 | `price_review_msrp_not_above_cost` | 36 |
 | `supplier_sku_in_supplier_copy` | 36 |
 | `unverified_gtin` | 33 |

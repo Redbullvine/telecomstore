@@ -63,6 +63,10 @@ export function sanitizeMarketplaceProduct(row = {}) {
     long_description: String(row.long_description || ""),
     search_keywords: Array.isArray(row.search_keywords) ? row.search_keywords.map(String) : [],
     availability_text: String(row.availability || "Availability by quote"),
+    // Derived availability, kept identical to what the Google feed submits so the
+    // landing page and Merchant Center never disagree.
+    availability_state: ["in_stock", "out_of_stock", "backorder", "preorder"].includes(row.availability_state) ? row.availability_state : "",
+    availability_date: String(row.availability_date || ""),
     clearance: row.clearance === true,
     price_mode: priceMode,
     public_price: publicPrice,
@@ -150,7 +154,13 @@ export function marketplaceMetadata(route, productCount = 0) {
         "@type": "Offer",
         priceCurrency: product.currency_code,
         price: product.public_price,
-        availability: /^In stock/i.test(product.availability_text) ? "https://schema.org/InStock" : "https://schema.org/BackOrder",
+        availability: {
+          in_stock: "https://schema.org/InStock",
+          backorder: "https://schema.org/BackOrder",
+          preorder: "https://schema.org/PreOrder",
+          out_of_stock: "https://schema.org/OutOfStock",
+        }[product.availability_state] || (/^In stock/i.test(product.availability_text) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"),
+        ...(product.availability_date ? { availabilityStarts: product.availability_date } : {}),
         itemCondition: schema.itemCondition,
         url: `${MARKETPLACE_SITE_URL}${path}`,
       };
