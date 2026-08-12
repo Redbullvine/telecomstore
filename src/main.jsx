@@ -168,6 +168,15 @@ function App() {
     return <ProtectedAdmin route={route} auth={auth} />;
   }
 
+  if (route.path === "/shipping-returns") {
+    return (
+      <>
+        <AmbientCursor />
+        <ShippingReturnsPage navigate={route.navigate} />
+      </>
+    );
+  }
+
   return (
     <>
       <AmbientCursor />
@@ -347,6 +356,130 @@ function AmbientCursor() {
   }, []);
 
   return <div ref={haloRef} className="cursor-halo" aria-hidden="true" />;
+}
+
+function usePageMetadata(title, description) {
+  useEffect(() => {
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    const previousTitle = document.title;
+    const previousDescription = descriptionMeta?.getAttribute("content") || "";
+
+    document.title = title;
+    descriptionMeta?.setAttribute("content", description);
+
+    return () => {
+      document.title = previousTitle;
+      descriptionMeta?.setAttribute("content", previousDescription);
+    };
+  }, [description, title]);
+}
+
+function ShippingReturnsPage({ navigate }) {
+  usePageMetadata(
+    "Shipping, Returns & Refunds | Telecom Store",
+    "Shipping, return, refund and order-support information for Telecom Store."
+  );
+
+  return (
+    <div className="storefront ts-policy-page">
+      <div className="ts-ubar">
+        <div className="ts-wrap">
+          <nav className="ts-ulinks" aria-label="Utility navigation">
+            <a href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Home</a>
+            <a href="/#catalog">Catalog</a>
+            <a href={contactEmailHref("Telecom Store quote request")}>Request a Quote</a>
+            <a href={contactEmailHref("Telecom Store support")}>Contact</a>
+          </nav>
+          <div className="ts-ubadges"><span><ShieldCheck size={13} /> Customer Support</span></div>
+        </div>
+      </div>
+
+      <header className="ts-head">
+        <div className="ts-wrap">
+          <a className="ts-brand" href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>
+            <span className="ts-mark">TS</span>
+            <span className="ts-brandtxt"><strong>{CONTACT_CONFIG.companyName}</strong><small>Telecom Equipment &amp; Accessories</small></span>
+          </a>
+          <a className="ts-policy-action" href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Browse the catalog</a>
+        </div>
+      </header>
+
+      <nav className="ts-catnav ts-policy-nav" aria-label="Policy navigation">
+        <div className="ts-wrap">
+          <a href="#shipping">Shipping</a>
+          <a href="#returns">Returns</a>
+          <a href="#damaged-items">Order problems</a>
+          <a href="#refunds">Refunds</a>
+          <a href="#cancellations">Cancellations</a>
+          <a href="#policy-contact">Contact</a>
+        </div>
+      </nav>
+
+      <main className="ts-policy-main">
+        <div className="ts-policy-wrap">
+          <header className="ts-policy-intro">
+            <p className="ts-eyebrow">Customer care</p>
+            <h1>Shipping, Returns &amp; Refunds</h1>
+            <p>This policy explains how shipping, returns, refunds, order problems, and cancellation requests are handled for purchases and quote-based orders from {CONTACT_CONFIG.companyName}.</p>
+          </header>
+
+          <article className="ts-policy-card" aria-label="Shipping, returns and refunds policy">
+            <section id="shipping">
+              <h2><span>01</span> Shipping</h2>
+              <h3>Normal online purchases</h3>
+              <p>Products available for direct online purchase use secure checkout. Shipping and applicable taxes are calculated or confirmed as part of checkout and order processing.</p>
+              <p>Shipping charges can vary based on the destination, product dimensions and weight, carrier and service, and other applicable delivery charges. Shipping is charged unless otherwise expressly confirmed for your order, and we do not promise a specific shipment or delivery date.</p>
+              <h3>Quote-based products and orders</h3>
+              <p>For quote-based orders, we confirm the merchandise price, shipping or freight, and applicable tax before payment. Some telecom, oversized, freight, supplier-fulfilled, or special-order items require manual shipping review so that the order total and delivery arrangements can be confirmed accurately.</p>
+            </section>
+
+            <section id="returns">
+              <h2><span>02</span> Returns</h2>
+              <p><strong>Contact us at <a href={contactEmailHref("Return request")}>{CONTACT_CONFIG.email}</a> before sending any merchandise back.</strong> Please include your order information, the item you want to return, and the reason for the request.</p>
+              <p>Return eligibility depends on the product, its condition, applicable supplier or manufacturer requirements, and whether the item was special ordered, customized, opened, installed, used, or otherwise restricted. Special-order items and certain closeout items may be non-returnable.</p>
+              <p>If a return is approved, we will provide the applicable return authorization or RMA instructions, including where and how to send the item. Do not send an unauthorized return; merchandise sent without approval may be refused.</p>
+            </section>
+
+            <section id="damaged-items">
+              <h2><span>03</span> Damaged, defective or incorrect items</h2>
+              <p>Contact us promptly if merchandise arrives damaged, you receive the wrong item, a shipment is short, or a product appears defective. Email <a href={contactEmailHref("Damaged, defective or incorrect order")}>{CONTACT_CONFIG.email}</a> with your order information and a description of the issue.</p>
+              <p>Keep the merchandise and all original packaging while we review the issue. Photos of the product, packaging, shipping label, and visible damage can help us coordinate the appropriate carrier, supplier, manufacturer, replacement, or return process.</p>
+            </section>
+
+            <section id="refunds">
+              <h2><span>04</span> Refunds</h2>
+              <p>Approved refunds are issued through the original payment method whenever possible. Refunds are processed after the return or cancellation has been approved according to the circumstances of the order.</p>
+              <p>Your bank, card issuer, or payment provider may need additional processing time before the credit appears. If documented order or supplier terms make shipping, freight, restocking, or another charge non-refundable, we will identify the applicable charge as part of our review.</p>
+            </section>
+
+            <section id="cancellations">
+              <h2><span>05</span> Order cancellations</h2>
+              <p>Contact <a href={contactEmailHref("Order cancellation request")}>{CONTACT_CONFIG.email}</a> as soon as possible to request a cancellation. We will review the order status and let you know whether cancellation is still available.</p>
+              <p>Supplier-fulfilled, already-shipped, or otherwise committed orders may not be cancelable once fulfillment begins. If an order can no longer be canceled, any return request is subject to the applicable return eligibility and authorization process above.</p>
+            </section>
+
+            <section id="policy-contact" className="ts-policy-contact">
+              <h2><span>06</span> Contact</h2>
+              <address>
+                <strong>{CONTACT_CONFIG.companyName}</strong>
+                <span>Operated by {CONTACT_CONFIG.operatorName}</span>
+                <a href={contactEmailHref("Shipping, returns or refund support")}>{CONTACT_CONFIG.email}</a>
+              </address>
+            </section>
+          </article>
+        </div>
+      </main>
+
+      <footer className="ts-foot">
+        <div className="ts-wrap ts-foot-grid">
+          <div><div className="ts-fbrand">{CONTACT_CONFIG.companyName}</div><p>Telecom equipment and accessories organized by exact manufacturer part number.</p><p>Support: <a href={contactEmailHref("Telecom Store support")}>{CONTACT_CONFIG.email}</a></p></div>
+          <div><h5>Store</h5><a href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Home</a><a href="/#catalog">Browse Catalog</a></div>
+          <div><h5>Customer care</h5><a href="/shipping-returns" aria-current="page">Shipping, Returns &amp; Refunds</a><a href={contactEmailHref("Telecom Store support")}>Contact Us</a></div>
+          <p className="ts-legal">{CONTACT_CONFIG.companyName} is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Brand names are the property of their respective owners.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
 
 const STORE_CAT_META = {
@@ -815,7 +948,7 @@ function CatalogLandingHero({ routeInfo, count }) {
 }
 
 function StorefrontFooter({ navigate, onQuote, onLead }) {
-  return <footer className="ts-foot" id="contact"><div className="ts-wrap ts-foot-grid"><div className="ts-foot-intro"><div className="ts-fbrand"><span className="ts-mark">TS</span><strong>Telecom Store</strong></div><p>Telecom equipment and accessories organized by exact manufacturer part number.</p><p>Questions and quotes: <a href={contactEmailHref()}>{CONTACT_CONFIG.email}</a></p><div className="ts-foot-cta"><strong>Need help finding a part?</strong><span>Send the MPN or GTIN and we’ll review it.</span><button type="button" onClick={() => onLead("item-inquiry", null, "footer")}>Send a part number</button></div></div><div><h5>Browse categories</h5>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigate(categoryPath(item)); }}>{item.name}</a>)}</div><div><h5>General Merchandise</h5><a href="/shop" onClick={(event) => { event.preventDefault(); navigate("/shop"); }}>Shop all departments</a>{MARKETPLACE_SUMMARY.departments.map((department) => <a key={department.slug} href={`/shop/${department.slug}`} onClick={(event) => { event.preventDefault(); navigate(`/shop/${department.slug}`); }}>{department.name}</a>)}</div><div><h5>Customer service</h5><button className="ts-footlink" type="button" onClick={onQuote}>Request a quote</button><button className="ts-footlink" type="button" onClick={() => onLead("sell-equipment", null, "footer")}>Sell us equipment</button><a href={contactEmailHref("Telecom Store inquiry")}>Contact us</a><a href="/login" onClick={(event) => handleNavClick(event, navigate, "/login")}>Warehouse admin</a></div><p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Product availability, pricing, and shipping are confirmed during quote review. Brand names are the property of their respective owners.</p></div></footer>;
+  return <footer className="ts-foot" id="contact"><div className="ts-wrap ts-foot-grid"><div className="ts-foot-intro"><div className="ts-fbrand"><span className="ts-mark">TS</span><strong>Telecom Store</strong></div><p>Telecom equipment and accessories organized by exact manufacturer part number.</p><p>Questions and quotes: <a href={contactEmailHref()}>{CONTACT_CONFIG.email}</a></p><div className="ts-foot-cta"><strong>Need help finding a part?</strong><span>Send the MPN or GTIN and we’ll review it.</span><button type="button" onClick={() => onLead("item-inquiry", null, "footer")}>Send a part number</button></div></div><div><h5>Browse categories</h5>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigate(categoryPath(item)); }}>{item.name}</a>)}</div><div><h5>General Merchandise</h5><a href="/shop" onClick={(event) => { event.preventDefault(); navigate("/shop"); }}>Shop all departments</a>{MARKETPLACE_SUMMARY.departments.map((department) => <a key={department.slug} href={`/shop/${department.slug}`} onClick={(event) => { event.preventDefault(); navigate(`/shop/${department.slug}`); }}>{department.name}</a>)}</div><div><h5>Customer service</h5><button className="ts-footlink" type="button" onClick={onQuote}>Request a quote</button><button className="ts-footlink" type="button" onClick={() => onLead("sell-equipment", null, "footer")}>Sell us equipment</button><a href={contactEmailHref("Telecom Store inquiry")}>Contact us</a><a href="/shipping-returns" onClick={(event) => handleNavClick(event, navigate, "/shipping-returns")}>Shipping, Returns &amp; Refunds</a><a href="/login" onClick={(event) => handleNavClick(event, navigate, "/login")}>Warehouse admin</a></div><p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Product availability, pricing, and shipping are confirmed during quote review. Brand names are the property of their respective owners.</p></div></footer>;
 }
 
 function LegacyPublicStorefront({ navigate }) {
@@ -1132,6 +1265,7 @@ function LegacyPublicStorefront({ navigate }) {
             <button className="ts-footlink" type="button" onClick={() => openQuoteDrawer("form", "footer_service")}>Request a Quote</button>
             <button className="ts-footlink" type="button" onClick={() => openLeadModal("sell-equipment", null, "footer_service")}>Sell Us Equipment</button>
             <a href={contactEmailHref("Telecom Store inquiry")} onClick={() => handleEmailClick("footer_service")}>Contact Us</a>
+            <a href="/shipping-returns" onClick={(event) => handleNavClick(event, navigate, "/shipping-returns")}>Shipping, Returns &amp; Refunds</a>
             <a href="/login" onClick={(e) => handleNavClick(e, navigate, "/login")}>Admin Login</a>
           </div>
           <p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Product details, condition, and availability are confirmed per quote; quantities are limited. Brand names are the property of their respective owners.</p>
