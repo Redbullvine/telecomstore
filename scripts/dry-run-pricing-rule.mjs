@@ -19,7 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { createRequire } from "node:module";
-import { telecomStorePrice, PRICE_POSITION } from "./lib/general-merchandise.mjs";
+import { telecomStorePrice, PRICE_POSITION, MIN_MARGIN_PCT, MIN_MARGIN_DOLLARS } from "./lib/general-merchandise.mjs";
 
 const require = createRequire(import.meta.url);
 const XLSX = require("xlsx");
@@ -50,6 +50,8 @@ const num = (input) => {
 
 const priced = [];
 const blockedByMap = [];
+const raisedByFloor = [];
+const floorAboveMsrp = [];
 const msrpNotAboveCost = [];
 const missingInputs = [];
 const invalidInputs = [];
@@ -82,6 +84,13 @@ for (const row of rows) {
   const entry = { sku, cost, msrp, map, price, basis: result.basis, marginPct, marginDollars: price - cost };
   priced.push(entry);
   if (result.basis === "map_floor") blockedByMap.push(entry);
+  if (result.basis === "min_margin_percent" || result.basis === "min_margin_dollars") {
+    // What the bare formula would have produced, for the before/after column.
+    const formulaPrice = Math.round((cost + (msrp - cost) * PRICE_POSITION + Number.EPSILON) * 100) / 100;
+    const withFormula = { ...entry, formulaPrice };
+    raisedByFloor.push(withFormula);
+    if (price > msrp + 0.005) floorAboveMsrp.push(withFormula);
+  }
 
   const previous = Math.round((cost * 2 + Number.EPSILON) * 100) / 100;
   const previousWithMap = map !== null && map > previous ? map : previous;
@@ -104,6 +113,7 @@ console.log("=".repeat(72));
 console.log("  PRICING RULE DRY RUN — no data changed");
 console.log("=".repeat(72));
 console.log(`  Rule:   Our Price = Cost + ((MSRP - Cost) * ${PRICE_POSITION})`);
+console.log(`  Floor:  at least ${(MIN_MARGIN_PCT * 100).toFixed(0)}% margin AND at least ${money(MIN_MARGIN_DOLLARS)} per unit`);
 console.log(`  Source: ${path.basename(sourcePath)} — ${rows.length} rows`);
 console.log("");
 
@@ -111,6 +121,8 @@ console.log("  OUTCOME");
 console.log("  " + "-".repeat(70));
 console.log(`  Repriced (public price calculated)      ${String(priced.length).padStart(6)}   ${pct(priced.length)}`);
 console.log(`    of which raised to the MAP floor      ${String(blockedByMap.length).padStart(6)}   ${pct(blockedByMap.length)}`);
+console.log(`    of which raised to the margin floor  ${String(raisedByFloor.length).padStart(6)}   ${pct(raisedByFloor.length)}`);
+console.log(`      of those, now above MSRP           ${String(floorAboveMsrp.length).padStart(6)}   ${pct(floorAboveMsrp.length)}`);
 console.log(`  Blocked — MSRP <= Cost (review)         ${String(msrpNotAboveCost.length).padStart(6)}   ${pct(msrpNotAboveCost.length)}`);
 console.log(`  Blocked — MSRP or Cost missing (review) ${String(missingInputs.length).padStart(6)}   ${pct(missingInputs.length)}`);
 console.log(`  Blocked — MSRP or Cost invalid (review) ${String(invalidInputs.length).padStart(6)}   ${pct(invalidInputs.length)}`);
@@ -135,6 +147,17 @@ console.log(`  Price goes down  ${String(decreases).padStart(6)}   ${pct(decreas
 console.log(`  Price goes up    ${String(increases).padStart(6)}   ${pct(increases)}`);
 console.log(`  Unchanged        ${String(unchanged).padStart(6)}   ${pct(unchanged)}`);
 console.log("");
+
+if (raisedByFloor.length) {
+  console.log(`  ITEMS RAISED BY THE MARGIN FLOOR (${raisedByFloor.length}, showing the 12 biggest lifts)`);
+  console.log("  " + "-".repeat(70));
+  console.log(`  ${"sku".padEnd(22)} ${"cost".padStart(8)} ${"formula".padStart(9)} ${"floored".padStart(9)} ${"MSRP".padStart(9)}  margin`);
+  for (const item of [...raisedByFloor].sort((a, b) => (b.price - b.formulaPrice) - (a.price - a.formulaPrice)).slice(0, 12)) {
+    const flag = item.price > item.msrp + 0.005 ? " *above MSRP" : "";
+    console.log(`  ${item.sku.padEnd(22)} ${money(item.cost).padStart(8)} ${money(item.formulaPrice).padStart(9)} ${money(item.price).padStart(9)} ${money(item.msrp).padStart(9)}  ${item.marginPct.toFixed(0)}%${flag}`);
+  }
+  console.log("");
+}
 
 if (msrpNotAboveCost.length) {
   console.log(`  PRODUCTS FLAGGED FOR REVIEW — MSRP <= Cost (${msrpNotAboveCost.length}, showing up to 15)`);

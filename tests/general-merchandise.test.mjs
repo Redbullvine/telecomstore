@@ -41,32 +41,72 @@ const row = (patch = {}) => ({
   ...patch,
 });
 
-test("the price sits 65% of the way from dealer cost to MSRP", () => {
-  // 10 + (100 - 10) * 0.65 = 68.50
-  assert.deepEqual(telecomStorePrice({ cost: 10, msrp: 100 }), {
-    status: "priced", reason: null, publicPrice: 68.5, basis: "cost_plus_65_percent_of_spread",
-  });
-  // The workbook row: 91.99 + (109.99 - 91.99) * 0.65 = 103.69
-  assert.equal(buildPublicRecord(row()).record.public_price, 103.69);
-  // Cents are rounded, never truncated.
-  assert.equal(telecomStorePrice({ cost: 1.11, msrp: 2.22 }).publicPrice, 1.83);
-  // The result is always strictly between cost and MSRP.
+test("the price sits 60% of the way from dealer cost to MSRP", () => {
+  // Danny's worked example, 2026-08-12: cost 50, MSRP 100 -> 80.
+  assert.equal(telecomStorePrice({ cost: 50, msrp: 100 }).publicPrice, 80);
+  // 10 + (100 - 10) * 0.60 = 64.00
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100 }).publicPrice, 64);
+  // The workbook row's formula price is 91.99 + (109.99 - 91.99) * 0.60 = 102.79,
+  // but Petra's headroom is thin there so the 15% floor lifts it to 108.22, which
+  // still sits under the 109.99 MSRP.
+  assert.equal(buildPublicRecord(row()).record.public_price, 108.22);
+  // Cents are rounded, never truncated: 100.01 + 100.01 * 0.60 = 160.016 -> 160.02.
+  // (Ample headroom here, so neither floor interferes with the arithmetic.)
+  assert.equal(telecomStorePrice({ cost: 100.01, msrp: 200.02 }).publicPrice, 160.02);
+  // On a cheap item the $1.00 floor is what decides the price, not the formula.
+  assert.equal(telecomStorePrice({ cost: 1.11, msrp: 2.22 }).publicPrice, 2.11);
+  // The result always clears cost and never passes MSRP. It can land exactly on
+  // MSRP when the $1.00 floor consumes all the headroom, as on a $1 item.
   for (const [cost, msrp] of [[1, 2], [0.09, 0.99], [54.99, 300], [7.99, 19.99]]) {
     const price = telecomStorePrice({ cost, msrp }).publicPrice;
-    assert.ok(price > cost && price < msrp, `${price} must fall between ${cost} and ${msrp}`);
+    assert.ok(price > cost, `${price} must clear cost ${cost}`);
+    assert.ok(price <= msrp + 0.005, `${price} must not pass MSRP ${msrp}`);
   }
 });
 
+test("the margin floor lifts thin items but never above MSRP", () => {
+  // Plenty of headroom: the floor does not bind at all.
+  assert.equal(telecomStorePrice({ cost: 50, msrp: 100 }).basis, "cost_plus_60_percent_of_spread");
+  // Formula 8.79 already clears the 8.22 floor, so the floor stays out of it.
+  assert.equal(telecomStorePrice({ cost: 6.99, msrp: 9.99 }).publicPrice, 8.79);
+  // Thin headroom: formula is 115.00, below the 117.65 floor, and the floor fits
+  // under the 125.00 MSRP — so it binds.
+  const lifted = telecomStorePrice({ cost: 100, msrp: 125 });
+  assert.equal(lifted.publicPrice, 117.65);
+  assert.equal(lifted.basis, "min_margin_percent");
+  // No headroom: the floor would exceed MSRP, so the formula price stands and the
+  // item is flagged rather than listed above MSRP.
+  const thin = telecomStorePrice({ cost: 949.99, msrp: 1099.99 });
+  assert.equal(thin.publicPrice, 1039.99);
+  assert.equal(thin.basis, "formula_floor_would_exceed_msrp");
+  assert.ok(thin.publicPrice < 1099.99, "must stay under MSRP");
+  assert.ok(buildPublicRecord(row({ PRICE: 949.99, MSRP: 1099.99 })).flags.includes("thin_margin_review"));
+});
+
+test("no published price exceeds MSRP unless MAP contractually requires it", () => {
+  for (const cost of [0.09, 0.99, 6.99, 21.99, 54.99, 636.99, 949.99]) {
+    for (const msrp of [0.89, 1, 9.99, 31, 100, 699.99, 1099.99]) {
+      const result = telecomStorePrice({ cost, msrp });
+      if (result.status !== "priced") continue;
+      assert.ok(result.publicPrice <= msrp + 0.005, `price ${result.publicPrice} exceeds MSRP ${msrp}`);
+    }
+  }
+  // MAP is the one legitimate exception, and it is recorded as such.
+  const mapped = telecomStorePrice({ cost: 5.49, msrp: 20, map: 44.99 });
+  assert.equal(mapped.publicPrice, 44.99);
+  assert.equal(mapped.basis, "map_floor");
+});
+
 test("rule 3: MAP raises a price below it, and never lowers one above it", () => {
-  // Calculated 68.50, MAP 80 -> MAP wins.
+  // Calculated 64.00, MAP 80 -> MAP wins.
   const raised = telecomStorePrice({ cost: 10, msrp: 100, map: 80 });
   assert.equal(raised.publicPrice, 80);
   assert.equal(raised.basis, "map_floor");
-  // Calculated 68.50, MAP 20 -> calculation stands; MAP is a floor, not a cap.
-  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 20 }).publicPrice, 68.5);
+  // Calculated 64.00, MAP 20 -> calculation stands; MAP is a floor, not a cap.
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 20 }).publicPrice, 64);
   // A zero or blank MAP is "no floor", not a floor of zero.
-  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 0 }).publicPrice, 68.5);
-  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: "" }).publicPrice, 68.5);
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: 0 }).publicPrice, 64);
+  assert.equal(telecomStorePrice({ cost: 10, msrp: 100, map: "" }).publicPrice, 64);
   assert.ok(buildPublicRecord(row({ PRICE: 10, MSRP: 100, MAP: 80 })).flags.includes("price_raised_to_map"));
 });
 

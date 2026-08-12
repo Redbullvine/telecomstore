@@ -11,10 +11,9 @@
 //   MAP / MSRP -> PRIVATE. MAP is a price floor input; MSRP is review evidence.
 //   UPC        -> gtin, emitted only when the checksum validates.
 //
-// Pricing follows the rule already established in
-// scripts/generate-petra-public-pricing.mjs: public price = dealer cost x 2,
-// raised to MAP when MAP is higher, rounded to cents. Authorized by Danny on
-// 2026-08-10 ("double all prices when putting them on the site").
+// Pricing places the public price 60% of the way from dealer cost up to MSRP,
+// with a minimum-margin floor and MAP as a hard floor. See the pricing section
+// below for the authorized rule and its ordering.
 //
 // Petra imagery is published under the supplier's verbal authorization to
 // Danny (2026-08-10) covering everything in the product download document.
@@ -125,11 +124,13 @@ export function normalizeImageUrl(raw) {
 
 // --- Telecom Store pricing rule ----------------------------------------------
 //
-// Authorized by Danny, 2026-08-10, replacing the earlier cost x 2 rule:
+// Authorized by Danny, replacing the earlier cost x 2 rule:
 //
-//     Our Price = Cost + ((MSRP - Cost) * 0.65)
+//     Our Price = Cost + ((MSRP - Cost) * 0.60)
 //
-// The price sits 65% of the way from dealer cost up to MSRP, so it is always
+// Worked example given 2026-08-12: cost $50, MSRP $100 -> $80.
+//
+// The price sits 60% of the way from dealer cost up to MSRP, so it is always
 // strictly between the two whenever MSRP > Cost. That fixes the flaw in doubling:
 // Petra's discount off MSRP ranges from 9% to 91% of MSRP, so a flat multiplier
 // overshot MSRP on 66% of the catalog while under-pricing the deeply discounted
@@ -143,7 +144,33 @@ export function normalizeImageUrl(raw) {
 //      product is flagged for review instead of guessed at.
 //
 // Petra's Cost, MSRP, and MAP are inputs only. Nothing here writes them.
-export const PRICE_POSITION = 0.65;
+export const PRICE_POSITION = 0.60;
+
+// Minimum-margin floor, authorized by Danny 2026-08-12 on top of the formula.
+//
+// The formula alone left 111 items earning under $1.00 a unit and 12 under $0.25
+// (thinnest: 7 cents), because Petra's MSRP is nearly equal to cost on those. Card
+// processing is roughly 2.9% + $0.30, so those sell at a loss. A published price
+// must therefore clear BOTH floors — whichever binds harder wins:
+//
+//   * at least MIN_MARGIN_PCT gross margin as a share of the selling price
+//   * at least MIN_MARGIN_DOLLARS of gross margin per unit
+//
+// The floors only ever raise a price, so rule 2 (never below cost) still holds.
+// On a thin item the floor can push the price above MSRP; that is the intended
+// trade-off, since the alternative is selling at a loss. Those rows are flagged.
+export const MIN_MARGIN_PCT = 0.15;
+export const MIN_MARGIN_DOLLARS = 1.0;
+
+// The margin floor never overrides MSRP (authorized 2026-08-12).
+//
+// On some items Petra leaves under 15% headroom below MSRP, so the floor would
+// price them OVER MSRP — 181 items, including a $949.99-cost unit already earning
+// $97.50 pushed past MSRP. Listing above MSRP is what suppresses Google Shopping
+// placement, so on those rows the floor yields and the formula price stands. The
+// price is then always at or below MSRP, and the floor still protects every item
+// where Petra leaves the room for it.
+export const FLOOR_YIELDS_TO_MSRP = true;
 
 const money = (input) => {
   const cleaned = String(input ?? "").replace(/[$,\s]/g, "");
@@ -165,7 +192,24 @@ export function telecomStorePrice({ cost, msrp, map } = {}) {
   if (suggested <= dealerCost) return { status: "review", reason: "msrp_not_above_cost", publicPrice: null, basis: null };
 
   let price = roundMoney(dealerCost + (suggested - dealerCost) * PRICE_POSITION);
-  let basis = "cost_plus_65_percent_of_spread";
+  let basis = "cost_plus_60_percent_of_spread";
+
+  // Minimum-margin floor. Both floors are evaluated and the harder one wins.
+  //   percentage floor: price such that (price - cost) / price = MIN_MARGIN_PCT
+  //   absolute floor:   cost + MIN_MARGIN_DOLLARS
+  const percentFloor = roundMoney(dealerCost / (1 - MIN_MARGIN_PCT));
+  const absoluteFloor = roundMoney(dealerCost + MIN_MARGIN_DOLLARS);
+  const marginFloor = Math.max(percentFloor, absoluteFloor);
+  if (price < marginFloor) {
+    if (FLOOR_YIELDS_TO_MSRP && marginFloor > suggested) {
+      // Petra leaves too little headroom for the floor. Keep the formula price
+      // rather than listing above MSRP, and mark it as thin for review.
+      basis = "formula_floor_would_exceed_msrp";
+    } else {
+      price = marginFloor;
+      basis = percentFloor >= absoluteFloor ? "min_margin_percent" : "min_margin_dollars";
+    }
+  }
 
   // Rule 3: MAP is a floor, so it only ever raises the price.
   if (advertisedFloor !== null && advertisedFloor > 0 && price < advertisedFloor) {
@@ -318,6 +362,11 @@ export function buildPublicRecord(row, index = 0) {
   // Rule 4: an unpriceable row is flagged for review, never guessed at.
   if (pricing.status !== "priced") flags.push(`price_review_${pricing.reason}`);
   if (pricing.basis === "map_floor") flags.push("price_raised_to_map");
+  if (pricing.basis === "min_margin_percent" || pricing.basis === "min_margin_dollars") {
+    flags.push("price_raised_to_margin_floor");
+  }
+  // Petra's headroom was too thin for the margin floor to fit under MSRP.
+  if (pricing.basis === "formula_floor_would_exceed_msrp") flags.push("thin_margin_review");
   // Recorded for review: the manufacturer part number and the supplier SKU are
   // the same string here, so the public SKU is worth a human glance even though
   // the value itself is the manufacturer's and public.
