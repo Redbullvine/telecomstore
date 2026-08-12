@@ -435,9 +435,12 @@ function ShippingReturnsPage({ navigate }) {
 
             <section id="returns">
               <h2><span>02</span> Returns</h2>
-              <p><strong>Contact us at <a href={contactEmailHref("Return request")}>{CONTACT_CONFIG.email}</a> before sending any merchandise back.</strong> Please include your order information, the item you want to return, and the reason for the request.</p>
-              <p>Return eligibility depends on the product, its condition, applicable supplier or manufacturer requirements, and whether the item was special ordered, customized, opened, installed, used, or otherwise restricted. Special-order items and certain closeout items may be non-returnable.</p>
-              <p>If a return is approved, we will provide the applicable return authorization or RMA instructions, including where and how to send the item. Do not send an unauthorized return; merchandise sent without approval may be refused.</p>
+              <h3>Standard 14-day returns</h3>
+              <p><strong>Eligible products may be requested for return within 14 days after delivery. Contact {CONTACT_CONFIG.companyName} at <a href={contactEmailHref("Return request")}>{CONTACT_CONFIG.email}</a> before returning any merchandise. Return authorization is required.</strong></p>
+              <p>For a standard return, merchandise must generally be unused, uninstalled, in resalable condition, and returned with appropriate original packaging and accessories when applicable. Eligibility may depend on the product type, supplier or manufacturer restrictions, special-order status, customization, whether the merchandise has been opened, installed, or used, and whether the product is designated non-returnable.</p>
+              <p>If a return is approved, we will provide the applicable return authorization or RMA instructions, including where and how to send the item. Do not send an unauthorized return; unauthorized returns may be refused.</p>
+              <p>For a standard non-defective or customer-choice return, the customer is responsible for return shipping. Applicable original shipping or freight charges and permitted supplier or restocking charges may be non-refundable where applicable.</p>
+              <p><strong>{CONTACT_CONFIG.companyName} does not offer a general product exchange program.</strong> If you need a different product, an eligible return may be requested and a new order placed separately.</p>
             </section>
 
             <section id="damaged-items">
