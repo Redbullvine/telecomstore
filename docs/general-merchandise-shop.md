@@ -43,10 +43,55 @@ carries dealer cost, MAP, MSRP, and supplier SKUs, none of which may be committe
 
 ## Pricing
 
-`calculatePublicPrice()` in `scripts/generate-petra-public-pricing.mjs` is reused
-unchanged: **dealer cost x 2, raised to MAP where MAP is higher, rounded to
-cents.** A price is never derived from MSRP and never invented; a row with no
-usable cost publishes as request-a-quote instead.
+The authorized rule, in `telecomStorePrice()`:
+
+```
+Our Price = Cost + ((MSRP - Cost) * 0.60)
+```
+
+Worked example: cost $50, MSRP $100 → **$80**. Applied in this order:
+
+1. Only when Cost and MSRP are both valid and **MSRP > Cost**.
+2. A minimum-margin floor of **15% of the selling price AND $1.00 per unit**
+   (whichever binds harder) — but the floor **never pushes a price above MSRP**.
+   Where Petra's headroom is too thin for the floor to fit, the formula price
+   stands and the row is flagged `thin_margin_review`.
+3. **MAP is a hard floor** and can only raise a price, never lower one.
+4. Never below dealer cost (guaranteed by 1, asserted explicitly).
+5. A missing, zero, invalid, or not-above-cost MSRP yields **no public price**;
+   the product is flagged for review and shows "Request Price".
+
+Petra's Cost, MSRP, and MAP are inputs only and are never written.
+
+### Why the floor yields to MSRP
+
+A 15% *percentage* floor on a high-ticket item demands more margin than Petra
+leaves. Enforcing it strictly listed 181 items above MSRP — including a
+$949.99-cost unit already earning $97.50 pushed past MSRP — which is exactly what
+suppresses Google Shopping placement. With the floor yielding, **zero** items
+exceed MSRP except where MAP contractually requires it.
+
+Note that simply lowering the position to 60% does not fix this on its own: it
+makes the floor bind *more* often. The conflict rule is what does the work.
+
+### Live outcome
+
+| Measure | Count |
+| --- | --- |
+| Priced | 2,439 |
+| Request Price (MSRP missing or not above cost) | 36 |
+| Raised to the MAP floor | ~380 |
+| Raised to the margin floor | ~200 |
+| Above MSRP | 0 (except MAP) |
+| Below dealer cost | 0 |
+
+Margin runs 1.2% to 87.8%, median ~32%. The 60 thinnest items earn under $1.00 a
+unit — Petra leaves almost no headroom under MSRP on those, so "never above MSRP"
+and "always 15%" cannot both hold. Re-check any time with:
+
+```bash
+node scripts/dry-run-pricing-rule.mjs --private-out tmp/general-merchandise
+```
 
 ### What Petra's PRICE column is
 
