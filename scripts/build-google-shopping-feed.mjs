@@ -49,7 +49,12 @@ function identifierFields(product) {
 }
 
 const included = [];
-const excluded = { no_price: 0, no_image: 0, no_title: 0 };
+const excluded = { no_price: 0, no_image: 0, no_title: 0, no_shipping_weight: 0 };
+const excludedSkus = { no_shipping_weight: [] };
+const availabilityCounts = { in_stock: 0, out_of_stock: 0, backorder: 0, preorder: 0 };
+let withShippingWeight = 0;
+let withShippingDimensions = 0;
+let missingAvailabilityDate = 0;
 
 const items = [];
 for (const product of products) {
@@ -60,14 +65,39 @@ for (const product of products) {
   const price = Number(product.public_price);
   if (!(price > 0)) { excluded.no_price += 1; continue; }
 
+  // Merchant Center uses FedEx carrier-calculated shipping, which needs a real
+  // packaged weight. An item without one is excluded rather than given a guess.
+  const shippingWeight = Number(product.shipping_weight_lb);
+  if (!(shippingWeight > 0)) {
+    excluded.no_shipping_weight += 1;
+    if (excludedSkus.no_shipping_weight.length < 50) excludedSkus.no_shipping_weight.push(product.sku);
+    continue;
+  }
+
   const link = `${MARKETPLACE_SITE_URL}/shop/products/${product.slug}`;
   // image_link must be absolute and fetchable by Google; the catalog stores the
   // first-party proxy path.
   const imageLink = /^https?:\/\//i.test(product.image_url)
     ? product.image_url
     : `${MARKETPLACE_SITE_URL}${product.image_url}`;
-  const inStock = /^In stock/i.test(String(product.availability || ""));
   const description = product.short_description || product.title;
+
+  // Availability comes from the catalog's derived state, not a guess from copy.
+  // Google requires availability_date for backorder/preorder; an out-of-stock
+  // item whose supplier ETA has lapsed is reported out_of_stock rather than
+  // advertised with a stale promise.
+  const state = ["in_stock", "out_of_stock", "backorder", "preorder"].includes(product.availability_state)
+    ? product.availability_state
+    : "out_of_stock";
+  const availabilityDate = state === "backorder" || state === "preorder" ? String(product.availability_date || "") : "";
+  if ((state === "backorder" || state === "preorder") && !/^\d{4}-\d{2}-\d{2}$/.test(availabilityDate)) {
+    missingAvailabilityDate += 1;
+  }
+  availabilityCounts[state] += 1;
+  withShippingWeight += 1;
+  const dimensions = [product.shipping_length_in, product.shipping_width_in, product.shipping_height_in].map(Number);
+  const hasDimensions = dimensions.every((value) => value > 0);
+  if (hasDimensions) withShippingDimensions += 1;
 
   items.push([
     "    <item>",
@@ -76,8 +106,18 @@ for (const product of products) {
     `      <g:description>${escapeXml(description.slice(0, 5000))}</g:description>`,
     `      <g:link>${escapeXml(link)}</g:link>`,
     `      <g:image_link>${escapeXml(imageLink)}</g:image_link>`,
-    `      <g:availability>${inStock ? "in_stock" : "backorder"}</g:availability>`,
+    `      <g:availability>${state}</g:availability>`,
+    availabilityDate ? `      <g:availability_date>${escapeXml(availabilityDate)}</g:availability_date>` : null,
     `      <g:price>${price.toFixed(2)} ${escapeXml(product.currency_code || "USD")}</g:price>`,
+    // Packaged shipping weight, required for carrier-calculated shipping.
+    `      <g:shipping_weight>${shippingWeight.toFixed(2)} lb</g:shipping_weight>`,
+    // Real package dimensions improve dimensional-weight accuracy. Emitted only
+    // when all three are present in the supplier data; never manufactured.
+    ...(hasDimensions ? [
+      `      <g:shipping_length>${dimensions[0].toFixed(2)} in</g:shipping_length>`,
+      `      <g:shipping_width>${dimensions[1].toFixed(2)} in</g:shipping_width>`,
+      `      <g:shipping_height>${dimensions[2].toFixed(2)} in</g:shipping_height>`,
+    ] : []),
     `      <g:brand>${escapeXml(product.brand)}</g:brand>`,
     `      <g:condition>${escapeXml(product.condition === "refurbished" ? "refurbished" : "new")}</g:condition>`,
     ...identifierFields(product),
@@ -124,7 +164,21 @@ fs.writeFileSync(sitemapPath, sitemap, "utf8");
 
 const withGtin = included.filter((product) => product.gtin).length;
 console.log(`Feed items: ${included.length} of ${products.length} published products.`);
-console.log(`  skipped — missing price: ${excluded.no_price}, missing image: ${excluded.no_image}, missing title: ${excluded.no_title}`);
+console.log(`  skipped — missing price: ${excluded.no_price}, missing image: ${excluded.no_image}, missing title: ${excluded.no_title}, missing shipping weight: ${excluded.no_shipping_weight}`);
+if (excludedSkus.no_shipping_weight.length) {
+  console.log(`  excluded for no shipping weight: ${excludedSkus.no_shipping_weight.join(", ")}`);
+}
+console.log(`  shipping_weight present: ${withShippingWeight}/${included.length}  (dimensions on ${withShippingDimensions})`);
+console.log(`  availability: in_stock=${availabilityCounts.in_stock}, out_of_stock=${availabilityCounts.out_of_stock}, backorder=${availabilityCounts.backorder}, preorder=${availabilityCounts.preorder}`);
+console.log(`  backorder/preorder missing availability_date: ${missingAvailabilityDate} (must be 0)`);
+if (missingAvailabilityDate > 0) {
+  console.error("FAILED: a backorder/preorder item has no availability_date.");
+  process.exit(1);
+}
+if (withShippingWeight !== included.length) {
+  console.error("FAILED: a feed item is missing shipping_weight.");
+  process.exit(1);
+}
 console.log(`  GTIN provided: ${withGtin}; brand + MPN only: ${included.length - withGtin}`);
 console.log(`Wrote ${path.relative(ROOT, feedPath)} (${(fs.statSync(feedPath).size / 1048576).toFixed(2)} MB)`);
 console.log(`Wrote ${path.relative(ROOT, sitemapPath)} (${urls.length} URLs)`);

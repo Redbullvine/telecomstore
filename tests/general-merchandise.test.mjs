@@ -5,6 +5,10 @@ import {
   ALLOWED_PUBLIC_KEYS,
   assertPublicRecordClean,
   availabilityText,
+  availabilityState,
+  excelSerialToISO,
+  packagedShipWeightLb,
+  shipDimensionsIn,
   buildCatalog,
   buildPublicRecord,
   GOOGLE_CATEGORY_BY_DEPARTMENT,
@@ -37,6 +41,12 @@ const row = (patch = {}) => ({
   REFURB: "N",
   MAP: 0,
   MSRP: 109.99,
+  "WEIGHT-UNPACKED": 16.4435,
+  "ESTIMATED SHIP WEIGHT": 16.4435,
+  LENGTH: 11.3,
+  WIDTH: 11.3,
+  HEIGHT: 17.9,
+  "PO ETA DATE": "",
   "IMAGE URL": "http://petraimages.com.s3.amazonaws.com/600x600/1KSK02U22GE02.jpg",
   ...patch,
 });
@@ -253,10 +263,58 @@ test("spec bullets become discrete lines and product_type carries the taxonomy",
   assert.equal(productType(row(), "Tools & Home Improvement"), "Tools & Home Improvement > Heating & Cooling > Air Quality");
 });
 
+test("Google Shopping: packaged weight comes from ESTIMATED SHIP WEIGHT, never the unpacked figure", () => {
+  // The two differ on 1,457 rows; the packaged figure is the carrier's number.
+  assert.equal(packagedShipWeightLb({ "ESTIMATED SHIP WEIGHT": 0.72, "WEIGHT-UNPACKED": 0.3082 }), 0.72);
+  // No packaged weight means no weight at all — the unpacked value is not a
+  // substitute, because it would under-quote carrier-calculated shipping.
+  assert.equal(packagedShipWeightLb({ "ESTIMATED SHIP WEIGHT": "", "WEIGHT-UNPACKED": 5 }), null);
+  assert.equal(packagedShipWeightLb({ "ESTIMATED SHIP WEIGHT": 0 }), null);
+  assert.equal(packagedShipWeightLb({ "ESTIMATED SHIP WEIGHT": 9999 }), null, "implausible weight is refused");
+  assert.equal(buildPublicRecord(row()).record.shipping_weight_lb, 16.44);
+});
+
+test("Google Shopping: dimensions are all-or-nothing and never manufactured", () => {
+  assert.deepEqual(shipDimensionsIn({ LENGTH: 11.3, WIDTH: 11.3, HEIGHT: 17.9 }), { length: 11.3, width: 11.3, height: 17.9 });
+  assert.equal(shipDimensionsIn({ LENGTH: 11.3, WIDTH: 11.3, HEIGHT: 0 }), null);
+  assert.equal(shipDimensionsIn({ LENGTH: 11.3 }), null);
+});
+
+test("Google Shopping: PO ETA DATE is an Excel serial and only a future date is a backorder", () => {
+  assert.equal(excelSerialToISO(46251), "2026-08-17");
+  assert.equal(excelSerialToISO(""), null);
+  // A quantity or price must never be misread as a date.
+  assert.equal(excelSerialToISO(12), null);
+  assert.equal(excelSerialToISO(109.99), null);
+
+  const today = "2026-08-12";
+  // In stock wins regardless of any incoming PO.
+  assert.deepEqual(availabilityState(row({ AVAILABLE: 5, "PO ETA DATE": 46251 }), { today }), { state: "in_stock", date: null });
+  // Out of stock with a genuine future ETA is a dated backorder.
+  assert.deepEqual(availabilityState(row({ AVAILABLE: 0, "PO ETA DATE": 46251 }), { today }), { state: "backorder", date: "2026-08-17" });
+  // A lapsed ETA is not a promise we can advertise.
+  assert.deepEqual(availabilityState(row({ AVAILABLE: 0, "PO ETA DATE": 46240 }), { today }), { state: "out_of_stock", date: null });
+  // No ETA at all is out of stock, never an undated backorder.
+  assert.deepEqual(availabilityState(row({ AVAILABLE: 0, "PO ETA DATE": "" }), { today }), { state: "out_of_stock", date: null });
+});
+
+test("the landing page states the expected date whenever the feed claims a backorder", () => {
+  const today = "2026-08-12";
+  const backordered = buildPublicRecord(row({ AVAILABLE: 0, "PO ETA DATE": 46251 }), 0, { today });
+  assert.equal(backordered.record.availability_state, "backorder");
+  assert.equal(backordered.record.availability_date, "2026-08-17");
+  // Merchant Center cross-checks the landing page, so the date must be visible.
+  assert.match(backordered.record.availability, /expected August 17, 2026/);
+  // Out of stock must not imply an arrival that does not exist.
+  const gone = buildPublicRecord(row({ AVAILABLE: 0, "PO ETA DATE": "" }), 0, { today });
+  assert.equal(gone.record.availability_state, "out_of_stock");
+  assert.doesNotMatch(gone.record.availability, /expected/);
+});
+
 test("availability copy reflects real stock and clearance marks discontinued stock", () => {
   assert.equal(availabilityText(row({ AVAILABLE: 40 })), "In stock");
   assert.equal(availabilityText(row({ AVAILABLE: 3 })), "In stock — only 3 left");
-  assert.equal(availabilityText(row({ AVAILABLE: 0 })), "Available to order");
+  assert.equal(availabilityText(row({ AVAILABLE: 0, "PO ETA DATE": "" })), "Out of stock");
   assert.equal(buildPublicRecord(row({ AVAILABLE: 4, NOTES1: "Product is Discontinued; " })).record.clearance, true);
   // Discontinued with no stock left is not a deal, it is gone.
   assert.equal(buildPublicRecord(row({ AVAILABLE: 0, NOTES1: "Product is Discontinued; " })).record.clearance, false);
