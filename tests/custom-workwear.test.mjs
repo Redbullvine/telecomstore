@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+import products from "../src/data/custom-workwear.json" with { type: "json" };
 import { validateArtworkBytes } from "../netlify/lib/workwear-artwork.mjs";
 import { cleanWorkwearConfiguration, validateWorkwearSelection } from "../netlify/lib/workwear.mjs";
 import { buildQuoteItemSnapshot } from "../netlify/functions/submit-quote-request.mjs";
 import {
   WORKWEAR_PRICING_MODEL,
-  WORKWEAR_PRODUCTS,
+  PUBLISHED_WORKWEAR_PRODUCTS,
   configurationNeedsQuote,
   resolveWorkwearRoute,
   searchWorkwearProducts,
@@ -15,8 +16,12 @@ import {
 } from "../src/lib/custom-workwear.mjs";
 
 test("custom workwear catalog contains thirteen public product concepts and truthful pricing states", () => {
-  assert.equal(WORKWEAR_PRODUCTS.length, 13);
-  assert.deepEqual(WORKWEAR_PRODUCTS.map((item) => [item.name, item.base_price]), [
+  assert.equal(PUBLISHED_WORKWEAR_PRODUCTS.length, 13 + products.filter((item) => item.collection === "Telecom Funny Tees" && item.assets_pending !== true).length);
+  // The original thirteen concepts must still be present at their approved
+  // prices. This is a subset check rather than an exact list, because the
+  // catalog now grows as new finished designs get their artwork.
+  const priceBySku = new Map(PUBLISHED_WORKWEAR_PRODUCTS.map((item) => [item.name, item.base_price]));
+  for (const [name, price] of [
     ["Custom Logo T-Shirt", 19.99], ["Custom Company Ball Cap", 19.99],
     ["Professional Pole Dancer — Utility Division T-Shirt", 24.99],
     ["Certified Pole Dancer — Utility Division T-Shirt", 24.99],
@@ -24,21 +29,23 @@ test("custom workwear catalog contains thirteen public product concepts and trut
     ["I Pole Dance for a Living — Utility Division T-Shirt", 24.99],
     ["Custom Hard Hat", 29.99], ["Custom Work Jacket", 64.99], ["Custom Work Vest", 34.99],
     ["Custom Hi-Vis Reflective Construction Shirt", 34.99], ["Custom Hi-Vis Hard Hat", 29.99], ["Custom Hi-Vis Work Jacket", 79.99], ["Custom Hi-Vis Safety Vest", 24.99]
-  ]);
-  for (const product of WORKWEAR_PRODUCTS.filter((item) => item.base_price)) assert.match(startingPriceLabel(product), /^Starting at \$\d+\.\d{2}$/);
-  for (const product of WORKWEAR_PRODUCTS.filter((item) => !item.base_price)) assert.equal(startingPriceLabel(product), "Request Quote");
-  const cap = WORKWEAR_PRODUCTS.find((item) => item.sku === "CW-COMPANY-CAP");
+  ]) {
+    assert.equal(priceBySku.get(name), price, `${name} must keep its approved price`);
+  }
+  for (const product of PUBLISHED_WORKWEAR_PRODUCTS.filter((item) => item.base_price)) assert.match(startingPriceLabel(product), /^Starting at \$\d+\.\d{2}$/);
+  for (const product of PUBLISHED_WORKWEAR_PRODUCTS.filter((item) => !item.base_price)) assert.equal(startingPriceLabel(product), "Request Quote");
+  const cap = PUBLISHED_WORKWEAR_PRODUCTS.find((item) => item.sku === "CW-COMPANY-CAP");
   assert.equal(startingPriceLabel(cap), "Starting at $19.99");
   assert.equal(cap.starting_configuration, "Basic adjustable ball cap with one standard customer logo in the front-center placement.");
   for (const sku of ["TS-PRO-POLE-DANCER", "TS-CERT-POLE-DANCER", "TS-POLE-PAYS-BILLS", "TS-POLE-DANCE-LIVING"]) {
-    const shirt = WORKWEAR_PRODUCTS.find((item) => item.sku === sku);
+    const shirt = PUBLISHED_WORKWEAR_PRODUCTS.find((item) => item.sku === sku);
     assert.equal(startingPriceLabel(shirt), "Starting at $24.99");
     assert.match(shirt.starting_configuration, /Least-expensive approved/);
   }
 });
 
 test("every workwear product has a generated local image and dedicated route", () => {
-  for (const product of WORKWEAR_PRODUCTS) {
+  for (const product of PUBLISHED_WORKWEAR_PRODUCTS) {
     assert.equal(fs.existsSync(`public${product.image}`), true, product.image);
     assert.equal(resolveWorkwearRoute(workwearProductPath(product)).product?.sku, product.sku);
   }

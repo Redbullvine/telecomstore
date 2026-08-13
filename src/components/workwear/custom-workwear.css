@@ -137,3 +137,13 @@
 .ww-card.compact strong { font-size:14px; }
 .ww-card.compact .ww-view { min-height:32px; }
 @media(max-width:780px){.ww-home-shelf{padding-block:20px 24px}.ww-home-head{align-items:flex-start}.ww-home-grid{grid-auto-columns:minmax(155px,46vw)}.ww-home-head h2{font-size:25px}.ww-home-head button{min-height:38px}}
+
+/* Collection grouping: a themed range reads as one section instead of a run of
+   near-identical products in the main grid. */
+.ww-collection { margin-bottom: 34px; }
+.ww-collection-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8e5; }
+.ww-collection-head h3 { margin: 0; font: 800 18px/1.2 Archivo, sans-serif; color: #16302a; }
+.ww-collection-head span { font-size: 12px; font-weight: 700; color: #6b7a75; text-transform: uppercase; letter-spacing: .08em; }
+.ww-card-collection .ww-card-body h2 { font-size: 16px; }
+.ww-size-note { margin: 6px 0 0; font-size: 13px; color: #6b5b00; background: #fff8e1; border-radius: 6px; padding: 8px 10px; }
+.ww-detail-alt { margin-top: 10px; width: 100%; border-radius: 8px; }

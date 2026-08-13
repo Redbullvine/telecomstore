@@ -1,0 +1,124 @@
+{
+  "note": "SKUs withheld from the Google Shopping feed ONLY. These products remain listed, priced, and quotable on Telecom Store; nothing here touches storefront inventory, pricing, checkout, or Petra source data. Nothing is renamed or recategorised to evade a policy — the product is simply not advertised.",
+  "policy_reference": "Google Shopping ads policy: Weapons, Guns and Parts, Dangerous knives",
+  "exclusions": [
+    {
+      "sku": "153",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Guard Alaska Bear Deterrent and Self-Defense Spray"
+    },
+    {
+      "sku": "80534",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Compact Stun Gun with LED Flashlight"
+    },
+    {
+      "sku": "80535",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Magnum 3 Flip-Top Pepper Gel"
+    },
+    {
+      "sku": "80570",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Magnum 4 Flip-Top Pepper Gel"
+    },
+    {
+      "sku": "80572",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Magnum 9 Trigger-Handle Pepper Gel"
+    },
+    {
+      "sku": "80725",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Personal Model Flip-Top Pepper Spray (Black)"
+    },
+    {
+      "sku": "80726",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Personal Model Flip-Top Pepper Spray (Neon Pink)"
+    },
+    {
+      "sku": "80740",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Pocket Flip-Top Pepper Spray (Neon Pink)"
+    },
+    {
+      "sku": "80745",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Pocket Flip-Top Pepper Spray (Black)"
+    },
+    {
+      "sku": "80785",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Compact Flip-Top Hard-Case Pepper Spray (Black)"
+    },
+    {
+      "sku": "80787",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Compact Flip-Top Hard-Case Pepper Spray (Pink)"
+    },
+    {
+      "sku": "80812",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand 3-in-1 Flip-Top Police Model Pepper Spray"
+    },
+    {
+      "sku": "80813",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Ergo Stun Device with LED Light (Black)"
+    },
+    {
+      "sku": "80814",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand Ergo Stun Device with LED Light (Pink)"
+    },
+    {
+      "sku": "80822",
+      "reason": "guns_and_parts",
+      "title": "Mace Brand Replacement OC Pepper Gun and Practice Water Cartridges"
+    },
+    {
+      "sku": "80836",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand 3-in-1 Flip-Top Pocket Model Pepper Spray"
+    },
+    {
+      "sku": "80841",
+      "reason": "weapons_self_defense",
+      "title": "Mace Brand 3-in-1 Flip-Top Personal Model Pepper Spray"
+    },
+    {
+      "sku": "49HCF",
+      "reason": "dangerous_knives",
+      "title": "Cold Steel Mini Tac Bowie Knife"
+    },
+    {
+      "sku": "PTA24BT",
+      "reason": "promotional_overlay_on_image",
+      "title": "Pyle 2.0-Channel 250-Watt Max Bluetooth Stereo Amplifier/Receiver"
+    }
+  ],
+  "deliberately_not_excluded": [
+    {
+      "pattern": "Arrow T-series staple guns",
+      "why": "Staple guns and wire tackers are hand tools, not firearms. Excluding them would drop sellable products for a word match."
+    },
+    {
+      "pattern": "Mace Brand personal safety alarms (80731, 80738, 80739)",
+      "why": "Keychain noise alarms with no weapon function."
+    },
+    {
+      "pattern": "SOG multi-tools, hatchet, entrenching tool; Cold Steel axe and shovel",
+      "why": "Camping and hand tools. Google flagged exactly one dangerous knife, and these were not it."
+    },
+    {
+      "pattern": "Kitchen knives, carving sets, cutting boards, knife sharpeners",
+      "why": "Kitchenware."
+    },
+    {
+      "pattern": "Turntable cartridges, blade fuse taps, straight-blade plugs, dual-blade fans",
+      "why": "Word collisions on cartridge/blade, not weapons."
+    }
+  ],
+  "promotional_overlay_note": "The Petra workbook exposes a single IMAGE URL per product, so no compliant alternate product image exists to substitute. The image is not edited and no manufacturer marking is removed; the product is withheld from advertising only."
+}

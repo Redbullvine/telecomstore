@@ -17,6 +17,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { MARKETPLACE_DEPARTMENTS, MARKETPLACE_SITE_URL } from "../src/config/marketplace.mjs";
+import { apparelItemXml, apparelVariants, feedEligibleApparelVariants, quoteOnlyApparelSizes } from "./lib/apparel-feed.mjs";
 
 const ROOT = path.resolve(new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
 const catalogPath = path.resolve(ROOT, "public/data/marketplace-catalog.json");
@@ -48,8 +49,18 @@ function identifierFields(product) {
   return fields;
 }
 
+// Products withheld from the feed on Google policy grounds. This is a
+// FEED-ONLY filter: the products stay listed and sellable on the storefront,
+// and nothing about them is renamed or recategorised.
+const exclusionPath = path.resolve(ROOT, "scripts/data/google-feed-exclusions.json");
+const policyExclusions = fs.existsSync(exclusionPath)
+  ? JSON.parse(fs.readFileSync(exclusionPath, "utf8")).exclusions || []
+  : [];
+const excludedBySku = new Map(policyExclusions.map((row) => [String(row.sku), row]));
+const policyExcluded = [];
+
 const included = [];
-const excluded = { no_price: 0, no_image: 0, no_title: 0, no_shipping_weight: 0 };
+const excluded = { no_price: 0, no_image: 0, no_title: 0, no_shipping_weight: 0, google_policy: 0 };
 const excludedSkus = { no_shipping_weight: [] };
 const availabilityCounts = { in_stock: 0, out_of_stock: 0, backorder: 0, preorder: 0 };
 let withShippingWeight = 0;
@@ -60,6 +71,13 @@ const items = [];
 for (const product of products) {
   // Merchant Center requires title, link, image and price. A record missing any
   // of them is skipped rather than submitted to be disapproved.
+  // Policy exclusion is checked first so a withheld product is reported as such
+  // rather than being counted under an unrelated reason.
+  if (excludedBySku.has(String(product.sku))) {
+    excluded.google_policy += 1;
+    policyExcluded.push({ sku: product.sku, reason: excludedBySku.get(String(product.sku)).reason, title: product.title });
+    continue;
+  }
   if (!product.title) { excluded.no_title += 1; continue; }
   if (!product.image_url) { excluded.no_image += 1; continue; }
   const price = Number(product.public_price);
@@ -128,13 +146,22 @@ for (const product of products) {
   included.push(product);
 }
 
+// Apparel variants join the SAME feed URL — no second Merchant Center feed. Only
+// variants with a documented packaged weight are eligible, so while the mailer
+// weight is unresolved this contributes zero rows.
+// Counted separately from the general-merchandise totals so the invariants below
+// (every general-merchandise row weighed, every backorder dated) stay meaningful.
+const apparelEligible = feedEligibleApparelVariants();
+const apparelAll = apparelVariants();
+const apparelItems = apparelEligible.map(apparelItemXml);
+
 const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
     <title>Telecom Store General Merchandise</title>
     <link>${escapeXml(`${MARKETPLACE_SITE_URL}/shop`)}</link>
     <description>General merchandise available from Telecom Store.</description>
-${items.join("\n")}
+${[...items, ...apparelItems].join("\n")}
   </channel>
 </rss>
 `;
@@ -150,7 +177,12 @@ fs.writeFileSync(feedPath, feed, "utf8");
 const urls = [
   { loc: `${MARKETPLACE_SITE_URL}/shop`, priority: "0.9" },
   ...MARKETPLACE_DEPARTMENTS.map((department) => ({ loc: `${MARKETPLACE_SITE_URL}/shop/${department.slug}`, priority: "0.8" })),
-  ...included.map((product) => ({ loc: `${MARKETPLACE_SITE_URL}/shop/products/${product.slug}`, priority: "0.6" })),
+  // The sitemap covers every published product page, including ones withheld
+  // from the Shopping feed on policy grounds — those pages are still live and
+  // sellable, so they must stay crawlable and indexable.
+  ...products
+    .filter((product) => product.slug && product.title)
+    .map((product) => ({ loc: `${MARKETPLACE_SITE_URL}/shop/products/${product.slug}`, priority: "0.6" })),
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -168,9 +200,22 @@ console.log(`  skipped — missing price: ${excluded.no_price}, missing image: $
 if (excludedSkus.no_shipping_weight.length) {
   console.log(`  excluded for no shipping weight: ${excludedSkus.no_shipping_weight.join(", ")}`);
 }
+if (policyExcluded.length) {
+  const byReason = {};
+  for (const row of policyExcluded) byReason[row.reason] = (byReason[row.reason] || 0) + 1;
+  console.log(`  withheld on Google policy: ${policyExcluded.length} (${Object.entries(byReason).map(([r, n]) => `${r}=${n}`).join(", ")})`);
+  console.log(`    SKUs: ${policyExcluded.map((row) => row.sku).join(", ")}`);
+  console.log("    These remain listed and sellable on the storefront.");
+}
 console.log(`  shipping_weight present: ${withShippingWeight}/${included.length}  (dimensions on ${withShippingDimensions})`);
 console.log(`  availability: in_stock=${availabilityCounts.in_stock}, out_of_stock=${availabilityCounts.out_of_stock}, backorder=${availabilityCounts.backorder}, preorder=${availabilityCounts.preorder}`);
 console.log(`  backorder/preorder missing availability_date: ${missingAvailabilityDate} (must be 0)`);
+console.log(`Apparel: ${apparelAll.length} approved S-XL variants built, ${apparelEligible.length} in the feed.`);
+if (apparelEligible.length !== apparelAll.length) {
+  const missing = apparelAll.filter((variant) => !variant.feed_eligible).length;
+  console.log(`  ${missing} withheld — no documented packaged weight (garment weight alone is not a shipping weight).`);
+}
+console.log(`  quote-only sizes deliberately not advertised: ${quoteOnlyApparelSizes().length}`);
 if (missingAvailabilityDate > 0) {
   console.error("FAILED: a backorder/preorder item has no availability_date.");
   process.exit(1);

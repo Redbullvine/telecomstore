@@ -5,10 +5,16 @@ import { validateArtworkFile } from "../../lib/artwork-validation.mjs";
 import {
   CUSTOMIZATION_METHODS,
   LOGO_PLACEMENTS,
-  WORKWEAR_PRODUCTS,
+  PUBLISHED_WORKWEAR_PRODUCTS,
   WORKWEAR_SUBCATEGORIES,
+  groupWorkwearByCollection,
+  isApprovedFixedPriceProduct,
+  isApprovedVariant,
+  apparelCheckoutReady,
+  resolveSizeParam,
   resolveWorkwearRoute,
   searchWorkwearProducts,
+  selectedPriceLabel,
   startingPriceLabel,
   workwearMetadata,
   workwearProductPath,
@@ -16,7 +22,7 @@ import {
 } from "../../lib/custom-workwear.mjs";
 import "./custom-workwear.css";
 
-export default function CustomWorkwearStorefront({ route, navigate, quoteCount, onOpenQuote, onAddQuote }) {
+export default function CustomWorkwearStorefront({ route, navigate, quoteCount, onOpenQuote, onAddQuote, onAddToCart }) {
   const routeInfo = useMemo(() => resolveWorkwearRoute(route.path), [route.path]);
   const initialQuery = useMemo(() => new URLSearchParams(route.search || "").get("search") || "", [route.search]);
   const [query, setQuery] = useState(initialQuery);
@@ -35,7 +41,7 @@ export default function CustomWorkwearStorefront({ route, navigate, quoteCount, 
     <WorkwearHeader query={query} setQuery={setQuery} submitSearch={submitSearch} quoteCount={quoteCount} navigate={navigate} onOpenQuote={onOpenQuote} />
     <WorkwearNav subcategory={subcategory} setSubcategory={(value) => { setSubcategory(value); if (routeInfo.kind !== "department") navigate("/custom-workwear"); }} navigate={navigate} />
     {routeInfo.kind === "product" && routeInfo.product
-      ? <WorkwearProductDetail product={routeInfo.product} navigate={navigate} onAddQuote={onAddQuote} />
+      ? <WorkwearProductDetail product={routeInfo.product} route={route} navigate={navigate} onAddQuote={onAddQuote} onAddToCart={onAddToCart} />
       : routeInfo.kind === "not_found" || (routeInfo.kind === "product" && !routeInfo.product)
         ? <section className="ww-empty"><h1>Product not found</h1><p>This custom product is not in the current collection.</p><button type="button" onClick={() => navigate("/custom-workwear")}>Browse custom workwear</button></section>
         : <WorkwearDepartment products={products} query={query} navigate={navigate} />}
@@ -46,8 +52,35 @@ export default function CustomWorkwearStorefront({ route, navigate, quoteCount, 
 export function WorkwearHomepageShelf({ navigate }) {
   return <section className="ww-home-shelf" aria-labelledby="custom-workwear-heading"><div className="ts-wrap">
     <div className="ww-home-head"><div><span>TELECOM STORE CUSTOM PRODUCTS</span><h2 id="custom-workwear-heading">Custom Workwear &amp; Safety Gear</h2><p>Company apparel, hard hats, reflective shirts, jackets, and safety vests—configured for your crew.</p></div><button type="button" onClick={() => navigate("/custom-workwear")}>Shop all custom workwear <ChevronRight size={18} /></button></div>
-    <div className="ww-home-grid">{WORKWEAR_PRODUCTS.map((product, index) => <WorkwearCard key={product.sku} product={product} navigate={navigate} compact priority={index < 2} />)}</div>
+    {/* A themed own-design range shows one representative tile rather than every
+        variation, so the shelf does not fill up with the same shirt. */}
+    <div className="ww-home-grid">{homepageShelfItems().map((entry, index) => (
+      entry.count > 1
+        ? <WorkwearCollectionCard key={entry.collection} entry={entry} navigate={navigate} priority={index < 2} />
+        : <WorkwearCard key={entry.product.sku} product={entry.product} navigate={navigate} compact priority={index < 2} />
+    ))}</div>
   </div></section>;
+}
+
+// One entry per shelf tile: an own-design collection collapses to a single entry
+// carrying its count; everything else stays an individual product.
+function homepageShelfItems() {
+  return groupWorkwearByCollection(PUBLISHED_WORKWEAR_PRODUCTS).flatMap((group) => (
+    group.ownedDesign && group.products.length > 1
+      ? [{ collection: group.collection, product: group.products[0], count: group.products.length }]
+      : group.products.map((product) => ({ collection: group.collection, product, count: 1 }))
+  ));
+}
+
+function WorkwearCollectionCard({ entry, navigate, priority = false }) {
+  const { product, collection, count } = entry;
+  const href = `/custom-workwear#workwear-products`;
+  return <article className="ww-card compact ww-card-collection">
+    <a href={href} onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}>
+      <div className="ww-card-image"><img src={product.image_front || product.image} alt={`${collection} designs`} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} decoding="async" width="1254" height="1254" /></div>
+      <div className="ww-card-body"><small>{collection}</small><h2>{count} lineworker designs</h2><strong>{startingPriceLabel(product)}</strong><span className="ww-view">Shop the collection <ChevronRight size={17} /></span></div>
+    </a>
+  </article>;
 }
 
 function WorkwearHeader({ query, setQuery, submitSearch, quoteCount, navigate, onOpenQuote }) {
@@ -63,9 +96,20 @@ function WorkwearNav({ subcategory, setSubcategory, navigate }) {
 }
 
 function WorkwearDepartment({ products, query, navigate }) {
-  return <main className="ww-department"><section className="ww-dept-banner"><div className="ts-wrap"><div><span>LOGO-READY GEAR FOR WORKING CREWS</span><h1>Custom Workwear & Safety Gear</h1><p>Choose your garment, colors, sizes, and logo placement. We review artwork and confirm the fully configured price before production.</p><div><a href="#workwear-products">Shop products</a><b>Volume discounts available.</b></div></div><div className="ww-feature-stack">{WORKWEAR_PRODUCTS.slice(0, 3).map((product) => <button key={product.sku} type="button" onClick={() => navigate(workwearProductPath(product))}><img src={product.image} alt="" /><span>{product.name}<b>{startingPriceLabel(product)}</b></span></button>)}</div></div></section>
+  return <main className="ww-department"><section className="ww-dept-banner"><div className="ts-wrap"><div><span>LOGO-READY GEAR FOR WORKING CREWS</span><h1>Custom Workwear & Safety Gear</h1><p>Choose your garment, colors, sizes, and logo placement. We review artwork and confirm the fully configured price before production.</p><div><a href="#workwear-products">Shop products</a><b>Volume discounts available.</b></div></div><div className="ww-feature-stack">{PUBLISHED_WORKWEAR_PRODUCTS.slice(0, 3).map((product) => <button key={product.sku} type="button" onClick={() => navigate(workwearProductPath(product))}><img src={product.image} alt="" /><span>{product.name}<b>{startingPriceLabel(product)}</b></span></button>)}</div></div></section>
     <section className="ww-benefits"><div className="ts-wrap"><div><ShieldCheck /><span><b>Artwork reviewed</b><small>Before production begins</small></span></div><div><FileImage /><span><b>Your company logo</b><small>Kept private and secure</small></span></div><div><ShoppingBag /><span><b>Crew-size ordering</b><small>Sizes and quantities by item</small></span></div><div><Lock /><span><b>Price confirmed</b><small>No guessed customization fees</small></span></div></div></section>
-    <section className="ww-products ts-wrap" id="workwear-products"><div className="ww-section-head"><div><span>SHOP THE DEPARTMENT</span><h2>{query ? `Results for “${query}”` : "Popular custom products"}</h2></div><b>{products.length} products</b></div>{products.length ? <div className="ww-grid">{products.map((product) => <WorkwearCard key={product.sku} product={product} navigate={navigate} />)}</div> : <div className="ww-no-results"><h2>No custom products match that search.</h2><button type="button" onClick={() => navigate("/custom-workwear")}>View all custom workwear</button></div>}</section>
+    {/* Grouped by collection so a themed range (the lineworker tees) reads as one
+        section instead of four near-identical shirts in the main grid. */}
+    <section className="ww-products ts-wrap" id="workwear-products"><div className="ww-section-head"><div><span>SHOP THE DEPARTMENT</span><h2>{query ? `Results for “${query}”` : "Popular custom products"}</h2></div><b>{products.length} products</b></div>
+      {products.length
+        ? groupWorkwearByCollection(products).map((group) => (
+          <div className="ww-collection" key={group.collection}>
+            <div className="ww-collection-head"><h3>{group.collection}</h3><span>{group.products.length} {group.products.length === 1 ? "design" : "designs"}</span></div>
+            <div className="ww-grid">{group.products.map((product) => <WorkwearCard key={product.sku} product={product} navigate={navigate} />)}</div>
+          </div>
+        ))
+        : <div className="ww-no-results"><h2>No custom products match that search.</h2><button type="button" onClick={() => navigate("/custom-workwear")}>View all custom workwear</button></div>}
+    </section>
   </main>;
 }
 
@@ -74,14 +118,36 @@ function WorkwearCard({ product, navigate, compact = false, priority = false }) 
   return <article className={`ww-card${compact ? " compact" : ""}`}><a href={path} onClick={(event) => { event.preventDefault(); navigate(path); }}><div className="ww-card-image"><img src={product.image} alt={product.image_alt || `${product.name} in available colors with generic YOUR LOGO placement`} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} decoding="async" width="1254" height="1254" /></div><div className="ww-card-body"><small>{product.collection}</small><h2>{product.name}</h2><strong>{startingPriceLabel(product)}</strong>{compact ? null : <><p>{product.description}</p><div className="ww-swatches" aria-label={`Colors: ${product.colors.join(", ")}`}>{product.colors.map((color) => <i key={color} title={color} style={{ "--swatch": swatchColor(color) }} />)}</div></>}<span className="ww-view">View options <ChevronRight size={17} /></span></div></a></article>;
 }
 
-function WorkwearProductDetail({ product, navigate, onAddQuote }) {
+function WorkwearProductDetail({ product, route, navigate, onAddQuote, onAddToCart }) {
   const customizable = product.customizable !== false;
   const placements = product.logo_placements || LOGO_PLACEMENTS;
   const methods = product.customization_methods || CUSTOMIZATION_METHODS;
-  const initial = { color: product.colors[0] || "", size: product.sizes[0] || "", style: product.styles[0] || "", quantity: 1, logo_placement: customizable ? placements[0] : "Front Design", customization_method: customizable ? methods[0] : "Printed Design", company_name: "", customer_notes: "", artwork_reference: "", artwork_filename: "" };
+  // The size can arrive from a Google Shopping deep link (?size=L). An unknown or
+  // missing value falls back to the first size rather than rendering an empty
+  // selection, so a stale feed link still lands on a usable page.
+  const linkedSize = resolveSizeParam(product, route?.search);
+  const initial = { color: product.colors[0] || "", size: linkedSize, style: product.styles[0] || "", quantity: 1, logo_placement: customizable ? placements[0] : "Front Design", customization_method: customizable ? methods[0] : "Printed Design", company_name: "", customer_notes: "", artwork_reference: "", artwork_filename: "" };
   const [config, setConfig] = useState(initial);
   const [uploadState, setUploadState] = useState({ kind: "idle", message: "" });
   const set = (name, value) => setConfig((current) => ({ ...current, [name]: value }));
+
+  // Follow the URL when it changes underneath us (back/forward, or a new deep link).
+  useEffect(() => { setConfig((current) => (current.size === linkedSize ? current : { ...current, size: linkedSize })); }, [linkedSize]);
+
+  // Selecting a size rewrites the URL so it can be shared and so it keeps matching
+  // what the feed submitted. replaceState is used deliberately: navigate() scrolls
+  // to the top, and changing a size should not jump the page.
+  function selectSize(value) {
+    set("size", value);
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("size", value);
+    window.history.replaceState({}, "", `${url.pathname}${url.search}`);
+  }
+
+  const approvedVariant = isApprovedVariant(product, config.size);
+  const checkoutReady = apparelCheckoutReady(product, config.size);
+  const priceLabel = isApprovedFixedPriceProduct(product) ? selectedPriceLabel(product, config.size) : startingPriceLabel(product);
 
   async function uploadArtwork(event) {
     const file = event.target.files?.[0];
@@ -107,16 +173,31 @@ function WorkwearProductDetail({ product, navigate, onAddQuote }) {
   }
 
   const artworkStatement = product.owned_design ? "Original Telecom Store lineworker design." : customizable ? "Original Telecom Store-generated product mockup." : "Customer-supplied product artwork.";
-  return <main className="ww-detail"><div className="ts-wrap"><button className="ww-back" type="button" onClick={() => navigate("/custom-workwear")}>← Custom Workwear & Safety Gear</button><div className="ww-detail-grid"><div className="ww-detail-media"><img src={product.image} alt={product.image_alt || `${product.name} with generic YOUR LOGO placement`} /><div><ShieldCheck size={18} /><span>{artworkStatement} Final product details are confirmed before production.</span></div></div><section className="ww-config"><p>{product.collection}</p><h1>{product.name}</h1><strong className="ww-starting">{startingPriceLabel(product)}</strong><p>{product.description}</p>{product.starting_configuration ? <p className="ww-starting-includes"><b>Starting configuration includes:</b> {product.starting_configuration}</p> : null}<p className="ww-price-note">{Number(product.base_price) > 0 ? "Base price represents the least-expensive qualifying configuration. " : "No customer-facing price has been approved yet. "}Selected garment, size, color, and style may cost more.{customizable ? " Logo placement and customization may also affect the final price." : ""}</p>
+  // A finished design shows the front crop as its main image with the back beside
+  // it, matching what the Google feed submits as image_link/additional_image_link.
+  const heroImage = product.image_front || product.image;
+  return <main className="ww-detail"><div className="ts-wrap"><button className="ww-back" type="button" onClick={() => navigate("/custom-workwear")}>← Custom Workwear & Safety Gear</button><div className="ww-detail-grid"><div className="ww-detail-media"><img src={heroImage} alt={product.image_alt || `${product.name} with generic YOUR LOGO placement`} />{product.image_back ? <img className="ww-detail-alt" src={product.image_back} alt={`${product.name} back print`} loading="lazy" /> : null}<div><ShieldCheck size={18} /><span>{artworkStatement} {approvedVariant ? "Ships as shown." : "Final product details are confirmed before production."}</span></div></div><section className="ww-config"><p>{product.collection}</p><h1>{product.name}</h1><strong className="ww-starting">{priceLabel}</strong><p>{product.description}</p>{product.starting_configuration && !approvedVariant ? <p className="ww-starting-includes"><b>Starting configuration includes:</b> {product.starting_configuration}</p> : null}
+    {/* An approved fixed-price size must not carry "may cost more" wording: the
+        price is final, and Merchant Center cross-checks the landing page. */}
+    {approvedVariant
+      ? <p className="ww-price-note">{product.garment ? `${product.garment.manufacturer} ${product.garment.model} ${product.garment.name}. ` : ""}Size {config.size} is a fixed price of ${Number(product.approved_price).toFixed(2)}.{checkoutReady ? " Shipping and tax are calculated at checkout." : " Shipping is confirmed before payment."}</p>
+      : <p className="ww-price-note">{Number(product.base_price) > 0 ? "Base price represents the least-expensive qualifying configuration. " : "No customer-facing price has been approved yet. "}Selected garment, size, color, and style may cost more.{customizable ? " Logo placement and customization may also affect the final price." : ""}</p>}
     <OptionButtons label="Color" values={product.colors} selected={config.color} onSelect={(value) => set("color", value)} swatches />
-    {product.sizes.length ? <OptionButtons label="Size" values={product.sizes} selected={config.size} onSelect={(value) => set("size", value)} /> : null}
+    {product.sizes.length ? <OptionButtons label="Size" values={product.sizes} selected={config.size} onSelect={selectSize} /> : null}
+    {/* Extended sizes have no approved upcharge, so the page says so plainly
+        rather than implying the fixed price applies to them. */}
+    {isApprovedFixedPriceProduct(product) && !approvedVariant ? <p className="ww-size-note">Size {config.size} is quoted individually — {product.approved_sizes.join(", ")} are ${Number(product.approved_price).toFixed(2)}.</p> : null}
     {product.styles.length > 1 ? <OptionButtons label="Style" values={product.styles} selected={config.style} onSelect={(value) => set("style", value)} /> : null}
     {customizable ? <><OptionButtons label="Logo Placement" values={placements} selected={config.logo_placement} onSelect={(value) => set("logo_placement", value)} /><OptionButtons label="Customization Method" values={methods} selected={config.customization_method} onSelect={(value) => set("customization_method", value)} /></> : null}
     <div className="ww-fields"><label><span>Quantity</span><input type="number" min="1" max="10000" value={config.quantity} onChange={(event) => set("quantity", Math.max(1, Number(event.target.value) || 1))} /></label>{customizable ? <label><span>Company Name</span><input value={config.company_name} maxLength="120" onChange={(event) => set("company_name", event.target.value)} placeholder="Your company name" /></label> : null}</div>
     {customizable ? <label className="ww-upload"><span><Upload size={20} /><b>Upload Company Logo</b></span><small>Upload your company logo and we&apos;ll customize this item for your crew.</small><input type="file" accept=".png,.jpg,.jpeg,.svg,image/png,image/jpeg,image/svg+xml" onChange={uploadArtwork} /><em>PNG, JPG/JPEG, or safe SVG · 4 MB maximum · private storage</em>{uploadState.message ? <b className={uploadState.kind}>{uploadState.message}</b> : null}</label> : null}
     <label className="ww-notes"><span>Order Notes</span><textarea rows="3" maxLength="1000" value={config.customer_notes} onChange={(event) => set("customer_notes", event.target.value)} placeholder="Crew sizes, job timing, artwork instructions, or product questions" /></label>
-    <div className="ww-config-price"><span>Configured Price</span><strong>Request Quote</strong><small>Unapproved option upcharges are never guessed. We&apos;ll confirm the exact configuration before payment.</small></div>
-    <button className="ww-primary" type="button" onClick={addConfiguredQuote}>Add selected item to Quote List</button>{customizable ? <p className="ww-art-review">Artwork subject to review before production.</p> : null}<p className="ww-volume">Volume discounts available.</p><p className="ww-safety">{product.safety_note}</p>
+    {approvedVariant
+      ? <div className="ww-config-price"><span>Price</span><strong>${Number(product.approved_price).toFixed(2)}</strong><small>{checkoutReady ? "Shipping and tax are calculated at checkout." : "Add to your quote list and we'll confirm shipping before payment."}</small></div>
+      : <div className="ww-config-price"><span>Configured Price</span><strong>Request Quote</strong><small>Unapproved option upcharges are never guessed. We&apos;ll confirm the exact configuration before payment.</small></div>}
+    {checkoutReady
+      ? <button className="ww-primary" type="button" onClick={() => onAddToCart?.(product, config)}>Add to Cart — ${Number(product.approved_price).toFixed(2)}</button>
+      : <button className="ww-primary" type="button" onClick={addConfiguredQuote}>Add selected item to Quote List</button>}{customizable ? <p className="ww-art-review">Artwork subject to review before production.</p> : null}<p className="ww-volume">Volume discounts available.</p><p className="ww-safety">{product.safety_note}</p>
   </section></div></div></main>;
 }
 

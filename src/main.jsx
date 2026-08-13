@@ -100,7 +100,7 @@ import { isMarketplacePath } from "./lib/marketplace-catalog.mjs";
 // homepage can advertise the shop without fetching the full catalog payload.
 import MARKETPLACE_SUMMARY from "./data/marketplace-summary.json";
 import CustomWorkwearStorefront, { WorkwearHomepageShelf } from "./components/workwear/CustomWorkwearStorefront.jsx";
-import { isWorkwearPath, searchWorkwearProducts, WORKWEAR_PRODUCTS } from "./lib/custom-workwear.mjs";
+import { isWorkwearPath, searchWorkwearProducts, PUBLISHED_WORKWEAR_PRODUCTS as WORKWEAR_PRODUCTS } from "./lib/custom-workwear.mjs";
 import "./styles.css";
 
 const ADMIN_ROLES = ["admin", "inventory"];

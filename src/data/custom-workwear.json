@@ -8,9 +8,25 @@
     "base_price": 19.99,
     "image": "/images/custom-workwear/custom-logo-t-shirt.png",
     "description": "Durable crew shirts customized for company crews, service teams, and everyday work.",
-    "colors": ["Gray", "Black", "White", "Navy"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Crew Neck T-Shirt"],
+    "colors": [
+      "Gray",
+      "Black",
+      "White",
+      "Navy"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Crew Neck T-Shirt"
+    ],
     "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
   },
   {
@@ -22,12 +38,30 @@
     "base_price": 19.99,
     "image": "/images/custom-workwear/custom-company-ball-cap.png",
     "description": "Adjustable ball cap customized with your approved company logo for crews, technicians, and events.",
-    "colors": ["Black", "Navy", "Charcoal", "Khaki"],
+    "colors": [
+      "Black",
+      "Navy",
+      "Charcoal",
+      "Khaki"
+    ],
     "sizes": [],
-    "styles": ["Adjustable Ball Cap"],
-    "logo_placements": ["Front Center"],
-    "customization_methods": ["Embroidery"],
-    "search_keywords": ["ball cap", "cap", "custom cap", "company cap", "logo cap", "embroidered cap"],
+    "styles": [
+      "Adjustable Ball Cap"
+    ],
+    "logo_placements": [
+      "Front Center"
+    ],
+    "customization_methods": [
+      "Embroidery"
+    ],
+    "search_keywords": [
+      "ball cap",
+      "cap",
+      "custom cap",
+      "company cap",
+      "logo cap",
+      "embroidered cap"
+    ],
     "starting_configuration": "Basic adjustable ball cap with one standard customer logo in the front-center placement.",
     "safety_note": "Cap construction, closure type, fit range, and final color availability are confirmed before production."
   },
@@ -41,14 +75,59 @@
     "image": "/images/custom-workwear/professional-pole-dancer-utility-division.png",
     "image_alt": "Front and back navy Telecom Store Professional Pole Dancer Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
-    "colors": ["Navy"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Front-and-Back Crew Neck T-Shirt"],
+    "colors": [
+      "Navy"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
     "customizable": false,
     "owned_design": true,
-    "search_keywords": ["professional pole dancer", "utility division", "lineman shirt", "lineworker shirt"],
+    "search_keywords": [
+      "professional pole dancer",
+      "utility division",
+      "lineman shirt",
+      "lineworker shirt"
+    ],
     "starting_configuration": "Least-expensive approved navy crew-neck shirt configuration with small left-chest branding and one full back print.",
-    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
+    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production.",
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "image_front": "/images/custom-workwear/professional-pole-dancer-utility-division-front.png",
+    "image_back": "/images/custom-workwear/professional-pole-dancer-utility-division-back.png"
   },
   {
     "sku": "TS-CERT-POLE-DANCER",
@@ -60,14 +139,59 @@
     "image": "/images/custom-workwear/certified-pole-dancer-utility-division.png",
     "image_alt": "Front and back charcoal Telecom Store Certified Pole Dancer Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
-    "colors": ["Charcoal"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Front-and-Back Crew Neck T-Shirt"],
+    "colors": [
+      "Charcoal"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
     "customizable": false,
     "owned_design": true,
-    "search_keywords": ["certified pole dancer", "utility division", "lineman shirt", "lineworker shirt"],
+    "search_keywords": [
+      "certified pole dancer",
+      "utility division",
+      "lineman shirt",
+      "lineworker shirt"
+    ],
     "starting_configuration": "Least-expensive approved charcoal crew-neck shirt configuration with small left-chest branding and one full back print.",
-    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
+    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production.",
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "image_front": "/images/custom-workwear/certified-pole-dancer-utility-division-front.png",
+    "image_back": "/images/custom-workwear/certified-pole-dancer-utility-division-back.png"
   },
   {
     "sku": "TS-POLE-PAYS-BILLS",
@@ -79,14 +203,59 @@
     "image": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division.png",
     "image_alt": "Front and back forest-green Telecom Store Pole Dancing Pays the Bills Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
-    "colors": ["Forest Green"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Front-and-Back Crew Neck T-Shirt"],
+    "colors": [
+      "Forest Green"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
     "customizable": false,
     "owned_design": true,
-    "search_keywords": ["pole dancing pays the bills", "utility division", "lineman shirt", "lineworker shirt"],
+    "search_keywords": [
+      "pole dancing pays the bills",
+      "utility division",
+      "lineman shirt",
+      "lineworker shirt"
+    ],
     "starting_configuration": "Least-expensive approved forest-green crew-neck shirt configuration with small left-chest branding and one full back print.",
-    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
+    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production.",
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "image_front": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division-front.png",
+    "image_back": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division-back.png"
   },
   {
     "sku": "TS-POLE-DANCE-LIVING",
@@ -98,14 +267,59 @@
     "image": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division.png",
     "image_alt": "Front and back black Telecom Store I Pole Dance for a Living Utility Division T-shirt",
     "description": "Original Telecom Store lineworker shirt with a small left-chest wordmark and a full back print.",
-    "colors": ["Black"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Front-and-Back Crew Neck T-Shirt"],
+    "colors": [
+      "Black"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
     "customizable": false,
     "owned_design": true,
-    "search_keywords": ["i pole dance for a living", "utility division", "lineman shirt", "lineworker shirt"],
+    "search_keywords": [
+      "i pole dance for a living",
+      "utility division",
+      "lineman shirt",
+      "lineworker shirt"
+    ],
     "starting_configuration": "Least-expensive approved black crew-neck shirt configuration with small left-chest branding and one full back print.",
-    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production."
+    "safety_note": "Garment material, size availability, print method, and final selling price are confirmed before production.",
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "image_front": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division-front.png",
+    "image_back": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division-back.png"
   },
   {
     "sku": "CW-HARD-HAT",
@@ -116,9 +330,16 @@
     "base_price": 29.99,
     "image": "/images/custom-workwear/custom-hard-hat.png",
     "description": "Company-logo hard hats for organized, professional crews and jobsite identification.",
-    "colors": ["White", "Black", "Yellow"],
+    "colors": [
+      "White",
+      "Black",
+      "Yellow"
+    ],
     "sizes": [],
-    "styles": ["Standard Brim", "Full Brim"],
+    "styles": [
+      "Standard Brim",
+      "Full Brim"
+    ],
     "safety_note": "Hard-hat model, suspension, class, and documented compliance are confirmed during review; models vary in price."
   },
   {
@@ -130,9 +351,23 @@
     "base_price": 64.99,
     "image": "/images/custom-workwear/custom-work-jacket.png",
     "description": "Rugged company-logo work jackets for field crews, technicians, and contractors.",
-    "colors": ["Black", "Charcoal"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Zip-Front Work Jacket"],
+    "colors": [
+      "Black",
+      "Charcoal"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Zip-Front Work Jacket"
+    ],
     "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
   },
   {
@@ -144,9 +379,23 @@
     "base_price": 34.99,
     "image": "/images/custom-workwear/custom-work-vest.png",
     "description": "Layer-ready work vests customized with your company name or approved logo artwork.",
-    "colors": ["Black", "Charcoal"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Zip-Front Work Vest"],
+    "colors": [
+      "Black",
+      "Charcoal"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Zip-Front Work Vest"
+    ],
     "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
   },
   {
@@ -158,9 +407,24 @@
     "base_price": 34.99,
     "image": "/images/custom-workwear/custom-hi-vis-reflective-shirt.png",
     "description": "High-visibility reflective work shirts customized for construction and field crews.",
-    "colors": ["Safety Yellow/Lime", "Safety Orange"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Short Sleeve", "Long Sleeve"],
+    "colors": [
+      "Safety Yellow/Lime",
+      "Safety Orange"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Short Sleeve",
+      "Long Sleeve"
+    ],
     "safety_note": "Certification is not implied. Garment standards and sizes are confirmed for the selected model before production."
   },
   {
@@ -172,9 +436,15 @@
     "base_price": 29.99,
     "image": "/images/custom-workwear/custom-hi-vis-hard-hat.png",
     "description": "Visible company-logo hard hats for coordinated construction and utility crews.",
-    "colors": ["White", "Safety Yellow"],
+    "colors": [
+      "White",
+      "Safety Yellow"
+    ],
     "sizes": [],
-    "styles": ["Standard Brim", "Full Brim"],
+    "styles": [
+      "Standard Brim",
+      "Full Brim"
+    ],
     "safety_note": "Hard-hat model, suspension, class, and documented compliance are confirmed during review; models vary in price."
   },
   {
@@ -186,9 +456,23 @@
     "base_price": 79.99,
     "image": "/images/custom-workwear/custom-hi-vis-work-jacket.png",
     "description": "Reflective high-visibility jackets with company-logo customization for cold-weather crews.",
-    "colors": ["Safety Yellow/Lime", "Safety Orange"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Reflective Work Jacket"],
+    "colors": [
+      "Safety Yellow/Lime",
+      "Safety Orange"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Reflective Work Jacket"
+    ],
     "safety_note": "Certification is not implied. Garment standards are confirmed for the selected model before production."
   },
   {
@@ -200,9 +484,689 @@
     "base_price": 24.99,
     "image": "/images/custom-workwear/custom-hi-vis-safety-vest.png",
     "description": "Reflective safety vests customized for contractors, traffic crews, and jobsite teams.",
-    "colors": ["Safety Yellow/Lime", "Safety Orange"],
-    "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
-    "styles": ["Reflective Mesh Vest"],
+    "colors": [
+      "Safety Yellow/Lime",
+      "Safety Orange"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Reflective Mesh Vest"
+    ],
     "safety_note": "Certification is not implied. Vest standards and sizes are confirmed for the selected model before production."
+  },
+  {
+    "sku": "TS-TINY-GLASS",
+    "slug": "your-internet-depends-on-my-tiny-glass-t-shirt",
+    "name": "Your Internet Depends on My Tiny Glass T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "Your Internet Depends on My Tiny Glass Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "YOUR INTERNET DEPENDS ON MY TINY GLASS.",
+    "print_theme": "Fiber Splicer",
+    "colors": [
+      "Mint"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "fiber splicer",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved mint crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-MAKE-CONNECTIONS",
+    "slug": "i-make-connections-for-a-living-t-shirt",
+    "name": "I Make Connections for a Living T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "I Make Connections for a Living Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "I MAKE CONNECTIONS FOR A LIVING.",
+    "print_theme": "Fiber Splicer",
+    "colors": [
+      "Butter"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "fiber splicer",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved butter crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-BAD-DECISIONS",
+    "slug": "warning-may-contain-bad-decisions-t-shirt",
+    "name": "Warning: May Contain Bad Decisions T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "Warning: May Contain Bad Decisions Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "WARNING - MAY CONTAIN BAD DECISIONS",
+    "print_theme": "Warning",
+    "colors": [
+      "Peach"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "warning",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved peach crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-CHECK-ENGINE",
+    "slug": "check-engine-light-has-been-on-so-long-we-are-friends-now-t-shirt",
+    "name": "Check Engine Light Has Been On So Long We are Friends Now T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "Check Engine Light Has Been On So Long We are Friends Now Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "CHECK ENGINE LIGHT... WE'RE FRIENDS NOW",
+    "print_theme": "Check Engine",
+    "colors": [
+      "Blue Jean"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "check engine",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved blue jean crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-LOW-BATTERY",
+    "slug": "low-battery-approach-with-coffee-t-shirt",
+    "name": "Low Battery - Approach With Coffee T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "image": "/images/custom-workwear/low-battery-approach-with-coffee-t-shirt-front.png",
+    "image_front": "/images/custom-workwear/low-battery-approach-with-coffee-t-shirt-front.png",
+    "image_back": "/images/custom-workwear/low-battery-approach-with-coffee-t-shirt-back.png",
+    "image_alt": "Low Battery - Approach With Coffee Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "LOW BATTERY - APPROACH WITH COFFEE",
+    "print_theme": "Low Battery",
+    "colors": [
+      "Sage"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "low battery",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved sage crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-OUT-OF-ORDER",
+    "slug": "out-of-order-try-again-tomorrow-t-shirt",
+    "name": "Out of Order - Try Again Tomorrow T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "Out of Order - Try Again Tomorrow Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "OUT OF ORDER - TRY AGAIN TOMORROW",
+    "print_theme": "Out of Order",
+    "colors": [
+      "Heather Coral"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "out of order",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved heather coral crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-UNDER-CONSTRUCTION",
+    "slug": "under-construction-since-1973-t-shirt",
+    "name": "Under Construction Since 1973 T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "assets_pending": true,
+    "image": null,
+    "image_front": null,
+    "image_back": null,
+    "image_alt": "Under Construction Since 1973 Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "UNDER CONSTRUCTION SINCE 1973",
+    "print_theme": "Under Construction",
+    "colors": [
+      "Sand"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "under construction",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved sand crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-PEOPLE-SKILLS",
+    "slug": "my-people-skills-are-fine-it-is-people-i-have-a-problem-with-t-shirt",
+    "name": "My People Skills Are Fine - It is My Tolerance to Idiots That Needs Work T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "image": "/images/custom-workwear/my-people-skills-are-fine-it-is-my-tolerance-to-idiots-that-needs-work-t-shirt-front.png",
+    "image_front": "/images/custom-workwear/my-people-skills-are-fine-it-is-my-tolerance-to-idiots-that-needs-work-t-shirt-front.png",
+    "image_back": "/images/custom-workwear/my-people-skills-are-fine-it-is-my-tolerance-to-idiots-that-needs-work-t-shirt-back.png",
+    "image_alt": "My People Skills Are Fine - It is My Tolerance to Idiots That Needs Work Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "MY PEOPLE SKILLS ARE FINE... IT'S MY TOLERANCE TO IDIOTS THAT NEEDS WORK",
+    "print_theme": "People Skills",
+    "colors": [
+      "Seafoam"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "people skills",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved seafoam crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-CAFFEINE-DECISIONS",
+    "slug": "powered-by-caffeine-and-questionable-decisions-t-shirt",
+    "name": "Powered by Caffeine and Questionable Decisions T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "image": "/images/custom-workwear/powered-by-caffeine-and-questionable-decisions-t-shirt-front.png",
+    "image_front": "/images/custom-workwear/powered-by-caffeine-and-questionable-decisions-t-shirt-front.png",
+    "image_back": "/images/custom-workwear/powered-by-caffeine-and-questionable-decisions-t-shirt-back.png",
+    "image_alt": "Powered by Caffeine and Questionable Decisions Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "THIS BODY IS POWERED BY CAFFEINE AND QUESTIONABLE DECISIONS",
+    "print_theme": "Caffeine & Decisions",
+    "colors": [
+      "Mauve"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "caffeine & decisions",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved mauve crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+  },
+  {
+    "sku": "TS-PAID-BY-HOUR",
+    "slug": "when-you-get-paid-by-the-hour-heavy-equipment-division-t-shirt",
+    "name": "When You Get Paid by the Hour - Heavy Equipment Division T-Shirt",
+    "collection": "Telecom Funny Tees",
+    "subcategory": "Company Apparel",
+    "base_price": 24.99,
+    "image": "/images/custom-workwear/when-you-get-paid-by-the-hour-heavy-equipment-division-t-shirt-front.png",
+    "image_front": "/images/custom-workwear/when-you-get-paid-by-the-hour-heavy-equipment-division-t-shirt-front.png",
+    "image_back": "/images/custom-workwear/when-you-get-paid-by-the-hour-heavy-equipment-division-t-shirt-back.png",
+    "image_alt": "When You Get Paid by the Hour - Heavy Equipment Division Telecom Store t-shirt, front and back print",
+    "description": "Original Telecom Store design with a small left-chest wordmark and a full back print.",
+    "print_saying": "WHEN YOU GET PAID BY THE HOUR",
+    "print_theme": "Heavy Equipment Division",
+    "colors": [
+      "Charcoal"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "styles": [
+      "Front-and-Back Crew Neck T-Shirt"
+    ],
+    "customizable": false,
+    "owned_design": true,
+    "brand": "Telecom Store",
+    "condition": "new",
+    "gender": "unisex",
+    "age_group": "adult",
+    "identifier_exists": false,
+    "google_product_category": "Apparel & Accessories > Clothing > Shirts & Tops",
+    "garment": {
+      "manufacturer": "Bella + Canvas",
+      "model": "3001",
+      "name": "Unisex Jersey Short Sleeve Tee"
+    },
+    "garment_weight_oz": {
+      "S": 3.9,
+      "M": 4.4,
+      "L": 4.8,
+      "XL": 5.3
+    },
+    "package_weight_oz": null,
+    "approved_sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "approved_price": 24.99,
+    "search_keywords": [
+      "heavy equipment division",
+      "funny telecom shirt",
+      "lineman shirt",
+      "telecom humor"
+    ],
+    "starting_configuration": "Approved charcoal crew-neck shirt with small left-chest branding and one full back print.",
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
   }
 ]
