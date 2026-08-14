@@ -119,6 +119,17 @@ export function resolveSizeParam(product = {}, search = "") {
 // actually uses, so while it is null this returns null and the variant is kept out
 // of the Google feed rather than shipped with a guessed weight.
 export function packagedWeightLb(product = {}, size = "") {
+  // An explicit per-size shipping weight, supplied and signed off by Danny
+  // (2026-08-13), takes precedence. These are the Bella + Canvas garment weights
+  // converted to pounds; they do NOT include the mailer. That is acceptable here
+  // because FedEx rates everything under 1 lb in a single band, so the mailer's
+  // fraction of an ounce does not change the quoted cost. If packaging ever gets
+  // heavier — a box, a multi-pack — this needs revisiting.
+  const declared = Number(product.shipping_weight_lb?.[String(size)]);
+  if (Number.isFinite(declared) && declared > 0) return Math.round(declared * 100) / 100;
+
+  // Otherwise a weight only exists once a packaging specification is documented;
+  // garment weight alone is never promoted to a shipping weight.
   const garmentOz = Number(product.garment_weight_oz?.[String(size)]);
   const packageOz = Number(product.package_weight_oz);
   if (!(garmentOz > 0)) return null;
@@ -131,8 +142,18 @@ export function packagedWeightLb(product = {}, size = "") {
 // would create a Stripe session that fails the shipping check in
 // netlify/functions/_shared/checkout-core.mjs, so the variant stays on quote and
 // the cart path lights up automatically once the weight is supplied.
+// Direct checkout needs a Stripe shipping rate as well as a price and a weight:
+// netlify/functions/_shared/checkout-core.mjs rejects any line without
+// stripe_shipping_rate_id with "not configured for shipping". No apparel rate
+// exists yet, so this stays false and the storefront keeps the quote flow rather
+// than showing a Buy button that would fail at the Stripe session. Flip it once
+// the rate IDs are populated, and the cart path is already built behind it.
+export const APPAREL_CHECKOUT_ENABLED = false;
+
 export function apparelCheckoutReady(product = {}, size = "") {
-  return isApprovedVariant(product, size) && packagedWeightLb(product, size) !== null;
+  return APPAREL_CHECKOUT_ENABLED
+    && isApprovedVariant(product, size)
+    && packagedWeightLb(product, size) !== null;
 }
 
 // --- Collection grouping ------------------------------------------------------

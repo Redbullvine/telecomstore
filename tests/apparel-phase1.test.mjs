@@ -185,27 +185,43 @@ test("12. additional_image_link uses the back crop, and originals still exist", 
   }
 });
 
-test("13. shipping_weight is never emitted from a guessed package weight", () => {
-  // Bella + Canvas publishes garment-only weights; the mailer is undocumented, so
-  // no variant may be advertised.
+test("13. shipping_weight comes from a declared figure, never a guess", () => {
+  // Per-size shipping weights supplied and signed off by Danny 2026-08-13.
+  const DECLARED = { S: 0.24, M: 0.28, L: 0.3, XL: 0.33 };
   for (const sku of TS_SKUS) {
     const product = tee(sku);
-    assert.equal(product.package_weight_oz, null, "package weight must stay unset until documented");
+    assert.deepEqual(product.shipping_weight_lb, DECLARED, `${sku} must carry the declared weights`);
     assert.deepEqual(product.garment_weight_oz, { S: 3.9, M: 4.4, L: 4.8, XL: 5.3 });
     for (const size of APPROVED_TEE_SIZES) {
-      assert.equal(packagedWeightLb(product, size), null, "garment weight alone must not become a shipping weight");
+      assert.equal(packagedWeightLb(product, size), DECLARED[size]);
     }
   }
-  assert.equal(feedEligibleApparelVariants().length, 0, "nothing may be advertised without a real packaged weight");
-  for (const variant of apparelVariants()) assert.equal(variant.shipping_weight_lb, null);
-  // And the built feed contains no apparel rows.
+  // Every advertised variant carries a real weight, and the feed reflects it.
+  assert.equal(feedEligibleApparelVariants().length, apparelVariants().length);
+  for (const variant of apparelVariants()) assert.ok(variant.shipping_weight_lb > 0);
   const xml = fs.readFileSync("public/feeds/google-shopping.xml", "utf8");
-  for (const sku of TS_SKUS) assert.ok(!xml.includes(`<g:id>${sku}-S</g:id>`), `${sku} must not be in the feed`);
+  assert.match(xml, /<g:shipping_weight>0\.24 lb<\/g:shipping_weight>/);
 
-  // Once a documented mailer weight exists, the weight is garment + package in lb.
-  const withPackage = { ...tee("TS-PRO-POLE-DANCER"), package_weight_oz: 0.5 };
-  assert.equal(packagedWeightLb(withPackage, "S"), 0.28); // (3.9 + 0.5) / 16
-  assert.equal(packagedWeightLb(withPackage, "XL"), 0.36); // (5.3 + 0.5) / 16
+  // The core protection still holds: with no declared weight and no documented
+  // packaging spec, garment weight alone must NOT become a shipping weight.
+  const noDeclared = { ...tee(TS_SKUS[0]), shipping_weight_lb: undefined, package_weight_oz: null };
+  assert.equal(packagedWeightLb(noDeclared, "S"), null, "garment weight alone must never be promoted");
+  // And a documented mailer allowance is added to the garment weight.
+  assert.equal(packagedWeightLb({ ...noDeclared, package_weight_oz: 0.5 }, "S"), 0.28); // (3.9 + 0.5) / 16
+});
+
+test("apparel checkout stays gated until a Stripe shipping rate exists", () => {
+  // A price and a weight are not sufficient: checkout-core also demands
+  // stripe_shipping_rate_id, so a Buy button would 409 without it.
+  for (const sku of TS_SKUS) {
+    for (const size of APPROVED_TEE_SIZES) {
+      assert.equal(apparelCheckoutReady(tee(sku), size), false, `${sku} ${size} must not offer direct checkout yet`);
+    }
+  }
+  for (const row of apparelCommerceRows()) {
+    assert.equal(row.checkout_active, false, "no apparel row may be checkout-active without a shipping rate");
+    assert.equal(row.stripe_shipping_rate_id, null);
+  }
 });
 
 test("the lineworker tees group into a single collection section", () => {

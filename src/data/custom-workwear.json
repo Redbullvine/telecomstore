@@ -127,7 +127,14 @@
     ],
     "approved_price": 24.99,
     "image_front": "/images/custom-workwear/professional-pole-dancer-utility-division-front.png",
-    "image_back": "/images/custom-workwear/professional-pole-dancer-utility-division-back.png"
+    "image_back": "/images/custom-workwear/professional-pole-dancer-utility-division-back.png",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-CERT-POLE-DANCER",
@@ -191,7 +198,14 @@
     ],
     "approved_price": 24.99,
     "image_front": "/images/custom-workwear/certified-pole-dancer-utility-division-front.png",
-    "image_back": "/images/custom-workwear/certified-pole-dancer-utility-division-back.png"
+    "image_back": "/images/custom-workwear/certified-pole-dancer-utility-division-back.png",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-POLE-PAYS-BILLS",
@@ -255,7 +269,14 @@
     ],
     "approved_price": 24.99,
     "image_front": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division-front.png",
-    "image_back": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division-back.png"
+    "image_back": "/images/custom-workwear/pole-dancing-pays-the-bills-utility-division-back.png",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-POLE-DANCE-LIVING",
@@ -319,7 +340,14 @@
     ],
     "approved_price": 24.99,
     "image_front": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division-front.png",
-    "image_back": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division-back.png"
+    "image_back": "/images/custom-workwear/i-pole-dance-for-a-living-utility-division-back.png",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "CW-HARD-HAT",
@@ -568,7 +596,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved mint crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-MAKE-CONNECTIONS",
@@ -635,7 +670,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved butter crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-BAD-DECISIONS",
@@ -702,7 +744,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved peach crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-CHECK-ENGINE",
@@ -769,7 +818,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved blue jean crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-LOW-BATTERY",
@@ -835,7 +891,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved sage crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-OUT-OF-ORDER",
@@ -902,7 +965,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved heather coral crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-UNDER-CONSTRUCTION",
@@ -969,7 +1039,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved sand crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-PEOPLE-SKILLS",
@@ -1035,7 +1112,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved seafoam crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-CAFFEINE-DECISIONS",
@@ -1101,7 +1185,14 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved mauve crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   },
   {
     "sku": "TS-PAID-BY-HOUR",
@@ -1167,6 +1258,13 @@
       "telecom humor"
     ],
     "starting_configuration": "Approved charcoal crew-neck shirt with small left-chest branding and one full back print.",
-    "safety_note": "Sizes through 5XL are offered where supported by the selected garment."
+    "safety_note": "Sizes through 5XL are offered where supported by the selected garment.",
+    "shipping_weight_lb": {
+      "S": 0.24,
+      "M": 0.28,
+      "L": 0.3,
+      "XL": 0.33
+    },
+    "shipping_weight_basis": "Bella + Canvas 3001 garment weight converted to pounds; mailer not included (FedEx bands under 1 lb)."
   }
 ]

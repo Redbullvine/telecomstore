@@ -18,6 +18,7 @@
 
 import products from "../../src/data/custom-workwear.json" with { type: "json" };
 import {
+  APPAREL_CHECKOUT_ENABLED,
   APPROVED_TEE_SIZES,
   hasPublishableAssets,
   isApprovedFixedPriceProduct,
@@ -135,10 +136,11 @@ export function apparelCommerceRows(all = products) {
     public_price: variant.price,
     price_mode: "fixed",
     pricing_approved: true,
-    // Checkout stays inactive until the variant is shippable: checkout-core also
-    // requires a shipping class and a Stripe shipping rate, so activating it
-    // earlier would create sessions that fail the shipping check.
-    checkout_active: variant.feed_eligible,
+    // Checkout stays inactive until the variant is genuinely shippable. A weight
+    // and a price are not enough: checkout-core also demands a Stripe shipping
+    // rate, and none exists for apparel yet, so activating this would create
+    // sessions that fail the shipping check with a 409.
+    checkout_active: APPAREL_CHECKOUT_ENABLED && variant.feed_eligible,
     shipping_class: variant.feed_eligible ? "apparel_parcel" : "manual_quote",
     ship_weight_lb: variant.shipping_weight_lb,
     taxable: true,

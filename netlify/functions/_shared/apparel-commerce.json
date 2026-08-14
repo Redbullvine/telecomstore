@@ -6,13 +6,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PRO-POLE-DANCER",
     "size": "S",
     "color": "Navy"
@@ -24,13 +26,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PRO-POLE-DANCER",
     "size": "M",
     "color": "Navy"
@@ -42,13 +46,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PRO-POLE-DANCER",
     "size": "L",
     "color": "Navy"
@@ -60,13 +66,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PRO-POLE-DANCER",
     "size": "XL",
     "color": "Navy"
@@ -78,13 +86,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CERT-POLE-DANCER",
     "size": "S",
     "color": "Charcoal"
@@ -96,13 +106,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CERT-POLE-DANCER",
     "size": "M",
     "color": "Charcoal"
@@ -114,13 +126,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CERT-POLE-DANCER",
     "size": "L",
     "color": "Charcoal"
@@ -132,13 +146,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CERT-POLE-DANCER",
     "size": "XL",
     "color": "Charcoal"
@@ -150,13 +166,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-PAYS-BILLS",
     "size": "S",
     "color": "Forest Green"
@@ -168,13 +186,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-PAYS-BILLS",
     "size": "M",
     "color": "Forest Green"
@@ -186,13 +206,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-PAYS-BILLS",
     "size": "L",
     "color": "Forest Green"
@@ -204,13 +226,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-PAYS-BILLS",
     "size": "XL",
     "color": "Forest Green"
@@ -222,13 +246,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-DANCE-LIVING",
     "size": "S",
     "color": "Black"
@@ -240,13 +266,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-DANCE-LIVING",
     "size": "M",
     "color": "Black"
@@ -258,13 +286,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-DANCE-LIVING",
     "size": "L",
     "color": "Black"
@@ -276,13 +306,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-POLE-DANCE-LIVING",
     "size": "XL",
     "color": "Black"
@@ -294,13 +326,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-LOW-BATTERY",
     "size": "S",
     "color": "Sage"
@@ -312,13 +346,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-LOW-BATTERY",
     "size": "M",
     "color": "Sage"
@@ -330,13 +366,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-LOW-BATTERY",
     "size": "L",
     "color": "Sage"
@@ -348,13 +386,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-LOW-BATTERY",
     "size": "XL",
     "color": "Sage"
@@ -366,13 +406,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PEOPLE-SKILLS",
     "size": "S",
     "color": "Seafoam"
@@ -384,13 +426,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PEOPLE-SKILLS",
     "size": "M",
     "color": "Seafoam"
@@ -402,13 +446,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PEOPLE-SKILLS",
     "size": "L",
     "color": "Seafoam"
@@ -420,13 +466,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PEOPLE-SKILLS",
     "size": "XL",
     "color": "Seafoam"
@@ -438,13 +486,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CAFFEINE-DECISIONS",
     "size": "S",
     "color": "Mauve"
@@ -456,13 +506,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CAFFEINE-DECISIONS",
     "size": "M",
     "color": "Mauve"
@@ -474,13 +526,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CAFFEINE-DECISIONS",
     "size": "L",
     "color": "Mauve"
@@ -492,13 +546,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-CAFFEINE-DECISIONS",
     "size": "XL",
     "color": "Mauve"
@@ -510,13 +566,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.24,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PAID-BY-HOUR",
     "size": "S",
     "color": "Charcoal"
@@ -528,13 +586,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.28,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PAID-BY-HOUR",
     "size": "M",
     "color": "Charcoal"
@@ -546,13 +606,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.3,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PAID-BY-HOUR",
     "size": "L",
     "color": "Charcoal"
@@ -564,13 +626,15 @@
     "price_mode": "fixed",
     "pricing_approved": true,
     "checkout_active": false,
-    "shipping_class": "manual_quote",
-    "ship_weight_lb": null,
+    "shipping_class": "apparel_parcel",
+    "ship_weight_lb": 0.33,
     "taxable": true,
     "automatic_tax": false,
     "stripe_price_id": null,
     "stripe_shipping_rate_id": null,
-    "allowed_countries": [],
+    "allowed_countries": [
+      "US"
+    ],
     "item_group_id": "TS-PAID-BY-HOUR",
     "size": "XL",
     "color": "Charcoal"
