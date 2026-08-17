@@ -406,8 +406,14 @@ export async function hardDeleteProduct(productId) {
     console.warn("Image cleanup during hard delete failed", cleanupError);
   }
 
-  const { error } = await supabase.from("products").delete().eq("id", productId);
+  // .select() matters: without it PostgREST reports success for a delete that
+  // RLS filtered to zero rows, so a non-admin account silently "deletes" nothing
+  // and the row reappears on the next reload with no explanation.
+  const { data, error } = await supabase.from("products").delete().eq("id", productId).select("id");
   if (error) throw error;
+  if (!data?.length) {
+    throw new Error("Delete was refused. Hard delete requires the admin role — an inventory-role account can archive instead.");
+  }
 }
 
 function storagePathFromPublicUrl(url) {

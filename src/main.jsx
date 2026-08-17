@@ -2075,6 +2075,7 @@ function InventoryPage({ products, route, auth, reload, loading }) {
   const [category, setCategory] = useState("All");
   const [status, setStatus] = useState(PRODUCT_STATUSES.includes(statusParam) ? statusParam : "All");
   const [busyId, setBusyId] = useState("");
+  const [actionError, setActionError] = useState("");
 
   const categories = useMemo(() => ["All", ...getProductCategories(products)], [products]);
   const filtered = useMemo(() => filterProducts(products, { query, category, status }), [products, query, category, status]);
@@ -2082,9 +2083,14 @@ function InventoryPage({ products, route, auth, reload, loading }) {
 
   async function runAction(product, action) {
     setBusyId(product.id);
+    setActionError("");
     try {
       await action();
       await reload();
+    } catch (error) {
+      // Previously this rejected unhandled, so a refused delete or a blocking
+      // foreign key looked identical to nothing happening at all.
+      setActionError(error.message || "That action failed.");
     } finally {
       setBusyId("");
     }
@@ -2102,6 +2108,8 @@ function InventoryPage({ products, route, auth, reload, loading }) {
         </div>
         <button className="button primary" type="button" onClick={() => route.navigate("/admin/inventory/new")}><Plus size={18} /> Add item</button>
       </div>
+
+      {actionError ? <p className="error-banner">{actionError}</p> : null}
 
       <div className="table-wrap">
         <table className="inventory-table">
@@ -2132,16 +2140,17 @@ function InventoryPage({ products, route, auth, reload, loading }) {
                 <td>
                   <div className="row-actions">
                     <button className="icon-button" type="button" title="Edit item" onClick={() => route.navigate(`/admin/inventory/${product.id}/edit`)}><Edit3 size={16} /></button>
-                    <button className="icon-button" type="button" title="Duplicate item" onClick={() => runAction(product, () => duplicateProduct(product, auth.session.user.id))}><Copy size={16} /></button>
+                    <button className="icon-button" type="button" title="Duplicate item" disabled={busyId === product.id} onClick={() => runAction(product, () => duplicateProduct(product, auth.session.user.id))}><Copy size={16} /></button>
                     <button className="text-action" type="button" disabled={busyId === product.id} onClick={() => runAction(product, () => updateProductStatus(product, "available", auth.session.user.id))}>Available</button>
                     <button className="text-action" type="button" disabled={busyId === product.id} onClick={() => runAction(product, () => updateProductStatus(product, "hold", auth.session.user.id))}>Hold</button>
                     <button className="text-action" type="button" disabled={busyId === product.id} onClick={() => runAction(product, () => updateProductStatus(product, "sold", auth.session.user.id))}>Sold</button>
-                    <button className="icon-button" type="button" title="Archive item" onClick={() => runAction(product, () => updateProductStatus(product, "archived", auth.session.user.id))}><Archive size={16} /></button>
+                    <button className="icon-button" type="button" title="Archive item" disabled={busyId === product.id} onClick={() => runAction(product, () => updateProductStatus(product, "archived", auth.session.user.id))}><Archive size={16} /></button>
                     {isAdmin ? (
                       <button
                         className="icon-button danger"
                         type="button"
                         title="Hard delete"
+                        disabled={busyId === product.id}
                         onClick={() => {
                           if (window.confirm("Hard delete this product? Prefer archive unless this record is truly wrong.")) {
                             runAction(product, () => hardDeleteProduct(product.id));
