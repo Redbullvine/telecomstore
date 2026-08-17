@@ -1,0 +1,114 @@
+{
+  "evidence_date": "2026-08-03",
+  "method": "One representative MPN per major brand was market-checked against manufacturer, distributor, and major-retailer listings (auction/marketplace listings excluded). The observed typical-market-to-list ratio calibrates the remaining items of that brand. Brands without a reliable sample are never auto-approved.",
+  "notes": "This file contains only public market observations and derived ratios. No supplier cost, wholesale, or private data.",
+  "brands": {
+    "Tripp Lite by Eaton": {
+      "factor": 0.95,
+      "sample_mpn": "TLP76MSGB",
+      "observed": [
+        { "price": 44.75, "url": "https://www.connection.com/product/tripp-lite-eco-surge-7-outlet-surge-protector-1080-joules-6-individually-controlled-outlets-black/tlp76msgb/34631062" },
+        { "price": 62.63, "url": "https://shop.merrifieldofficesupply.com/Product/TRP/TLP76MSGB/1041700180" }
+      ]
+    },
+    "APC": {
+      "factor": 0.75,
+      "sample_mpn": "BK500",
+      "observed": [
+        { "price": 170.6, "url": "https://www.walmart.com/ip/Apc-Bk500-Back-ups-500-System/158151217" },
+        { "price": 181.49, "url": "https://www.staples.com/apc-back-ups-500va-battery-backup-and-surge-protector-6-outlets-beige-bk500/product_455382" },
+        { "price": 192.6, "url": "https://www.ecinteractiveplus.com/3324/Product/APW/BK500" }
+      ]
+    },
+    "Antennas Direct": {
+      "factor": 0.7,
+      "sample_mpn": "DB8-E",
+      "observed": [
+        { "price": 116.84, "url": "https://www.compsource.com/buy/DB8E/Antennas-Direct-2073" },
+        { "price": 134.49, "url": "https://www.beachaudio.com/antennas-direct-db8-e-antenas-direct-ultra-long-range-dtv-outdoor-antenna-db8-e/" },
+        { "price": 199.99, "url": "https://www.tractorsupply.com/tsc/product/antennas-direct-enhanced-db8e-multidirectional-bowtie-attic-outdoor-uhf-antenna-adidb8e" }
+      ]
+    },
+    "Vtech": {
+      "factor": 1.0,
+      "map_floor": true,
+      "sample_mpn": "DS6151",
+      "observed": [
+        { "price": 76.8, "url": "https://www.walmart.com/ip/Two-Line-Expandable-Cordless-Phone-with-Answering-System/14235489" },
+        { "price": 104.99, "url": "https://www.bestbuy.com/site/vtech-ds6151-dect-6-0-expandable-2-line-cordless-phone-with-digital-answering-system-and-dial-in-base-1-handset-black/9735531.p?skuId=9735531" },
+        { "price": 113.26, "url": "https://www.ldproducts.com/offsup-vtech-vteds6151-cordless-phone" }
+      ]
+    },
+    "At&t": {
+      "factor": 1.0,
+      "map_floor": true,
+      "sample_mpn": "DS6151",
+      "calibrated_via": "Vtech (same manufacturer family; AT&T consumer phones are VTech-built)",
+      "observed": [
+        { "price": 104.99, "url": "https://www.bestbuy.com/site/vtech-ds6151-dect-6-0-expandable-2-line-cordless-phone-with-digital-answering-system-and-dial-in-base-1-handset-black/9735531.p?skuId=9735531" }
+      ]
+    },
+    "RCA": {
+      "factor": 0.65,
+      "sample_mpn": "ANT705E",
+      "observed": [
+        { "price": 30.73, "url": "https://www.compsource.com/buy/ANT705E/RCA-3482" },
+        { "price": 39.58, "url": "https://www.menards.com/main/electrical/electronics/antennas/rca-attic-outdoor-digital-hd-uhd-compact-tv-antenna/ant705e/p-1500532434369-c-1454940301502.htm" },
+        { "price": 51.0, "url": "https://www.beachaudio.com/rca-ant705e-attic-outdoor-hdtv-antenna-ant705e/" }
+      ]
+    },
+    "Ideal": {
+      "factor": 0.94,
+      "sample_mpn": "89-5047",
+      "observed": [
+        { "price": 103.27, "url": "https://www.testequipmentdepot.com/ideal-electrical-89-5047-bnc-type-rg-59-straight-compression-connectors-35.html" },
+        { "price": 103.6, "url": "https://www.discount-low-voltage.com/ID-89-5047" }
+      ]
+    },
+    "Clarity": {
+      "factor": 1.0,
+      "sample_mpn": "53714",
+      "observed": [
+        { "price": 117.99, "url": "https://www.staples.com/Clarity-53714-Dect-6-0-Amplified-Cordless-Phone-With-Digital-Answering-System/product_2442319" }
+      ]
+    },
+    "Winegard": {
+      "factor": 1.0,
+      "map_floor": true,
+      "sample_mpn": "HD8200U",
+      "observed": [
+        { "price": 206.99, "url": "https://www.tractorsupply.com/tsc/product/winegard-platinum-series-hd8200u-hdtv-deep-fringe-antenna-with-up-to-65-mile-range" }
+      ]
+    },
+    "Ethereal": {
+      "factor": 0.65,
+      "map_floor": true,
+      "market_below_map_note": "Observed street prices for the sampled MPN sit below the supplier MAP; MAP is used as the proposed floor and these items are flagged for Danny's review.",
+      "sample_mpn": "CS-DAC2",
+      "observed": [
+        { "price": 67.27, "url": "https://www.compsource.com/pn/CSDAC2/Ethereal-4453/Ethereal-Csdac2-Digital-Toslinkoptical-Spdif-To-Rca-Audio-Converter-Csdac2-Csdac2/" },
+        { "price": 73.06, "url": "https://www.beachaudio.com/metra-cs-dac2-digital-toslink-optical-spdif-to-rca-audio-converter/" },
+        { "price": 83.84, "url": "https://www.walmart.com/ip/Metra-CS-DAC2-Digital-TOSLINK-Optical-SPDIF-to-RCA-Audio-Converter/253339294" }
+      ]
+    },
+    "Labor Saving Devices": {
+      "factor": 0.95,
+      "sample_mpn": "82-118",
+      "observed": [
+        { "price": 164.03, "url": "https://www.compsource.com/buy/82118/Labor-Saving-Devices-3460" },
+        { "price": 186.99, "url": "https://www.zoro.com/labor-saving-devices-grabbit-18-ft-telescoping-pole-with-z-tip-and-j-tip-82-118/i/G0221707/" },
+        { "price": 226.99, "url": "https://www.gmesupply.com/telescoping-pole-(18ft)" }
+      ]
+    },
+    "Vericom": {
+      "factor": 0.77,
+      "sample_mpn": "WTRJC-03632",
+      "observed": [
+        { "price": 19.33, "url": "https://www.walmart.com/ip/Vericom-Wtrjc-03632-Modular-Plug-Crimping-Tool/418479439" },
+        { "price": 23.19, "url": "https://www.homedepot.com/b/Vericom/N-5yc1vZppp" },
+        { "price": 26.99, "url": "https://www.zoro.com/b/VERICOM/" }
+      ]
+    }
+  },
+  "uncalibrated_brands_note": "Pyle (search returned no reliable prices), Eagle Aspen, Datacomm Electronics, Nanuk, Kenwood, Stanley, Prime, Cyberpower, Energizer Connect, Helios, Gemini, Koblenz, Eco4life, Wilson Electronics: no reliable market sample yet. These items are marked manual_review and are never auto-approved."
+}
