@@ -1,5 +1,6 @@
 import openingCatalog from "../data/opening-catalog.json";
 import openingPricing from "../data/opening-pricing.json";
+import { slugifyCatalogValue } from "../config/catalog.mjs";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export const PRODUCT_STATUSES = ["draft", "available", "hold", "sold", "archived"];
@@ -141,6 +142,63 @@ export function normalizeProduct(product = {}) {
 export function fallbackInventory() {
   const prices = new Map(openingPricing.map((row) => [row.public_sku, row]));
   return openingCatalog.map((product) => normalizeProduct({ ...product, ...prices.get(product.sku) })).filter((product) => product.status === "available");
+}
+
+// Every product in opening-catalog.json derives its slug this way, so live rows
+// resolve to the same /products/<slug> shape the sitemap and feed already use.
+export function storefrontSlug(product = {}) {
+  if (product.slug) return product.slug;
+  const brand = slugifyCatalogValue(product.brand);
+  const sku = slugifyCatalogValue(product.sku);
+  return brand && sku ? `${brand}-${sku}` : brand || sku;
+}
+
+// Setting a product to 'available' in Admin is the publish action, but a row
+// still has to be presentable before customers and Google see it. Photo intake
+// creates rows with nothing but an image, and publishing one of those would put
+// an untitled, uncategorised item on the storefront.
+export function isStorefrontReady(product = {}) {
+  return Boolean(product.sku && product.title && product.category && product.photo_main);
+}
+
+// The public catalog is the union of two sources:
+//
+//  1. get_public_product_catalog() — rows published from Admin. Authoritative:
+//     a live row always replaces a static one with the same SKU.
+//  2. opening-catalog.json — the 206 rights-cleared products committed for the
+//     deploy. They remain so indexed /products/<slug> URLs and the Merchant
+//     Center feed keep resolving for SKUs that are not in the database.
+//
+// Prices are deliberately not promoted here. Without an approved pricing review
+// a live row has pricing_approved false, so it renders as "Price requires
+// verification" rather than as a firm price a shopper could check out against.
+export async function fetchStorefrontProducts() {
+  const published = fallbackInventory();
+  if (!isSupabaseConfigured) return published;
+
+  let live = [];
+  try {
+    const { data, error } = await supabase.rpc("get_public_product_catalog");
+    if (error) throw error;
+
+    const prices = new Map(openingPricing.map((row) => [row.public_sku, row]));
+    live = (data || [])
+      .map((product) => normalizeProduct({ ...product, ...prices.get(product.sku) }))
+      .filter(isStorefrontReady)
+      .map((product) => {
+        const slug = storefrontSlug(product);
+        return { ...product, slug, canonical_path: product.canonical_path || `/products/${slug}` };
+      });
+  } catch (error) {
+    // A database outage must leave the published catalog standing, not empty the
+    // storefront and drop 206 indexed pages.
+    console.warn("Live product catalog unavailable; showing the published catalog only.", error);
+    return published;
+  }
+
+  const bySku = new Map(published.map((product) => [product.sku.toLowerCase(), product]));
+  live.forEach((product) => bySku.set(product.sku.toLowerCase(), product));
+  return [...bySku.values()];
 }
 
 export function derivePublicAvailability(quantity) {

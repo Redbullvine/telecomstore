@@ -1,4 +1,4 @@
-import { CATALOG_CATEGORIES, CATALOG_MANUFACTURERS, CATALOG_SITE_URL } from "../config/catalog.mjs";
+import { CATALOG_CATEGORIES, CATALOG_MANUFACTURERS, CATALOG_SITE_URL, categoryConfig } from "../config/catalog.mjs";
 
 const PRODUCT_PREFIX = "/products/";
 const CATEGORY_PREFIX = "/categories/";
@@ -48,10 +48,13 @@ export function relatedProducts(product, products, limit = 4) {
     .map(({ item }) => item);
 }
 
-export function storefrontMetadata(route) {
+// catalogCount defaults to the committed catalog size so existing callers keep
+// their wording; the storefront passes the live merged total once it loads, so
+// the claim stays true as products are published from Admin.
+export function storefrontMetadata(route, catalogCount = 206) {
   const base = {
     title: "Telecom Store | Telecom Parts by MPN and GTIN",
-    description: "Search 206 telecom products by manufacturer, category, MPN, or GTIN. Build a quote list and confirm current pricing, availability, and shipping.",
+    description: `Search ${catalogCount} telecom products by manufacturer, category, MPN, or GTIN. Build a quote list and confirm current pricing, availability, and shipping.`,
     canonical: `${CATALOG_SITE_URL}/`,
     schemas: [{
       "@context": "https://schema.org",
@@ -65,8 +68,13 @@ export function storefrontMetadata(route) {
     const product = route.product;
     const canonical = `${CATALOG_SITE_URL}${productPath(product)}`;
     return {
-      title: product.meta_title,
-      description: product.meta_description,
+      // opening-catalog.json ships generated meta fields, but a product
+      // published from Admin has none, which left the tab title blank and the
+      // page with no description at all.
+      title: product.meta_title || `${product.title} | Telecom Store`,
+      description: product.meta_description
+        || product.short_description
+        || `${product.title} from Telecom Store. Request a quote to confirm current pricing, availability, and shipping.`,
       canonical,
       schemas: [...base.schemas, {
         "@context": "https://schema.org",
@@ -81,7 +89,10 @@ export function storefrontMetadata(route) {
         url: canonical
       }, breadcrumbSchema([
         ["Home", "/"],
-        [product.category, categoryPath(CATALOG_CATEGORIES.find((item) => item.name === product.category))],
+        // categoryConfig, not a bare find: a product published from Admin can
+        // carry a category that is not in the committed taxonomy, and indexing
+        // that on a raw find crashes the whole product page.
+        [product.category, categoryPath(categoryConfig(product.category))],
         [product.title, productPath(product)]
       ])]
     };

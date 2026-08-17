@@ -60,6 +60,7 @@ import {
   fetchProductImages,
   fetchPublicProducts,
   fetchStorageLocations,
+  fetchStorefrontProducts,
   filterProducts,
   findProductByScan,
   getProductCategories,
@@ -703,7 +704,10 @@ function NetlifyHiddenFields({ formName, attribution, item, selectedItems = [], 
 function PublicStorefront({ route, navigate }) {
   const marketplacePath = isMarketplacePath(route.path);
   const workwearPath = isWorkwearPath(route.path);
-  const products = useMemo(() => fallbackInventory(), []);
+  // Seeded with the committed catalog so the first paint (and any crawler that
+  // does not wait for the fetch) still sees the 206 published products, then
+  // replaced by the published set merged with whatever Admin has made available.
+  const [products, setProducts] = useState(() => fallbackInventory());
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [manufacturer, setManufacturer] = useState("All");
@@ -727,6 +731,13 @@ function PublicStorefront({ route, navigate }) {
   }).slice(0, 12), [products]);
 
   useEffect(() => setAttribution(captureAttribution()), []);
+  useEffect(() => {
+    let cancelled = false;
+    fetchStorefrontProducts().then((records) => {
+      if (!cancelled) setProducts(records);
+    });
+    return () => { cancelled = true; };
+  }, []);
   useEffect(() => writeStoredJson(QUOTE_BASKET_KEY, cart), [cart]);
   useEffect(() => {
     if (!toast) return undefined;
@@ -747,9 +758,9 @@ function PublicStorefront({ route, navigate }) {
   }, [routeInfo]);
   useEffect(() => {
     if (marketplacePath || workwearPath) return;
-    applyStorefrontMetadata(storefrontMetadata(routeInfo));
+    applyStorefrontMetadata(storefrontMetadata(routeInfo, products.length));
     if (routeInfo.kind === "product" && routeInfo.product) trackEvent("product_view", productAnalyticsParams(routeInfo.product));
-  }, [marketplacePath, workwearPath, routeInfo]);
+  }, [marketplacePath, workwearPath, routeInfo, products.length]);
 
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
@@ -881,7 +892,7 @@ function PublicStorefront({ route, navigate }) {
         <section className="ts-route-empty"><div className="ts-wrap"><p className="ts-eyebrow">Catalog route</p><h1>Page not found</h1><p>The requested catalog page does not match a published product, category, or manufacturer.</p><button className="ts-btn-pri" type="button" onClick={() => navigate("/")}>Return to catalog</button></div></section>
       ) : (
         <>
-          {routeInfo.kind === "home" ? <RetailHomepage products={featuredProducts} navigate={navigate} navigateCategory={navigateCategory} navigateProduct={navigateProduct} isQuoted={(product) => Boolean(inCart(product))} onAddQuote={(product, qty) => addToQuote(product, qty, "homepage_featured")} onAsk={(product) => openLeadModal("item-inquiry", product, "homepage_featured")} onQuote={() => openQuoteDrawer("form", "homepage_promo")} /> : null}
+          {routeInfo.kind === "home" ? <RetailHomepage products={featuredProducts} catalogCount={products.length} navigate={navigate} navigateCategory={navigateCategory} navigateProduct={navigateProduct} isQuoted={(product) => Boolean(inCart(product))} onAddQuote={(product, qty) => addToQuote(product, qty, "homepage_featured")} onAsk={(product) => openLeadModal("item-inquiry", product, "homepage_featured")} onQuote={() => openQuoteDrawer("form", "homepage_promo")} /> : null}
           {routeInfo.kind === "home" ? null : <CatalogLandingHero routeInfo={routeInfo} count={filtered.length} />}
           <section className="ts-catalog" id="catalog"><div className="ts-wrap">
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
@@ -917,9 +928,9 @@ function StorefrontHeader({ query, setQuery, onSubmit, onClear, cartCount, navig
   </header>;
 }
 
-function RetailHomepage({ products, navigate, navigateCategory, navigateProduct, isQuoted, onAddQuote, onAsk, onQuote }) {
+function RetailHomepage({ products, catalogCount, navigate, navigateCategory, navigateProduct, isQuoted, onAddQuote, onAsk, onQuote }) {
   return <div className="ts-retail-home">
-    <section className="ts-promo-strip" aria-label="Store services"><div className="ts-wrap"><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Custom company gear</strong><span>Shirts, caps, jackets, and safety wear</span></button><a href="#catalog"><strong>Shop by part number</strong><span>206 exact-MPN telecom products</span></a><button type="button" onClick={onQuote}><strong>Request a quote</strong><span>Send quantities and project details</span></button><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Volume pricing available</strong><span>Build a crew or project quote</span></button></div></section>
+    <section className="ts-promo-strip" aria-label="Store services"><div className="ts-wrap"><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Custom company gear</strong><span>Shirts, caps, jackets, and safety wear</span></button><a href="#catalog"><strong>Shop by part number</strong><span>{catalogCount} exact-MPN telecom products</span></a><button type="button" onClick={onQuote}><strong>Request a quote</strong><span>Send quantities and project details</span></button><button type="button" onClick={() => navigate("/custom-workwear")}><strong>Volume pricing available</strong><span>Build a crew or project quote</span></button></div></section>
     <section className="ts-department-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Shop by department</p><h1>Find what you need faster</h1></div><a href="#catalog">View all products</a></div><div className="ts-department-grid">
       <a className="ts-department-tile is-workwear" href="/custom-workwear" onClick={(event) => { event.preventDefault(); navigate("/custom-workwear"); }}><img src="/images/custom-workwear/custom-company-ball-cap.png" alt="Custom company ball caps in black, navy, charcoal, and khaki" width="200" height="200" /><span><strong>Custom Workwear &amp; Safety Gear</strong><small>{WORKWEAR_PRODUCTS.length} products</small></span></a>
       <a className="ts-department-tile is-marketplace" href="/shop" onClick={(event) => { event.preventDefault(); navigate("/shop"); }}><CategoryIcon category="General Merchandise" size={38} /><span><strong>General Merchandise Shop</strong><small>{MARKETPLACE_SUMMARY.product_count.toLocaleString()} products</small></span></a>
@@ -930,7 +941,7 @@ function RetailHomepage({ products, navigate, navigateCategory, navigateProduct,
       {MARKETPLACE_SUMMARY.clearance_count > 0 ? <a className="ts-department-tile" href="/shop/deals" onClick={(event) => { event.preventDefault(); navigate("/shop/deals"); }}><CategoryIcon category="Deals" size={38} /><span><strong>Deals</strong><small>{MARKETPLACE_SUMMARY.clearance_count.toLocaleString()} clearance items</small></span></a> : null}
     </div></div></section>
     <WorkwearHomepageShelf navigate={navigate} />
-    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all 206 products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
+    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all {catalogCount} products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
     <section className="ts-category-rail"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Browse the full telecom catalog</p><h2>Telecom categories</h2></div></div><div>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={27} /><span><strong>{item.name}</strong><small>{item.count} products</small></span><span aria-hidden="true">→</span></a>)}</div></div></section>
   </div>;
 }
