@@ -21,7 +21,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
         <nav className="ts-breadcrumbs" aria-label="Breadcrumb">
           <RouteLink href="/" navigate={navigate}>Home</RouteLink><ChevronRight size={14} />
           <RouteLink href={categoryPath(category)} navigate={navigate}>{category.name}</RouteLink><ChevronRight size={14} />
-          <span aria-current="page">{product.manufacturer_mpn}</span>
+          <span aria-current="page">{product.is_gaylord_lot ? "Gaylord lot" : product.manufacturer_mpn}</span>
         </nav>
         <section className="ts-product-detail">
           <div><ProductPlaceholder product={product} large /></div>
@@ -30,8 +30,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
             <h1>{product.title}</h1>
             <p className="ts-detail-lead">{product.long_description}</p>
             <dl className="ts-detail-identity">
-              <div><dt>Manufacturer MPN</dt><dd>{product.manufacturer_mpn}</dd></div>
-              <div><dt>GTIN / UPC</dt><dd>{product.gtin}</dd></div>
+              {product.is_gaylord_lot ? <div><dt>Listing type</dt><dd>Gaylord lot</dd></div> : <><div><dt>Manufacturer MPN</dt><dd>{product.manufacturer_mpn}</dd></div><div><dt>GTIN / UPC</dt><dd>{product.gtin}</dd></div></>}
               <div><dt>Category</dt><dd><RouteLink href={categoryPath(category)} navigate={navigate}>{product.category}</RouteLink></dd></div>
               <div><dt>Availability</dt><dd>{product.availability_text}</dd></div>
             </dl>
@@ -49,7 +48,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
         </section>
 
         <section className="ts-detail-info">
-          <div><p className="ts-eyebrow">Product overview</p><h2>Matched by manufacturer number</h2><p>{product.short_description}</p><p>We use the manufacturer, MPN, and GTIN shown here to identify the requested item. We confirm current availability and shipping when we prepare your quote.</p>{features.length ? <><h3>Key features</h3><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul></> : null}</div>
+          <div><p className="ts-eyebrow">Product overview</p><h2>{product.is_gaylord_lot ? "Sold as one Gaylord lot" : "Matched by manufacturer number"}</h2><p>{product.short_description}</p><p>{product.is_gaylord_lot ? "This mixed inventory is offered as one Gaylord lot. We confirm the contents, availability, freight, and final price when we prepare your quote." : "We use the manufacturer, MPN, and GTIN shown here to identify the requested item. We confirm current availability and shipping when we prepare your quote."}</p>{features.length ? <><h3>Key features</h3><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul></> : null}</div>
           <div><h2>Product identifiers</h2><dl>{specifications.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></div>
         </section>
 

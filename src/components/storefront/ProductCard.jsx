@@ -19,8 +19,8 @@ export default function ProductCard({ product, added, onNavigate, onAdd, onAsk, 
         <p className="ts-cbrand">{product.brand}</p>
         <h3 className="ts-cname"><a href={productPath(product)} title={product.title} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>{product.title}</a></h3>
         {compact ? null : <dl className="ts-card-identity">
-          <div><dt>MPN</dt><dd>{product.manufacturer_mpn}</dd></div>
-          <div><dt>GTIN</dt><dd>{product.gtin}</dd></div>
+          {product.is_gaylord_lot ? <div><dt>Listing type</dt><dd>Gaylord lot</dd></div> : <div><dt>MPN</dt><dd>{product.manufacturer_mpn}</dd></div>}
+          {product.is_gaylord_lot ? null : <div><dt>GTIN</dt><dd>{product.gtin}</dd></div>}
         </dl>}
         <div className="ts-card-status">
           <span>{product.availability_text || "Availability by quote"}</span>
@@ -29,7 +29,7 @@ export default function ProductCard({ product, added, onNavigate, onAdd, onAsk, 
         {listedPrice && !isPurchasable(product) && !compact ? <p className="ts-checkout-note">Request Shipping Quote. Tax and shipping are confirmed before payment.</p> : null}
         <div className="ts-cact">
           <a className="ts-det" href={productPath(product)} onClick={(event) => { event.preventDefault(); onNavigate(product); }}>View details <span aria-hidden="true">→</span></a>
-          {compact ? null : <label className="ts-card-quantity"><span>Quantity</span><input aria-label={`Quantity for ${product.manufacturer_mpn}`} type="number" min="1" max="99999" value={quantity} onChange={(event) => setQuantity(Math.max(1, Number.parseInt(event.target.value, 10) || 1))} /></label>}
+          {compact ? null : <label className="ts-card-quantity"><span>{product.is_gaylord_lot ? "Lots" : "Quantity"}</span><input aria-label={`Quantity for ${product.title}`} type="number" min="1" max="99999" value={quantity} onChange={(event) => setQuantity(Math.max(1, Number.parseInt(event.target.value, 10) || 1))} /></label>}
           <div className="ts-card-secondary">
             <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={() => onAdd(quantity)}>{added ? "Update quote list" : "Add to quote"}</button>
             {compact ? null : <button className="ts-ask" type="button" onClick={onAsk}>Ask a question</button>}

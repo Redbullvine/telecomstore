@@ -24,6 +24,7 @@ export const PRODUCT_FIELDS = [
   "short_description",
   "long_description",
   "label_text",
+  "is_gaylord_lot",
   "status",
   "photo_main",
   "photo_label",
@@ -75,6 +76,7 @@ export const EMPTY_PRODUCT = {
   short_description: "",
   long_description: "",
   label_text: "",
+  is_gaylord_lot: false,
   status: "draft",
   photo_main: "",
   photo_label: "",
@@ -116,6 +118,7 @@ export function normalizeProduct(product = {}) {
     short_description: valueOrEmpty(product.short_description ?? product.shortDescription),
     long_description: valueOrEmpty(product.long_description ?? details),
     label_text: valueOrEmpty(product.label_text),
+    is_gaylord_lot: product.is_gaylord_lot === true || product.is_gaylord_lot === "true",
     status,
     photo_main: valueOrEmpty(product.photo_main || product.images?.[0]),
     photo_label: valueOrEmpty(product.photo_label || product.images?.[1]),
@@ -148,6 +151,10 @@ export function fallbackInventory() {
 // resolve to the same /products/<slug> shape the sitemap and feed already use.
 export function storefrontSlug(product = {}) {
   if (product.slug) return product.slug;
+  if (product.is_gaylord_lot) {
+    const identifier = slugifyCatalogValue(product.id || product.title);
+    return identifier ? `gaylord-lot-${identifier}` : "gaylord-lot";
+  }
   const brand = slugifyCatalogValue(product.brand);
   const sku = slugifyCatalogValue(product.sku);
   return brand && sku ? `${brand}-${sku}` : brand || sku;
@@ -158,7 +165,7 @@ export function storefrontSlug(product = {}) {
 // creates rows with nothing but an image, and publishing one of those would put
 // an untitled, uncategorised item on the storefront.
 export function isStorefrontReady(product = {}) {
-  return Boolean(product.sku && product.title && product.category && product.photo_main);
+  return Boolean((product.sku || product.is_gaylord_lot) && product.title && product.category && product.photo_main);
 }
 
 // The public catalog is the union of two sources:
@@ -672,6 +679,11 @@ function prepareProductPayload(product) {
   PRODUCT_FIELDS.forEach((field) => {
     if (field === "quantity_available" || field === "price") {
       payload[field] = numberOrNull(product[field]);
+      return;
+    }
+
+    if (field === "is_gaylord_lot") {
+      payload[field] = product[field] === true || product[field] === "true";
       return;
     }
 

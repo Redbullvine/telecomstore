@@ -898,7 +898,7 @@ function PublicStorefront({ route, navigate }) {
             <CatalogFilters query={query} category={category} manufacturer={manufacturer} availability={availability} sort={sort} categories={categoryNames} manufacturers={manufacturerNames} onQuery={setQuery} onCategory={(value) => value === "All" ? resetFilters() : navigateCategory(value)} onManufacturer={(value) => value === "All" ? resetFilters() : navigateManufacturer(value)} onAvailability={setAvailability} onSort={setSort} onReset={resetFilters} />
             <div className="ts-cathead"><div><h1>{landing?.name || "Browse Products"}</h1><p><strong>{filtered.length}</strong> products</p></div></div>
             {!filtered.length ? <div className="ts-empty"><b>No products match these filters.</b><span>Reset the catalog or send us the part number you need.</span><button type="button" onClick={resetFilters}>Reset filters</button></div> : null}
-            <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={(qty) => addToQuote(product, qty)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
+            <div className="ts-grid">{filtered.map((product) => <ProductCard key={product.id || product.sku} product={product} added={Boolean(inCart(product))} onNavigate={navigateProduct} onAdd={(qty) => addToQuote(product, qty)} onAsk={() => openLeadModal("item-inquiry", product, "product_card")} />)}</div>
             <div className="ts-search-lead"><div><strong>Don&apos;t see the part number?</strong><span>Send us the exact MPN or GTIN and we will review it.</span></div><button type="button" onClick={() => openLeadModal("item-inquiry", null, "inventory_search", { query })}>Send us the part number</button></div>
           </div></section>
         </>
@@ -941,7 +941,7 @@ function RetailHomepage({ products, catalogCount, navigate, navigateCategory, na
       {MARKETPLACE_SUMMARY.clearance_count > 0 ? <a className="ts-department-tile" href="/shop/deals" onClick={(event) => { event.preventDefault(); navigate("/shop/deals"); }}><CategoryIcon category="Deals" size={38} /><span><strong>Deals</strong><small>{MARKETPLACE_SUMMARY.clearance_count.toLocaleString()} clearance items</small></span></a> : null}
     </div></div></section>
     <WorkwearHomepageShelf navigate={navigate} />
-    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all {catalogCount} products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
+    <section className="ts-featured-section"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Actual catalog products</p><h2>Featured telecom equipment</h2></div><a href="#catalog">Browse all {catalogCount} products</a></div><div className="ts-featured-grid">{products.map((product) => <ProductCard compact key={product.id || product.sku} product={product} added={isQuoted(product)} onNavigate={navigateProduct} onAdd={(qty) => onAddQuote(product, qty)} onAsk={() => onAsk(product)} />)}</div></div></section>
     <section className="ts-category-rail"><div className="ts-wrap"><div className="ts-retail-section-head"><div><p>Browse the full telecom catalog</p><h2>Telecom categories</h2></div></div><div>{CATALOG_CATEGORIES.map((item) => <a key={item.name} href={categoryPath(item)} onClick={(event) => { event.preventDefault(); navigateCategory(item.name); }}><CategoryIcon category={item.name} size={27} /><span><strong>{item.name}</strong><small>{item.count} products</small></span><span aria-hidden="true">→</span></a>)}</div></div></section>
   </div>;
 }
@@ -2228,8 +2228,8 @@ function ProductFormPage({ route, auth, reload, mode }) {
   }, [previews]);
 
   function updateField(event) {
-    const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
+    const { name, type, checked, value } = event.target;
+    setForm((current) => ({ ...current, [name]: type === "checkbox" ? checked : value }));
   }
 
   function updateFile(field, file) {
@@ -2291,6 +2291,10 @@ function ProductFormPage({ route, auth, reload, mode }) {
           <TextField label="Brand" name="brand" value={form.brand} onChange={updateField} />
           <TextField label="Title" name="title" value={form.title} onChange={updateField} required />
           <TextField label="Category" name="category" value={form.category} onChange={updateField} />
+          <label className="ts-checkrow">
+            <input name="is_gaylord_lot" type="checkbox" checked={form.is_gaylord_lot} onChange={updateField} />
+            <span><b>Sell as a Gaylord lot</b><small>Use for one mixed box sold as a single lot. An individual SKU is optional.</small></span>
+          </label>
           <TextField label="Condition" name="condition" value={form.condition} onChange={updateField} />
           <TextField label="Quantity available" name="quantity_available" type="number" value={form.quantity_available} onChange={updateField} />
           <TextField label="Unit" name="unit" value={form.unit} onChange={updateField} />
