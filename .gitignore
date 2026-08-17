@@ -41,5 +41,8 @@ telecomstore-baintu-starter-pack.zip
 # One-off local OCR debugger (uses a machine-specific temporary image path)
 /scripts/debug-ocr-one.ps1
 
+# Generated local Supabase CLI state
+/supabase/.temp/
+
 # Redundant local copy; the tracked Vite static asset is public/tts_logo.png
 /src/assets/tts_logo.png

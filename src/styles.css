@@ -1806,6 +1806,50 @@ body:has(.ts-backdrop),body:has(.ts-drawer.on){overflow:hidden}
   .ts-drawer{max-width:100vw;width:100%}
 }
 
+/* Shipping, returns and refunds policy */
+.ts-policy-page{min-height:100vh;padding-bottom:0}
+.ts-policy-page .ts-head .ts-wrap{justify-content:space-between}
+.ts-policy-action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 17px;border:1px solid var(--ts-line);border-radius:8px;color:var(--ts-nav);background:#fff;font-family:'Archivo';font-size:13px;font-weight:700}
+.ts-policy-action:hover{border-color:var(--ts-nav);background:var(--ts-chip)}
+.ts-policy-nav .ts-wrap{min-height:48px;align-items:stretch}
+.ts-policy-nav a{display:flex;align-items:center;padding:0 16px;border-bottom:3px solid transparent;color:#c5d0cb;font-family:'Archivo';font-size:13px;font-weight:600;white-space:nowrap}
+.ts-policy-nav a:hover,.ts-policy-nav a:focus-visible{border-bottom-color:var(--ts-accent);color:#fff;outline:none}
+.ts-policy-main{padding:46px 22px 72px;background:linear-gradient(180deg,#eef3f0 0,#f4f6f4 220px)}
+.ts-policy-wrap{max-width:900px;margin:0 auto}
+.ts-policy-intro{max-width:760px;margin-bottom:26px}
+.ts-policy-intro .ts-eyebrow{margin-bottom:9px;color:var(--ts-blue)}
+.ts-policy-intro h1{margin:0 0 13px;color:var(--ts-nav2);font-size:clamp(32px,5vw,48px);line-height:1.08;letter-spacing:-1.3px}
+.ts-policy-intro>p:last-child{max-width:720px;margin:0;color:var(--ts-muted);font-size:16px;line-height:1.7}
+.ts-policy-card{overflow:hidden;border:1px solid var(--ts-line);border-radius:14px;background:#fff;box-shadow:0 20px 50px -38px rgba(7,30,82,.42)}
+.ts-policy-card section{padding:34px 42px;border-bottom:1px solid var(--ts-line2);scroll-margin-top:64px}
+.ts-policy-card section:last-child{border-bottom:0}
+.ts-policy-card h2{display:flex;align-items:center;gap:12px;margin:0 0 17px;color:var(--ts-nav2);font-size:23px;line-height:1.25;letter-spacing:-.3px}
+.ts-policy-card h2 span{display:grid;place-items:center;min-width:35px;height:27px;border-radius:5px;background:var(--ts-chip);color:var(--ts-blue);font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.04em}
+.ts-policy-card h3{margin:23px 0 7px;color:var(--ts-ink);font-size:15px}
+.ts-policy-card p{margin:0 0 12px;color:#46514c;line-height:1.72}
+.ts-policy-card p:last-child{margin-bottom:0}
+.ts-policy-card a{color:var(--ts-blue);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.ts-policy-card a:hover{color:var(--ts-nav)}
+.ts-policy-contact{background:#f8fbf9}
+.ts-policy-contact address{display:flex;flex-direction:column;gap:5px;margin-left:47px;color:#46514c;font-style:normal}
+.ts-policy-contact address strong{color:var(--ts-ink);font-family:'Archivo';font-size:17px}
+@media(max-width:680px){
+  .ts-policy-page .ts-ubar .ts-wrap{height:auto;min-height:38px;padding-top:8px;padding-bottom:8px}
+  .ts-policy-page .ts-ulinks{gap:13px;overflow-x:auto}
+  .ts-policy-page .ts-head .ts-wrap{flex-wrap:nowrap;gap:12px}
+  .ts-policy-page .ts-brandtxt small{display:none}
+  .ts-policy-action{min-height:38px;padding:0 12px;font-size:12px}
+  .ts-policy-main{padding:32px 14px 48px}
+  .ts-policy-card section{padding:27px 22px}
+  .ts-policy-card h2{align-items:flex-start;font-size:20px}
+  .ts-policy-contact address{margin-left:0}
+}
+@media(max-width:430px){
+  .ts-policy-page .ts-brandtxt strong{font-size:18px}
+  .ts-policy-page .ts-mark{width:40px;height:40px}
+  .ts-policy-action{max-width:118px;text-align:center;line-height:1.2}
+}
+
 /* ============================================================
    PHOTO INTAKE (admin)
    ============================================================ */

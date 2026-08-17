@@ -63,6 +63,8 @@ import {
   importProducts,
   logActivity,
   normalizeProduct,
+  publicAvailabilityLabel,
+  publicAvailabilityRank,
   saveProduct,
   updateProductStatus,
   uploadIntakeImage,
@@ -130,6 +132,15 @@ function App() {
 
   if (route.path.startsWith("/admin")) {
     return <ProtectedAdmin route={route} auth={auth} />;
+  }
+
+  if (route.path === "/shipping-returns") {
+    return (
+      <>
+        <AmbientCursor />
+        <ShippingReturnsPage navigate={route.navigate} />
+      </>
+    );
   }
 
   return (
@@ -311,6 +322,145 @@ function AmbientCursor() {
   }, []);
 
   return <div ref={haloRef} className="cursor-halo" aria-hidden="true" />;
+}
+
+function usePageMetadata(title, description) {
+  useEffect(() => {
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    const previousTitle = document.title;
+    const previousDescription = descriptionMeta?.getAttribute("content") || "";
+
+    document.title = title;
+    descriptionMeta?.setAttribute("content", description);
+
+    return () => {
+      document.title = previousTitle;
+      descriptionMeta?.setAttribute("content", previousDescription);
+    };
+  }, [description, title]);
+}
+
+function ShippingReturnsPage({ navigate }) {
+  usePageMetadata(
+    "Shipping, Returns & Refunds | Telecom Store",
+    "Shipping, return, refund and order-support information for Telecom Store."
+  );
+
+  return (
+    <div className="storefront ts-policy-page">
+      <div className="ts-ubar">
+        <div className="ts-wrap">
+          <nav className="ts-ulinks" aria-label="Utility navigation">
+            <a href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Home</a>
+            <a href="/#catalog">Catalog</a>
+            <a href={contactEmailHref("Telecom Store quote request")}>Request a Quote</a>
+            <a href={contactEmailHref("Telecom Store support")}>Contact</a>
+          </nav>
+          <div className="ts-ubadges">
+            <span><ShieldCheck size={13} /> Customer Support</span>
+          </div>
+        </div>
+      </div>
+
+      <header className="ts-head">
+        <div className="ts-wrap">
+          <a className="ts-brand" href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>
+            <span className="ts-mark">TS</span>
+            <span className="ts-brandtxt"><strong>{CONTACT_CONFIG.companyName}</strong><small>New Surplus Telecom Materials</small></span>
+          </a>
+          <a className="ts-policy-action" href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Browse the catalog</a>
+        </div>
+      </header>
+
+      <nav className="ts-catnav ts-policy-nav" aria-label="Policy navigation">
+        <div className="ts-wrap">
+          <a href="#shipping">Shipping</a>
+          <a href="#returns">Returns</a>
+          <a href="#damaged-items">Order problems</a>
+          <a href="#refunds">Refunds</a>
+          <a href="#cancellations">Cancellations</a>
+          <a href="#policy-contact">Contact</a>
+        </div>
+      </nav>
+
+      <main className="ts-policy-main">
+        <div className="ts-policy-wrap">
+          <header className="ts-policy-intro">
+            <p className="ts-eyebrow">Customer care</p>
+            <h1>Shipping, Returns &amp; Refunds</h1>
+            <p>This policy explains how shipping, returns, refunds, order problems, and cancellation requests are handled for purchases and quote-based orders from {CONTACT_CONFIG.companyName}.</p>
+          </header>
+
+          <article className="ts-policy-card" aria-label="Shipping, returns and refunds policy">
+            <section id="shipping">
+              <h2><span>01</span> Shipping</h2>
+              <h3>Normal online purchases</h3>
+              <p>Products available for direct online purchase use secure checkout. Shipping and applicable taxes are calculated or confirmed as part of checkout and order processing.</p>
+              <p>Shipping charges can vary based on the destination, product dimensions and weight, carrier and service, and other applicable delivery charges. We do not promise free shipping or a specific shipment or delivery date unless it is expressly confirmed for your order.</p>
+
+              <h3>Quote-based products and orders</h3>
+              <p>For quote-based orders, we confirm the merchandise price, shipping or freight, and applicable tax before payment. Some telecom, oversized, freight, supplier-fulfilled, or special-order items require manual shipping review so that the order total and delivery arrangements can be confirmed accurately.</p>
+            </section>
+
+            <section id="returns">
+              <h2><span>02</span> Returns</h2>
+              <p><strong>Contact us at <a href={contactEmailHref("Return request")}>{CONTACT_CONFIG.email}</a> before sending any merchandise back.</strong> Please include your order information, the item you want to return, and the reason for the request.</p>
+              <p>Return eligibility depends on the product, its condition, applicable supplier or manufacturer requirements, and whether the item was special ordered, customized, opened, installed, used, or otherwise restricted. Special-order items and certain closeout items may be non-returnable.</p>
+              <p>If a return is approved, we will provide the applicable return authorization or RMA instructions, including where and how to send the item. Do not send an unauthorized return; merchandise sent without approval may be refused.</p>
+            </section>
+
+            <section id="damaged-items">
+              <h2><span>03</span> Damaged, defective or incorrect items</h2>
+              <p>Contact us promptly if merchandise arrives damaged, you receive the wrong item, a shipment is short, or a product appears defective. Email <a href={contactEmailHref("Damaged, defective or incorrect order")}>{CONTACT_CONFIG.email}</a> with your order information and a description of the issue.</p>
+              <p>Keep the merchandise and all original packaging while we review the issue. Photos of the product, packaging, shipping label, and visible damage can help us coordinate the appropriate carrier, supplier, manufacturer, replacement, or return process.</p>
+            </section>
+
+            <section id="refunds">
+              <h2><span>04</span> Refunds</h2>
+              <p>Approved refunds are issued through the original payment method whenever possible. Refunds are processed after the return or cancellation has been approved according to the circumstances of the order.</p>
+              <p>Your bank, card issuer, or payment provider may need additional processing time before the credit appears. If documented order or supplier terms make shipping, freight, restocking, or another charge non-refundable, we will identify the applicable charge as part of our review.</p>
+            </section>
+
+            <section id="cancellations">
+              <h2><span>05</span> Order cancellations</h2>
+              <p>Contact <a href={contactEmailHref("Order cancellation request")}>{CONTACT_CONFIG.email}</a> as soon as possible to request a cancellation. We will review the order status and let you know whether cancellation is still available.</p>
+              <p>Supplier-fulfilled, already-shipped, or otherwise committed orders may not be cancelable once fulfillment begins. If an order can no longer be canceled, any return request is subject to the applicable return eligibility and authorization process above.</p>
+            </section>
+
+            <section id="policy-contact" className="ts-policy-contact">
+              <h2><span>06</span> Contact</h2>
+              <address>
+                <strong>{CONTACT_CONFIG.companyName}</strong>
+                <span>Operated by {CONTACT_CONFIG.operatorName}</span>
+                <a href={contactEmailHref("Shipping, returns or refund support")}>{CONTACT_CONFIG.email}</a>
+              </address>
+            </section>
+          </article>
+        </div>
+      </main>
+
+      <footer className="ts-foot">
+        <div className="ts-wrap ts-foot-grid">
+          <div>
+            <div className="ts-fbrand">{CONTACT_CONFIG.companyName}</div>
+            <p>New surplus, warehouse-stock telecom materials for outside plant, copper, and fiber networks.</p>
+            <p>Support: <a href={contactEmailHref("Telecom Store support")}>{CONTACT_CONFIG.email}</a></p>
+          </div>
+          <div>
+            <h5>Store</h5>
+            <a href="/" onClick={(event) => handleNavClick(event, navigate, "/")}>Home</a>
+            <a href="/#catalog">Browse Catalog</a>
+          </div>
+          <div>
+            <h5>Customer care</h5>
+            <a href="/shipping-returns" aria-current="page">Shipping, Returns &amp; Refunds</a>
+            <a href={contactEmailHref("Telecom Store support")}>Contact Us</a>
+          </div>
+          <p className="ts-legal">{CONTACT_CONFIG.companyName} is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Brand names are the property of their respective owners.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
 
 const STORE_CAT_META = {
@@ -589,7 +739,7 @@ function PublicStorefront({ navigate }) {
   const filtered = useMemo(() => {
     let list = filterProducts(products, { query, category, status: "available" });
     list = [...list].sort((a, b) => {
-      if (sort === "qtyd") return (b.quantity_available || 0) - (a.quantity_available || 0);
+      if (sort === "availability") return publicAvailabilityRank(b) - publicAvailabilityRank(a);
       if (sort === "name") return (a.short_description || a.title || "").localeCompare(b.short_description || b.title || "");
       return `${a.brand}${a.sku}`.localeCompare(`${b.brand}${b.sku}`);
     });
@@ -754,7 +904,7 @@ function PublicStorefront({ navigate }) {
             <select className="ts-sort" value={sort} onChange={(e) => setSort(e.target.value)}>
               <option value="brand">Sort: Brand A&ndash;Z</option>
               <option value="name">Sort: Name A&ndash;Z</option>
-              <option value="qtyd">Sort: Qty (high &rarr; low)</option>
+              <option value="availability">Sort: Availability</option>
             </select>
           </div>
 
@@ -810,6 +960,7 @@ function PublicStorefront({ navigate }) {
             <button className="ts-footlink" type="button" onClick={() => openQuoteDrawer("form", "footer_service")}>Request a Quote</button>
             <button className="ts-footlink" type="button" onClick={() => openLeadModal("sell-equipment", null, "footer_service")}>Sell Us Equipment</button>
             <a href={contactEmailHref("Telecom Store inquiry")} onClick={() => handleEmailClick("footer_service")}>Contact Us</a>
+            <a href="/shipping-returns" onClick={(event) => handleNavClick(event, navigate, "/shipping-returns")}>Shipping, Returns &amp; Refunds</a>
             <a href="/login" onClick={(e) => handleNavClick(e, navigate, "/login")}>Admin Login</a>
           </div>
           <p className="ts-legal">Telecom Store is operated by <strong>{CONTACT_CONFIG.operatorName}</strong>. Inventory is new surplus / warehouse stock; quantities limited and sold as-is per quote. Brand names are the property of their respective owners.</p>
@@ -872,7 +1023,7 @@ function StoreProductCard({ product, added, onDetails, onAdd, onAsk }) {
         <p className="ts-cbrand">{product.brand || CONTACT_CONFIG.companyName}</p>
         <h3 className="ts-cname">{product.short_description || product.title}</h3>
         <p className="ts-csku">{product.sku || product.barcode}</p>
-        <p className="ts-cqty">Qty available: <b>{product.quantity_available || "Verify"}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
+        <p className="ts-cqty"><b>{publicAvailabilityLabel(product)}</b> &nbsp;&bull;&nbsp; {priceLabel(product)}</p>
         <div className="ts-cact">
           <button className={added ? "ts-add in" : "ts-add"} type="button" onClick={onAdd}>{added ? "In Quote List" : "Add to Quote"}</button>
           <button className="ts-ask" type="button" onClick={onAsk}>Ask About This Item</button>
@@ -910,7 +1061,7 @@ function StoreProductModal({ product, added, onClose, onAdd, onAsk }) {
           <div className="ts-kv"><span>Part No.</span><b className="ts-mono">{product.sku || product.barcode}</b></div>
           <div className="ts-kv"><span>Category</span><b>{product.category || "Uncategorized"}</b></div>
           <div className="ts-kv"><span>Condition</span><b style={{ color: "#147d4a" }}>{product.condition || "New Surplus"}</b></div>
-          <div className="ts-kv"><span>Available</span><b>{product.quantity_available || "Verify"}</b></div>
+          <div className="ts-kv"><span>Availability</span><b>{publicAvailabilityLabel(product)}</b></div>
           <div className="ts-kv"><span>Price</span><b>{priceLabel(product)}</b></div>
           <p className="ts-mdesc">{product.long_description || product.title}</p>
           <div className="ts-qrow">
