@@ -108,7 +108,10 @@ const ADMIN_ROLES = ["admin", "inventory"];
 const QUOTE_BASKET_KEY = "telecomstore.quoteBasket.v1";
 const PURCHASE_CART_KEY = "telecomstore.purchaseCart.v1";
 const ATTRIBUTION_KEY = "telecomstore.attribution.v1";
-const NETLIFY_FORM_ENDPOINT = "/__forms.html";
+// Netlify discovers forms in /__forms.html at build time, but accepts browser
+// submissions at the site root. Posting to the definition file itself returns
+// a static-file response instead of recording the offer.
+const NETLIFY_FORM_ENDPOINT = "/";
 const NETLIFY_SUCCESS_PATH = "/thank-you";
 const ATTRIBUTION_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "ref"];
 const QUOTE_FORM = {
@@ -142,6 +145,7 @@ const LEAD_FORM_DEFAULTS = {
   phone: "",
   preferred_contact: "email",
   message: "",
+  offer_amount: "",
   quantity: "1",
   part_number: "",
   item_name: "",
@@ -1710,11 +1714,11 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
     item_name: item?.name || "",
     brand_manufacturer: item?.brand || "",
     condition: item?.condition || "",
-    message: item ? `Please quote ${item.name} (MPN ${item.mpn || item.sku}, GTIN ${item.gtin || "not listed"}) for quantity 1. Product page: ${item.page_url}` : lead.query ? `I am looking for: ${lead.query}` : ""
+    message: item ? `I would like to make an offer on ${item.name} for quantity 1. Product page: ${item.page_url}` : lead.query ? `I am looking for: ${lead.query}` : ""
   }));
 
   const title = {
-    "item-inquiry": item ? "Ask About This Item" : "Ask About an Item",
+    "item-inquiry": item ? "Make an Offer" : "Ask About an Item",
     "sell-equipment": "Sell Us Equipment",
     "buyer-list": "Join the Buyer List"
   }[formName];
@@ -1803,8 +1807,9 @@ function LeadFormModal({ lead, attribution, onClose, onSuccess }) {
           ) : null}
 
           <LeadContactFields form={form} onChange={updateField} firstInputRef={firstInputRef} requireComplete={formName === "item-inquiry"} />
-          {formName === "item-inquiry" ? <label><span>Quantity</span><input name="quantity" type="number" min="1" step="1" value={form.quantity} onChange={updateField} required /></label> : null}
+          {formName === "item-inquiry" ? <div className="ts-form-grid"><label><span>Quantity</span><input name="quantity" type="number" min="1" step="1" value={form.quantity} onChange={updateField} required /></label>{item ? <label><span>Your offer (USD, optional)</span><input name="offer_amount" type="number" min="0" step="0.01" inputMode="decimal" value={form.offer_amount} onChange={updateField} placeholder="Example: 850.00" /></label> : null}</div> : null}
           <label><span>Message / notes</span><textarea name="message" rows="4" value={form.message} onChange={updateField} placeholder="Timing, quantities, substitutions, photos, freight, or project details" required={formName === "item-inquiry"} /></label>
+          {formName === "item-inquiry" && item ? <p className="ts-dnote">Offers are non-binding. We will confirm the item, freight, taxes, and final total before requesting payment.</p> : null}
           {status ? <p className={status.type === "error" ? "ts-form-error" : "ts-form-success"}>{status.message}</p> : null}
           <div className="ts-modal-actions">
             <button className="ts-req" type="submit" disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : formName === "buyer-list" ? <UserPlus size={16} /> : <Send size={16} />} Send</button>

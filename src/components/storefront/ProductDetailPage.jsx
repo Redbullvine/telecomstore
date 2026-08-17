@@ -41,7 +41,7 @@ export default function ProductDetailPage({ product, related, navigate, added, o
             <div className="ts-detail-actions">
               <label><span>Quantity</span><input type="number" min="1" max="99999" value={quantity} onChange={(event) => setQuantity(Math.max(1, Number.parseInt(event.target.value, 10) || 1))} /></label>
               <button className="ts-btn-pri" type="button" onClick={() => onAdd(quantity)}>{added ? "Update Quote List" : "Add to Quote"}</button>
-              <button className="ts-btn-ghost" type="button" onClick={onAsk}>Ask about this item</button>
+              <button className="ts-btn-ghost" type="button" onClick={onAsk}>Make an offer</button>
             </div>
             <p className="ts-detail-help">Need help confirming fit or quantities? Add the item to your quote list and include your project notes.</p>
           </div>

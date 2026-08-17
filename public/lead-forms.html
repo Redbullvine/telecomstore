@@ -73,10 +73,11 @@
           <input type="hidden" name="selected_items" value="" />
           <input type="hidden" name="selected_item_count" value="0" />
           <p class="honeypot"><label>Do not fill this out <input name="bot-field" /></label></p>
-          <h2>Ask About an Item</h2>
+          <h2>Make an Offer or Ask About an Item</h2>
           <div class="grid">
             <label>Part number / SKU <input name="part_number" /></label>
             <label>Quantity <input name="quantity" type="number" min="1" step="1" value="1" required /></label>
+            <label>Your offer (USD, optional) <input name="offer_amount" type="number" min="0" step="0.01" /></label>
             <label>Name <input name="name" required /></label>
             <label>Company <input name="company" /></label>
             <label>Email <input name="email" type="email" required /></label>
@@ -84,7 +85,8 @@
             <label>Preferred contact method <select name="preferred_contact"><option>Email</option><option>Phone</option><option>Text</option></select></label>
           </div>
           <label>Message / notes <textarea name="message" required></textarea></label>
-          <button type="submit">Send Item Inquiry</button>
+          <p>Offers are non-binding. We confirm the item, freight, taxes, and final total before requesting payment.</p>
+          <button type="submit">Send Offer / Inquiry</button>
         </form>
 
         <form name="sell-equipment" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
